@@ -59,6 +59,11 @@ jobs:
           echo "storeFile=${{ github.workspace }}/keystore.jks" >> android/key.properties
         shell: bash
 
+      - name: 🏗️ Build APK and App Bundle
+        run: |
+          flutter build apk --release
+          flutter build appbundle --release
+
       - name: 🧾 Extract version and build number
         id: version_info
         run: |
