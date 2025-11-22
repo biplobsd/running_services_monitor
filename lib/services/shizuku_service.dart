@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shizuku_api/shizuku_api.dart';
 
 @lazySingleton
 class ShizukuService {
   ShizukuService();
 
-  final ShizukuApi _shizukuApi = ShizukuApi();
+  static const _channel = MethodChannel('com.runningservices/shizuku');
+
   bool _isInitialized = false;
   bool _hasPermission = false;
 
@@ -17,7 +18,7 @@ class ShizukuService {
   Future<bool> isShizukuRunning() async {
     try {
       debugPrint('Checking if Shizuku is running...');
-      final isRunning = await _shizukuApi.pingBinder() ?? false;
+      final bool isRunning = await _channel.invokeMethod('pingBinder');
       debugPrint('Shizuku running: $isRunning');
       return isRunning;
     } catch (e) {
@@ -30,7 +31,8 @@ class ShizukuService {
   Future<bool> checkPermission() async {
     try {
       debugPrint('Checking Shizuku permission...');
-      _hasPermission = await _shizukuApi.checkPermission() ?? false;
+      final bool granted = await _channel.invokeMethod('checkPermission');
+      _hasPermission = granted;
       debugPrint('Shizuku permission granted: $_hasPermission');
       return _hasPermission;
     } catch (e) {
@@ -43,7 +45,8 @@ class ShizukuService {
   Future<bool> requestPermission() async {
     try {
       debugPrint('Requesting Shizuku permission...');
-      _hasPermission = await _shizukuApi.requestPermission() ?? false;
+      final bool granted = await _channel.invokeMethod('requestPermission');
+      _hasPermission = granted;
       debugPrint('Shizuku permission result: $_hasPermission');
       return _hasPermission;
     } catch (e) {
@@ -92,7 +95,7 @@ class ShizukuService {
 
     try {
       debugPrint('Executing command: $command');
-      final result = await _shizukuApi.runCommand(command);
+      final String? result = await _channel.invokeMethod('runCommand', {'command': command});
       debugPrint('Command result length: ${result?.length ?? 0} characters');
       return result;
     } catch (e) {

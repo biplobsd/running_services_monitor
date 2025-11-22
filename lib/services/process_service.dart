@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:appcheck/appcheck.dart' hide AppInfo;
+
 import 'package:installed_apps/installed_apps.dart';
 import 'package:installed_apps/app_info.dart';
 import '../models/service_info.dart';
@@ -38,88 +38,30 @@ class ProcessService {
         await refreshAppCache();
       }
 
-      // 1. Get raw services
-      final services = await getRunningServices();
-      if (services.isEmpty) return [];
+      // 1. Get raw data asynchronously on main thread
+      final servicesOutput = await _shizukuService.executeCommand('dumpsys activity services');
+      if (servicesOutput == null || servicesOutput.isEmpty) return [];
 
-      // 2. Enrich with app names using cache
-      final enrichedServices = await enrichServicesWithAppNames(services);
+      final meminfoOutput = await _shizukuService.executeCommand('dumpsys meminfo');
 
-      // 3. Get RAM info from dumpsys meminfo (more reliable)
-      final ramMap = await _getProcessRamMap();
+      // 2. Prepare data for isolate
+      // We pass a simplified map of the cache to avoid passing complex objects if possible,
+      // but AppInfo should be transferable. If not, we might need to map it to a simpler DTO.
+      // For now, we'll pass the cache directly.
+      final isolateData = _IsolateData(
+        servicesOutput: servicesOutput,
+        meminfoOutput: meminfoOutput ?? '',
+        appCache: _appCache,
+      );
 
-      // 4. Group by package name
-      final Map<String, List<RunningServiceInfo>> grouped = {};
-      for (var service in enrichedServices) {
-        if (!grouped.containsKey(service.packageName)) {
-          grouped[service.packageName] = [];
-        }
-        grouped[service.packageName]!.add(service);
-      }
-
-      // 5. Create AppProcessInfo objects
-      final List<AppProcessInfo> appProcessInfos = [];
-
-      grouped.forEach((packageName, serviceList) {
-        // Calculate total RAM
-        double totalRamKb = 0;
-        final Set<int> pids = {};
-        String appName = packageName;
-        bool isSystem = false;
-        AppInfo? cachedAppInfo = _appCache[packageName];
-
-        if (cachedAppInfo != null) {
-          appName = cachedAppInfo.name;
-        }
-
-        for (var service in serviceList) {
-          // Update service RAM from map if available
-          if (ramMap.containsKey(service.pid)) {
-            final ramKb = ramMap[service.pid]!;
-            service.ramInKb = ramKb;
-            service.ramUsage = _formatRam(ramKb);
-          }
-
-          totalRamKb += service.ramInKb ?? 0;
-          pids.add(service.pid);
-          // If we didn't find app name in cache, maybe service has it (from AppCheck fallback)
-          if (cachedAppInfo == null && service.appName != null) {
-            appName = service.appName!;
-          }
-          if (service.isSystemApp) isSystem = true;
-        }
-
-        appProcessInfos.add(
-          AppProcessInfo(
-            packageName: packageName,
-            appName: appName,
-            services: serviceList,
-            pids: pids.toList(),
-            totalRam: _formatRam(totalRamKb),
-            totalRamInKb: totalRamKb,
-            isSystemApp: isSystem,
-            appInfo: cachedAppInfo,
-          ),
-        );
-      });
-
-      // Sort by RAM usage (descending)
-      appProcessInfos.sort((a, b) => b.totalRamInKb.compareTo(a.totalRamInKb));
+      // 3. Run heavy processing in background isolate
+      final appProcessInfos = await compute(_processDataInIsolate, isolateData);
 
       return appProcessInfos;
     } catch (e) {
       debugPrint('Error getting app process infos: $e');
       return [];
     }
-  }
-
-  String _formatRam(double kb) {
-    if (kb > 1024 * 1024) {
-      return '${(kb / (1024 * 1024)).toStringAsFixed(2)} GB';
-    } else if (kb > 1024) {
-      return '${(kb / 1024).toStringAsFixed(1)} MB';
-    }
-    return '${kb.toStringAsFixed(0)} KB';
   }
 
   /// Get system RAM info (Total, Free, Used)
@@ -129,43 +71,134 @@ class ProcessService {
       final result = await _shizukuService.executeCommand('dumpsys meminfo');
       if (result == null) return [0, 0, 0];
 
-      double totalRam = 0;
-      double freeRam = 0;
-
-      // Parse Total RAM: 11,366,712K
-      final totalMatch = RegExp(r'Total RAM:\s+([\d,]+)K').firstMatch(result);
-      if (totalMatch != null) {
-        totalRam = double.tryParse(totalMatch.group(1)!.replaceAll(',', '')) ?? 0;
-      }
-
-      // Parse Free RAM: 7,396,751K
-      final freeMatch = RegExp(r'Free RAM:\s+([\d,]+)K').firstMatch(result);
-      if (freeMatch != null) {
-        freeRam = double.tryParse(freeMatch.group(1)!.replaceAll(',', '')) ?? 0;
-      }
-
-      double usedRam = totalRam - freeRam;
-
-      return [totalRam, freeRam, usedRam];
+      return await compute(_parseSystemRamInfo, result);
     } catch (e) {
       debugPrint('Error getting system RAM info: $e');
       return [0, 0, 0];
     }
   }
 
-  /// Get all running services
-  Future<List<RunningServiceInfo>> getRunningServices() async {
-    try {
-      final result = await _shizukuService.executeCommand('dumpsys activity services');
-      if (result == null || result.isEmpty) return [];
-      return _parseServices(result);
-    } catch (e) {
-      return [];
+  // --- Static methods for Isolate ---
+
+  static List<double> _parseSystemRamInfo(String result) {
+    double totalRam = 0;
+    double freeRam = 0;
+
+    // Parse Total RAM: 11,366,712K
+    final totalMatch = RegExp(r'Total RAM:\s+([\d,]+)K').firstMatch(result);
+    if (totalMatch != null) {
+      totalRam = double.tryParse(totalMatch.group(1)!.replaceAll(',', '')) ?? 0;
     }
+
+    // Parse Free RAM: 7,396,751K
+    final freeMatch = RegExp(r'Free RAM:\s+([\d,]+)K').firstMatch(result);
+    if (freeMatch != null) {
+      freeRam = double.tryParse(freeMatch.group(1)!.replaceAll(',', '')) ?? 0;
+    }
+
+    double usedRam = totalRam - freeRam;
+
+    return [totalRam, freeRam, usedRam];
   }
 
-  /// Parse services from dumpsys output
-  List<RunningServiceInfo> _parseServices(String dumpsysOutput) {
+  static Future<List<AppProcessInfo>> _processDataInIsolate(_IsolateData data) async {
+    // 1. Parse services
+    final services = _parseServices(data.servicesOutput);
+    if (services.isEmpty) return [];
+
+    // 2. Parse RAM map
+    final ramMap = _parseRamMap(data.meminfoOutput);
+
+    // 3. Enrich and Group
+    final Map<String, List<RunningServiceInfo>> grouped = {};
+
+    // Helper to format RAM
+    String formatRam(double kb) {
+      if (kb > 1024 * 1024) {
+        return '${(kb / (1024 * 1024)).toStringAsFixed(2)} GB';
+      } else if (kb > 1024) {
+        return '${(kb / 1024).toStringAsFixed(1)} MB';
+      }
+      return '${kb.toStringAsFixed(0)} KB';
+    }
+
+    // Enrich services
+    for (var service in services) {
+      // Update RAM
+      if (ramMap.containsKey(service.pid)) {
+        final ramKb = ramMap[service.pid]!;
+        service.ramInKb = ramKb;
+        service.ramUsage = formatRam(ramKb);
+      }
+
+      // Update App Name from Cache
+      final cachedApp = data.appCache[service.packageName];
+      if (cachedApp != null) {
+        service.appName = cachedApp.name;
+      } else {
+        // Fallback name generation
+        final parts = service.packageName.split('.');
+        if (parts.isNotEmpty) {
+          String name = parts.last;
+          if (name.isNotEmpty) {
+            name = name[0].toUpperCase() + name.substring(1);
+          }
+          service.appName = name;
+        } else {
+          service.appName = service.packageName;
+        }
+      }
+
+      // Group
+      if (!grouped.containsKey(service.packageName)) {
+        grouped[service.packageName] = [];
+      }
+      grouped[service.packageName]!.add(service);
+    }
+
+    // 4. Create AppProcessInfo objects
+    final List<AppProcessInfo> appProcessInfos = [];
+
+    grouped.forEach((packageName, serviceList) {
+      double totalRamKb = 0;
+      final Set<int> pids = {};
+      String appName = packageName;
+      bool isSystem = false;
+      AppInfo? cachedAppInfo = data.appCache[packageName];
+
+      if (cachedAppInfo != null) {
+        appName = cachedAppInfo.name;
+      } else if (serviceList.isNotEmpty && serviceList.first.appName != null) {
+        appName = serviceList.first.appName!;
+      }
+
+      for (var service in serviceList) {
+        totalRamKb += service.ramInKb ?? 0;
+        pids.add(service.pid);
+        if (service.isSystemApp) isSystem = true;
+      }
+
+      appProcessInfos.add(
+        AppProcessInfo(
+          packageName: packageName,
+          appName: appName,
+          services: serviceList,
+          pids: pids.toList(),
+          totalRam: formatRam(totalRamKb),
+          totalRamInKb: totalRamKb,
+          isSystemApp: isSystem,
+          appInfo: cachedAppInfo,
+        ),
+      );
+    });
+
+    // Sort
+    appProcessInfos.sort((a, b) => b.totalRamInKb.compareTo(a.totalRamInKb));
+
+    return appProcessInfos;
+  }
+
+  static List<RunningServiceInfo> _parseServices(String dumpsysOutput) {
     final List<RunningServiceInfo> services = [];
     final lines = dumpsysOutput.split('\n');
 
@@ -176,6 +209,16 @@ class ProcessService {
     String? currentRamUsage;
     double? currentRamInKb;
     int? currentUid;
+
+    // Helper to format RAM (duplicated here as it's static)
+    String formatRam(double kb) {
+      if (kb > 1024 * 1024) {
+        return '${(kb / (1024 * 1024)).toStringAsFixed(2)} GB';
+      } else if (kb > 1024) {
+        return '${(kb / 1024).toStringAsFixed(1)} MB';
+      }
+      return '${kb.toStringAsFixed(0)} KB';
+    }
 
     for (var line in lines) {
       line = line.trim();
@@ -193,7 +236,6 @@ class ProcessService {
           currentProcess = pidMatch.group(2);
           currentUid = int.tryParse(pidMatch.group(3) ?? '');
         } else {
-          // Fallback for simpler format
           final simplePidMatch = RegExp(r'(\d+):([^/]+)').firstMatch(line);
           if (simplePidMatch != null) {
             currentPid = int.tryParse(simplePidMatch.group(1) ?? '');
@@ -206,7 +248,7 @@ class ProcessService {
           final pssKb = int.tryParse(pssMatch.group(1) ?? '');
           if (pssKb != null) {
             currentRamInKb = pssKb.toDouble();
-            currentRamUsage = _formatRam(currentRamInKb);
+            currentRamUsage = formatRam(currentRamInKb);
           }
         }
       }
@@ -220,7 +262,7 @@ class ProcessService {
 
         services.add(
           RunningServiceInfo(
-            user: '0', // Default user
+            user: '0',
             pid: currentPid,
             processName: currentProcess ?? currentPackage,
             serviceName: currentService,
@@ -244,87 +286,35 @@ class ProcessService {
     return services;
   }
 
-  /// Enrich service info with app names
-  Future<List<RunningServiceInfo>> enrichServicesWithAppNames(List<RunningServiceInfo> services) async {
-    // Use cache if available
-    if (_isCacheInitialized) {
-      for (var service in services) {
-        final cachedApp = _appCache[service.packageName];
-        if (cachedApp != null) {
-          service.appName = cachedApp.name;
+  static Map<int, double> _parseRamMap(String meminfoOutput) {
+    final Map<int, double> ramMap = {};
+    if (meminfoOutput.isEmpty) return ramMap;
+
+    final lines = meminfoOutput.split('\n');
+    final regex = RegExp(r'^\s*([\d,]+)K:\s+(\S+)\s+\(pid\s+(\d+)\)');
+
+    for (var line in lines) {
+      final match = regex.firstMatch(line);
+      if (match != null) {
+        final ramStr = match.group(1)?.replaceAll(',', '') ?? '0';
+        final pidStr = match.group(3) ?? '0';
+
+        final ramKb = double.tryParse(ramStr) ?? 0;
+        final pid = int.tryParse(pidStr) ?? 0;
+
+        if (pid > 0) {
+          ramMap[pid] = ramKb;
         }
       }
-      return services;
     }
-
-    // Fallback to AppCheck if cache not ready (shouldn't happen often with new flow)
-    try {
-      final appCheck = AppCheck();
-      final installedApps = await appCheck.getInstalledApps();
-
-      final appNameMap = <String, String>{};
-      if (installedApps != null) {
-        for (var app in installedApps) {
-          appNameMap[app.packageName] = app.appName ?? app.packageName;
-        }
-      }
-
-      for (var service in services) {
-        String? appName = appNameMap[service.packageName];
-
-        if (appName == null) {
-          final parts = service.packageName.split('.');
-          if (parts.isNotEmpty) {
-            appName = parts.last;
-            if (appName.isNotEmpty) {
-              appName = appName[0].toUpperCase() + appName.substring(1);
-            }
-          } else {
-            appName = service.packageName;
-          }
-        }
-
-        service.appName = appName;
-      }
-
-      return services;
-    } catch (e) {
-      debugPrint('Error enriching services: $e');
-      return services;
-    }
+    return ramMap;
   }
+}
 
-  /// Get RAM usage by PID from dumpsys meminfo
-  Future<Map<int, double>> _getProcessRamMap() async {
-    try {
-      final result = await _shizukuService.executeCommand('dumpsys meminfo');
-      if (result == null) return {};
+class _IsolateData {
+  final String servicesOutput;
+  final String meminfoOutput;
+  final Map<String, AppInfo> appCache;
 
-      final Map<int, double> ramMap = {};
-      final lines = result.split('\n');
-
-      // Regex to match: 12,345K: com.package (pid 123)
-      // Matches lines like: "   150,000K: com.google.android.gms (pid 1234)"
-      final regex = RegExp(r'^\s*([\d,]+)K:\s+(\S+)\s+\(pid\s+(\d+)\)');
-
-      for (var line in lines) {
-        final match = regex.firstMatch(line);
-        if (match != null) {
-          final ramStr = match.group(1)?.replaceAll(',', '') ?? '0';
-          final pidStr = match.group(3) ?? '0';
-
-          final ramKb = double.tryParse(ramStr) ?? 0;
-          final pid = int.tryParse(pidStr) ?? 0;
-
-          if (pid > 0) {
-            ramMap[pid] = ramKb;
-          }
-        }
-      }
-      return ramMap;
-    } catch (e) {
-      debugPrint('Error getting process RAM map: $e');
-      return {};
-    }
-  }
+  _IsolateData({required this.servicesOutput, required this.meminfoOutput, required this.appCache});
 }

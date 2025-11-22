@@ -467,14 +467,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
-  plugin_platform_interface:
-    dependency: transitive
-    description:
-      name: plugin_platform_interface
-      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.8"
   pool:
     dependency: transitive
     description:
@@ -539,14 +531,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  shizuku_api:
-    dependency: "direct main"
-    description:
-      name: shizuku_api
-      sha256: "0d77e9dd4aac6b2c1a5fa3af47f3d4489e2606e08864c7b55d0c7cf0bac39fd1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.2"
   sky_engine:
     dependency: transitive
     description: flutter

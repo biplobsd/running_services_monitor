@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  shizuku_api: ^1.2.2
+
   appcheck: ^1.5.4+1
   installed_apps: ^2.0.0
   flutter_svg: ^2.0.10+1
