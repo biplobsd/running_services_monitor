@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'core/dependency_injection/dependency_injection.dart';
 import 'screens/home_screen.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

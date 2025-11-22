@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_services_monitor/bloc/simple_bloc/simple_bloc.dart';
+import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import '../models/service_info.dart';
 import '../services/shizuku_service.dart';
 import '../services/process_service.dart';
@@ -17,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   final ShizukuService _shizukuService = ShizukuService();
   final ProcessService _processService = ProcessService();
+  late final SimpleBloc simpleBloc;
 
   late TabController _tabController;
   Timer? _autoUpdateTimer;
@@ -49,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       });
     });
     _initializeShizuku();
+
+    simpleBloc = getIt<SimpleBloc>();
   }
 
   @override
@@ -56,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _tabController.dispose();
     _autoUpdateTimer?.cancel();
     _searchController.dispose();
+    simpleBloc.close();
     super.dispose();
   }
 
@@ -207,62 +214,65 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: _isSearching
-            ? TextField(
-                controller: _searchController,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'Search apps...',
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.white70),
-                ),
-                style: const TextStyle(color: Colors.white),
-              )
-            : const Text('Running Apps'),
-        bottom: _shizukuReady
-            ? TabBar(
-                controller: _tabController,
-                tabs: [
-                  Tab(text: 'All (${_allApps.length})'),
-                  Tab(text: 'User (${_userApps.length})'),
-                  Tab(text: 'System (${_systemApps.length})'),
-                ],
-              )
-            : null,
-        actions: [
-          if (_shizukuReady) ...[
-            IconButton(
-              icon: Icon(_isSearching ? Icons.close : Icons.search),
-              onPressed: () {
-                setState(() {
-                  _isSearching = !_isSearching;
-                  if (!_isSearching) {
-                    _searchController.clear();
-                  }
-                });
-              },
-              tooltip: _isSearching ? 'Close Search' : 'Search',
-            ),
-            IconButton(
-              icon: Icon(
-                _isAutoUpdateEnabled ? Icons.timer : Icons.timer_off,
-                color: _isAutoUpdateEnabled ? Theme.of(context).colorScheme.primary : null,
+    return BlocProvider.value(
+      value: simpleBloc,
+      child: Scaffold(
+        appBar: AppBar(
+          title: _isSearching
+              ? TextField(
+                  controller: _searchController,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    hintText: 'Search apps...',
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.white70),
+                  ),
+                  style: const TextStyle(color: Colors.white),
+                )
+              : const Text('Running Apps'),
+          bottom: _shizukuReady
+              ? TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: 'All (${_allApps.length})'),
+                    Tab(text: 'User (${_userApps.length})'),
+                    Tab(text: 'System (${_systemApps.length})'),
+                  ],
+                )
+              : null,
+          actions: [
+            if (_shizukuReady) ...[
+              IconButton(
+                icon: Icon(_isSearching ? Icons.close : Icons.search),
+                onPressed: () {
+                  setState(() {
+                    _isSearching = !_isSearching;
+                    if (!_isSearching) {
+                      _searchController.clear();
+                    }
+                  });
+                },
+                tooltip: _isSearching ? 'Close Search' : 'Search',
               ),
-              onPressed: _toggleAutoUpdate,
-              tooltip: 'Auto-Update (3s)',
-            ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: _isLoading ? null : () => _loadData(),
-              tooltip: 'Refresh',
-            ),
+              IconButton(
+                icon: Icon(
+                  _isAutoUpdateEnabled ? Icons.timer : Icons.timer_off,
+                  color: _isAutoUpdateEnabled ? Theme.of(context).colorScheme.primary : null,
+                ),
+                onPressed: _toggleAutoUpdate,
+                tooltip: 'Auto-Update (3s)',
+              ),
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: _isLoading ? null : () => _loadData(),
+                tooltip: 'Refresh',
+              ),
+            ],
+            IconButton(icon: const Icon(Icons.info_outline), onPressed: () => _showInfoDialog(), tooltip: 'About'),
           ],
-          IconButton(icon: const Icon(Icons.info_outline), onPressed: () => _showInfoDialog(), tooltip: 'About'),
-        ],
+        ),
+        body: _buildBody(),
       ),
-      body: _buildBody(),
     );
   }
 
@@ -304,6 +314,33 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     return Column(
       children: [
+        BlocSelector<SimpleBloc, SimpleState, int>(
+          selector: (state) {
+            return state.maybeWhen(success: (value) => value.count ?? 0, orElse: () => state.value.count ?? 0);
+          },
+          builder: (context, count) {
+            return Text('count : $count');
+          },
+        ),
+        // count butttons
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                simpleBloc.add(const SimpleEvent.count(count: 1));
+              },
+              child: const Text('Increment Count'),
+            ),
+            const SizedBox(width: 16),
+            ElevatedButton(
+              onPressed: () {
+                simpleBloc.add(const SimpleEvent.count(count: -1));
+              },
+              child: const Text('Decrement Count'),
+            ),
+          ],
+        ),
         // RAM Bar
         RamBar(totalRamKb: _totalRamKb, usedRamKb: _usedRamKb, appsRamKb: _appsRamKb, freeRamKb: _freeRamKb),
         const Divider(height: 1),
