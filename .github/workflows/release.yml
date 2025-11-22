@@ -44,13 +44,18 @@ jobs:
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: 🔐 Decode Keystore
-        run: echo ${{ secrets.KEYSTORE }} | base64 --decode > ${{ github.workspace }}/keystore.jks
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE }}
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > ${{ github.workspace }}/keystore.jks
 
       - name: 📝 Update key.properties
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
         run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEYSTORE_ALIAS }}" >> android/key.properties
+          echo "storePassword=$KEYSTORE_PASSWORD" >> android/key.properties
+          echo "keyPassword=$KEYSTORE_PASSWORD" >> android/key.properties
+          echo "keyAlias=$KEYSTORE_ALIAS" >> android/key.properties
           echo "storeFile=${{ github.workspace }}/keystore.jks" >> android/key.properties
         shell: bash
 
