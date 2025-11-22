@@ -51,82 +51,84 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.about)),
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.all(16.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Center(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/splash.png',
-                        width: 64,
-                        height: 64,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        AppLocalizations.of(context)!.appTitle,
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(version, style: const TextStyle(fontSize: 16, color: Colors.grey)),
-                    ],
+    return SelectionArea(
+      child: Scaffold(
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.about)),
+        body: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/splash.png',
+                          width: 64,
+                          height: 64,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          AppLocalizations.of(context)!.appTitle,
+                          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(version, style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 32),
-                _buildInfoTile(
-                  context,
-                  icon: Icons.person,
-                  title: AppLocalizations.of(context)!.developer,
-                  subtitle: developerName,
-                ),
-                _buildInfoTile(
-                  context,
-                  icon: Icons.email,
-                  title: AppLocalizations.of(context)!.email,
-                  subtitle: email,
-                  onTap: () => _launchUrl('mailto:$email'),
-                ),
-                _buildInfoTile(
-                  context,
-                  icon: Icons.code,
-                  title: AppLocalizations.of(context)!.sourceCode,
-                  subtitle: 'github.com/biplobsd/running_services_monitor',
-                  onTap: () => _launchUrl(sourceCodeUrl),
-                ),
-                _buildInfoTile(
-                  context,
-                  icon: Icons.web,
-                  title: AppLocalizations.of(context)!.blogs,
-                  subtitle: 'biplobsd.github.io',
-                  onTap: () => _launchUrl(blogsUrl),
-                ),
-                const SizedBox(height: 24),
-                Center(
-                  child: FilledButton.icon(
-                    onPressed: () => _launchUrl(buyMeCoffeeUrl),
-                    icon: const Icon(Icons.coffee),
-                    label: Text(AppLocalizations.of(context)!.buyMeCoffee),
-                    style: FilledButton.styleFrom(backgroundColor: Colors.amber[800], foregroundColor: Colors.white),
+                  const SizedBox(height: 32),
+                  _buildInfoTile(
+                    context,
+                    icon: Icons.person,
+                    title: AppLocalizations.of(context)!.developer,
+                    subtitle: developerName,
                   ),
-                ),
-                const SizedBox(height: 24),
-                Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.madeInBangladesh,
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  _buildInfoTile(
+                    context,
+                    icon: Icons.email,
+                    title: AppLocalizations.of(context)!.email,
+                    subtitle: email,
+                    onTap: () => _launchUrl('mailto:$email'),
                   ),
-                ),
-              ]),
+                  _buildInfoTile(
+                    context,
+                    icon: Icons.code,
+                    title: AppLocalizations.of(context)!.sourceCode,
+                    subtitle: 'github.com/biplobsd/running_services_monitor',
+                    onTap: () => _launchUrl(sourceCodeUrl),
+                  ),
+                  _buildInfoTile(
+                    context,
+                    icon: Icons.web,
+                    title: AppLocalizations.of(context)!.blogs,
+                    subtitle: 'biplobsd.github.io',
+                    onTap: () => _launchUrl(blogsUrl),
+                  ),
+                  const SizedBox(height: 24),
+                  Center(
+                    child: FilledButton.icon(
+                      onPressed: () => _launchUrl(buyMeCoffeeUrl),
+                      icon: const Icon(Icons.coffee),
+                      label: Text(AppLocalizations.of(context)!.buyMeCoffee),
+                      style: FilledButton.styleFrom(backgroundColor: Colors.amber[800], foregroundColor: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.madeInBangladesh,
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ),
+                ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

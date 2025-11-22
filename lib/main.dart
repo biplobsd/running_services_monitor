@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                   appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
                 ),
                 themeMode: themeMode,
-                home: const HomeScreen(),
+                home: const SelectionArea(child: HomeScreen()),
               );
             },
           );

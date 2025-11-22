@@ -172,7 +172,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         tooltip: AppLocalizations.of(context)!.autoUpdate,
                       ),
                       IconButton(
-                        icon: const Icon(Icons.refresh),
+                        icon: value.isLoading && value.systemApps.isNotEmpty && value.userApps.isNotEmpty && value.allApps.isNotEmpty
+                            ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2))
+                            : const Icon(Icons.refresh),
                         onPressed: value.isLoading ? null : () => homeBloc.add(const HomeEvent.loadData()),
                         tooltip: AppLocalizations.of(context)!.refresh,
                       ),

@@ -11,42 +11,44 @@ class AppDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.runningApp)),
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.all(24.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                // Header
-                AppHeader(appInfo: appInfo),
-                const SizedBox(height: 24),
+    return SelectionArea(
+      child: Scaffold(
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.runningApp)),
+        body: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.all(24.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  // Header
+                  AppHeader(appInfo: appInfo),
+                  const SizedBox(height: 24),
 
-                // Description
-                Text(
-                  AppLocalizations.of(context)!.stopWarning,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey[400]),
-                ),
+                  // Description
+                  Text(
+                    AppLocalizations.of(context)!.stopWarning,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey[400]),
+                  ),
 
-                const SizedBox(height: 32),
-                const Divider(),
-                const SizedBox(height: 16),
+                  const SizedBox(height: 32),
+                  const Divider(),
+                  const SizedBox(height: 16),
 
-                // Service List
-                Text(AppLocalizations.of(context)!.activeServices, style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(height: 8),
-              ]),
+                  // Service List
+                  Text(AppLocalizations.of(context)!.activeServices, style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 8),
+                ]),
+              ),
             ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: true,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: ServiceList(services: appInfo.services),
+            SliverFillRemaining(
+              hasScrollBody: true,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: ServiceList(services: appInfo.services),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
