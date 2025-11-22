@@ -1,0 +1,146 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v[0-9].[0-9]+.[0-9]+" # e.g. v1.0.0
+      - "v[0-9].[0-9]+.[0-9]+\\+[0-9]+" # e.g. v1.0.6+4
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for softprops/action-gh-release
+
+    name: 🤖 Build Android App
+
+    outputs:
+      version: ${{ steps.version_info.outputs.version }}
+      build_number: ${{ steps.version_info.outputs.build_number }}
+      app_files: ${{ steps.version_info.outputs.app_files }}
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: ☕️ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: gradle
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.32.0'
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🧠 Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🔐 Decode Keystore
+        run: echo ${{ secrets.KEYSTORE }} | base64 --decode > ${{ github.workspace }}/keystore.jks
+
+      - name: 📝 Update key.properties
+        run: |
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEYSTORE_ALIAS }}" >> android/key.properties
+          echo "storeFile=${{ github.workspace }}/keystore.jks" >> android/key.properties
+        shell: bash
+
+      - name: 🧾 Extract version and build number
+        id: version_info
+        run: |
+          TAG=${{ github.ref_name }}
+          if [[ $TAG == *"+"* ]]; then
+            VERSION=$(echo $TAG | cut -d'+' -f1)
+            BUILD_NUMBER=$(echo $TAG | cut -d'+' -f2)
+          else
+            VERSION=$TAG
+            BUILD_NUMBER=$(grep 'version:' pubspec.yaml | sed -E 's/version: [0-9]+\.[0-9]+\.[0-9]+\+([0-9]+)/\1/')
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: 📁 Rename and prepare release files
+        run: |
+          VERSION=${{ steps.version_info.outputs.version }}
+          BUILD_NUMBER=${{ steps.version_info.outputs.build_number }}
+          mkdir -p app_build
+          cp build/app/outputs/apk/release/app-release.apk app_build/rsm_${VERSION}+${BUILD_NUMBER}.apk
+          cp build/app/outputs/bundle/release/app-release.aab app_build/rsm_${VERSION}+${BUILD_NUMBER}.aab
+        shell: bash
+
+      - name: 📤 Upload App Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app_artifacts
+          path: app_build/
+          retention-days: 30
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: [build-android]
+    if: always() && needs.build-android.result == 'success'
+    permissions:
+      contents: write
+
+    name: 🚀 Create GitHub Release
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: 📥 Download App Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: app_artifacts
+          path: release_files/
+
+      - name: 📋 Prepare Release Files List
+        id: prepare_files
+        shell: python
+        run: |
+          import os
+          import glob
+          
+          files = []
+          
+          # Check if app files exist and add them
+          version = "${{ needs.build-android.outputs.version }}"
+          build_number = "${{ needs.build-android.outputs.build_number }}"
+          
+          if version and build_number:
+              apk_file = f"release_files/rsm_{version}+{build_number}.apk"
+              aab_file = f"release_files/rsm_{version}+{build_number}.aab"
+              
+              if os.path.isfile(apk_file):
+                  files.append(apk_file)
+              if os.path.isfile(aab_file):
+                  files.append(aab_file)
+          
+          # Write files to GitHub output
+          files_str = "\n".join(files)
+          
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output_file:
+              output_file.write(f"files<<EOF\n{files_str}\nEOF\n")
+          
+          print(f"Prepared {len(files)} files for release:")
+          for file in files:
+              print(f"  - {file}")
+
+      - name: 🚀 Upload to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ steps.prepare_files.outputs.files }}
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+          fail_on_unmatched_files: false
+
