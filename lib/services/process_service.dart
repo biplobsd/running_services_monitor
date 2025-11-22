@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:appcheck/appcheck.dart' hide AppInfo;
 import 'package:installed_apps/installed_apps.dart';
 import 'package:installed_apps/app_info.dart';
 import '../models/service_info.dart';
 import 'shizuku_service.dart';
 
+@lazySingleton
 class ProcessService {
-  static final ProcessService _instance = ProcessService._internal();
-  factory ProcessService() => _instance;
-  ProcessService._internal();
+  final ShizukuService _shizukuService;
 
-  final ShizukuService _shizukuService = ShizukuService();
+  ProcessService(this._shizukuService);
 
   // Cache for app info (icon, name, etc.)
   final Map<String, AppInfo> _appCache = {};
