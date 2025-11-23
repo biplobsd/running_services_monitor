@@ -361,6 +361,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Free'**
   String get free;
+
+  /// No description provided for @stopService.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Service'**
+  String get stopService;
+
+  /// No description provided for @stopAllServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop All Services'**
+  String get stopAllServices;
+
+  /// No description provided for @stopServiceConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop this service?'**
+  String get stopServiceConfirm;
+
+  /// No description provided for @stopAllServicesConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop all services for this app?'**
+  String get stopAllServicesConfirm;
+
+  /// No description provided for @stopServiceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This will force stop the app. You may lose unsaved data.'**
+  String get stopServiceWarning;
+
+  /// No description provided for @serviceStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Service stopped'**
+  String get serviceStopped;
+
+  /// No description provided for @allServicesStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'All services stopped'**
+  String get allServicesStopped;
+
+  /// No description provided for @stopServiceError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to stop service'**
+  String get stopServiceError;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// No description provided for @systemAppWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ WARNING: This is a SYSTEM APP. Stopping it may cause your device to malfunction or become unstable. Only proceed if you know what you\'re doing!'**
+  String get systemAppWarning;
 }
 
 class _AppLocalizationsDelegate

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/models/service_info.dart';
-import 'app_list_item.dart';
+import 'dismissible_app_list_item.dart';
 import 'empty_list_state.dart';
 
 class AppList extends StatelessWidget {
@@ -31,7 +31,7 @@ class AppList extends StatelessWidget {
             slivers: [
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  return AppListItem(appInfo: filteredApps[index]);
+                  return DismissibleAppListItem(appInfo: filteredApps[index]);
                 }, childCount: filteredApps.length),
               ),
             ],

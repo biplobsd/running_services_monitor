@@ -142,4 +142,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get free => 'Free';
+
+  @override
+  String get stopService => 'Stop Service';
+
+  @override
+  String get stopAllServices => 'Stop All Services';
+
+  @override
+  String get stopServiceConfirm => 'Stop this service?';
+
+  @override
+  String get stopAllServicesConfirm => 'Stop all services for this app?';
+
+  @override
+  String get stopServiceWarning =>
+      'This will force stop the app. You may lose unsaved data.';
+
+  @override
+  String get serviceStopped => 'Service stopped';
+
+  @override
+  String get allServicesStopped => 'All services stopped';
+
+  @override
+  String get stopServiceError => 'Failed to stop service';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get systemAppWarning =>
+      '⚠️ WARNING: This is a SYSTEM APP. Stopping it may cause your device to malfunction or become unstable. Only proceed if you know what you\'re doing!';
 }

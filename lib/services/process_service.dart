@@ -132,6 +132,52 @@ class ProcessService {
     }
   }
 
+  /// Stop a service by killing its specific process ID using kill -9
+  /// This is more targeted than force-stop but may not work for all processes
+  /// Returns true if successful,false otherwise
+  Future<bool> stopServiceByPid(int pid) async {
+    try {
+      debugPrint('Attempting to kill PID: $pid');
+      final result = await _shizukuService.executeCommand('kill -9 $pid');
+
+      // kill command doesn't return output on success, null or empty means success
+      if (result == null ||
+          result.isEmpty ||
+          !result.toLowerCase().contains('error') && !result.toLowerCase().contains('permission denied')) {
+        debugPrint('Successfully killed PID: $pid');
+        return true;
+      } else {
+        debugPrint('Failed to kill PID $pid: $result');
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Error killing PID $pid: $e');
+      return false;
+    }
+  }
+
+  /// Stop all services for a package using am force-stop
+  /// This is the official Android method and stops ALL processes for the app
+  /// Returns true if successful, false otherwise
+  Future<bool> stopService(String packageName) async {
+    try {
+      debugPrint('Attempting to stop service: $packageName');
+      final result = await _shizukuService.executeCommand('am force-stop $packageName');
+
+      // force-stop doesn't return output on success, null or empty means success
+      if (result == null || result.isEmpty || !result.toLowerCase().contains('error')) {
+        debugPrint('Successfully stopped: $packageName');
+        return true;
+      } else {
+        debugPrint('Failed to stop $packageName: $result');
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Error stopping service $packageName: $e');
+      return false;
+    }
+  }
+
   // --- Static methods for Isolate ---
 
   static List<double> _parseSystemRamInfo(String result) {

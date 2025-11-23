@@ -144,4 +144,39 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get free => 'ফাঁকা';
+
+  @override
+  String get stopService => 'সার্ভিস বন্ধ করুন';
+
+  @override
+  String get stopAllServices => 'সব সার্ভিস বন্ধ করুন';
+
+  @override
+  String get stopServiceConfirm => 'এই সার্ভিস বন্ধ করবেন?';
+
+  @override
+  String get stopAllServicesConfirm => 'এই অ্যাপের সব সার্ভিস বন্ধ করবেন?';
+
+  @override
+  String get stopServiceWarning =>
+      'এটি অ্যাপটি জোরপূর্বক বন্ধ করবে। আপনি সংরক্ষণ না করা ডেটা হারাতে পারেন।';
+
+  @override
+  String get serviceStopped => 'সার্ভিস বন্ধ হয়েছে';
+
+  @override
+  String get allServicesStopped => 'সব সার্ভিস বন্ধ হয়েছে';
+
+  @override
+  String get stopServiceError => 'সার্ভিস বন্ধ করতে ব্যর্থ';
+
+  @override
+  String get cancel => 'বাতিল';
+
+  @override
+  String get stop => 'বন্ধ করুন';
+
+  @override
+  String get systemAppWarning =>
+      '⚠️ সতর্কতা: এটি একটি সিস্টেম অ্যাপ। এটি বন্ধ করলে আপনার ডিভাইস ত্রুটিপূর্ণ বা অস্থিতিশীল হতে পারে। শুধুমাত্র তখনই এগিয়ে যান যদি আপনি জানেন আপনি কী করছেন!';
 }

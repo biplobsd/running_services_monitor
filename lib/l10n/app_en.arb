@@ -45,5 +45,16 @@
   "processAnd": "process and",
   "services": "services",
   "apps": "Apps",
-  "free": "Free"
+  "free": "Free",
+  "stopService": "Stop Service",
+  "stopAllServices": "Stop All Services",
+  "stopServiceConfirm": "Stop this service?",
+  "stopAllServicesConfirm": "Stop all services for this app?",
+  "stopServiceWarning": "This will force stop the app. You may lose unsaved data.",
+  "serviceStopped": "Service stopped",
+  "allServicesStopped": "All services stopped",
+  "stopServiceError": "Failed to stop service",
+  "cancel": "Cancel",
+  "stop": "Stop",
+  "systemAppWarning": "⚠️ WARNING: This is a SYSTEM APP. Stopping it may cause your device to malfunction or become unstable. Only proceed if you know what you're doing!"
 }
