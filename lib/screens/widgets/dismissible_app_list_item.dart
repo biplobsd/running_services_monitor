@@ -33,8 +33,8 @@ class _DismissibleAppListItemState extends State<DismissibleAppListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _stopServiceBloc,
+    return BlocProvider.value(
+      value: _stopServiceBloc,
       child: BlocListener<StopServiceBloc, StopServiceState>(
         listener: (context, state) {
           state.when(
@@ -75,7 +75,9 @@ class _DismissibleAppListItemState extends State<DismissibleAppListItem> {
                 ),
               );
               // Trigger refresh in HomeBloc
-              context.read<HomeBloc>().add(const HomeEvent.loadData());
+              if (packageName != null) {
+                context.read<HomeBloc>().add(HomeEvent.removeApp(packageName));
+              }
             },
             error: (message) {
               ScaffoldMessenger.of(context).clearSnackBars();
@@ -117,7 +119,7 @@ class _DismissibleAppListItemState extends State<DismissibleAppListItem> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.red[900]?.withOpacity(0.3),
+                          color: Colors.red[900]?.withValues(alpha: 0.3),
                           border: Border.all(color: Colors.red, width: 2),
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -138,7 +140,10 @@ class _DismissibleAppListItemState extends State<DismissibleAppListItem> {
                     onPressed: () {
                       Navigator.of(dialogContext).pop(true);
                       _stopServiceBloc.add(
-                        StopServiceEvent.stopAllServices(packageName: widget.appInfo.packageName, pids: widget.appInfo.pids),
+                        StopServiceEvent.stopAllServices(
+                          packageName: widget.appInfo.packageName,
+                          pids: widget.appInfo.pids,
+                        ),
                       );
                     },
                     style: FilledButton.styleFrom(backgroundColor: Colors.red),

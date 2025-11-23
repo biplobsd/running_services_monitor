@@ -12,7 +12,6 @@ part 'app_details_bloc.freezed.dart';
 class AppDetailsBloc extends Bloc<AppDetailsEvent, AppDetailsState> {
   AppDetailsBloc() : super(const AppDetailsState.initial()) {
     on<_LoadDetails>(_onLoadDetails);
-    on<_RemoveService>(_onRemoveService);
   }
 
   Future<void> _onLoadDetails(_LoadDetails event, Emitter<AppDetailsState> emit) async {
@@ -56,21 +55,5 @@ class AppDetailsBloc extends Bloc<AppDetailsEvent, AppDetailsState> {
     } catch (e) {
       emit(AppDetailsState.failure(event.appInfo, e.toString()));
     }
-  }
-
-  Future<void> _onRemoveService(_RemoveService event, Emitter<AppDetailsState> emit) async {
-    final currentAppInfo = state.maybeMap(success: (s) => s.appInfo, loading: (s) => s.appInfo, orElse: () => null);
-
-    if (currentAppInfo == null) return;
-    final updatedServices = currentAppInfo.services.where((s) => s.pid != event.pid).toList();
-    final updatedPids = currentAppInfo.pids.where((p) => p != event.pid).toList();
-
-    // Recalculate RAM (approximation, subtracting the removed service's RAM if available)
-    // Since we don't have individual service RAM easily available in AppProcessInfo total, we might just keep the total as is or try to adjust.
-    // For now, let's just update the list.
-
-    final updatedAppInfo = currentAppInfo.copyWith(services: updatedServices, pids: updatedPids);
-
-    emit(AppDetailsState.success(updatedAppInfo));
   }
 }

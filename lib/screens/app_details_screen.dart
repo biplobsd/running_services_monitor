@@ -65,24 +65,8 @@ class AppDetailsScreen extends StatelessWidget {
                 ),
               );
 
-              if (servicePid != null) {
-                // Single service stopped
-                context.read<AppDetailsBloc>().add(AppDetailsEvent.removeService(servicePid));
-              } else {
-                // All services stopped (App stopped)
-                // Notify HomeBloc to remove the app
-                try {
-                  // We need to find HomeBloc. Since we are navigating back, we can assume HomeBloc is up in the tree
-                  // or we can access it via getIt if it's a singleton (it is injectable).
-                  // But usually BlocProvider is used.
-                  // If we pop, we return to HomeScreen.
-                  // We can pass a result back to pop?
-                  // Or we can try to access HomeBloc here.
-                  context.read<HomeBloc>().add(HomeEvent.removeApp(packageName));
-                } catch (e) {
-                  // HomeBloc might not be in context if we are not using MultiBlocProvider at root properly or if this is a new route.
-                  // But usually it is available if provided above MaterialApp or in the route.
-                }
+              if (packageName != null) {
+                getIt<HomeBloc>().add(HomeEvent.removeApp(packageName));
 
                 Future.delayed(const Duration(milliseconds: 500), () {
                   if (context.mounted) {
@@ -166,7 +150,7 @@ class AppDetailsScreen extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.red[900]?.withOpacity(0.3),
+                                  color: Colors.red[900]?.withValues(alpha: 0.3),
                                   border: Border.all(color: Colors.red, width: 2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_detail_row.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 
 class ServiceDetailsDialog extends StatelessWidget {
   final RunningServiceInfo service;
@@ -36,19 +34,7 @@ class ServiceDetailsDialog extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Close')),
-        FilledButton(
-          onPressed: () {
-            context.read<StopServiceBloc>().add(
-              StopServiceEvent.stopService(packageName: service.packageName, servicePid: service.pid),
-            );
-            Navigator.of(context).pop();
-          },
-          style: FilledButton.styleFrom(backgroundColor: Colors.red),
-          child: const Text('Stop'),
-        ),
-      ],
+      actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Close'))],
     );
   }
 }

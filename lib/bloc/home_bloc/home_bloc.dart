@@ -10,7 +10,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 part 'home_bloc.freezed.dart';
 
-@injectable
+@lazySingleton
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ShizukuService _shizukuService;
   final ProcessService _processService;
@@ -23,6 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<_ToggleSearch>(_onToggleSearch);
     on<_UpdateSearchQuery>(_onUpdateSearchQuery);
     on<_RemoveApp>(_onRemoveApp);
+
     on<_AutoUpdateTick>(_onAutoUpdateTick);
   }
 

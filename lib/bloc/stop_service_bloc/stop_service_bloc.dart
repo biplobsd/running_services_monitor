@@ -12,26 +12,8 @@ class StopServiceBloc extends Bloc<StopServiceEvent, StopServiceState> {
   final ProcessService _processService;
 
   StopServiceBloc(this._processService) : super(const StopServiceState.initial()) {
-    on<_StopService>(_onStopService);
     on<_StopAllServices>(_onStopAllServices);
     on<_Reset>(_onReset);
-  }
-
-  Future<void> _onStopService(_StopService event, Emitter<StopServiceState> emit) async {
-    emit(StopServiceState.stopping(packageName: event.packageName));
-
-    try {
-      // Use kill command with the specific PID
-      final success = await _processService.stopServiceByPid(event.servicePid);
-
-      if (success) {
-        emit(StopServiceState.success(packageName: event.packageName));
-      } else {
-        emit(const StopServiceState.error(message: 'Failed to kill process'));
-      }
-    } catch (e) {
-      emit(StopServiceState.error(message: 'Error: $e'));
-    }
   }
 
   Future<void> _onStopAllServices(_StopAllServices event, Emitter<StopServiceState> emit) async {

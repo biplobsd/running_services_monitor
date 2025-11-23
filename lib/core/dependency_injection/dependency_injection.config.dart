@@ -37,7 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i256.StopServiceBloc>(
       () => _i256.StopServiceBloc(gh<_i622.ProcessService>()),
     );
-    gh.factory<_i98.HomeBloc>(
+    gh.lazySingleton<_i98.HomeBloc>(
       () =>
           _i98.HomeBloc(gh<_i842.ShizukuService>(), gh<_i622.ProcessService>()),
     );
