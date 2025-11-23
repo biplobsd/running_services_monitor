@@ -11,6 +11,7 @@ abstract class HomeStateModel with _$HomeStateModel {
     @Default(false) bool shizukuReady,
     String? errorMessage,
     String? notification,
+    String? loadingStatus,
 
     // App Data
     @Default([]) List<AppProcessInfo> allApps,

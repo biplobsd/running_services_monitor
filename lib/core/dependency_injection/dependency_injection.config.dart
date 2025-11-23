@@ -45,8 +45,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i256.StopServiceBloc(gh<_i622.ProcessService>()),
     );
     gh.lazySingleton<_i98.HomeBloc>(
-      () =>
-          _i98.HomeBloc(gh<_i842.ShizukuService>(), gh<_i622.ProcessService>()),
+      () => _i98.HomeBloc(
+        gh<_i842.ShizukuService>(),
+        gh<_i825.AppInfoService>(),
+        gh<_i622.ProcessService>(),
+      ),
     );
     return this;
   }

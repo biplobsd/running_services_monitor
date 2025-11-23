@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:installed_apps/app_info.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'app_info_service.dart';
 import 'shizuku_service.dart';
@@ -12,103 +11,57 @@ class ProcessService {
 
   ProcessService(this._shizukuService, this._appInfoService);
 
-  // Cache for app info (icon, name, etc.)
-  final Map<String, AppInfo> _appCache = {};
-  bool _isCacheInitialized = false;
-
-  /// Refresh the app cache
-  Future<void> refreshAppCache() async {
+  Future<String?> fetchRawServicesData() async {
     try {
-      final apps = await _appInfoService.getInstalledApps(excludeSystemApps: false, withIcon: true);
-      _appCache.clear();
-      int appsWithIcons = 0;
-      for (var app in apps) {
-        _appCache[app.packageName] = app;
-        if (app.icon != null) appsWithIcons++;
-      }
-      _isCacheInitialized = true;
-      debugPrint('App cache refreshed: ${apps.length} apps loaded, $appsWithIcons have icons');
+      final result = await _shizukuService.executeCommand('dumpsys activity services');
+      return result;
     } catch (e) {
-      debugPrint('Error refreshing app cache: $e');
+      debugPrint('Error fetching raw services data: $e');
+      return null;
     }
   }
 
-  /// Get grouped app process info
-  Future<List<AppProcessInfo>> getAppProcessInfos() async {
+  Future<List<AppProcessInfo>> processServiceData({required String services, required String meminfo}) async {
     try {
-      // Ensure cache is initialized
-      if (!_isCacheInitialized) {
-        await refreshAppCache();
-      }
+      if (services.isEmpty) return [];
 
-      // 1. Get raw data asynchronously on main thread
-      final servicesOutput = await _shizukuService.executeCommand('dumpsys activity services');
-      if (servicesOutput == null || servicesOutput.isEmpty) return [];
+      // Ensure cache is valid and get the map
+      await _appInfoService.ensureCacheValid();
+      final appMap = _appInfoService.cachedAppsMap ?? {};
 
-      final meminfoOutput = await _shizukuService.executeCommand('dumpsys meminfo');
-
-      // 2. Prepare data for isolate
-      // We pass a simplified map of the cache to avoid passing complex objects (AppInfo might not be sendable)
+      // Create a simplified map for the isolate
       final Map<String, String> appNames = {};
-      for (var entry in _appCache.entries) {
+      for (var entry in appMap.entries) {
         appNames[entry.key] = entry.value.name;
       }
 
-      final isolateData = _IsolateData(
-        servicesOutput: servicesOutput,
-        meminfoOutput: meminfoOutput ?? '',
-        appNames: appNames,
-      );
-
-      // 3. Run heavy processing in background isolate
+      // Prepare data for isolate
+      final isolateData = _IsolateData(servicesOutput: services, meminfoOutput: meminfo, appNames: appNames);
+      // Run heavy processing in background isolate
       final appProcessInfos = await compute(_processDataInIsolate, isolateData);
 
-      // 4. Re-attach AppInfo from cache (main thread)
-      int appsWithAppInfo = 0;
-      int servicesWithIcons = 0;
-      int fetchedIcons = 0;
-
+    
       final updatedAppProcessInfos = <AppProcessInfo>[];
 
       for (var info in appProcessInfos) {
         var updatedInfo = info;
-        var appInfo = _appCache[info.packageName];
 
-        if (appInfo != null && appInfo.icon != null) {
-          appsWithAppInfo++;
-        } else {
-          // If no cached icon, try to fetch it directly
-          try {
-            final fetchedAppInfo = await _appInfoService.getAppInfo(info.packageName);
-            if (fetchedAppInfo != null && fetchedAppInfo.icon != null) {
-              appInfo = fetchedAppInfo;
-              fetchedIcons++;
-            }
-          } catch (e) {
-            // Ignore errors for individual apps
-          }
-        }
+        // Try to get AppInfo from map (synchronous)
+        var appInfo = appMap[info.packageName];
+
         updatedInfo = updatedInfo.copyWith(appInfo: appInfo);
 
         // Also attach icons to individual services from their package names
         final updatedServices = <RunningServiceInfo>[];
         for (var service in info.services) {
           var updatedService = service;
-          final serviceAppInfo = _appCache[service.packageName];
-          if (serviceAppInfo != null && serviceAppInfo.icon != null) {
-            updatedService = updatedService.copyWith(icon: serviceAppInfo.icon);
-            servicesWithIcons++;
-          } else if (service.packageName != info.packageName) {
-            // If service has different package, try to fetch its icon
-            try {
-              final fetchedServiceInfo = await _appInfoService.getAppInfo(service.packageName);
-              if (fetchedServiceInfo != null && fetchedServiceInfo.icon != null) {
-                updatedService = updatedService.copyWith(icon: fetchedServiceInfo.icon);
-                servicesWithIcons++;
-                fetchedIcons++;
-              }
-            } catch (e) {
-              // Ignore errors for individual services
+
+          if (service.packageName == info.packageName && appInfo != null && appInfo.icon != null) {
+            updatedService = updatedService.copyWith(icon: appInfo.icon);
+          } else {
+            final serviceAppInfo = appMap[service.packageName];
+            if (serviceAppInfo != null && serviceAppInfo.icon != null) {
+              updatedService = updatedService.copyWith(icon: serviceAppInfo.icon);
             }
           }
           updatedServices.add(updatedService);
@@ -119,28 +72,44 @@ class ProcessService {
 
       final finalAppProcessInfos = updatedAppProcessInfos;
 
-      debugPrint(
-        'Icon stats: $appsWithAppInfo cached, $fetchedIcons fetched, $servicesWithIcons service icons, ${finalAppProcessInfos.length} total apps',
-      );
-
       return finalAppProcessInfos;
     } catch (e) {
-      debugPrint('Error getting app process infos: $e');
+      debugPrint('Error processing service data: $e');
       return [];
+    }
+  }
+
+  Future<List<AppProcessInfo>> getAppProcessInfos() async {
+    final results = await Future.wait([fetchRawServicesData(), meminfo()]);
+
+    final servicesData = results[0];
+    final memInfo = results[1];
+
+    if (servicesData == null || memInfo == null) return [];
+    return processServiceData(services: servicesData, meminfo: memInfo);
+  }
+
+  Future<String?> meminfo() async {
+    try {
+      final result = await _shizukuService.executeCommand('dumpsys meminfo');
+      return result;
+    } catch (e) {
+      debugPrint('Error getting meminfo: $e');
+      return null;
     }
   }
 
   /// Get system RAM info (Total, Free, Used)
   /// Returns [Total, Free, Used] in KB
-  Future<List<double>> getSystemRamInfo() async {
+  Future<({List<double>? ramInfo, String? meminfo})> getSystemRamInfo() async {
     try {
-      final result = await _shizukuService.executeCommand('dumpsys meminfo');
-      if (result == null) return [0, 0, 0];
+      final result = await meminfo();
+      if (result == null) return (meminfo: result, ramInfo: null);
 
-      return await compute(_parseSystemRamInfo, result);
+      return (ramInfo: await compute(_parseSystemRamInfo, result), meminfo: result);
     } catch (e) {
       debugPrint('Error getting system RAM info: $e');
-      return [0, 0, 0];
+      return (ramInfo: null, meminfo: null);
     }
   }
 

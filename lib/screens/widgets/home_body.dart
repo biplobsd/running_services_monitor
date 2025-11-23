@@ -21,7 +21,7 @@ class HomeBody extends StatelessWidget {
 
         // Loading state (initial load)
         if (value.isLoading && value.allApps.isEmpty) {
-          return const LoadingState();
+          return LoadingState(status: value.loadingStatus);
         }
 
         // Error state (no data)

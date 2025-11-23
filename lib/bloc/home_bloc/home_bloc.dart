@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
+import 'package:running_services_monitor/services/app_info_service.dart';
 import 'package:running_services_monitor/services/process_service.dart';
 import 'package:running_services_monitor/services/shizuku_service.dart';
 
@@ -13,10 +14,11 @@ part 'home_bloc.freezed.dart';
 @lazySingleton
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ShizukuService _shizukuService;
+  final AppInfoService _appInfoService;
   final ProcessService _processService;
   Timer? _autoUpdateTimer;
 
-  HomeBloc(this._shizukuService, this._processService) : super(const HomeState.initial(HomeStateModel())) {
+  HomeBloc(this._shizukuService, this._appInfoService, this._processService) : super(const HomeState.initial(HomeStateModel())) {
     on<_InitializeShizuku>(_onInitializeShizuku);
     on<_LoadData>(_onLoadData);
     on<_ToggleAutoUpdate>(_onToggleAutoUpdate);
@@ -72,27 +74,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _onLoadData(_LoadData event, Emitter<HomeState> emit) async {
     if (!event.silent) {
-      emit(HomeState.loading(state.value.copyWith(isLoading: true, errorMessage: null, notification: null)));
+      emit(
+        HomeState.loading(
+          state.value.copyWith(
+            isLoading: true,
+            errorMessage: null,
+            notification: null,
+            loadingStatus: 'Fetching system info...',
+          ),
+        ),
+      );
     }
 
     try {
-      // Refresh app cache if not silent (manual refresh)
-      if (!event.silent) {
-        await _processService.refreshAppCache();
-      }
+      // Parallel execution of independent tasks
+      final results = await Future.wait([
+        // 1. Ensure app info cache is valid
+        _appInfoService.ensureCacheValid(),
+        // 2. Get RAM info
+        _processService.getSystemRamInfo(),
+        // 3. Get raw service data
+        _processService.fetchRawServicesData(),
+      ]);
 
-      // Load RAM info
-      final ramInfo = await _processService.getSystemRamInfo();
+      final memData = results[1] as ({List<double>? ramInfo, String? meminfo})?;
+      final ramInfo = memData?.ramInfo;
+      final memInfo = memData?.meminfo;
+      final services = results[2] as String?;
 
-      // Load Apps
-      final apps = await _processService.getAppProcessInfos().timeout(
-        const Duration(minutes: 2),
-        onTimeout: () {
-          throw Exception('Timeout fetching services');
-        },
-      );
-
-      if (apps.isEmpty) {
+      if (services == null || services.isEmpty) {
         if (!event.silent) {
           emit(
             HomeState.failure(
@@ -107,6 +117,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
         return;
       }
+
+      if (!event.silent) {
+        emit(HomeState.loading(state.value.copyWith(isLoading: true, loadingStatus: 'Processing data...')));
+      }
+
+      // Process the raw data
+      final apps = await _processService
+          .processServiceData(services: services, meminfo: memInfo ?? '')
+          .timeout(
+            const Duration(minutes: 2),
+            onTimeout: () {
+              throw Exception('Timeout processing services');
+            },
+          );
 
       // Separate into user and system
       final userApps = apps.where((a) => !a.isSystemApp).toList();
@@ -134,18 +158,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             allApps: apps,
             userApps: userApps,
             systemApps: systemApps,
-            totalRamKb: ramInfo[0],
-            freeRamKb: ramInfo[1],
-            usedRamKb: ramInfo[2],
+            totalRamKb: ramInfo?[0] ?? 0,
+            freeRamKb: ramInfo?[1] ?? 0,
+            usedRamKb: ramInfo?[2] ?? 0,
             appsRamKb: appsRam,
             isLoading: false,
             notification: notificationMessage,
+            loadingStatus: null,
           ),
         ),
       );
-    } catch (e, s) {
-      print(e);
-      print(s);
+    } catch (e) {
       if (!event.silent) {
         emit(HomeState.failure(state.value.copyWith(isLoading: false), 'Error loading data: $e'));
       }
