@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context)!.enjoyingApp),
-          action: SnackBarAction(label: AppLocalizations.of(context)!.donate, onPressed: () => context.go('/about')),
+          action: SnackBarAction(label: AppLocalizations.of(context)!.donate, onPressed: () => context.push('/about')),
         ),
       );
     }
