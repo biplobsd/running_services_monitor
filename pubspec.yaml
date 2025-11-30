@@ -1,7 +1,7 @@
 name: running_services_monitor
 description: "Running Services Monitor"
 publish_to: 'none'
-version: 1.0.3+2
+version: 1.0.4+3
 
 environment:
   sdk: ^3.10.1
@@ -23,7 +23,7 @@ dependencies:
   hydrated_bloc: ^10.1.1
   path_provider: ^2.1.1
   url_launcher: ^6.2.1
-  android_intent_plus: ^5.1.2
+  android_intent_plus: ^6.0.0
   package_info_plus: ^8.1.2
   go_router: ^14.6.2
   flutter_localizations:
