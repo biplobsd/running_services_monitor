@@ -14,9 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RunningServiceInfo {
 
- String get user; int get pid; String get processName; String get serviceName; String get packageName; bool get isSystemApp; String? get serviceClass; String? get appName; String? get ramUsage;// e.g. "25 MB"
- double? get ramInKb;// Parsed value for aggregation
- Uint8List? get icon;
+ String get user; int get pid; String get processName; String get serviceName; String get packageName; bool get isSystemApp; String? get serviceClass; String? get appName; String? get ramUsage; double? get ramInKb; Uint8List? get icon;
 /// Create a copy of RunningServiceInfo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -230,9 +228,7 @@ class _RunningServiceInfo implements RunningServiceInfo {
 @override final  String? serviceClass;
 @override final  String? appName;
 @override final  String? ramUsage;
-// e.g. "25 MB"
 @override final  double? ramInKb;
-// Parsed value for aggregation
 @override final  Uint8List? icon;
 
 /// Create a copy of RunningServiceInfo
@@ -305,9 +301,7 @@ as Uint8List?,
 /// @nodoc
 mixin _$AppProcessInfo {
 
- String get packageName; String get appName; List<RunningServiceInfo> get services; List<int> get pids; String get totalRam;// Formatted string e.g. "150 MB"
- double get totalRamInKb;// For sorting/calculation
- bool get isSystemApp; AppInfo? get appInfo;
+ String get packageName; String get appName; List<RunningServiceInfo> get services; List<int> get pids; String get totalRam; double get totalRamInKb; bool get isSystemApp; AppInfo? get appInfo;
 /// Create a copy of AppProcessInfo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -526,9 +520,7 @@ class _AppProcessInfo implements AppProcessInfo {
 }
 
 @override final  String totalRam;
-// Formatted string e.g. "150 MB"
 @override final  double totalRamInKb;
-// For sorting/calculation
 @override final  bool isSystemApp;
 @override final  AppInfo? appInfo;
 

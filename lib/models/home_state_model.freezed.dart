@@ -14,11 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeStateModel {
 
-// Loading & Error
- bool get isLoading; bool get shizukuReady; String? get errorMessage; String? get notification; String? get loadingStatus;// App Data
- List<AppProcessInfo> get allApps; List<AppProcessInfo> get userApps; List<AppProcessInfo> get systemApps;// RAM Info
- double get totalRamKb; double get freeRamKb; double get usedRamKb; double get appsRamKb;// UI State
- bool get isAutoUpdateEnabled; bool get isSearching; String get searchQuery;
+ bool get isLoading; bool get shizukuReady; String? get errorMessage; String? get notification; String? get loadingStatus; List<AppProcessInfo> get allApps; List<AppProcessInfo> get userApps; List<AppProcessInfo> get systemApps; double get totalRamKb; double get freeRamKb; double get usedRamKb; double get appsRamKb; bool get isAutoUpdateEnabled; bool get isSearching; String get searchQuery;
 /// Create a copy of HomeStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -227,15 +223,12 @@ class _HomeStateModel implements HomeStateModel {
   const _HomeStateModel({this.isLoading = false, this.shizukuReady = false, this.errorMessage, this.notification, this.loadingStatus, final  List<AppProcessInfo> allApps = const [], final  List<AppProcessInfo> userApps = const [], final  List<AppProcessInfo> systemApps = const [], this.totalRamKb = 0.0, this.freeRamKb = 0.0, this.usedRamKb = 0.0, this.appsRamKb = 0.0, this.isAutoUpdateEnabled = false, this.isSearching = false, this.searchQuery = ''}): _allApps = allApps,_userApps = userApps,_systemApps = systemApps;
   
 
-// Loading & Error
 @override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool shizukuReady;
 @override final  String? errorMessage;
 @override final  String? notification;
 @override final  String? loadingStatus;
-// App Data
  final  List<AppProcessInfo> _allApps;
-// App Data
 @override@JsonKey() List<AppProcessInfo> get allApps {
   if (_allApps is EqualUnmodifiableListView) return _allApps;
   // ignore: implicit_dynamic_type
@@ -256,12 +249,10 @@ class _HomeStateModel implements HomeStateModel {
   return EqualUnmodifiableListView(_systemApps);
 }
 
-// RAM Info
 @override@JsonKey() final  double totalRamKb;
 @override@JsonKey() final  double freeRamKb;
 @override@JsonKey() final  double usedRamKb;
 @override@JsonKey() final  double appsRamKb;
-// UI State
 @override@JsonKey() final  bool isAutoUpdateEnabled;
 @override@JsonKey() final  bool isSearching;
 @override@JsonKey() final  String searchQuery;
