@@ -11,7 +11,7 @@ class AboutHeader extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Image.asset('assets/splash.png', width: 64, height: 64, color: Theme.of(context).colorScheme.onSurface),
+          Image.asset('assets/logo.png', width: 64, height: 64, color: Theme.of(context).colorScheme.onSurface),
           const SizedBox(height: 16),
           Text(
             AppLocalizations.of(context)!.appTitle,

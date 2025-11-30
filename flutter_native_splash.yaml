@@ -1,7 +1,7 @@
 flutter_native_splash:
-  color: "#673AB7" # Deep Purple
+  color: "#ffffff"
   image: assets/splash.png
   android_12:
     image: assets/splash.png
-    color: "#673AB7"
+    color: "#ffffff"
   web: false

@@ -5,6 +5,6 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset('assets/splash.png', width: 32, height: 32, color: Theme.of(context).colorScheme.onSurface);
+    return Image.asset('assets/logo.png', width: 32, height: 32, color: Theme.of(context).colorScheme.onSurface);
   }
 }
