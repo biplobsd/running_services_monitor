@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
@@ -128,7 +129,7 @@ class _DismissibleAppListItemState extends State<DismissibleAppListItem> {
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.error,
                             fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                            fontSize: 13.sp,
                           ),
                         ),
                       ),

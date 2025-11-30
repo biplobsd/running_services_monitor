@@ -4,28 +4,32 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'setup_step_item.dart';
+
+enum ShizukuDialogType { setup, permission }
 
 class ShizukuPermissionDialog extends StatelessWidget {
   final VoidCallback onRetry;
+  final ShizukuDialogType type;
 
-  const ShizukuPermissionDialog({super.key, required this.onRetry});
+  const ShizukuPermissionDialog({
+    super.key,
+    required this.onRetry,
+    this.type = ShizukuDialogType.permission,
+  });
 
   Future<void> _openShizukuOrPlayStore() async {
-    // Try to check if Shizuku is installed
-    final shizukuAppUri = Uri.parse('package:${AppConstants.shizukuPackageName}');
+    final marketUri = Uri.parse('market://details?id=${AppConstants.shizukuPackageName}');
     final playStoreUri = Uri.parse(AppConstants.shizukuPlayStoreUrl);
 
     try {
-      // Try to launch Shizuku app first
-      final canLaunchApp = await canLaunchUrl(shizukuAppUri);
-      if (canLaunchApp) {
-        await launchUrl(shizukuAppUri);
+      final canLaunchMarket = await canLaunchUrl(marketUri);
+      if (canLaunchMarket) {
+        await launchUrl(marketUri, mode: LaunchMode.externalApplication);
       } else {
-        // If Shizuku is not installed, open Play Store
         await launchUrl(playStoreUri, mode: LaunchMode.externalApplication);
       }
     } catch (e) {
-      // If package URI doesn't work, try Play Store directly
       try {
         await launchUrl(playStoreUri, mode: LaunchMode.externalApplication);
       } catch (e) {
@@ -36,12 +40,20 @@ class ShizukuPermissionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSetup = type == ShizukuDialogType.setup;
+    
     return AlertDialog(
       title: Row(
         children: [
-          const Icon(Icons.lock_outlined, color: Colors.orange),
+          Icon(
+            isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined,
+            color: Colors.orange,
+          ),
           SizedBox(width: 8.w),
-          Text(context.loc.permissionRequired, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
+          Text(
+            isSetup ? context.loc.shizukuRequired : context.loc.permissionRequired,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+          ),
         ],
       ),
       content: SingleChildScrollView(
@@ -50,57 +62,26 @@ class ShizukuPermissionDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              context.loc.permissionRequiredMessage,
+              isSetup ? context.loc.shizukuRequiredMessage : context.loc.permissionRequiredMessage,
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 16.h),
             Text(
-              context.loc.permissionSteps,
+              isSetup ? context.loc.setupSteps : context.loc.permissionSteps,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8.h),
-            _buildStep(
-              context,
-              '1',
-              context.loc.permissionStep1,
-            ),
-            _buildStep(
-              context,
-              '2',
-              context.loc.permissionStep2,
-            ),
-            _buildStep(
-              context,
-              '3',
-              context.loc.permissionStep3,
-            ),
-            SizedBox(height: 16.h),
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(8.rSafe),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    size: 20.w,
-                  ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Text(
-                      context.loc.permissionNote,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            if (isSetup) ...[
+              SetupStepItem(number: '1', text: context.loc.step1),
+              SetupStepItem(number: '2', text: context.loc.step2),
+              SetupStepItem(number: '3', text: context.loc.step3),
+              SetupStepItem(number: '4', text: context.loc.step4),
+              SetupStepItem(number: '5', text: context.loc.step5),
+            ] else ...[
+              SetupStepItem(number: '1', text: context.loc.permissionStep1),
+              SetupStepItem(number: '2', text: context.loc.permissionStep2),
+              SetupStepItem(number: '3', text: context.loc.permissionStep3),
+            ],
           ],
         ),
       ),
@@ -109,53 +90,18 @@ class ShizukuPermissionDialog extends StatelessWidget {
           onPressed: () => SystemNavigator.pop(),
           child: Text(context.loc.exitApp),
         ),
-        FilledButton.icon(
-          onPressed: _openShizukuOrPlayStore,
-          icon: const Icon(Icons.open_in_new),
-          label: Text(context.loc.openShizuku),
-        ),
+      
+          FilledButton.icon(
+            onPressed: _openShizukuOrPlayStore,
+            icon: const Icon(Icons.open_in_new),
+            label: Text(context.loc.openShizuku),
+          ),
         FilledButton.icon(
           onPressed: onRetry,
           icon: const Icon(Icons.refresh),
           label: Text(context.loc.retry),
         ),
       ],
-    );
-  }
-
-  Widget _buildStep(BuildContext context, String number, String text) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 24.w,
-            height: 24.h,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                number,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.sp,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(top: 2.h),
-              child: Text(text),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
-import 'widgets/shizuku_setup_dialog.dart';
 import 'widgets/shizuku_permission_dialog.dart';
 import 'widgets/home_body.dart';
 import 'widgets/language_selector.dart';
@@ -54,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ShizukuSetupDialog(
+      builder: (context) => ShizukuPermissionDialog(
+        type: ShizukuDialogType.setup,
         onRetry: () {
           Navigator.of(context).pop();
           homeBloc.add(const HomeEvent.initializeShizuku());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class ServiceDetailRow extends StatelessWidget {
   final String label;
@@ -13,7 +14,7 @@ class ServiceDetailRow extends StatelessWidget {
       children: [
         Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 2),
-        SelectableText(value, style: const TextStyle(fontSize: 14)),
+        SelectableText(value, style: TextStyle(fontSize: 14.sp)),
       ],
     );
   }

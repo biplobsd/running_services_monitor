@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+
 
 class SetupStepItem extends StatelessWidget {
   final String number;
@@ -25,7 +27,7 @@ class SetupStepItem extends StatelessWidget {
                 number,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),

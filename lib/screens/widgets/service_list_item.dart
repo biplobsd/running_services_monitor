@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_icon.dart';
 import 'service_details_dialog.dart';
@@ -23,7 +24,7 @@ class ServiceListItem extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               service.packageName,
-              style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: TextStyle(fontSize: 12.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             if (service.ramUsage != null) ...[
               const SizedBox(height: 2),
@@ -34,7 +35,7 @@ class ServiceListItem extends StatelessWidget {
                   Text(
                     service.ramUsage!,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -46,7 +47,7 @@ class ServiceListItem extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 'Service: ${service.serviceClass}',
-                style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -58,7 +59,7 @@ class ServiceListItem extends StatelessWidget {
                 const SizedBox(width: 4),
                 Text(
                   'PID: ${service.pid}',
-                  style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.primary),
+                  style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(width: 12),
                 Icon(
@@ -72,7 +73,7 @@ class ServiceListItem extends StatelessWidget {
                 Text(
                   service.isSystemApp ? 'System' : 'User',
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 11.sp,
                     color: service.isSystemApp
                         ? Theme.of(context).colorScheme.secondary
                         : Theme.of(context).colorScheme.tertiary,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -99,10 +100,10 @@ class _RamBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 195;
+  double get maxExtent => 195.h;
 
   @override
-  double get minExtent => 195;
+  double get minExtent => 195.h;
 
   @override
   bool shouldRebuild(covariant _RamBarDelegate oldDelegate) {

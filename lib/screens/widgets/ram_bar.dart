@@ -51,7 +51,7 @@ class RamBar extends StatelessWidget {
             AppLocalizations.of(context)!.deviceMemory,
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 15.h),
 
           ClipRRect(
             borderRadius: BorderRadius.circular(8.rSafe),
