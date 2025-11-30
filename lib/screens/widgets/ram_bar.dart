@@ -43,9 +43,10 @@ class RamBar extends StatelessWidget {
     final double freeFlex = freeRamKb / totalRamKb;
 
     return Padding(
-      padding: EdgeInsets.all(16.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 5.0.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             AppLocalizations.of(context)!.deviceMemory,

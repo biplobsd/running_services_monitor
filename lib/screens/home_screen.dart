@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     if (_refreshCount % 5 == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.loc.enjoyingApp),
+          content: Text(context.loc.enjoyingApp, style: TextStyle(fontSize: 14.sp)),
           action: SnackBarAction(label: context.loc.donate, onPressed: () => context.push('/about')),
         ),
       );
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(value.notification!),
+                    content: Text(value.notification!, style: TextStyle(fontSize: 14.sp)),
                     duration: const Duration(seconds: 1),
                     behavior: SnackBarBehavior.floating,
                   ),
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         },
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight((kToolbarHeight + 48).h),
+            preferredSize: Size.fromHeight((kToolbarHeight + 100).sp),
             child: BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
                 final value = state.value;
@@ -132,9 +132,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           child: TabBar(
                             controller: _tabController,
                             tabs: [
-                              Tab(text: '${context.loc.all} (${value.allApps.length})'),
-                              Tab(text: '${context.loc.user} (${value.userApps.length})'),
-                              Tab(text: '${context.loc.system} (${value.systemApps.length})'),
+                              Tab(child: Text('${context.loc.all} (${value.allApps.length})', style: TextStyle(fontSize: 14.sp))),
+                              Tab(child: Text('${context.loc.user} (${value.userApps.length})', style: TextStyle(fontSize: 14.sp))),
+                              Tab(child: Text('${context.loc.system} (${value.systemApps.length})', style: TextStyle(fontSize: 14.sp))),
                             ],
                           ),
                         )
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 value.systemApps.isNotEmpty &&
                                 value.userApps.isNotEmpty &&
                                 value.allApps.isNotEmpty
-                            ? SizedBox(width: 24.w, height: 24.h, child: const CircularProgressIndicator(strokeWidth: 2))
+                            ? SizedBox(width: 18.w, height: 24.h, child: FittedBox(child: CircularProgressIndicator()))
                             : const Icon(Icons.refresh),
                         onPressed: value.isLoading ? null : () => homeBloc.add(const HomeEvent.loadData()),
                         tooltip: context.loc.refresh,

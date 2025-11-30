@@ -48,6 +48,7 @@ class ShizukuPermissionDialog extends StatelessWidget {
           Icon(
             isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined,
             color: Colors.orange,
+            size: 24.sp,
           ),
           SizedBox(width: 8.w),
           Text(
@@ -63,12 +64,12 @@ class ShizukuPermissionDialog extends StatelessWidget {
           children: [
             Text(
               isSetup ? context.loc.shizukuRequiredMessage : context.loc.permissionRequiredMessage,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
             ),
             SizedBox(height: 16.h),
             Text(
               isSetup ? context.loc.setupSteps : context.loc.permissionSteps,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
             ),
             SizedBox(height: 8.h),
             if (isSetup) ...[
@@ -88,18 +89,18 @@ class ShizukuPermissionDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => SystemNavigator.pop(),
-          child: Text(context.loc.exitApp),
+          child: Text(context.loc.exitApp, style: TextStyle(fontSize: 14.sp)),
         ),
       
           FilledButton.icon(
             onPressed: _openShizukuOrPlayStore,
-            icon: const Icon(Icons.open_in_new),
-            label: Text(context.loc.openShizuku),
+            icon: Icon(Icons.open_in_new, size: 18.sp),
+            label: Text(context.loc.openShizuku, style: TextStyle(fontSize: 14.sp)),
           ),
         FilledButton.icon(
           onPressed: onRetry,
-          icon: const Icon(Icons.refresh),
-          label: Text(context.loc.retry),
+          icon: Icon(Icons.refresh, size: 18.sp),
+          label: Text(context.loc.retry, style: TextStyle(fontSize: 14.sp)),
         ),
       ],
     );

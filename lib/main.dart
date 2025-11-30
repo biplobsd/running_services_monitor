@@ -55,36 +55,40 @@ class MyApp extends StatelessWidget {
         builder: (context, themeMode) {
           return BlocBuilder<LanguageBloc, LanguageState>(
             builder: (context, languageState) {
-              return ScaleKitBuilder(
-                designWidth: 375,
-                designHeight: 812,
-                child: MaterialApp.router(
-                  routerConfig: createAppRouter(),
-                  onGenerateTitle: (context) => context.loc.appTitle,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  locale: languageState.locale,
-                  debugShowCheckedModeBanner: false,
-                  scrollBehavior: const MaterialScrollBehavior().copyWith(
-                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                  ),
-                  theme: ThemeData(
-                    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
-                    useMaterial3: true,
-                    appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-                  ),
-                  darkTheme: ThemeData(
-                    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
-                    useMaterial3: true,
-                    appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-                  ),
-                  themeMode: themeMode,
+              return MaterialApp.router(
+                routerConfig: createAppRouter(),
+                onGenerateTitle: (context) => context.loc.appTitle,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: AppLocalizations.supportedLocales,
+                locale: languageState.locale,
+                debugShowCheckedModeBanner: false,
+                scrollBehavior: const MaterialScrollBehavior().copyWith(
+                  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 ),
+                theme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
+                  useMaterial3: true,
+                  appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
+                ),
+                darkTheme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+                  useMaterial3: true,
+                  appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
+                ),
+                themeMode: themeMode,
+                builder: (context, child) {
+                  return ScaleKitBuilder(
+                    designWidth: 375,
+                    designHeight: 812,
+                    designType: DeviceType.mobile,
+                    child: child!,
+                  );
+                },
               );
             },
           );

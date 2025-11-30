@@ -59,7 +59,7 @@ class HomeBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SliverToBoxAdapter(child: Divider(height: 1)),
+                  SliverToBoxAdapter(child: Divider(height: 1.h)),
                 ];
               },
               body:
@@ -100,10 +100,10 @@ class _RamBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 195.h;
+  double get maxExtent => 190.h;
 
   @override
-  double get minExtent => 195.h;
+  double get minExtent => 190.h;
 
   @override
   bool shouldRebuild(covariant _RamBarDelegate oldDelegate) {

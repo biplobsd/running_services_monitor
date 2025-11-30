@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/l10n/app_localizations.dart';
 
 class ErrorState extends StatelessWidget {
@@ -11,14 +12,14 @@ class ErrorState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.all(24.0.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
-            const SizedBox(height: 16),
+            Icon(Icons.error_outline, size: 64.w, color: Theme.of(context).colorScheme.error),
+            SizedBox(height: 16.h),
             Text(errorMessage, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),

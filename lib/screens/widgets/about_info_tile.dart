@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class AboutInfoTile extends StatelessWidget {
   final IconData icon;
@@ -15,7 +16,7 @@ class AboutInfoTile extends StatelessWidget {
       title: Text(title),
       subtitle: Text(subtitle),
       onTap: onTap,
-      trailing: onTap != null ? const Icon(Icons.open_in_new, size: 16) : null,
+      trailing: onTap != null ? Icon(Icons.open_in_new, size: 16.w) : null,
     );
   }
 }

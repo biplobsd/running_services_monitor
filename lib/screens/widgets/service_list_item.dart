@@ -14,24 +14,24 @@ class ServiceListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       child: ListTile(
         leading: ServiceIcon(service: service),
         title: Text(service.appName ?? service.packageName, style: const TextStyle(fontWeight: FontWeight.w500)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 4),
+            SizedBox(height: 4.h),
             Text(
               service.packageName,
               style: TextStyle(fontSize: 12.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             if (service.ramUsage != null) ...[
-              const SizedBox(height: 2),
+              SizedBox(height: 2.h),
               Row(
                 children: [
-                  Icon(Icons.memory, size: 12, color: Theme.of(context).colorScheme.secondary),
-                  const SizedBox(width: 4),
+                  Icon(Icons.memory, size: 12.w, color: Theme.of(context).colorScheme.secondary),
+                  SizedBox(width: 4.w),
                   Text(
                     service.ramUsage!,
                     style: TextStyle(
@@ -44,7 +44,7 @@ class ServiceListItem extends StatelessWidget {
               ),
             ],
             if (service.serviceClass != null) ...[
-              const SizedBox(height: 2),
+              SizedBox(height: 2.h),
               Text(
                 'Service: ${service.serviceClass}',
                 style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -52,24 +52,24 @@ class ServiceListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ],
-            const SizedBox(height: 2),
+            SizedBox(height: 2.h),
             Row(
               children: [
-                Icon(Icons.numbers, size: 12, color: Theme.of(context).colorScheme.primary),
-                const SizedBox(width: 4),
+                Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
+                SizedBox(width: 4.w),
                 Text(
                   'PID: ${service.pid}',
                   style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 Icon(
                   service.isSystemApp ? Icons.android : Icons.person,
-                  size: 12,
+                  size: 12.w,
                   color: service.isSystemApp
                       ? Theme.of(context).colorScheme.secondary
                       : Theme.of(context).colorScheme.tertiary,
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4.w),
                 Text(
                   service.isSystemApp ? 'System' : 'User',
                   style: TextStyle(

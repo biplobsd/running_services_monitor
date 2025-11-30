@@ -16,7 +16,7 @@ class AppListItem extends StatelessWidget {
     final serviceCount = appInfo.services.length;
 
     return ListTile(
-      leading: AppIcon(appInfo: appInfo, size: 40),
+      leading: AppIcon(appInfo: appInfo, size: 40.sp),
       title: Text(appInfo.appName, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp)),
       subtitle: Text(
         '$processCount ${AppLocalizations.of(context)!.processAnd} $serviceCount ${AppLocalizations.of(context)!.services}',
