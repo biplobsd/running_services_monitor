@@ -1,0 +1,3 @@
+IzzyOnDroid/F-Droid compatibility improvements:
+• Removed Google's dependency metadata blob for enhanced privacy
+• Added per-ABI builds to significantly reduce APK size
