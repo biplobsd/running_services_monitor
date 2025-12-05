@@ -18,21 +18,30 @@ class AppHeader extends StatelessWidget {
         AppIcon(appInfo: appInfo),
         SizedBox(width: 16.w),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(appInfo.appName, style: Theme.of(context).textTheme.headlineSmall),
-              SizedBox(height: 4.h),
-              Text(
-                '$processCount process and $serviceCount services',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-              ),
-            ],
+          child: SelectionArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(appInfo.appName, style: Theme.of(context).textTheme.headlineSmall),
+                SizedBox(height: 4.h),
+                Text(
+                  appInfo.packageName,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  '$processCount process and $serviceCount services',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+              ],
+            ),
           ),
         ),
-        Text(appInfo.totalRam, style: Theme.of(context).textTheme.titleMedium),
+        SelectionArea(child: Text(appInfo.totalRam, style: Theme.of(context).textTheme.titleMedium)),
       ],
     );
   }

@@ -66,5 +66,17 @@
   "openShizuku": "Open Shizuku",
   "systemAppWarning": "⚠️ WARNING: This is a SYSTEM APP. Stopping it may cause your device to malfunction or become unstable. Only proceed if you know what you're doing!",
   "runningServicesTitle": "System Running Services",
-  "openRunningServicesTooltip": "Open Running Services in Android Settings"
+  "openRunningServicesTooltip": "Open Running Services in Android Settings",
+  "error": "Error",
+  "appInfoNotFound": "App information not found",
+  "pageNotFound": "Page not found: {location}",
+  "@pageNotFound": {
+    "description": "Error message when a page is not found",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "The requested page location"
+      }
+    }
+  }
 }

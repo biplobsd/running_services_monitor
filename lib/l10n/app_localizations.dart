@@ -487,6 +487,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open Running Services in Android Settings'**
   String get openRunningServicesTooltip;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @appInfoNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'App information not found'**
+  String get appInfoNotFound;
+
+  /// Error message when a page is not found
+  ///
+  /// In en, this message translates to:
+  /// **'Page not found: {location}'**
+  String pageNotFound(String location);
 }
 
 class _AppLocalizationsDelegate

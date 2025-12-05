@@ -17,71 +17,76 @@ class ServiceListItem extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       child: ListTile(
         leading: ServiceIcon(service: service),
-        title: Text(service.appName ?? service.packageName, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 4.h),
-            Text(
-              service.packageName,
-              style: TextStyle(fontSize: 12.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
-            if (service.ramUsage != null) ...[
+        title: Text(
+          service.appName ?? service.packageName,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
+        ),
+        subtitle: SelectionArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 4.h),
+              Text(
+                service.packageName,
+                style: TextStyle(fontSize: 12.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
+              if (service.ramUsage != null) ...[
+                SizedBox(height: 2.h),
+                Row(
+                  children: [
+                    Icon(Icons.memory, size: 12.w, color: Theme.of(context).colorScheme.secondary),
+                    SizedBox(width: 4.w),
+                    Text(
+                      service.ramUsage!,
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              if (service.serviceClass != null) ...[
+                SizedBox(height: 2.h),
+                Text(
+                  'Service: ${service.serviceClass}',
+                  style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
               SizedBox(height: 2.h),
               Row(
                 children: [
-                  Icon(Icons.memory, size: 12.w, color: Theme.of(context).colorScheme.secondary),
+                  Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
                   SizedBox(width: 4.w),
                   Text(
-                    service.ramUsage!,
+                    'PID: ${service.pid}',
+                    style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
+                  ),
+                  SizedBox(width: 12.w),
+                  Icon(
+                    service.isSystemApp ? Icons.android : Icons.person,
+                    size: 12.w,
+                    color: service.isSystemApp
+                        ? Theme.of(context).colorScheme.secondary
+                        : Theme.of(context).colorScheme.tertiary,
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    service.isSystemApp ? 'System' : 'User',
                     style: TextStyle(
                       fontSize: 11.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: service.isSystemApp
+                          ? Theme.of(context).colorScheme.secondary
+                          : Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
                 ],
               ),
             ],
-            if (service.serviceClass != null) ...[
-              SizedBox(height: 2.h),
-              Text(
-                'Service: ${service.serviceClass}',
-                style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-            SizedBox(height: 2.h),
-            Row(
-              children: [
-                Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
-                SizedBox(width: 4.w),
-                Text(
-                  'PID: ${service.pid}',
-                  style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
-                ),
-                SizedBox(width: 12.w),
-                Icon(
-                  service.isSystemApp ? Icons.android : Icons.person,
-                  size: 12.w,
-                  color: service.isSystemApp
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.tertiary,
-                ),
-                SizedBox(width: 4.w),
-                Text(
-                  service.isSystemApp ? 'System' : 'User',
-                  style: TextStyle(
-                    fontSize: 11.sp,
-                    color: service.isSystemApp
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context).colorScheme.tertiary,
-                  ),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
         trailing: Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.onSurfaceVariant),
         onTap: () {

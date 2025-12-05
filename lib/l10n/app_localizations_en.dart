@@ -211,4 +211,15 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get openRunningServicesTooltip =>
       'Open Running Services in Android Settings';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get appInfoNotFound => 'App information not found';
+
+  @override
+  String pageNotFound(String location) {
+    return 'Page not found: $location';
+  }
 }

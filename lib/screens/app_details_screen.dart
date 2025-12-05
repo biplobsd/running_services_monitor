@@ -57,7 +57,9 @@ class AppDetailsScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.check_circle, color: Colors.white),
                       const SizedBox(width: 16),
-                      Expanded(child: Text(context.loc.allServicesStopped, style: TextStyle(fontSize: 14.sp))),
+                      Expanded(
+                        child: Text(context.loc.allServicesStopped, style: TextStyle(fontSize: 14.sp)),
+                      ),
                     ],
                   ),
                   backgroundColor: Colors.green[700],
@@ -84,7 +86,9 @@ class AppDetailsScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.error, color: Colors.white),
                       const SizedBox(width: 16),
-                      Expanded(child: Text('${context.loc.stopServiceError}: $message', style: TextStyle(fontSize: 14.sp))),
+                      Expanded(
+                        child: Text('${context.loc.stopServiceError}: $message', style: TextStyle(fontSize: 14.sp)),
+                      ),
                     ],
                   ),
                   backgroundColor: Colors.red[700],
@@ -105,97 +109,98 @@ class AppDetailsScreen extends StatelessWidget {
               orElse: () => appInfo,
             );
 
-            return SelectionArea(
-              child: Scaffold(
-                appBar: AppBar(title: Text(context.loc.runningApp, style: TextStyle(fontSize: 20.sp))),
-                body: CustomScrollView(
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.all(24.0.w),
-                      sliver: SliverList(
-                        delegate: SliverChildListDelegate([
-                          AppHeader(appInfo: currentAppInfo),
-                          SizedBox(height: 24.h),
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(context.loc.runningApp, style: TextStyle(fontSize: 20.sp)),
+              ),
+              body: CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: EdgeInsets.all(24.0.w),
+                    sliver: SliverList(
+                      delegate: SliverChildListDelegate([
+                        AppHeader(appInfo: currentAppInfo),
+                        SizedBox(height: 24.h),
 
+                        const AppDetailsDescription(),
 
-                          const AppDetailsDescription(),
+                        SizedBox(height: 32.h),
+                        const Divider(),
+                        SizedBox(height: 16.h),
 
-                          SizedBox(height: 32.h),
-                          const Divider(),
-                          SizedBox(height: 16.h),
-
-
-                          AppDetailsSectionTitle(title: context.loc.activeServices),
-                          SizedBox(height: 8.h),
-                        ]),
-                      ),
+                        AppDetailsSectionTitle(title: context.loc.activeServices),
+                        SizedBox(height: 8.h),
+                      ]),
                     ),
-                    SliverFillRemaining(hasScrollBody: true, child: ServiceList(services: currentAppInfo.services)),
-                  ],
-                ),
-                floatingActionButton: FloatingActionButton.extended(
-                  onPressed: () async {
-                    final confirmed = await showDialog<bool>(
-                      context: context,
-                      builder: (dialogContext) => AlertDialog(
-                        title: Text(context.loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(currentAppInfo.appName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp)),
-                            SizedBox(height: 8.h),
-                            Text(context.loc.stopServiceWarning, style: TextStyle(fontSize: 14.sp)),
-                            if (currentAppInfo.isSystemApp) ...[
-                              SizedBox(height: 12.h),
-                              Container(
-                                padding: EdgeInsets.all(12.w),
-                                decoration: BoxDecoration(
-                                  color: Colors.red[900]?.withValues(alpha: 0.3),
-                                  border: Border.all(color: Colors.red, width: 2.w),
-                                  borderRadius: BorderRadius.circular(8.rSafe),
-                                ),
-                                child: Text(
-                                  context.loc.systemAppWarning,
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.error,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.sp,
-                                  ),
+                  ),
+                  SliverFillRemaining(hasScrollBody: true, child: ServiceList(services: currentAppInfo.services)),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton.extended(
+                onPressed: () async {
+                  final confirmed = await showDialog<bool>(
+                    context: context,
+                    builder: (dialogContext) => AlertDialog(
+                      title: Text(context.loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            currentAppInfo.appName,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(context.loc.stopServiceWarning, style: TextStyle(fontSize: 14.sp)),
+                          if (currentAppInfo.isSystemApp) ...[
+                            SizedBox(height: 12.h),
+                            Container(
+                              padding: EdgeInsets.all(12.w),
+                              decoration: BoxDecoration(
+                                color: Colors.red[900]?.withValues(alpha: 0.3),
+                                border: Border.all(color: Colors.red, width: 2.w),
+                                borderRadius: BorderRadius.circular(8.rSafe),
+                              ),
+                              child: Text(
+                                context.loc.systemAppWarning,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.sp,
                                 ),
                               ),
-                            ],
+                            ),
                           ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(dialogContext).pop(false),
-                            child: Text(context.loc.cancel, style: TextStyle(fontSize: 14.sp)),
-                          ),
-                          FilledButton(
-                            onPressed: () => Navigator.of(dialogContext).pop(true),
-                            style: FilledButton.styleFrom(backgroundColor: Colors.red),
-                            child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
-                          ),
                         ],
                       ),
-                    );
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(dialogContext).pop(false),
+                          child: Text(context.loc.cancel, style: TextStyle(fontSize: 14.sp)),
+                        ),
+                        FilledButton(
+                          onPressed: () => Navigator.of(dialogContext).pop(true),
+                          style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                          child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
+                        ),
+                      ],
+                    ),
+                  );
 
-                    if (confirmed == true) {
-                      if (context.mounted) {
-                        context.read<StopServiceBloc>().add(
-                          StopServiceEvent.stopAllServices(
-                            packageName: currentAppInfo.packageName,
-                            pids: currentAppInfo.pids,
-                          ),
-                        );
-                      }
+                  if (confirmed == true) {
+                    if (context.mounted) {
+                      context.read<StopServiceBloc>().add(
+                        StopServiceEvent.stopAllServices(
+                          packageName: currentAppInfo.packageName,
+                          pids: currentAppInfo.pids,
+                        ),
+                      );
                     }
-                  },
-                  backgroundColor: Colors.red,
-                  icon: const Icon(Icons.stop_circle),
-                  label: Text(context.loc.stopAllServices, style: TextStyle(fontSize: 14.sp)),
-                ),
+                  }
+                },
+                backgroundColor: Colors.red,
+                icon: const Icon(Icons.stop_circle),
+                label: Text(context.loc.stopAllServices, style: TextStyle(fontSize: 14.sp)),
               ),
             );
           },

@@ -213,4 +213,15 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get openRunningServicesTooltip =>
       'অ্যান্ড্রয়েড সেটিংসে রানিং সার্ভিসেস খুলুন';
+
+  @override
+  String get error => 'ত্রুটি';
+
+  @override
+  String get appInfoNotFound => 'অ্যাপের তথ্য পাওয়া যায়নি';
+
+  @override
+  String pageNotFound(String location) {
+    return 'পৃষ্ঠা পাওয়া যায়নি: $location';
+  }
 }
