@@ -15,7 +15,6 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-
   String version = '';
 
   @override
@@ -42,16 +41,15 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-
-      debugPrint('Could not launch $url');
-    }
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc.about, style: TextStyle(fontSize: 20.sp))),
+      appBar: AppBar(
+        title: Text(context.loc.about, style: TextStyle(fontSize: 20.sp)),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverPadding(
@@ -60,11 +58,7 @@ class _AboutScreenState extends State<AboutScreen> {
               delegate: SliverChildListDelegate([
                 AboutHeader(version: version),
                 SizedBox(height: 32.h),
-                AboutInfoTile(
-                  icon: Icons.person,
-                  title: context.loc.developer,
-                  subtitle: AppConstants.developerName,
-                ),
+                AboutInfoTile(icon: Icons.person, title: context.loc.developer, subtitle: AppConstants.developerName),
                 AboutInfoTile(
                   icon: Icons.email,
                   title: context.loc.email,

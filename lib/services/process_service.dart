@@ -23,7 +23,7 @@ class ProcessService {
       }
       return buffer.toString();
     } catch (e) {
-      debugPrint('Error fetching raw services data: $e');
+
       return null;
     }
   }
@@ -75,7 +75,7 @@ class ProcessService {
 
       return finalAppProcessInfos;
     } catch (e) {
-      debugPrint('Error processing service data: $e');
+
       return [];
     }
   }
@@ -151,7 +151,7 @@ class ProcessService {
                   totalRamInKb: totalRamKb,
                 );
                 groupedApps[currentPackage] = updatedApp;
-                debugPrint('Updated grouped app: $currentPackage now has ${mergedServices.length} services');
+
                 yield updatedApp;
               } else {
                 final appProcessInfo = _createAppProcessInfo(
@@ -161,7 +161,7 @@ class ProcessService {
                   ramMap: ramMap,
                 );
                 groupedApps[currentPackage] = appProcessInfo;
-                debugPrint('Yielding new app: $currentPackage with ${services.length} services');
+
                 yield appProcessInfo;
               }
             }
@@ -205,7 +205,7 @@ class ProcessService {
               totalRamInKb: totalRamKb,
             );
             groupedApps[currentPackage] = updatedApp;
-            debugPrint('Final update for grouped app: $currentPackage with ${mergedServices.length} services');
+
             yield updatedApp;
           } else {
             final appProcessInfo = _createAppProcessInfo(
@@ -214,7 +214,7 @@ class ProcessService {
               appMap: appMap,
               ramMap: ramMap,
             );
-            debugPrint('Yielding final app: $currentPackage with ${services.length} services');
+
             yield appProcessInfo;
           }
         }
@@ -286,7 +286,7 @@ class ProcessService {
         createdFromFg = trimmedLine.substring('createdFromFg='.length) == 'true';
       } else if (trimmedLine.startsWith('app=ProcessRecord{')) {
         if (trimmedLine == 'app=null') {
-          debugPrint('Skipping service with app=null: $packageName/$serviceName');
+
           return [];
         }
 
@@ -309,7 +309,7 @@ class ProcessService {
           packageName.startsWith('android') ||
           packageName.startsWith('com.google.android');
 
-      debugPrint('Parsed service: $packageName/$serviceName, PID: $pid');
+
 
       services.add(
         RunningServiceInfo(
@@ -333,7 +333,7 @@ class ProcessService {
         ),
       );
     } else {
-      debugPrint('Incomplete service data - pkg: $packageName, svc: $serviceName, pid: $pid');
+
     }
 
     return services;
@@ -415,7 +415,7 @@ class ProcessService {
       }
       return buffer.toString();
     } catch (e) {
-      debugPrint('Error getting meminfo: $e');
+
       return null;
     }
   }
@@ -427,45 +427,40 @@ class ProcessService {
 
       return (ramInfo: await compute(_parseSystemRamInfo, result), meminfo: result);
     } catch (e) {
-      debugPrint('Error getting system RAM info: $e');
+
       return (ramInfo: null, meminfo: null);
     }
   }
 
   Future<bool> stopServiceByPid(int pid) async {
     try {
-      debugPrint('Attempting to kill PID: $pid');
       final result = await _shizukuService.executeCommand('kill -9 $pid');
 
       if (result == null ||
           result.isEmpty ||
           !result.toLowerCase().contains('error') && !result.toLowerCase().contains('permission denied')) {
-        debugPrint('Successfully killed PID: $pid');
         return true;
       } else {
-        debugPrint('Failed to kill PID $pid: $result');
         return false;
       }
     } catch (e) {
-      debugPrint('Error killing PID $pid: $e');
       return false;
     }
   }
 
   Future<bool> stopService(String packageName) async {
     try {
-      debugPrint('Attempting to stop service: $packageName');
+
       final result = await _shizukuService.executeCommand('am force-stop $packageName');
 
       if (result == null || result.isEmpty || !result.toLowerCase().contains('error')) {
-        debugPrint('Successfully stopped: $packageName');
         return true;
       } else {
-        debugPrint('Failed to stop $packageName: $result');
+
         return false;
       }
     } catch (e) {
-      debugPrint('Error stopping service $packageName: $e');
+
       return false;
     }
   }

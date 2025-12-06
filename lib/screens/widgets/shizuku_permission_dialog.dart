@@ -13,11 +13,7 @@ class ShizukuPermissionDialog extends StatelessWidget {
   final VoidCallback onRetry;
   final ShizukuDialogType type;
 
-  const ShizukuPermissionDialog({
-    super.key,
-    required this.onRetry,
-    this.type = ShizukuDialogType.permission,
-  });
+  const ShizukuPermissionDialog({super.key, required this.onRetry, this.type = ShizukuDialogType.permission});
 
   Future<void> _openShizukuOrPlayStore() async {
     final marketUri = Uri.parse('market://details?id=${AppConstants.shizukuPackageName}');
@@ -33,24 +29,18 @@ class ShizukuPermissionDialog extends StatelessWidget {
     } catch (e) {
       try {
         await launchUrl(playStoreUri, mode: LaunchMode.externalApplication);
-      } catch (e) {
-        debugPrint('Error opening Shizuku or Play Store: $e');
-      }
+      } catch (_) {}
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final isSetup = type == ShizukuDialogType.setup;
-    
+
     return AlertDialog(
       title: Row(
         children: [
-          Icon(
-            isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined,
-            color: Colors.orange,
-            size: 24.sp,
-          ),
+          Icon(isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined, color: Colors.orange, size: 24.sp),
           SizedBox(width: 8.w),
           Text(
             isSetup ? context.loc.shizukuRequired : context.loc.permissionRequired,

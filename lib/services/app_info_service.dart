@@ -24,13 +24,10 @@ class AppInfoService {
         throw Exception('RootIsolateToken is null');
       }
 
-
       final appsList = await compute(_fetchInstalledApps, _FetchAppsParams(token: token));
 
       _cachedApps = {for (var app in appsList) app.packageName: app};
       _lastFetchTime = DateTime.now();
-      debugPrint("Has app icons count:  ${appsList.where((app) => app.icon != null).length} of ${appsList.length}");
-      debugPrint('AppInfoService: Cache refreshed with ${_cachedApps!.length} apps');
     }
   }
 
@@ -42,11 +39,9 @@ class AppInfoService {
   Future<AppInfo?> getAppInfo(String packageName) async {
     await _ensureCacheValid();
 
-
     if (_cachedApps!.containsKey(packageName)) {
       return _cachedApps![packageName];
     }
-
 
     try {
       final token = RootIsolateToken.instance;
