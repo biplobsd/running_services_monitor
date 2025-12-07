@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   int _refreshCount = 0;
+  bool _isFabExtended = true;
 
   @override
   void initState() {
@@ -233,16 +235,50 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const AboutButton(),
             ],
           ),
-          body: HomeBody(tabController: _tabController),
+          body: NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              if (notification is UserScrollNotification) {
+                final direction = notification.direction;
+                final atTop = notification.metrics.pixels <= 0;
+                if (atTop && !_isFabExtended) {
+                  setState(() => _isFabExtended = true);
+                } else if (direction == ScrollDirection.reverse && _isFabExtended && !atTop) {
+                  setState(() => _isFabExtended = false);
+                } else if (direction == ScrollDirection.forward && !_isFabExtended) {
+                  setState(() => _isFabExtended = true);
+                }
+              }
+              return false;
+            },
+            child: HomeBody(tabController: _tabController),
+          ),
           floatingActionButton: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               final value = state.value;
               if (!value.shizukuReady) return const SizedBox.shrink();
-              return FloatingActionButton.extended(
-                onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
-                icon: const Icon(Icons.security),
-                label: Text(context.loc.runningServicesTitle, style: TextStyle(fontSize: 14.sp)),
-                tooltip: context.loc.openRunningServicesTooltip,
+
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                transitionBuilder: (child, animation) => SizeTransition(
+                  sizeFactor: animation,
+                  axis: Axis.horizontal,
+                  axisAlignment: -1,
+                  child: Align(alignment: Alignment.bottomRight, child: child),
+                ),
+                child: _isFabExtended
+                    ? FloatingActionButton.extended(
+                        key: const ValueKey('extended'),
+                        onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
+                        icon: const Icon(Icons.security),
+                        label: Text(context.loc.runningServicesTitle, style: TextStyle(fontSize: 14.sp)),
+                        tooltip: context.loc.openRunningServicesTooltip,
+                      )
+                    : FloatingActionButton(
+                        key: const ValueKey('collapsed'),
+                        onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
+                        tooltip: context.loc.openRunningServicesTooltip,
+                        child: const Icon(Icons.security),
+                      ),
               );
             },
           ),

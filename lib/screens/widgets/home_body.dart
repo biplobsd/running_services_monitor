@@ -10,6 +10,7 @@ import 'loading_state.dart';
 import 'error_state.dart';
 import 'process_filter_chips.dart';
 import 'sliver_header_delegates.dart';
+import 'custom_scroll_provider.dart';
 
 class HomeBody extends StatelessWidget {
   final TabController tabController;
@@ -74,13 +75,21 @@ class HomeBody extends StatelessWidget {
               SliverToBoxAdapter(child: Divider(height: 1.h)),
             ];
           },
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              AppList(apps: data.model.allApps),
-              AppList(apps: data.model.userApps),
-              AppList(apps: data.model.systemApps),
-            ],
+          body: Builder(
+            builder: (context) {
+              return CustomScrollProvider(
+                tabController: tabController,
+                parent: PrimaryScrollController.of(context),
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    AppList(apps: data.model.allApps, tabIndex: 0),
+                    AppList(apps: data.model.userApps, tabIndex: 1),
+                    AppList(apps: data.model.systemApps, tabIndex: 2),
+                  ],
+                ),
+              );
+            },
           ),
         );
       },

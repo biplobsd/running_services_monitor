@@ -5,14 +5,28 @@ import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'app_list_item.dart';
 import 'empty_list_state.dart';
+import 'custom_scroll_provider.dart';
 
-class AppList extends StatelessWidget {
+class AppList extends StatefulWidget {
   final List<AppProcessInfo> apps;
+  final int tabIndex;
 
-  const AppList({super.key, required this.apps});
+  const AppList({super.key, required this.apps, required this.tabIndex});
+
+  @override
+  State<AppList> createState() => _AppListState();
+}
+
+class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
+    final scrollProvider = CustomScrollProviderData.of(context);
+
     return BlocSelector<
       HomeBloc,
       HomeState,
@@ -24,7 +38,7 @@ class AppList extends StatelessWidget {
         sortAscending: state.value.sortAscending,
       ),
       builder: (context, data) {
-        var filteredApps = apps.where((app) {
+        var filteredApps = widget.apps.where((app) {
           if (data.searchQuery.isNotEmpty) {
             final name = app.appName.toLowerCase();
             final pkg = app.packageName.toLowerCase();
@@ -47,8 +61,8 @@ class AppList extends StatelessWidget {
           content = EmptyListState(isSearching: data.searchQuery.isNotEmpty);
         } else {
           content = CustomScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
+            controller: scrollProvider.scrollControllers[widget.tabIndex],
+            slivers: <Widget>[
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return AppListItem(appInfo: filteredApps[index]);
