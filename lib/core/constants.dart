@@ -20,8 +20,6 @@ class AppConstants {
 
   // App URLs
   static const String sourceCodeUrl = 'https://github.com/biplobsd/running_services_monitor';
-  static const String sourceCodeDisplayUrl = 'github.com/biplobsd/running_services_monitor';
   static const String blogsUrl = 'https://biplobsd.github.io';
-  static const String blogsDisplayUrl = 'biplobsd.github.io';
   static const String buyMeCoffeeUrl = 'https://buymeacoffee.com/biplobsd';
 }

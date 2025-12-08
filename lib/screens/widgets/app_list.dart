@@ -47,7 +47,7 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
             }
           }
 
-          return data.processFilter.matchesAppState(app.processState, app.hasServices);
+          return data.processFilter.matchesAppState(app.processState, app.hasServices, isCached: app.isCached);
         }).toList();
 
         if (data.sortAscending) {

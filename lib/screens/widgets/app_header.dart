@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/models/service_info.dart';
+import 'package:running_services_monitor/utils/format_utils.dart';
 import 'app_icon.dart';
 import 'ram_info_dialog.dart';
 
@@ -44,8 +45,18 @@ class AppHeader extends StatelessWidget {
         ),
         Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SelectionArea(child: Text(appInfo.totalRam, style: Theme.of(context).textTheme.titleMedium)),
+            if (appInfo.cachedMemoryKb > 0) ...[
+              SizedBox(height: 2.h),
+              SelectionArea(
+                child: Text(
+                  'Cached: ${formatRam(appInfo.cachedMemoryKb)}',
+                  style: TextStyle(fontSize: 11.sp, color: Colors.grey),
+                ),
+              ),
+            ],
             SizedBox(height: 4.h),
             GestureDetector(
               onTap: () {

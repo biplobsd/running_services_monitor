@@ -68,13 +68,13 @@ class _AboutScreenState extends State<AboutScreen> {
                 AboutInfoTile(
                   icon: Icons.code,
                   title: context.loc.sourceCode,
-                  subtitle: AppConstants.sourceCodeDisplayUrl,
+                  subtitle: AppConstants.sourceCodeUrl,
                   onTap: () => _launchUrl(AppConstants.sourceCodeUrl),
                 ),
                 AboutInfoTile(
                   icon: Icons.web,
                   title: context.loc.blogs,
-                  subtitle: AppConstants.blogsDisplayUrl,
+                  subtitle: AppConstants.blogsUrl,
                   onTap: () => _launchUrl(AppConstants.blogsUrl),
                 ),
                 SizedBox(height: 24.h),

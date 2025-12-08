@@ -50,6 +50,8 @@ abstract class AppProcessInfo with _$AppProcessInfo {
     String? adjLevel,
     @Default(true) bool hasServices,
     @Default([]) List<RamSourceInfo> ramSources,
+    @Default(false) bool isCached,
+    @Default(0) double cachedMemoryKb,
   }) = _AppProcessInfo;
 }
 

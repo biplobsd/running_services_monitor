@@ -21,14 +21,14 @@ bool isCachedState(String? processState) {
 }
 
 extension ProcessStateFilterExtension on ProcessStateFilter {
-  bool matchesAppState(String? processState, bool hasServices) {
+  bool matchesAppState(String? processState, bool hasServices, {bool isCached = false}) {
     switch (this) {
       case ProcessStateFilter.all:
         return true;
       case ProcessStateFilter.active:
         return isActiveState(processState, hasServices: hasServices);
       case ProcessStateFilter.cached:
-        return isCachedState(processState);
+        return isCachedState(processState) || isCached;
       case ProcessStateFilter.withServices:
         return hasServices;
     }
