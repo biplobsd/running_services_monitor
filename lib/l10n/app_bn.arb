@@ -110,5 +110,6 @@
   "service_string": "{count, plural, one {1 সার্ভিস} other {{count} সার্ভিসগুলো}}",
   "process_string": "{count, plural, one {1 প্রক্রিয়া} other {{count} প্রক্রিয়াগুলো}}",
   "service_process_string": "{processCount, plural, one {1 প্রক্রিয়া} other {{processCount} প্রক্রিয়াগুলো}} এবং {serviceCount, plural, one {1 সার্ভিস} other {{serviceCount} সার্ভিসগুলো}}",
-  "info": "তথ্য"
+  "info": "তথ্য",
+  "followSystem": "সিস্টেম ভাষা অনুসরণ"
 }

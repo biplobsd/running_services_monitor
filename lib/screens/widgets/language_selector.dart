@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/language_bloc/language_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
+import 'package:running_services_monitor/l10n/app_localizations.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});
@@ -9,6 +10,7 @@ class LanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final crtLocale = getIt<LanguageBloc>().state.locale;
+    final loc = AppLocalizations.of(context)!;
     return PopupMenuButton<Locale>(
       icon: const Icon(Icons.language),
       tooltip: 'Language',
@@ -20,7 +22,7 @@ class LanguageSelector extends StatelessWidget {
         CheckedPopupMenuItem (
           checked: crtLocale == null,
           value: Locale('_'),
-          child: Text('System', style: TextStyle(fontSize: 14.sp)),
+          child: Text(loc.followSystem, style: TextStyle(fontSize: 14.sp)),
         ),
         CheckedPopupMenuItem (
           checked: crtLocale == const Locale('en'),

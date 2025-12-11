@@ -351,4 +351,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get info => '信息';
+
+  @override
+  String get followSystem => '跟随系统';
 }

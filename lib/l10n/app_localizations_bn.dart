@@ -385,4 +385,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get info => 'তথ্য';
+
+  @override
+  String get followSystem => 'সিস্টেম ভাষা অনুসরণ';
 }
