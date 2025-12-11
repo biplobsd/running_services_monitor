@@ -26,27 +26,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Fetching contributors..."
-          contributors=$(gh api repos/${{ github.repository }}/contributors --paginate)
+          gh api repos/${{ github.repository }}/contributors --paginate > contributors_raw.json
           
           echo "Fetching merged pull requests..."
-          prs=$(gh api repos/${{ github.repository }}/pulls?state=closed\&per_page=100 --paginate)
-          
-          echo "Processing data..."
-          python3 << 'EOF'
-          import json
-          import os
-          
-          contributors_raw = json.loads('''$contributors'''.replace("'", '"') if '''$contributors''' else '[]')
-          prs_raw = json.loads('''$prs'''.replace("'", '"') if '''$prs''' else '[]')
-          
-          with open('contributors_raw.json', 'w') as f:
-              pass
-          with open('prs_raw.json', 'w') as f:
-              pass
-          EOF
-          
-          echo "$contributors" > contributors_raw.json
-          echo "$prs" > prs_raw.json
+          gh api repos/${{ github.repository }}/pulls?state=closed\&per_page=100 --paginate > prs_raw.json
 
       - name: 📝 Process and Generate JSON
         run: |
