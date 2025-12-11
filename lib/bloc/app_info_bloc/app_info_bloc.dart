@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/services/app_info_service.dart';
 
@@ -39,7 +40,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
       emit(AppInfoState.success(state.value.copyWith(cachedApps: newCachedApps)));
     } catch (e) {
-      emit(AppInfoState.failure(state.value, 'Error loading apps: $e'));
+      emit(AppInfoState.failure(state.value, L10nKeys.errorLoadingData));
     }
   }
 

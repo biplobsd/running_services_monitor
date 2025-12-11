@@ -149,5 +149,44 @@
   "info": "Info",
   "followSystem": "System",
   "contributors": "Contributors",
-  "contributionsCount": "{count} contributions"
+  "contributionsCount": "{count} contributions",
+  "checkingPermissions": "Checking permissions...",
+  "shizukuNotRunning": "Shizuku is not running. Please start Shizuku app.",
+  "permissionDeniedShizuku": "Permission denied. Please grant Shizuku permission.",
+  "failedToInitialize": "Failed to initialize. Please grant permission.",
+  "errorInitializingShizuku": "Error initializing Shizuku",
+  "loadingApps": "Loading apps...",
+  "refreshedSuccessfully": "Refreshed successfully",
+  "errorLoadingData": "Error loading data",
+  "failedToStopAllServices": "Failed to stop all services",
+  "failedToStopServiceName": "Failed to stop service {serviceName}",
+  "@failedToStopServiceName": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "errorPrefix": "Error: {error}",
+  "@errorPrefix": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "language": "Language",
+  "openGithubProfile": "Open GitHub Profile",
+  "appInfoTooltip": "App Info",
+  "ok": "OK",
+  "recentCallingUid": "Recent Calling UID",
+  "appDetails": "App Details",
+  "uidLabel": "UID: {uid}",
+  "@uidLabel": {
+    "placeholders": {
+      "uid": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -362,4 +362,64 @@ class AppLocalizationsZh extends AppLocalizations {
   String contributionsCount(Object count) {
     return '$count 次贡献';
   }
+
+  @override
+  String get checkingPermissions => '正在检查权限...';
+
+  @override
+  String get shizukuNotRunning => 'Shizuku 未运行。请启动 Shizuku 应用。';
+
+  @override
+  String get permissionDeniedShizuku => '权限被拒绝。请授予 Shizuku 权限。';
+
+  @override
+  String get failedToInitialize => '初始化失败。请授予权限。';
+
+  @override
+  String get errorInitializingShizuku => '初始化 Shizuku 时出错';
+
+  @override
+  String get loadingApps => '正在加载应用...';
+
+  @override
+  String get refreshedSuccessfully => '刷新成功';
+
+  @override
+  String get errorLoadingData => '加载数据时出错';
+
+  @override
+  String get failedToStopAllServices => '停止所有服务失败';
+
+  @override
+  String failedToStopServiceName(String serviceName) {
+    return '停止服务 $serviceName 失败';
+  }
+
+  @override
+  String errorPrefix(String error) {
+    return '错误: $error';
+  }
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get openGithubProfile => '打开 GitHub 个人资料';
+
+  @override
+  String get appInfoTooltip => '应用信息';
+
+  @override
+  String get ok => '确定';
+
+  @override
+  String get recentCallingUid => '最近调用的 UID';
+
+  @override
+  String get appDetails => '应用详情';
+
+  @override
+  String uidLabel(int uid) {
+    return 'UID: $uid';
+  }
 }

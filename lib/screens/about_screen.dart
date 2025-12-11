@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/about_bloc/about_bloc.dart';
 import 'package:running_services_monitor/core/constants.dart';
+import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/contributor_info.dart';
 import 'widgets/about_info_tile.dart';
@@ -20,8 +21,8 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AboutBloc()..add(const AboutEvent.started()),
+    return BlocProvider.value(
+      value: getIt<AboutBloc>()..add(const AboutEvent.started()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.loc.about, style: TextStyle(fontSize: 20.sp)),
@@ -35,17 +36,11 @@ class AboutScreen extends StatelessWidget {
                   BlocSelector<AboutBloc, AboutState, String>(
                     selector: (state) => state.version,
                     builder: (context, version) {
-                      return AboutHeader(
-                        version: version.isEmpty ? context.loc.loading : version,
-                      );
+                      return AboutHeader(version: version.isEmpty ? context.loc.loading : version);
                     },
                   ),
                   SizedBox(height: 32.h),
-                  AboutInfoTile(
-                    icon: Icons.person,
-                    title: context.loc.developer,
-                    subtitle: AppConstants.developerName,
-                  ),
+                  AboutInfoTile(icon: Icons.person, title: context.loc.developer, subtitle: AppConstants.developerName),
                   AboutInfoTile(
                     icon: Icons.email,
                     title: context.loc.email,
@@ -93,33 +88,24 @@ class AboutScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 8.h),
-                          ...contributors.map(
-                            (contributor) => ContributorListTile(contributor: contributor),
-                          ),
+                          ...contributors.map((contributor) => ContributorListTile(contributor: contributor)),
                         ],
                       );
                     },
                   ),
                   SizedBox(height: 24.h),
                   Center(
-                    child: FilledButton.icon(
+                    child: FilledButton.tonalIcon(
                       onPressed: () => _launchUrl(AppConstants.buyMeCoffeeUrl),
                       icon: const Icon(Icons.coffee),
                       label: Text(context.loc.buyMeCoffee, style: TextStyle(fontSize: 14.sp)),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.amber[800],
-                        foregroundColor: Colors.white,
-                      ),
                     ),
                   ),
                   SizedBox(height: 5.h),
                   Center(
                     child: Text(
                       context.loc.madeInBangladesh,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                      style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
                   ),
                 ]),

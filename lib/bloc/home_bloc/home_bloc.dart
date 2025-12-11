@@ -3,6 +3,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -41,7 +42,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     final isAlreadyReady = state.value.shizukuReady;
 
     if (!isAlreadyReady) {
-      emit(HomeState.loading(state.value, 'Checking permissions...'));
+      emit(HomeState.loading(state.value, L10nKeys.checkingPermissions));
     }
 
     try {
@@ -60,12 +61,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
       final isRunning = await _shizukuService.isShizukuRunning();
       if (!isRunning) {
-        emit(
-          HomeState.failure(
-            state.value.copyWith(shizukuReady: false),
-            'Shizuku is not running. Please start Shizuku app.',
-          ),
-        );
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.shizukuNotRunning));
         return;
       }
 
@@ -73,24 +69,14 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       if (!hasPermission) {
         final granted = await _shizukuService.requestPermission();
         if (!granted) {
-          emit(
-            HomeState.failure(
-              state.value.copyWith(shizukuReady: false),
-              'Permission denied. Please grant Shizuku permission.',
-            ),
-          );
+          emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.permissionDeniedShizuku));
           return;
         }
       }
 
       final initialized = await _shizukuService.initialize();
       if (!initialized) {
-        emit(
-          HomeState.failure(
-            state.value.copyWith(shizukuReady: false),
-            'Failed to initialize. Please grant permission.',
-          ),
-        );
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.failedToInitialize));
         return;
       }
 
@@ -98,7 +84,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
       add(HomeEvent.loadData(silent: event.silent, notify: event.notify));
     } catch (e) {
-      emit(HomeState.failure(state.value.copyWith(shizukuReady: false), 'Error initializing Shizuku: $e'));
+      emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.errorInitializingShizuku));
     }
   }
 
@@ -131,16 +117,16 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
             freeRamKb: ramInfo?[1] ?? state.value.freeRamKb,
             usedRamKb: ramInfo?[2] ?? state.value.usedRamKb,
           ),
-          event.notify ? 'Refreshed successfully' : null,
+          event.notify ? L10nKeys.refreshedSuccessfully : null,
         ),
       );
     } catch (e) {
-      emit(HomeState.failure(state.value, 'Error loading data: $e'));
+      emit(HomeState.failure(state.value, L10nKeys.errorLoadingData));
     }
   }
 
   Future<void> _loadDataWithStream(Emitter<HomeState> emit, _LoadData event) async {
-    emit(HomeState.loading(state.value, 'Loading apps...'));
+    emit(HomeState.loading(state.value, L10nKeys.loadingApps));
     try {
       final Map<String, AppProcessInfo> appsMap = {};
 
@@ -150,13 +136,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
         final allApps = appsMap.values.toList();
 
-        emit(
-          HomeState.loading(
-            state.value.copyWith(
-              allApps: allApps,
-            ),
-          ),
-        );
+        emit(HomeState.loading(state.value.copyWith(allApps: allApps)));
       }
 
       final allApps = appsMap.values.toList();
@@ -169,11 +149,11 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
             freeRamKb: ramInfo?[1] ?? state.value.freeRamKb,
             usedRamKb: ramInfo?[2] ?? state.value.usedRamKb,
           ),
-          'Refreshed successfully',
+          L10nKeys.refreshedSuccessfully,
         ),
       );
     } catch (e) {
-      emit(HomeState.failure(state.value, 'Error loading data: $e'));
+      emit(HomeState.failure(state.value, L10nKeys.errorLoadingData));
     }
   }
 
@@ -210,13 +190,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     final currentState = state.value;
     final updatedAllApps = currentState.allApps.where((app) => app.packageName != event.packageName).toList();
 
-    emit(
-      HomeState.success(
-        currentState.copyWith(
-          allApps: updatedAllApps,
-        ),
-      ),
-    );
+    emit(HomeState.success(currentState.copyWith(allApps: updatedAllApps)));
   }
 
   Future<void> _onRemoveService(_RemoveService event, Emitter<HomeState> emit) async {
@@ -250,13 +224,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
     final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
 
-    emit(
-      HomeState.success(
-        currentState.copyWith(
-          allApps: updatedAllApps,
-        ),
-      ),
-    );
+    emit(HomeState.success(currentState.copyWith(allApps: updatedAllApps)));
   }
 
   Future<void> _onSetProcessFilter(_SetProcessFilter event, Emitter<HomeState> emit) async {

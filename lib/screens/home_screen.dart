@@ -8,6 +8,7 @@ import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
+import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'widgets/shizuku_permission_dialog.dart';
 import 'widgets/home_body.dart';
@@ -90,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         listener: (context, state) {
           state.maybeWhen(
             failure: (value, message) {
-              if (message.contains('Shizuku is not running')) {
+              if (message == L10nKeys.shizukuNotRunning) {
                 _showShizukuSetupDialog();
-              } else if (message.contains('Permission denied') || message.contains('grant permission')) {
+              } else if (message == L10nKeys.permissionDeniedShizuku || message == L10nKeys.failedToInitialize) {
                 _showPermissionDialog();
               }
             },
@@ -101,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(toast, style: TextStyle(fontSize: 14.sp)),
+                    content: Text(context.loc.resolve(toast), style: TextStyle(fontSize: 14.sp)),
                     duration: const Duration(seconds: 1),
                     behavior: SnackBarBehavior.fixed,
                   ),

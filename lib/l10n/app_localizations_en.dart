@@ -394,4 +394,67 @@ class AppLocalizationsEn extends AppLocalizations {
   String contributionsCount(Object count) {
     return '$count contributions';
   }
+
+  @override
+  String get checkingPermissions => 'Checking permissions...';
+
+  @override
+  String get shizukuNotRunning =>
+      'Shizuku is not running. Please start Shizuku app.';
+
+  @override
+  String get permissionDeniedShizuku =>
+      'Permission denied. Please grant Shizuku permission.';
+
+  @override
+  String get failedToInitialize =>
+      'Failed to initialize. Please grant permission.';
+
+  @override
+  String get errorInitializingShizuku => 'Error initializing Shizuku';
+
+  @override
+  String get loadingApps => 'Loading apps...';
+
+  @override
+  String get refreshedSuccessfully => 'Refreshed successfully';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get failedToStopAllServices => 'Failed to stop all services';
+
+  @override
+  String failedToStopServiceName(String serviceName) {
+    return 'Failed to stop service $serviceName';
+  }
+
+  @override
+  String errorPrefix(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get openGithubProfile => 'Open GitHub Profile';
+
+  @override
+  String get appInfoTooltip => 'App Info';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get recentCallingUid => 'Recent Calling UID';
+
+  @override
+  String get appDetails => 'App Details';
+
+  @override
+  String uidLabel(int uid) {
+    return 'UID: $uid';
+  }
 }

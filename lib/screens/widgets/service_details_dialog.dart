@@ -36,7 +36,10 @@ class ServiceDetailsDialog extends StatelessWidget {
             ],
             if (service.recentCallingUid != null) ...[
               SizedBox(height: 8.h),
-              ServiceDetailRow(label: 'Recent Calling UID', value: service.recentCallingUid.toString()),
+              ServiceDetailRow(
+                label: context.loc.recentCallingUid,
+                value: service.recentCallingUid.toString(),
+              ),
             ],
             if (service.ramUsage != null) ...[
               SizedBox(height: 8.h),

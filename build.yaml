@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      running_services_monitor|l10n_keys:
+        enabled: true
+        generate_for:
+          - lib/l10n/app_en.arb
+
+builders:
+  l10n_keys:
+    import: "tool/l10n_keys_builder.dart"
+    builder_factories: ["l10nKeysBuilder"]
+    build_extensions:
+      "lib/l10n/app_en.arb":
+        - "lib/l10n/l10n_keys.dart"
+    auto_apply: root_package
+    build_to: source

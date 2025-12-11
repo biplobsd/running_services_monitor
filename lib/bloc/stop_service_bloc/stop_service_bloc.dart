@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/services/process_service.dart';
 
 part 'stop_service_event.dart';
@@ -26,10 +27,10 @@ class StopServiceBloc extends Bloc<StopServiceEvent, StopServiceState> {
       if (success) {
         emit(StopServiceState.success(packageName: event.packageName));
       } else {
-        emit(const StopServiceState.error(message: 'Failed to stop all services'));
+        emit(const StopServiceState.error(message: L10nKeys.failedToStopAllServices));
       }
     } catch (e) {
-      emit(StopServiceState.error(message: 'Error: $e'));
+      emit(StopServiceState.error(message: L10nKeys.error));
     }
   }
 
@@ -64,10 +65,10 @@ class StopServiceBloc extends Bloc<StopServiceEvent, StopServiceState> {
             return;
           }
         }
-        emit(StopServiceState.error(message: 'Failed to stop service ${event.serviceName}'));
+        emit(StopServiceState.error(message: L10nKeys.stopServiceError));
       }
     } catch (e) {
-      emit(StopServiceState.error(message: 'Error: $e'));
+      emit(StopServiceState.error(message: L10nKeys.error));
     }
   }
 

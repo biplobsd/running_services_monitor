@@ -396,4 +396,67 @@ class AppLocalizationsBn extends AppLocalizations {
   String contributionsCount(Object count) {
     return '$count অবদান';
   }
+
+  @override
+  String get checkingPermissions => 'অনুমতি যাচাই করা হচ্ছে...';
+
+  @override
+  String get shizukuNotRunning =>
+      'শিজুকু চলছে না। অনুগ্রহ করে শিজুকু অ্যাপ চালু করুন।';
+
+  @override
+  String get permissionDeniedShizuku =>
+      'অনুমতি অস্বীকার করা হয়েছে। অনুগ্রহ করে শিজুকু অনুমতি দিন।';
+
+  @override
+  String get failedToInitialize =>
+      'ইনিশিয়ালাইজ করতে ব্যর্থ। অনুগ্রহ করে অনুমতি দিন।';
+
+  @override
+  String get errorInitializingShizuku => 'শিজুকু ইনিশিয়ালাইজ করতে ত্রুটি';
+
+  @override
+  String get loadingApps => 'অ্যাপস লোড হচ্ছে...';
+
+  @override
+  String get refreshedSuccessfully => 'সফলভাবে রিফ্রেশ হয়েছে';
+
+  @override
+  String get errorLoadingData => 'ডেটা লোড করতে ত্রুটি';
+
+  @override
+  String get failedToStopAllServices => 'সব সার্ভিস বন্ধ করতে ব্যর্থ';
+
+  @override
+  String failedToStopServiceName(String serviceName) {
+    return '$serviceName সার্ভিস বন্ধ করতে ব্যর্থ';
+  }
+
+  @override
+  String errorPrefix(String error) {
+    return 'ত্রুটি: $error';
+  }
+
+  @override
+  String get language => 'ভাষা';
+
+  @override
+  String get openGithubProfile => 'গিটহাব প্রোফাইল খুলুন';
+
+  @override
+  String get appInfoTooltip => 'অ্যাপ তথ্য';
+
+  @override
+  String get ok => 'ঠিক আছে';
+
+  @override
+  String get recentCallingUid => 'সাম্প্রতিক কলিং UID';
+
+  @override
+  String get appDetails => 'অ্যাপ বিস্তারিত';
+
+  @override
+  String uidLabel(int uid) {
+    return 'UID: $uid';
+  }
 }

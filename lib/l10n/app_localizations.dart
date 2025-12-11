@@ -783,6 +783,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} contributions'**
   String contributionsCount(Object count);
+
+  /// No description provided for @checkingPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking permissions...'**
+  String get checkingPermissions;
+
+  /// No description provided for @shizukuNotRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku is not running. Please start Shizuku app.'**
+  String get shizukuNotRunning;
+
+  /// No description provided for @permissionDeniedShizuku.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied. Please grant Shizuku permission.'**
+  String get permissionDeniedShizuku;
+
+  /// No description provided for @failedToInitialize.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to initialize. Please grant permission.'**
+  String get failedToInitialize;
+
+  /// No description provided for @errorInitializingShizuku.
+  ///
+  /// In en, this message translates to:
+  /// **'Error initializing Shizuku'**
+  String get errorInitializingShizuku;
+
+  /// No description provided for @loadingApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading apps...'**
+  String get loadingApps;
+
+  /// No description provided for @refreshedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshed successfully'**
+  String get refreshedSuccessfully;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// No description provided for @failedToStopAllServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to stop all services'**
+  String get failedToStopAllServices;
+
+  /// No description provided for @failedToStopServiceName.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to stop service {serviceName}'**
+  String failedToStopServiceName(String serviceName);
+
+  /// No description provided for @errorPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String errorPrefix(String error);
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @openGithubProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open GitHub Profile'**
+  String get openGithubProfile;
+
+  /// No description provided for @appInfoTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'App Info'**
+  String get appInfoTooltip;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @recentCallingUid.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Calling UID'**
+  String get recentCallingUid;
+
+  /// No description provided for @appDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'App Details'**
+  String get appDetails;
+
+  /// No description provided for @uidLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'UID: {uid}'**
+  String uidLabel(int uid);
 }
 
 class _AppLocalizationsDelegate

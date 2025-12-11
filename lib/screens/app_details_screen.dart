@@ -5,6 +5,7 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:installed_apps/installed_apps.dart';
 import '../models/service_info.dart';
 import 'package:running_services_monitor/core/extensions.dart';
+import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'widgets/app_header.dart';
 import 'widgets/service_list.dart';
 import 'widgets/app_details_description.dart';
@@ -115,7 +116,7 @@ class AppDetailsScreen extends StatelessWidget {
                             const SizedBox(width: 16),
                             Expanded(
                               child: Text(
-                                '${context.loc.stopServiceError}: $message',
+                                '${context.loc.stopServiceError}: ${context.loc.resolve(message)}',
                                 style: TextStyle(fontSize: 14.sp),
                               ),
                             ),
@@ -124,7 +125,7 @@ class AppDetailsScreen extends StatelessWidget {
                         backgroundColor: Colors.red[700],
                         duration: const Duration(seconds: 4),
                         behavior: SnackBarBehavior.floating,
-                        action: SnackBarAction(label: 'OK', textColor: Colors.white, onPressed: () {}),
+                        action: SnackBarAction(label: context.loc.ok, textColor: Colors.white, onPressed: () {}),
                       ),
                     );
                   },
@@ -132,11 +133,11 @@ class AppDetailsScreen extends StatelessWidget {
               },
               child: Scaffold(
                 appBar: AppBar(
-                  title: Text(context.loc.runningApp, style: TextStyle(fontSize: 20.sp)),
+                  title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
                   actions: [
                     IconButton(
                       icon: const Icon(Icons.info_outline),
-                      tooltip: 'App Info',
+                      tooltip: context.loc.appInfoTooltip,
                       onPressed: () {
                         InstalledApps.openSettings(currentAppInfo.packageName);
                       },
@@ -287,7 +288,7 @@ class _StateBadges extends StatelessWidget {
             if (appInfo.isCachedProcess) _Badge(label: loc.cached, color: Colors.grey),
             if (appInfo.hasServices) _Badge(label: loc.services, color: Colors.blue),
             for (final uid in appInfo.services.map((s) => s.uid).whereType<int>().toSet())
-              _Badge(label: 'UID: $uid', color: Colors.indigo),
+              _Badge(label: context.loc.uidLabel(uid), color: Colors.indigo),
           ],
         );
       },

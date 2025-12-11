@@ -26,27 +26,18 @@ class ContributorListTile extends StatelessWidget {
         leading: Icon(Icons.person, size: 24.w, color: colorScheme.primary),
         title: Text(
           contributor.name ?? contributor.login,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '@${contributor.login}',
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: colorScheme.primary,
-              ),
+              style: TextStyle(fontSize: 12.sp, color: colorScheme.primary),
             ),
             Text(
               context.loc.contributionsCount(contributor.contributions),
-              style: TextStyle(
-                fontSize: 11.sp,
-                color: colorScheme.onSurfaceVariant,
-              ),
+              style: TextStyle(fontSize: 11.sp, color: colorScheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -62,17 +53,14 @@ class ContributorListTile extends StatelessWidget {
                 ),
                 child: Text(
                   '${contributor.pullRequests.length} PRs',
-                  style: TextStyle(
-                    fontSize: 11.sp,
-                    color: colorScheme.onPrimaryContainer,
-                  ),
+                  style: TextStyle(fontSize: 11.sp, color: colorScheme.onPrimaryContainer),
                 ),
               ),
             SizedBox(width: 8.w),
             IconButton(
               icon: Icon(Icons.open_in_new, size: 18.w),
               onPressed: () => _launchUrl(contributor.profileUrl),
-              tooltip: 'Open GitHub Profile',
+              tooltip: context.loc.openGithubProfile,
               visualDensity: VisualDensity.compact,
             ),
           ],
@@ -96,10 +84,7 @@ class ContributorListTile extends StatelessWidget {
                     ),
                     trailing: Text(
                       '#${pr.number}',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                      style: TextStyle(fontSize: 12.sp, color: colorScheme.onSurfaceVariant),
                     ),
                     onTap: () => _launchUrl(pr.prUrl),
                   );
