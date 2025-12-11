@@ -112,5 +112,6 @@
   "service_process_string": "{processCount, plural, one {1 প্রক্রিয়া} other {{processCount} প্রক্রিয়াগুলো}} এবং {serviceCount, plural, one {1 সার্ভিস} other {{serviceCount} সার্ভিসগুলো}}",
   "info": "তথ্য",
   "followSystem": "সিস্টেম",
-  "contributors": "অবদানকারী"
+  "contributors": "অবদানকারী",
+  "contributionsCount": "{count} অবদান"
 }

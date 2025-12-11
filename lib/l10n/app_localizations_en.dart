@@ -385,8 +385,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get info => 'Info';
 
   @override
-  String get followSystem => 'Follow System';
+  String get followSystem => 'System';
 
   @override
   String get contributors => 'Contributors';
+
+  @override
+  String contributionsCount(Object count) {
+    return '$count contributions';
+  }
 }

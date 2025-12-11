@@ -357,4 +357,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get contributors => '贡献者';
+
+  @override
+  String contributionsCount(Object count) {
+    return '$count 次贡献';
+  }
 }

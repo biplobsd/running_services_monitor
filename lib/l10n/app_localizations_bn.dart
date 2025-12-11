@@ -387,8 +387,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get info => 'তথ্য';
 
   @override
-  String get followSystem => 'সিস্টেম ভাষা অনুসরণ';
+  String get followSystem => 'সিস্টেম';
 
   @override
   String get contributors => 'অবদানকারী';
+
+  @override
+  String contributionsCount(Object count) {
+    return '$count অবদান';
+  }
 }

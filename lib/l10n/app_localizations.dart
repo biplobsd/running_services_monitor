@@ -769,7 +769,7 @@ abstract class AppLocalizations {
   /// No description provided for @followSystem.
   ///
   /// In en, this message translates to:
-  /// **'Follow System'**
+  /// **'System'**
   String get followSystem;
 
   /// No description provided for @contributors.
@@ -777,6 +777,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contributors'**
   String get contributors;
+
+  /// No description provided for @contributionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} contributions'**
+  String contributionsCount(Object count);
 }
 
 class _AppLocalizationsDelegate

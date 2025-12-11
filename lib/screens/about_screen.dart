@@ -58,11 +58,47 @@ class AboutScreen extends StatelessWidget {
                     subtitle: AppConstants.sourceCodeUrl,
                     onTap: () => _launchUrl(AppConstants.sourceCodeUrl),
                   ),
-                  AboutInfoTile(
-                    icon: Icons.web,
-                    title: context.loc.blogs,
-                    subtitle: AppConstants.blogsUrl,
-                    onTap: () => _launchUrl(AppConstants.blogsUrl),
+                  BlocSelector<AboutBloc, AboutState, List<ContributorInfo>>(
+                    selector: (state) => state.contributors,
+                    builder: (context, contributors) {
+                      if (contributors.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10.h),
+                          Row(
+                            children: [
+                              Text(
+                                context.loc.contributors,
+                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 8.w),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(12.r),
+                                ),
+                                child: Text(
+                                  '${contributors.length}',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8.h),
+                          ...contributors.map(
+                            (contributor) => ContributorListTile(contributor: contributor),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   SizedBox(height: 24.h),
                   Center(
@@ -76,29 +112,7 @@ class AboutScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  BlocSelector<AboutBloc, AboutState, List<ContributorInfo>>(
-                    selector: (state) => state.contributors,
-                    builder: (context, contributors) {
-                      if (contributors.isEmpty) {
-                        return const SizedBox.shrink();
-                      }
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 32.h),
-                          Text(
-                            context.loc.contributors,
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8.h),
-                          ...contributors.map(
-                            (contributor) => ContributorListTile(contributor: contributor),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 5.h),
                   Center(
                     child: Text(
                       context.loc.madeInBangladesh,

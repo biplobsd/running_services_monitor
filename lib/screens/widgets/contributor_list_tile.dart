@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/contributor_info.dart';
 
 class ContributorListTile extends StatelessWidget {
@@ -20,63 +21,80 @@ class ContributorListTile extends StatelessWidget {
 
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4.h),
-      child: InkWell(
-        onTap: () => _launchUrl(contributor.htmlUrl),
-        borderRadius: BorderRadius.circular(12.r),
-        child: Padding(
-          padding: EdgeInsets.all(12.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.person, size: 24.w, color: colorScheme.primary),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          contributor.login,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          '${contributor.contributions} contributions',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Icon(Icons.open_in_new, size: 16.w, color: colorScheme.onSurfaceVariant),
-                ],
-              ),
-              if (contributor.pullRequests.isNotEmpty) ...[
-                SizedBox(height: 8.h),
-                Wrap(
-                  spacing: 6.w,
-                  runSpacing: 4.h,
-                  children: contributor.pullRequests.map((pr) {
-                    return ActionChip(
-                      avatar: Icon(Icons.merge, size: 14.w),
-                      label: Text('#${pr.number}', style: TextStyle(fontSize: 12.sp)),
-                      onPressed: () => _launchUrl(pr.htmlUrl),
-                      visualDensity: VisualDensity.compact,
-                      padding: EdgeInsets.zero,
-                      labelPadding: EdgeInsets.only(right: 8.w),
-                      tooltip: pr.title,
-                    );
-                  }).toList(),
-                ),
-              ],
-            ],
+      clipBehavior: Clip.antiAlias,
+      child: ExpansionTile(
+        leading: Icon(Icons.person, size: 24.w, color: colorScheme.primary),
+        title: Text(
+          contributor.login,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        subtitle: Text(
+          context.loc.contributionsCount(contributor.contributions),
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: colorScheme.onSurfaceVariant,
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (contributor.pullRequests.isNotEmpty)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Text(
+                  '${contributor.pullRequests.length} PRs',
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    color: colorScheme.onPrimaryContainer,
+                  ),
+                ),
+              ),
+            SizedBox(width: 8.w),
+            IconButton(
+              icon: Icon(Icons.open_in_new, size: 18.w),
+              onPressed: () => _launchUrl(contributor.htmlUrl),
+              tooltip: 'Open GitHub Profile',
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+        children: [
+          if (contributor.pullRequests.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: contributor.pullRequests.map((pr) {
+                  return ListTile(
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(Icons.merge, size: 18.w, color: colorScheme.primary),
+                    title: Text(
+                      pr.title,
+                      style: TextStyle(fontSize: 13.sp),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    trailing: Text(
+                      '#${pr.number}',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    onTap: () => _launchUrl(pr.htmlUrl),
+                  );
+                }).toList(),
+              ),
+            ),
+        ],
       ),
     );
   }
