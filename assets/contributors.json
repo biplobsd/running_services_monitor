@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "login": "biplobsd",
+    "htmlUrl": "https://github.com/biplobsd",
+    "contributions": 101,
+    "pullRequests": [
+      {
+        "number": 3,
+        "title": "feat: Add adaptive launcher icons monochrome",
+        "htmlUrl": "https://github.com/biplobsd/running_services_monitor/pull/3"
+      },
+      {
+        "number": 1,
+        "title": "Bloc",
+        "htmlUrl": "https://github.com/biplobsd/running_services_monitor/pull/1"
+      }
+    ]
+  },
+  {
+    "login": "FriesI23",
+    "htmlUrl": "https://github.com/FriesI23",
+    "contributions": 4,
+    "pullRequests": [
+      {
+        "number": 6,
+        "title": "Add Andoird app language support",
+        "htmlUrl": "https://github.com/biplobsd/running_services_monitor/pull/6"
+      },
+      {
+        "number": 5,
+        "title": "Add Chinese translation",
+        "htmlUrl": "https://github.com/biplobsd/running_services_monitor/pull/5"
+      }
+    ]
+  }
+]
