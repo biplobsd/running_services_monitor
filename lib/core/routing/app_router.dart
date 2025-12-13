@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/screens/home_screen.dart';
 import 'package:running_services_monitor/screens/about_screen.dart';
 import 'package:running_services_monitor/screens/app_details_screen.dart';
@@ -18,7 +18,7 @@ GoRouter createAppRouter() {
           final packageId = state.extra as String?;
 
           if (packageId == null) {
-            final l10n = AppLocalizations.of(context)!;
+            final l10n = context.loc;
             return Scaffold(
               appBar: AppBar(title: Text(l10n.error)),
               body: Center(child: Text(l10n.appInfoNotFound)),
@@ -30,7 +30,7 @@ GoRouter createAppRouter() {
       ),
     ],
     errorBuilder: (context, state) {
-      final l10n = AppLocalizations.of(context)!;
+      final l10n = context.loc;
       return Scaffold(
         appBar: AppBar(title: Text(l10n.error)),
         body: Center(child: Text(l10n.pageNotFound(state.matchedLocation))),

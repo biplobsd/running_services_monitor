@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class AppDetailsDescription extends StatelessWidget {
   const AppDetailsDescription({super.key});
@@ -7,7 +7,7 @@ class AppDetailsDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      AppLocalizations.of(context)!.stopWarning,
+      context.loc.stopWarning,
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
     );
   }

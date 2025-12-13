@@ -171,11 +171,28 @@ jobs:
     name: 🛒 Deploy to Google Play
 
     steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
       - name: 📥 Download App Artifacts
         uses: actions/download-artifact@v4
         with:
           name: app_artifacts
           path: release_files/
+
+      - name: 📝 Fetch Release Notes from GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p whatsnew
+          RELEASE_BODY=$(gh release view ${{ github.ref_name }} --json body --jq '.body' 2>/dev/null || echo "")
+          if [ -z "$RELEASE_BODY" ]; then
+            echo "Bug fixes and performance improvements." > whatsnew/whatsnew-en-US
+          else
+            echo "$RELEASE_BODY" > whatsnew/whatsnew-en-US
+          fi
+          echo "Release notes:"
+          cat whatsnew/whatsnew-en-US
 
       - name: 🛒 Upload to Google Play Console
         uses: r0adkll/upload-google-play@v1
@@ -185,4 +202,5 @@ jobs:
           releaseFiles: release_files/*.aab
           track: production
           status: completed
+          whatsNewDirectory: whatsnew
 

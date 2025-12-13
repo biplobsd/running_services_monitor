@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class RamLegendItem extends StatelessWidget {
   final Color color;
@@ -21,7 +21,7 @@ class RamLegendItem extends StatelessWidget {
         SizedBox(width: 12.w),
         Text(label, style: TextStyle(fontSize: 14.sp)),
         const Spacer(),
-        Text('$value ${AppLocalizations.of(context)!.ofRam}', style: TextStyle(fontSize: 14.sp)),
+        Text('$value ${context.loc.ofRam}', style: TextStyle(fontSize: 14.sp)),
       ],
     );
   }

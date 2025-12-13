@@ -3,7 +3,6 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/language_bloc/language_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 
 class LanguageSelector extends StatelessWidget {
@@ -12,7 +11,7 @@ class LanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final crtLocale = getIt<LanguageBloc>().state.locale;
-    final loc = AppLocalizations.of(context)!;
+    final loc = context.loc;
     return PopupMenuButton<Locale>(
       icon: const Icon(Icons.language),
       tooltip: context.loc.resolve(L10nKeys.language),

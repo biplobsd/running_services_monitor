@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class ErrorState extends StatelessWidget {
   final String errorMessage;
@@ -23,7 +23,7 @@ class ErrorState extends StatelessWidget {
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: Text(AppLocalizations.of(context)!.retry, style: TextStyle(fontSize: 14.sp)),
+              label: Text(context.loc.retry, style: TextStyle(fontSize: 14.sp)),
             ),
           ],
         ),

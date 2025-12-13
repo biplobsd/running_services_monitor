@@ -5,6 +5,7 @@ import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_blo
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_detail_row.dart';
+import 'status_badge.dart';
 
 class ServiceDetailsDialog extends StatelessWidget {
   final RunningServiceInfo service;
@@ -36,10 +37,7 @@ class ServiceDetailsDialog extends StatelessWidget {
             ],
             if (service.recentCallingUid != null) ...[
               SizedBox(height: 8.h),
-              ServiceDetailRow(
-                label: context.loc.recentCallingUid,
-                value: service.recentCallingUid.toString(),
-              ),
+              ServiceDetailRow(label: context.loc.recentCallingUid, value: service.recentCallingUid.toString()),
             ],
             if (service.ramUsage != null) ...[
               SizedBox(height: 8.h),
@@ -128,9 +126,21 @@ class ServiceDetailsDialog extends StatelessWidget {
                             ),
                           Row(
                             children: [
-                              if (conn.isForeground == true) _buildBadge(context, 'FGS', Colors.green),
-                              if (conn.isVisible == true) _buildBadge(context, 'VIS', Colors.blue),
-                              if (conn.hasCapabilities == true) _buildBadge(context, 'CAPS', Colors.orange),
+                              if (conn.isForeground == true)
+                                Padding(
+                                  padding: EdgeInsets.only(right: 4.w, top: 4.h),
+                                  child: StatusBadge(label: 'FGS', color: Colors.green, fontSize: 9.sp),
+                                ),
+                              if (conn.isVisible == true)
+                                Padding(
+                                  padding: EdgeInsets.only(right: 4.w, top: 4.h),
+                                  child: StatusBadge(label: 'VIS', color: Colors.blue, fontSize: 9.sp),
+                                ),
+                              if (conn.hasCapabilities == true)
+                                Padding(
+                                  padding: EdgeInsets.only(right: 4.w, top: 4.h),
+                                  child: StatusBadge(label: 'CAPS', color: Colors.orange, fontSize: 9.sp),
+                                ),
                             ],
                           ),
                         ],
@@ -188,22 +198,6 @@ class ServiceDetailsDialog extends StatelessWidget {
           child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
         ),
       ],
-    );
-  }
-
-  Widget _buildBadge(BuildContext context, String label, Color color) {
-    return Container(
-      margin: EdgeInsets.only(right: 4.w, top: 4.h),
-      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(4.rSafe),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: color),
-      ),
     );
   }
 }

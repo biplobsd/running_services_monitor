@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/about_bloc/about_bloc.dart';
 import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/contributor_info.dart';
+import 'package:running_services_monitor/utils/url_launcher_helper.dart';
 import 'widgets/about_info_tile.dart';
 import 'widgets/about_header.dart';
 import 'widgets/contributor_list_tile.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
-
-  Future<void> _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +40,13 @@ class AboutScreen extends StatelessWidget {
                     icon: Icons.email,
                     title: context.loc.email,
                     subtitle: AppConstants.developerEmail,
-                    onTap: () => _launchUrl('mailto:${AppConstants.developerEmail}'),
+                    onTap: () => UrlLauncherHelper.launchExternalUrl('mailto:${AppConstants.developerEmail}'),
                   ),
                   AboutInfoTile(
                     icon: Icons.code,
                     title: context.loc.sourceCode,
                     subtitle: AppConstants.sourceCodeUrl,
-                    onTap: () => _launchUrl(AppConstants.sourceCodeUrl),
+                    onTap: () => UrlLauncherHelper.launchExternalUrl(AppConstants.sourceCodeUrl),
                   ),
                   BlocSelector<AboutBloc, AboutState, List<ContributorInfo>>(
                     selector: (state) => state.contributors,
@@ -96,7 +91,7 @@ class AboutScreen extends StatelessWidget {
                   SizedBox(height: 24.h),
                   Center(
                     child: FilledButton.tonalIcon(
-                      onPressed: () => _launchUrl(AppConstants.buyMeCoffeeUrl),
+                      onPressed: () => UrlLauncherHelper.launchExternalUrl(AppConstants.buyMeCoffeeUrl),
                       icon: const Icon(Icons.coffee),
                       label: Text(context.loc.buyMeCoffee, style: TextStyle(fontSize: 14.sp)),
                     ),

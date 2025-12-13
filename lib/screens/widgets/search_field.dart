@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class SearchField extends StatelessWidget {
   final TextEditingController controller;
@@ -11,7 +11,7 @@ class SearchField extends StatelessWidget {
     return TextField(
       controller: controller,
       autofocus: true,
-      decoration: InputDecoration(hintText: AppLocalizations.of(context)!.searchApps, border: InputBorder.none),
+      decoration: InputDecoration(hintText: context.loc.searchApps, border: InputBorder.none),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class AboutHeader extends StatelessWidget {
   final String version;
@@ -15,12 +15,15 @@ class AboutHeader extends StatelessWidget {
           Image.asset('assets/logo.png', width: 64.w, height: 64.h, color: Theme.of(context).colorScheme.onSurface),
           SizedBox(height: 16.h),
           Text(
-            AppLocalizations.of(context)!.appTitle,
+            context.loc.appTitle,
             style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 8.h),
-          Text(version, style: TextStyle(fontSize: 16.sp, color: Theme.of(context).colorScheme.onSurfaceVariant)),
+          Text(
+            version,
+            style: TextStyle(fontSize: 16.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ),
         ],
       ),
     );

@@ -14,18 +14,21 @@ class AppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<AppInfoBloc, AppInfoState, Uint8List?>(
-      bloc: getIt<AppInfoBloc>(),
-      selector: (state) {
-        return state.value.cachedApps[appInfo.packageName]?.icon;
-      },
-      builder: (context, icon) {
-        if (icon != null) {
-          return Image.memory(icon, width: size, height: size);
-        }
+    return Material(
+      color: Colors.transparent,
+      child: BlocSelector<AppInfoBloc, AppInfoState, Uint8List?>(
+        bloc: getIt<AppInfoBloc>(),
+        selector: (state) {
+          return state.value.cachedApps[appInfo.packageName]?.icon;
+        },
+        builder: (context, icon) {
+          if (icon != null) {
+            return Image.memory(icon, width: size, height: size, gaplessPlayback: true);
+          }
 
-        return Icon(Icons.android, size: size);
-      },
+          return Icon(Icons.android, size: size);
+        },
+      ),
     );
   }
 }

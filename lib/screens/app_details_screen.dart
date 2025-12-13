@@ -7,15 +7,16 @@ import 'package:installed_apps/installed_apps.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/service_info.dart';
+import 'package:running_services_monitor/utils/snackbar_helper.dart';
 import 'widgets/app_header.dart';
 import 'widgets/service_list.dart';
 import 'widgets/app_details_description.dart';
 import 'widgets/app_details_section_title.dart';
+import 'widgets/state_badges.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
-import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 
 class AppDetailsScreen extends StatelessWidget {
@@ -52,47 +53,13 @@ class AppDetailsScreen extends StatelessWidget {
                 state.when(
                   initial: () {},
                   stopping: (_, _) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                            ),
-                            const SizedBox(width: 16),
-                            Text(context.loc.loading, style: TextStyle(fontSize: 14.sp)),
-                          ],
-                        ),
-                        duration: const Duration(seconds: 10),
-                        backgroundColor: Colors.blue[700],
-                      ),
-                    );
+                    SnackBarHelper.showLoading(context, context.loc.loading);
                   },
                   success: (packageName, serviceName, servicePid) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            const Icon(Icons.check_circle, color: Colors.white),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Text(
-                                serviceName != null
-                                    ? '${context.loc.serviceStopped}: $serviceName'
-                                    : context.loc.allServicesStopped,
-                                style: TextStyle(fontSize: 14.sp),
-                              ),
-                            ),
-                          ],
-                        ),
-                        backgroundColor: Colors.green[700],
-                        duration: const Duration(seconds: 2),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
+                    final message = serviceName != null
+                        ? '${context.loc.serviceStopped}: $serviceName'
+                        : context.loc.allServicesStopped;
+                    SnackBarHelper.showSuccess(context, message);
 
                     if (serviceName != null && packageName != null) {
                       getIt<HomeBloc>().add(
@@ -108,26 +75,10 @@ class AppDetailsScreen extends StatelessWidget {
                     }
                   },
                   error: (message) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            const Icon(Icons.error, color: Colors.white),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Text(
-                                '${context.loc.stopServiceError}: ${context.loc.resolve(message)}',
-                                style: TextStyle(fontSize: 14.sp),
-                              ),
-                            ),
-                          ],
-                        ),
-                        backgroundColor: Colors.red[700],
-                        duration: const Duration(seconds: 4),
-                        behavior: SnackBarBehavior.floating,
-                        action: SnackBarAction(label: context.loc.ok, textColor: Colors.white, onPressed: () {}),
-                      ),
+                    SnackBarHelper.showError(
+                      context,
+                      '${context.loc.stopServiceError}: ${context.loc.resolve(message)}',
+                      actionLabel: context.loc.ok,
                     );
                   },
                 );
@@ -161,7 +112,7 @@ class AppDetailsScreen extends StatelessWidget {
                             AppHeader(appInfo: currentAppInfo),
                             SizedBox(height: 16.h),
 
-                            _StateBadges(appInfo: currentAppInfo),
+                            StateBadges(appInfo: currentAppInfo),
                             SizedBox(height: 16.h),
 
                             const AppDetailsDescription(),
@@ -263,66 +214,6 @@ class AppDetailsScreen extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class _StateBadges extends StatelessWidget {
-  final AppProcessInfo appInfo;
-
-  const _StateBadges({required this.appInfo});
-
-  @override
-  Widget build(BuildContext context) {
-    final loc = context.loc;
-
-    return BlocSelector<AppInfoBloc, AppInfoState, bool?>(
-      bloc: getIt<AppInfoBloc>(),
-      selector: (state) {
-        final cached = state.value.cachedApps[appInfo.packageName];
-        if (cached != null) {
-          return cached.isSystemApp;
-        }
-        return appInfo.isSystemApp;
-      },
-      builder: (context, isSystemApp) {
-        return Wrap(
-          spacing: 8.w,
-          runSpacing: 4.h,
-          children: [
-            if (isSystemApp == true) _Badge(label: loc.system, color: Colors.orange),
-            if (isSystemApp == false) _Badge(label: loc.user, color: Colors.teal),
-            if (appInfo.isActive) _Badge(label: loc.active, color: Colors.green),
-            if (appInfo.isCachedProcess) _Badge(label: loc.cached, color: Colors.grey),
-            if (appInfo.hasServices) _Badge(label: loc.services, color: Colors.blue),
-            for (final uid in appInfo.services.map((s) => s.uid).whereType<int>().toSet())
-              _Badge(label: context.loc.uidLabel(uid), color: Colors.indigo),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _Badge extends StatelessWidget {
-  final String label;
-  final Color color;
-
-  const _Badge({required this.label, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(6.r),
-        border: Border.all(color: color.withValues(alpha: 0.5), width: 1),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(fontSize: 12.sp, color: color, fontWeight: FontWeight.w500),
       ),
     );
   }

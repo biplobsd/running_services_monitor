@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class EmptyListState extends StatelessWidget {
   final bool isSearching;
@@ -23,9 +23,7 @@ class EmptyListState extends StatelessWidget {
                     Icon(Icons.inbox_outlined, size: 64.w, color: Theme.of(context).colorScheme.outline),
                     SizedBox(height: 16.h),
                     Text(
-                      isSearching
-                          ? AppLocalizations.of(context)!.noMatchingApps
-                          : AppLocalizations.of(context)!.noAppsFound,
+                      isSearching ? context.loc.noMatchingApps : context.loc.noAppsFound,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],

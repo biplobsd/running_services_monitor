@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 
 class AboutButton extends StatelessWidget {
   const AboutButton({super.key});
@@ -10,7 +10,7 @@ class AboutButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.info_outline),
       onPressed: () => context.push('/about'),
-      tooltip: AppLocalizations.of(context)!.about,
+      tooltip: context.loc.about,
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'app_icon.dart';
@@ -18,8 +18,7 @@ class AppHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final processCount = appInfo.pids.length;
     final serviceCount = appInfo.services.length;
-    final loc = AppLocalizations.of(context)!;
-
+    final loc = context.loc;
 
     String builDescText() {
       final hasService = serviceCount > 0;
@@ -35,10 +34,12 @@ class AppHeader extends StatelessWidget {
       }
     }
 
-
     return Row(
       children: [
-        AppIcon(appInfo: appInfo),
+        Hero(
+          tag: 'app-icon-${appInfo.packageName}',
+          child: AppIcon(appInfo: appInfo),
+        ),
         SizedBox(width: 16.w),
         Expanded(
           child: SelectionArea(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:running_services_monitor/utils/url_launcher_helper.dart';
 import 'setup_step_item.dart';
 
 enum ShizukuDialogType { setup, permission }
@@ -14,24 +13,6 @@ class ShizukuPermissionDialog extends StatelessWidget {
   final ShizukuDialogType type;
 
   const ShizukuPermissionDialog({super.key, required this.onRetry, this.type = ShizukuDialogType.permission});
-
-  Future<void> _openShizukuOrPlayStore() async {
-    final marketUri = Uri.parse('market://details?id=${AppConstants.shizukuPackageName}');
-    final playStoreUri = Uri.parse(AppConstants.shizukuPlayStoreUrl);
-
-    try {
-      final canLaunchMarket = await canLaunchUrl(marketUri);
-      if (canLaunchMarket) {
-        await launchUrl(marketUri, mode: LaunchMode.externalApplication);
-      } else {
-        await launchUrl(playStoreUri, mode: LaunchMode.externalApplication);
-      }
-    } catch (e) {
-      try {
-        await launchUrl(playStoreUri, mode: LaunchMode.externalApplication);
-      } catch (_) {}
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +68,7 @@ class ShizukuPermissionDialog extends StatelessWidget {
           child: Text(context.loc.runningServicesTitle, style: TextStyle(fontSize: 14.sp)),
         ),
         FilledButton.icon(
-          onPressed: _openShizukuOrPlayStore,
+          onPressed: UrlLauncherHelper.openShizukuOrPlayStore,
           icon: Icon(Icons.open_in_new, size: 18.sp),
           label: Text(context.loc.openShizuku, style: TextStyle(fontSize: 14.sp)),
         ),
