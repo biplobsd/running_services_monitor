@@ -1,8 +1,10 @@
 # Running Services Monitor
 
-| Play Store | IzzyOnDroid | F-Droid | Release |
-|:-:|:-:|:-:|:-:|
-| [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="75">](https://play.google.com/store/apps/details?id=me.biplobsd.rsm) | [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="47" alt="Get it at IzzyOnDroid">](https://apt.izzysoft.de/packages/me.biplobsd.rsm) | [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75" alt="Get it on F-Droid">](https://f-droid.org/packages/me.biplobsd.rsm) | [![Download APK](https://img.shields.io/github/v/release/biplobsd/running_services_monitor?style=for-the-badge&label=Download%20APK&color=blue)](https://github.com/biplobsd/running_services_monitor/releases/latest) |
+<a href="https://play.google.com/store/apps/details?id=me.biplobsd.rsm"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="75" alt="Get it on Google Play" align="middle"></a>
+<a href="https://apt.izzysoft.de/packages/me.biplobsd.rsm"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="50" alt="Get it at IzzyOnDroid" align="middle"></a>
+<a href="https://f-droid.org/packages/me.biplobsd.rsm"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75" alt="Get it on F-Droid" align="middle"></a>
+<a href="https://www.amazon.com/gp/mas/dl/android?p=me.biplobsd.rsm"><img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" height="50" alt="Get it on Amazon Appstore" align="middle"></a>
+<a href="https://github.com/biplobsd/running_services_monitor/releases/latest"><img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/4711835e032fe2735dc80c1329beb4685899aa91/get-it-on-github.svg" alt="Download APK" align="middle" height="75"></a>
 
 Running Services Monitor is help you Monitor running services on your Android device. With a clean and intuitive interface, you can easily view system and user apps, check their status efficiently.
 
@@ -15,7 +17,7 @@ Running Services Monitor is help you Monitor running services on your Android de
 - **Root & Shizuku Integration**: First checks for root permission, then falls back to Shizuku for advanced system interactions (where supported).
 - **Material Design 3**: A modern and beautiful UI that adapts to your device's theme.
 - **Dark/Light Mode**: Toggle between dark and light themes for comfortable viewing.
-- **Localization**: Support for English and Bangla languages.
+- **Localization**: Support for English, Bangla, Chinese languages.
 
 ## 📱 Screenshots
 
