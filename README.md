@@ -121,6 +121,42 @@ flutter build apk --release --split-per-abi
 flutter build appbundle --release
 ```
 
+## Adding New Translations
+
+### Using AI Agent (Recommended)
+
+Use the following prompt with an AI agent to automate the entire process:
+
+```
+Add <language> localization to this project:
+1. Create app_<localeName>.arb in lib/l10n/ by translating all values from lib/l10n/app_en.arb. Keep the keys unchanged.
+2. Add the locale to android/app/src/main/res/xml/locales_config.xml
+3. Run flutter gen-l10n
+4. Create a PR
+```
+
+After completion, verify all translations are correct.
+
+### Manual Steps
+
+#### Flutter Part
+
+1. Create a new `app_<localeName>.arb` file in `lib/l10n/` (e.g., `app_es.arb` for Spanish)
+
+2. Translate all fields from `app_en.arb` file to the new language
+
+3. Run the following command in the project root:
+   ```bash
+   flutter gen-l10n
+   ```
+
+#### Android Part
+
+1. Add the new locale to `android/app/src/main/res/xml/locales_config.xml`:
+   ```xml
+   <locale android:name="<localeName>" />
+   ```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Copyright (c) 2025 Biplob Kumar Sutradhar.
