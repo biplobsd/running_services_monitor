@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:m3e_collection/m3e_collection.dart';
+import 'package:loading_indicator_m3e/loading_indicator_m3e.dart';
 
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';

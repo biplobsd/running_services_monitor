@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:m3e_collection/m3e_collection.dart';
+import 'package:loading_indicator_m3e/loading_indicator_m3e.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 

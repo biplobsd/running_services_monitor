@@ -31,7 +31,10 @@ dependencies:
   fluttertoast: ^9.0.0
   collection: ^1.19.1
   expressive_refresh: ^0.1.2
-  m3e_collection: ^0.3.7
+  loading_indicator_m3e: ^0.1.1
+  m3e_design: ^0.2.0
+  dynamic_color: ^1.8.1
+  progress_indicator_m3e: ^0.1.1
 
 dev_dependencies:
   flutter_test:

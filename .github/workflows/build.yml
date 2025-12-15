@@ -1,0 +1,64 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    name: 🤖 Build Android APK
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: ☕️ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: gradle
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.38.3'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🧠 Generate code
+        run: |
+          flutter gen-l10n
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🔐 Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE }}
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > ${{ github.workspace }}/keystore.jks
+
+      - name: 📝 Update key.properties
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+        run: |
+          echo "storePassword=$KEYSTORE_PASSWORD" >> android/key.properties
+          echo "keyPassword=$KEYSTORE_PASSWORD" >> android/key.properties
+          echo "keyAlias=$KEYSTORE_ALIAS" >> android/key.properties
+          echo "storeFile=${{ github.workspace }}/keystore.jks" >> android/key.properties
+        shell: bash
+
+      - name: 🏗️ Build APK
+        run: flutter build apk --target-platform android-arm64
+
+      - name: 📤 Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-arm64-release
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
