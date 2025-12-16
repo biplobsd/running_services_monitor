@@ -11,7 +11,6 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
-import java.io.ByteArrayOutputStream
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
@@ -282,18 +281,17 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
 
     fun executeRootCommand(command: String): String {
         val process = Runtime.getRuntime().exec(command)
-        val buffer = ByteArray(8192)
-        val output = ByteArrayOutputStream()
-        var bytesRead: Int
+        val output = StringBuilder()
 
-        val inputStream = process.inputStream
-        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-            output.write(buffer, 0, bytesRead)
+        val inputReader = process.inputStream.bufferedReader()
+        var line: String?
+        while (inputReader.readLine().also { line = it } != null) {
+            output.appendLine(line)
         }
 
         process.waitFor()
-        inputStream.close()
-        return output.toString(Charsets.UTF_8.name())
+        inputReader.close()
+        return output.toString()
     }
 
     fun executeCommandWithStream(command: String, mode: String, events: EventChannel.EventSink) {
@@ -337,36 +335,34 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         val service = shellService ?: throw Exception("Shell service is not available")
         val pfd = service.executeCommandWithFd(command)
 
-        val inputStream = ParcelFileDescriptor.AutoCloseInputStream(pfd)
-        val buffer = ByteArray(8192)
-        var bytesRead: Int
+        val reader = ParcelFileDescriptor.AutoCloseInputStream(pfd).bufferedReader()
+        var line: String?
 
-        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-            val chunk = String(buffer, 0, bytesRead, Charsets.UTF_8)
-            mainHandler.post { events.success(chunk) }
+        while (reader.readLine().also { line = it } != null) {
+            val lineValue = line
+            mainHandler.post { events.success(lineValue) }
         }
 
-        inputStream.close()
+        reader.close()
     }
 
     fun streamProcessOutput(process: Process, events: EventChannel.EventSink) {
-        val buffer = ByteArray(8192)
-        var bytesRead: Int
+        var line: String?
 
-        val inputStream = process.inputStream
-        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-            val chunk = String(buffer, 0, bytesRead, Charsets.UTF_8)
-            mainHandler.post { events.success(chunk) }
+        val inputReader = process.inputStream.bufferedReader()
+        while (inputReader.readLine().also { line = it } != null) {
+            val lineValue = line
+            mainHandler.post { events.success(lineValue) }
         }
 
-        val errorStream = process.errorStream
-        while (errorStream.read(buffer).also { bytesRead = it } != -1) {
-            val chunk = String(buffer, 0, bytesRead, Charsets.UTF_8)
-            mainHandler.post { events.success(chunk) }
+        val errorReader = process.errorStream.bufferedReader()
+        while (errorReader.readLine().also { line = it } != null) {
+            val lineValue = line
+            mainHandler.post { events.success(lineValue) }
         }
 
         process.waitFor()
-        inputStream.close()
-        errorStream.close()
+        inputReader.close()
+        errorReader.close()
     }
 }

@@ -2,7 +2,6 @@ package me.biplobsd.rsm
 
 import android.content.Context
 import android.os.ParcelFileDescriptor
-import java.io.ByteArrayOutputStream
 import kotlin.system.exitProcess
 
 class ShellService : IShellService.Stub {
@@ -12,25 +11,24 @@ class ShellService : IShellService.Stub {
 
     override fun executeCommand(command: String): String {
         val process = Runtime.getRuntime().exec(command)
-        val buffer = ByteArray(8192)
-        val output = ByteArrayOutputStream()
-        var bytesRead: Int
+        val output = StringBuilder()
 
-        val inputStream = process.inputStream
-        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-            output.write(buffer, 0, bytesRead)
+        val inputReader = process.inputStream.bufferedReader()
+        var line: String?
+        while (inputReader.readLine().also { line = it } != null) {
+            output.appendLine(line)
         }
 
-        val errorStream = process.errorStream
-        while (errorStream.read(buffer).also { bytesRead = it } != -1) {
-            output.write(buffer, 0, bytesRead)
+        val errorReader = process.errorStream.bufferedReader()
+        while (errorReader.readLine().also { line = it } != null) {
+            output.appendLine(line)
         }
 
         process.waitFor()
-        inputStream.close()
-        errorStream.close()
+        inputReader.close()
+        errorReader.close()
 
-        return output.toString(Charsets.UTF_8.name())
+        return output.toString()
     }
 
     override fun executeCommandWithFd(command: String): ParcelFileDescriptor {
@@ -40,25 +38,29 @@ class ShellService : IShellService.Stub {
 
         Thread {
                     try {
-                        val outputStream = ParcelFileDescriptor.AutoCloseOutputStream(writeFd)
+                        val writer =
+                                ParcelFileDescriptor.AutoCloseOutputStream(writeFd).bufferedWriter()
                         val process = Runtime.getRuntime().exec(command)
-                        val buffer = ByteArray(8192)
-                        var bytesRead: Int
+                        var line: String?
 
-                        val inputStream = process.inputStream
-                        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                            outputStream.write(buffer, 0, bytesRead)
+                        val inputReader = process.inputStream.bufferedReader()
+                        while (inputReader.readLine().also { line = it } != null) {
+                            writer.write(line)
+                            writer.newLine()
+                            writer.flush()
                         }
 
-                        val errorStream = process.errorStream
-                        while (errorStream.read(buffer).also { bytesRead = it } != -1) {
-                            outputStream.write(buffer, 0, bytesRead)
+                        val errorReader = process.errorStream.bufferedReader()
+                        while (errorReader.readLine().also { line = it } != null) {
+                            writer.write(line)
+                            writer.newLine()
+                            writer.flush()
                         }
 
                         process.waitFor()
-                        inputStream.close()
-                        errorStream.close()
-                        outputStream.close()
+                        inputReader.close()
+                        errorReader.close()
+                        writer.close()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
