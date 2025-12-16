@@ -1,1 +1,1 @@
-Monitor running services on your Android device with Shizuku integration
+Monitor running services on your Android device with Root or Shizuku

@@ -1,12 +1,22 @@
 # Running Services Monitor
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Flutter](https://img.shields.io/badge/Flutter-Framework-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+![Platform](https://img.shields.io/badge/Platform-Android-brightgreen)
+[![Release](https://img.shields.io/github/v/release/biplobsd/running_services_monitor?label=Release&logo=github)](https://github.com/biplobsd/running_services_monitor/releases)
+[![GitHub stars](https://img.shields.io/github/stars/biplobsd/running_services_monitor?style=social)](https://github.com/biplobsd/running_services_monitor/stargazers)
+
+Running Services Monitor helps you monitor running services on your Android device.
+With a clean and intuitive interface, you can easily view system and user apps, check their status efficiently.
+
 <a href="https://play.google.com/store/apps/details?id=me.biplobsd.rsm"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="75" alt="Get it on Google Play" align="middle"></a>
 <a href="https://apt.izzysoft.de/packages/me.biplobsd.rsm"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="50" alt="Get it at IzzyOnDroid" align="middle"></a>
 <a href="https://f-droid.org/packages/me.biplobsd.rsm"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75" alt="Get it on F-Droid" align="middle"></a>
 <a href="https://www.amazon.com/gp/mas/dl/android?p=me.biplobsd.rsm"><img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" height="50" alt="Get it on Amazon Appstore" align="middle"></a>
-<a href="https://github.com/biplobsd/running_services_monitor/releases/latest"><img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/4711835e032fe2735dc80c1329beb4685899aa91/get-it-on-github.svg" alt="Download APK" align="middle" height="75"></a>
+<a href="https://www.openapk.net/running-services-monitor/me.biplobsd.rsm/"><img src="https://www.openapk.net/images/openapk-badge.png" height="75" alt="Get it on OpenAPK" align="middle"></a>
+<a href="https://github.com/biplobsd/running_services_monitor/releases/latest"><img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/4711835e032fe2735dc80c1329beb4685899aa91/get-it-on-github.svg" alt="Download APK" height="75" align="middle"></a>
 
-Running Services Monitor is help you Monitor running services on your Android device. With a clean and intuitive interface, you can easily view system and user apps, check their status efficiently.
+![Feature Graphic](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
 ## Features
 
@@ -21,17 +31,7 @@ Running Services Monitor is help you Monitor running services on your Android de
 
 ## 📱 Screenshots
 
-| Home                                       | Dark Home                                       |
-|--------------------------------------------|-------------------------------------------------|
-| ![Home](/screenshots/home.jpg)             | ![Dark Home](/screenshots/dark_home.jpg)        |
-
-| Details                                    | Service Details                                 |
-|--------------------------------------------|-------------------------------------------------|
-| ![Details](/screenshots/details.jpg)       | ![Service Details](/screenshots/service_details.jpg) |
-
-| Search                                     |
-|--------------------------------------------|
-| ![Search](/screenshots/search.jpg)         |
+> Screenshots are stored in [`fastlane/metadata/android/en-US/images/phoneScreenshots`](fastlane/metadata/android/en-US/images/phoneScreenshots)|
 
 
 ## Requirements
@@ -178,6 +178,16 @@ Thanks to all the amazing people who have contributed to this project!
 
 <a href="https://github.com/biplobsd/running_services_monitor/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=biplobsd/running_services_monitor" />
+</a>
+
+## Star History
+
+<a href="https://www.star-history.com/#biplobsd/running_services_monitor&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=biplobsd/running_services_monitor&type=timeline&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=biplobsd/running_services_monitor&type=timeline&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=biplobsd/running_services_monitor&type=timeline&legend=top-left" />
+ </picture>
 </a>
 
 ## Disclaimer

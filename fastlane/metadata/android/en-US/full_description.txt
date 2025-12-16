@@ -1,4 +1,4 @@
-Running Services Monitor is a powerful Flutter application designed to help you monitor running services on your Android device. With a clean and intuitive interface, you can easily view system and user apps and check their status efficiently.
+Running Services Monitor helps you monitor running services on your Android device. With a clean and intuitive interface, you can easily view system and user apps and check their status efficiently.
 
 <b>Features</b>
 
@@ -6,35 +6,37 @@ Running Services Monitor is a powerful Flutter application designed to help you 
 * Categorized View: Easily switch between All, User, and System apps
 * Search Functionality: Quickly find specific apps with the built-in search bar
 * App Details: Get detailed information about each app, including package name, version, and more
-* Shizuku Integration: Leverages Shizuku for advanced system interactions without root
+* Root & Shizuku Integration: First checks for root permission, then falls back to Shizuku for advanced system interactions (where supported)
 * Material Design 3: A modern and beautiful UI that adapts to your device's theme
 * Dark/Light Mode: Toggle between dark and light themes for comfortable viewing
-* Localization: Support for English and Bangla languages
+* Localization: Support for English, Bangla, Chinese languages
 
 <b>Requirements</b>
 
 Essential:
 
 * Android 7.0 (API 24) or higher
-* Shizuku app installed and running
-* For Android 11+: Wireless Debugging enabled
-* For Android 10 and below: ADB connection to PC
+* Root access (preferred) OR Shizuku app installed and running
 
 Permissions:
 
 * QUERY_ALL_PACKAGES - To list all installed apps
-* Shizuku permission - Granted through Shizuku app
+* Root permission OR Shizuku permission - The app first checks for root access, then falls back to Shizuku if root is unavailable
 
 <b>How It Works</b>
 
-This app uses Shizuku to execute privileged ADB commands without root access. Starting from Android 8.0 (API 26), the `ActivityManager.getRunningServices()` API was deprecated and restricted. Third-party apps can no longer query all running services on the device for privacy and security reasons.
-Shizuku provides a solution by running a privileged service that can access system APIs, allowing apps to execute ADB commands without root, working on non-rooted devices via Wireless Debugging (Android 11+) or USB ADB.
-The app connects to the Shizuku service running on your device, executes `dumpsys activity services` to get running service information, parses the dumpsys output to extract service details (package name, PID, process name, etc.), and categorizes services into System and User categories.
+This app uses root access or Shizuku to execute privileged ADB commands. Starting from Android 8.0 (API 26), the `ActivityManager.getRunningServices()` API was deprecated and restricted. Third-party apps can no longer query all running services on the device for privacy and security reasons.
+
+Root access provides the most seamless experience with direct access to system commands and no additional setup required.
+
+Shizuku provides an alternative for non-rooted devices by running a privileged service that can access system APIs, allowing apps to execute ADB commands without root, working on non-rooted devices via Wireless Debugging (Android 11+) or USB ADB.
+
+The app checks for root permission first, and if not available, falls back to Shizuku. It executes `dumpsys activity services` to get running service information, parses the output to extract service details (package name, PID, process name, etc.), and categorizes services into System and User categories.
 
 <b>Limitations</b>
 
 * Due to Android security policies, some service information may be limited
-* Requires Shizuku to be running; service stops when device reboots
+* When using Shizuku, the service stops when device reboots
 * Dumpsys output format may vary across Android versions
 * This app only displays services; it cannot start/stop them
 
