@@ -30,11 +30,7 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
 
     final scrollProvider = CustomScrollProviderData.of(context);
 
-    return BlocSelector<
-      HomeBloc,
-      HomeState,
-      ({String searchQuery, ProcessStateFilter processFilter, bool sortAscending})
-    >(
+    return BlocSelector<HomeBloc, HomeState, ({String searchQuery, ProcessStateFilter processFilter, bool sortAscending})>(
       selector: (state) => (
         searchQuery: state.value.searchQuery,
         processFilter: state.value.selectedProcessFilter,
@@ -68,7 +64,7 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
             slivers: <Widget>[
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  return AppListItem(appInfo: filteredApps[index]);
+                  return AppListItem(appInfo: filteredApps[index], tabIndex: widget.tabIndex);
                 }, childCount: filteredApps.length),
               ),
             ],

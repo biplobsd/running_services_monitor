@@ -32,7 +32,9 @@ GoRouter createAppRouter() {
         path: '/app-details',
         name: 'app-details',
         builder: (context, state) {
-          final packageId = state.extra as String?;
+          final extra = state.extra as Map<String, dynamic>?;
+          final packageId = extra?['packageName'] as String?;
+          final tabIndex = extra?['tabIndex'] as int? ?? 0;
 
           if (packageId == null) {
             final l10n = context.loc;
@@ -42,7 +44,7 @@ GoRouter createAppRouter() {
             );
           }
 
-          return AppDetailsScreen(packageId: packageId);
+          return AppDetailsScreen(packageId: packageId, tabIndex: tabIndex);
         },
       ),
     ],

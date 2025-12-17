@@ -11,8 +11,9 @@ import 'status_badge.dart';
 
 class AppListItem extends StatelessWidget {
   final AppProcessInfo appInfo;
+  final int tabIndex;
 
-  const AppListItem({super.key, required this.appInfo});
+  const AppListItem({super.key, required this.appInfo, required this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class AppListItem extends StatelessWidget {
 
     return ListTile(
       leading: Hero(
-        tag: 'app-icon-${appInfo.packageName}',
+        tag: 'app-icon-$tabIndex-${appInfo.packageName}',
         child: AppIcon(appInfo: appInfo, size: 40.sp),
       ),
       title: BlocSelector<AppInfoBloc, AppInfoState, String?>(
@@ -71,7 +72,7 @@ class AppListItem extends StatelessWidget {
       ),
       trailing: Text(appInfo.totalRam, style: TextStyle(fontSize: 14.sp)),
       onTap: () {
-        context.push('/app-details', extra: appInfo.packageName);
+        context.push('/app-details', extra: {'packageName': appInfo.packageName, 'tabIndex': tabIndex});
       },
     );
   }

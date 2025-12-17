@@ -127,6 +127,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             try {
                 Shizuku.pingBinder()
             } catch (e: Exception) {
+                e.printStackTrace()
                 false
             }
 
@@ -149,6 +150,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 !Shizuku.isPreV11() &&
                         Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
             } catch (e: Exception) {
+                e.printStackTrace()
                 false
             }
 
@@ -234,13 +236,14 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                     process.waitFor()
                     output.contains("uid=0")
                 } catch (e: Exception) {
+                    e.printStackTrace()
                     false
                 }
         return isRootAvailable!!
     }
 
     fun executeRootCommand(command: String): String {
-        val process = Runtime.getRuntime().exec(command)
+        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
         val output = process.inputStream.readToString()
         process.waitFor()
         return output

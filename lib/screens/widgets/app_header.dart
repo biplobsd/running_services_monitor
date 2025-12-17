@@ -11,8 +11,9 @@ import 'ram_info_dialog.dart';
 
 class AppHeader extends StatelessWidget {
   final AppProcessInfo appInfo;
+  final int tabIndex;
 
-  const AppHeader({super.key, required this.appInfo});
+  const AppHeader({super.key, required this.appInfo, required this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class AppHeader extends StatelessWidget {
     return Row(
       children: [
         Hero(
-          tag: 'app-icon-${appInfo.packageName}',
+          tag: 'app-icon-$tabIndex-${appInfo.packageName}',
           child: AppIcon(appInfo: appInfo),
         ),
         SizedBox(width: 16.w),
@@ -58,16 +59,12 @@ class AppHeader extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text(
                   appInfo.packageName,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   builDescText(),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),

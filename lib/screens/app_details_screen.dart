@@ -21,8 +21,9 @@ import 'package:running_services_monitor/core/dependency_injection/dependency_in
 
 class AppDetailsScreen extends StatelessWidget {
   final String packageId;
+  final int tabIndex;
 
-  const AppDetailsScreen({super.key, required this.packageId});
+  const AppDetailsScreen({super.key, required this.packageId, required this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -56,15 +57,11 @@ class AppDetailsScreen extends StatelessWidget {
                     SnackBarHelper.showLoading(context, context.loc.loading);
                   },
                   success: (packageName, serviceName, servicePid) {
-                    final message = serviceName != null
-                        ? '${context.loc.serviceStopped}: $serviceName'
-                        : context.loc.allServicesStopped;
+                    final message = serviceName != null ? '${context.loc.serviceStopped}: $serviceName' : context.loc.allServicesStopped;
                     SnackBarHelper.showSuccess(context, message);
 
                     if (serviceName != null && packageName != null) {
-                      getIt<HomeBloc>().add(
-                        HomeEvent.removeService(packageName: packageName, serviceName: serviceName),
-                      );
+                      getIt<HomeBloc>().add(HomeEvent.removeService(packageName: packageName, serviceName: serviceName));
                     } else if (packageName != null) {
                       getIt<HomeBloc>().add(HomeEvent.removeApp(packageName));
                       Future.delayed(const Duration(milliseconds: 500), () {
@@ -109,7 +106,7 @@ class AppDetailsScreen extends StatelessWidget {
                         padding: EdgeInsets.only(left: 24.0.w, right: 24.0.w, top: 24.0.w, bottom: 5.0.w),
                         sliver: SliverList(
                           delegate: SliverChildListDelegate([
-                            AppHeader(appInfo: currentAppInfo),
+                            AppHeader(appInfo: currentAppInfo, tabIndex: tabIndex),
                             SizedBox(height: 16.h),
 
                             StateBadges(appInfo: currentAppInfo),
@@ -129,9 +126,9 @@ class AppDetailsScreen extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     context.loc.noServicesFound,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                   ),
                                 ),
                               ),
@@ -198,10 +195,7 @@ class AppDetailsScreen extends StatelessWidget {
                           if (confirmed == true) {
                             if (context.mounted) {
                               context.read<StopServiceBloc>().add(
-                                StopServiceEvent.stopAllServices(
-                                  packageName: currentAppInfo.packageName,
-                                  pids: currentAppInfo.pids,
-                                ),
+                                StopServiceEvent.stopAllServices(packageName: currentAppInfo.packageName, pids: currentAppInfo.pids),
                               );
                             }
                           }
