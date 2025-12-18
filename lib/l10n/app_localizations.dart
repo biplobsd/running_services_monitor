@@ -349,7 +349,7 @@ abstract class AppLocalizations {
   /// No description provided for @services.
   ///
   /// In en, this message translates to:
-  /// **'services'**
+  /// **'Services'**
   String get services;
 
   /// No description provided for @apps.
@@ -718,11 +718,11 @@ abstract class AppLocalizations {
   /// **'RAM is calculated from system memory info. PID = Process ID lookup, Process = Process name lookup, LRU = Recent process list.'**
   String get ramCalculationExplanation;
 
-  /// No description provided for @verifyCommand.
+  /// No description provided for @playCommand.
   ///
   /// In en, this message translates to:
-  /// **'Verify Command'**
-  String get verifyCommand;
+  /// **'Play Command'**
+  String get playCommand;
 
   /// No description provided for @copiedToClipboard.
   ///
@@ -1137,6 +1137,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No processes found'**
   String get noProcessesFound;
+
+  /// No description provided for @usedBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Used Breakdown'**
+  String get usedBreakdown;
+
+  /// No description provided for @freeBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Breakdown'**
+  String get freeBreakdown;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @usedPss.
+  ///
+  /// In en, this message translates to:
+  /// **'Used PSS'**
+  String get usedPss;
+
+  /// No description provided for @kernel.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel'**
+  String get kernel;
+
+  /// No description provided for @cachedPss.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached PSS'**
+  String get cachedPss;
+
+  /// No description provided for @cachedKernel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached Kernel'**
+  String get cachedKernel;
+
+  /// No description provided for @actualFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Free'**
+  String get actualFree;
+
+  /// No description provided for @gpu.
+  ///
+  /// In en, this message translates to:
+  /// **'GPU'**
+  String get gpu;
+
+  /// No description provided for @lostRam.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost RAM'**
+  String get lostRam;
+
+  /// No description provided for @zramPhysical.
+  ///
+  /// In en, this message translates to:
+  /// **'ZRAM Physical'**
+  String get zramPhysical;
+
+  /// No description provided for @zramSwapUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'ZRAM Swap Used'**
+  String get zramSwapUsed;
+
+  /// No description provided for @zramTotalSwap.
+  ///
+  /// In en, this message translates to:
+  /// **'ZRAM Total Swap'**
+  String get zramTotalSwap;
+
+  /// No description provided for @oomThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'OOM Threshold'**
+  String get oomThreshold;
+
+  /// No description provided for @restoreLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Limit'**
+  String get restoreLimit;
+
+  /// No description provided for @zramSection.
+  ///
+  /// In en, this message translates to:
+  /// **'ZRAM'**
+  String get zramSection;
+
+  /// No description provided for @memoryThresholds.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Thresholds'**
+  String get memoryThresholds;
 }
 
 class _AppLocalizationsDelegate

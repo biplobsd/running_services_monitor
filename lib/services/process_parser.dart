@@ -1,4 +1,5 @@
 import 'package:running_services_monitor/models/service_info.dart';
+import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 
 class ProcessParser {
@@ -8,8 +9,21 @@ class ProcessParser {
   static final _ramLineRegex = RegExp(r'^\s*([\d,]+)K:\s+(\S+)\s+\(pid\s+(\d+)');
   static final _connectionRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+):@([a-f0-9]+)\s+flags=(0x[a-f0-9]+)');
   static final _pssLineRegex = RegExp(r'^\s*([\d,]+)K:\s+([a-zA-Z0-9._:]+)(?:\s+\(pid\s+(\d+))?', caseSensitive: false);
-  static final _totalRamRegex = RegExp(r'Total RAM:\s+([\d,]+)K');
-  static final _freeRamRegex = RegExp(r'Free RAM:\s+([\d,]+)K');
+
+  static final _totalRamRegex = RegExp(r'Total RAM:\s+([\d,]+)K\s*(?:\(status\s+(\w+)\))?');
+  static final _freeRamRegex = RegExp(
+    r'Free RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+cached pss\s*\+\s*([\d,]+)K\s+cached kernel\s*\+\s*([\d,]+)K\s+free\)',
+  );
+  static final _usedRamRegex = RegExp(r'Used RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+used pss\s*\+\s*([\d,]+)K\s+kernel\)');
+  static final _gpuRegex = RegExp(r'GPU:\s+([\d,]+)K');
+  static final _lostRamRegex = RegExp(r'Lost RAM:\s+([\d,]+)K');
+  static final _zramRegex = RegExp(r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)');
+  static final _tuningRegex = RegExp(r'Tuning:.*oom\s+([\d,]+)K.*restore limit\s+([\d,]+)K');
+
+  static double _parseKb(String? value) {
+    if (value == null) return 0.0;
+    return double.tryParse(value.replaceAll(',', '')) ?? 0.0;
+  }
 
   static String getAppName(String packageName) {
     final lastDot = packageName.lastIndexOf('.');
@@ -157,28 +171,53 @@ class ProcessParser {
     );
   }
 
-  static List<double> parseSystemRamInfo(String result) {
+  static SystemRamInfo parseSystemRamInfo(String result) {
     final totalMatch = _totalRamRegex.firstMatch(result);
     final freeMatch = _freeRamRegex.firstMatch(result);
+    final usedMatch = _usedRamRegex.firstMatch(result);
+    final gpuMatch = _gpuRegex.firstMatch(result);
+    final lostMatch = _lostRamRegex.firstMatch(result);
+    final zramMatch = _zramRegex.firstMatch(result);
+    final tuningMatch = _tuningRegex.firstMatch(result);
 
-    final totalRam = totalMatch != null ? double.tryParse(totalMatch.group(1)!.replaceAll(',', '')) ?? 0 : 0.0;
-    final freeRam = freeMatch != null ? double.tryParse(freeMatch.group(1)!.replaceAll(',', '')) ?? 0 : 0.0;
-
-    return [totalRam, freeRam, totalRam - freeRam];
+    return SystemRamInfo(
+      totalRamKb: _parseKb(totalMatch?.group(1)),
+      totalRamStatus: totalMatch?.group(2) ?? '',
+      freeRamKb: _parseKb(freeMatch?.group(1)),
+      cachedPssKb: _parseKb(freeMatch?.group(2)),
+      cachedKernelKb: _parseKb(freeMatch?.group(3)),
+      actualFreeKb: _parseKb(freeMatch?.group(4)),
+      usedRamKb: _parseKb(usedMatch?.group(1)),
+      usedPssKb: _parseKb(usedMatch?.group(2)),
+      kernelKb: _parseKb(usedMatch?.group(3)),
+      gpuKb: _parseKb(gpuMatch?.group(1)),
+      lostRamKb: _parseKb(lostMatch?.group(1)),
+      zramPhysicalKb: _parseKb(zramMatch?.group(1)),
+      zramSwapKb: _parseKb(zramMatch?.group(2)),
+      zramTotalSwapKb: _parseKb(zramMatch?.group(3)),
+      oomKb: _parseKb(tuningMatch?.group(1)),
+      restoreLimitKb: _parseKb(tuningMatch?.group(2)),
+    );
   }
 
   static ({Map<int, double> pidMap, Map<String, double> processNameMap}) parseRamMaps(String meminfoOutput) {
     if (meminfoOutput.isEmpty) return (pidMap: const {}, processNameMap: const {});
 
+    final pssStart = meminfoOutput.indexOf('Total PSS by process:');
+    if (pssStart == -1) return (pidMap: const {}, processNameMap: const {});
+
+    final pssEnd = meminfoOutput.indexOf('Total PSS by OOM', pssStart);
+    final section = pssEnd != -1 ? meminfoOutput.substring(pssStart, pssEnd) : meminfoOutput.substring(pssStart);
+
     final pidMap = <int, double>{};
     final processNameMap = <String, double>{};
 
-    var start = 0;
-    while (start < meminfoOutput.length) {
-      var end = meminfoOutput.indexOf('\n', start);
-      if (end == -1) end = meminfoOutput.length;
+    var start = section.indexOf('\n') + 1;
+    while (start < section.length) {
+      var end = section.indexOf('\n', start);
+      if (end == -1) end = section.length;
 
-      final line = meminfoOutput.substring(start, end);
+      final line = section.substring(start, end);
       start = end + 1;
 
       final match = _ramLineRegex.firstMatch(line);

@@ -17,24 +17,6 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final processCount = appInfo.processCount;
-    final serviceCount = appInfo.services.length;
-    final loc = context.loc;
-
-    String builDescText() {
-      final hasService = serviceCount > 0;
-      final hasProcess = processCount > 0;
-      if (hasService && hasProcess) {
-        return loc.service_process_string(serviceCount, processCount);
-      } else if (hasService) {
-        return loc.service_string(serviceCount);
-      } else if (hasProcess) {
-        return loc.process_string(processCount);
-      } else {
-        return '';
-      }
-    }
-
     return Row(
       children: [
         Hero(
@@ -60,11 +42,6 @@ class AppHeader extends StatelessWidget {
                 Text(
                   appInfo.packageName,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  builDescText(),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -95,7 +72,7 @@ class AppHeader extends StatelessWidget {
                   Icon(Icons.info_outline, size: 14.sp, color: Theme.of(context).colorScheme.primary),
                   SizedBox(width: 4.w),
                   Text(
-                    loc.info,
+                    context.loc.info,
                     style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
                   ),
                 ],

@@ -87,7 +87,7 @@ class HomeBody extends StatelessWidget {
               );
             }
 
-            final ram = (total: data.model.totalRamKb, used: data.model.usedRamKb, free: data.model.freeRamKb);
+            final ramInfo = data.model.systemRamInfo;
 
             return NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -112,16 +112,12 @@ class HomeBody extends StatelessWidget {
                       );
                     },
                   ),
-                  if (ram.total > 0)
-                    SliverPersistentHeader(
-                      pinned: false,
-                      delegate: RamBarDelegate(
-                        ramBar: RamBar(
-                          totalRamKb: ram.total,
-                          usedRamKb: ram.used,
-                          freeRamKb: ram.free,
-                          isLoading: data.isLoading,
-                        ),
+                  if (ramInfo.totalRamKb > 0)
+                    SliverToBoxAdapter(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.surface,
+                        padding: EdgeInsets.only(bottom: 10.h),
+                        child: RamBar(ramInfo: ramInfo, isLoading: data.isLoading),
                       ),
                     ),
                   SliverToBoxAdapter(child: Divider(height: 1.h)),

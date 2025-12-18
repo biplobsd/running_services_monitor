@@ -8,6 +8,7 @@ abstract class L10nKeys {
   static const about = 'about';
   static const active = 'active';
   static const activeServices = 'activeServices';
+  static const actualFree = 'actualFree';
   static const all = 'all';
   static const allServicesStopped = 'allServicesStopped';
   static const and = 'and';
@@ -22,6 +23,8 @@ abstract class L10nKeys {
   static const blogs = 'blogs';
   static const buyMeCoffee = 'buyMeCoffee';
   static const cached = 'cached';
+  static const cachedKernel = 'cachedKernel';
+  static const cachedPss = 'cachedPss';
   static const cancel = 'cancel';
   static const capabilities = 'capabilities';
   static const checkingPermissions = 'checkingPermissions';
@@ -57,14 +60,19 @@ abstract class L10nKeys {
   static const foreground = 'foreground';
   static const foregroundId = 'foregroundId';
   static const free = 'free';
+  static const freeBreakdown = 'freeBreakdown';
+  static const gpu = 'gpu';
   static const info = 'info';
   static const intent = 'intent';
+  static const kernel = 'kernel';
   static const language = 'language';
   static const lastActivity = 'lastActivity';
   static const loading = 'loading';
   static const loadingApps = 'loadingApps';
   static const loadingServices = 'loadingServices';
+  static const lostRam = 'lostRam';
   static const madeInBangladesh = 'madeInBangladesh';
+  static const memoryThresholds = 'memoryThresholds';
   static const modeNotAvailable = 'modeNotAvailable';
   static const no = 'no';
   static const noAppsFound = 'noAppsFound';
@@ -78,9 +86,11 @@ abstract class L10nKeys {
   static const notAvailable = 'notAvailable';
   static const ofRam = 'ofRam';
   static const ok = 'ok';
+  static const oomThreshold = 'oomThreshold';
   static const openGithubProfile = 'openGithubProfile';
   static const openRunningServicesTooltip = 'openRunningServicesTooltip';
   static const openShizuku = 'openShizuku';
+  static const other = 'other';
   static const package = 'package';
   static const permissionDeniedShizuku = 'permissionDeniedShizuku';
   static const permissionNote = 'permissionNote';
@@ -91,6 +101,7 @@ abstract class L10nKeys {
   static const permissionStep3 = 'permissionStep3';
   static const permissionSteps = 'permissionSteps';
   static const pid = 'pid';
+  static const playCommand = 'playCommand';
   static const process = 'process';
   static const processAnd = 'processAnd';
   static const processStateBfgs = 'processStateBfgs';
@@ -125,6 +136,7 @@ abstract class L10nKeys {
   static const recentCallingUid = 'recentCallingUid';
   static const refresh = 'refresh';
   static const refreshedSuccessfully = 'refreshedSuccessfully';
+  static const restoreLimit = 'restoreLimit';
   static const retry = 'retry';
   static const rootMode = 'rootMode';
   static const runningApp = 'runningApp';
@@ -163,12 +175,17 @@ abstract class L10nKeys {
   static const type = 'type';
   static const uid = 'uid';
   static const used = 'used';
+  static const usedBreakdown = 'usedBreakdown';
+  static const usedPss = 'usedPss';
   static const user = 'user';
   static const userApp = 'userApp';
-  static const verifyCommand = 'verifyCommand';
   static const visible = 'visible';
   static const workingMode = 'workingMode';
   static const yes = 'yes';
+  static const zramPhysical = 'zramPhysical';
+  static const zramSection = 'zramSection';
+  static const zramSwapUsed = 'zramSwapUsed';
+  static const zramTotalSwap = 'zramTotalSwap';
 }
 
 extension L10nResolver on AppLocalizations {
@@ -178,6 +195,7 @@ extension L10nResolver on AppLocalizations {
       'about' => about,
       'active' => active,
       'activeServices' => activeServices,
+      'actualFree' => actualFree,
       'all' => all,
       'allServicesStopped' => allServicesStopped,
       'and' => and,
@@ -192,6 +210,8 @@ extension L10nResolver on AppLocalizations {
       'blogs' => blogs,
       'buyMeCoffee' => buyMeCoffee,
       'cached' => cached,
+      'cachedKernel' => cachedKernel,
+      'cachedPss' => cachedPss,
       'cancel' => cancel,
       'capabilities' => capabilities,
       'checkingPermissions' => checkingPermissions,
@@ -227,14 +247,19 @@ extension L10nResolver on AppLocalizations {
       'foreground' => foreground,
       'foregroundId' => foregroundId,
       'free' => free,
+      'freeBreakdown' => freeBreakdown,
+      'gpu' => gpu,
       'info' => info,
       'intent' => intent,
+      'kernel' => kernel,
       'language' => language,
       'lastActivity' => lastActivity,
       'loading' => loading,
       'loadingApps' => loadingApps,
       'loadingServices' => loadingServices,
+      'lostRam' => lostRam,
       'madeInBangladesh' => madeInBangladesh,
+      'memoryThresholds' => memoryThresholds,
       'modeNotAvailable' => modeNotAvailable,
       'no' => no,
       'noAppsFound' => noAppsFound,
@@ -248,9 +273,11 @@ extension L10nResolver on AppLocalizations {
       'notAvailable' => notAvailable,
       'ofRam' => ofRam,
       'ok' => ok,
+      'oomThreshold' => oomThreshold,
       'openGithubProfile' => openGithubProfile,
       'openRunningServicesTooltip' => openRunningServicesTooltip,
       'openShizuku' => openShizuku,
+      'other' => other,
       'package' => package,
       'permissionDeniedShizuku' => permissionDeniedShizuku,
       'permissionNote' => permissionNote,
@@ -261,6 +288,7 @@ extension L10nResolver on AppLocalizations {
       'permissionStep3' => permissionStep3,
       'permissionSteps' => permissionSteps,
       'pid' => pid,
+      'playCommand' => playCommand,
       'process' => process,
       'processAnd' => processAnd,
       'processStateBfgs' => processStateBfgs,
@@ -295,6 +323,7 @@ extension L10nResolver on AppLocalizations {
       'recentCallingUid' => recentCallingUid,
       'refresh' => refresh,
       'refreshedSuccessfully' => refreshedSuccessfully,
+      'restoreLimit' => restoreLimit,
       'retry' => retry,
       'rootMode' => rootMode,
       'runningApp' => runningApp,
@@ -333,12 +362,17 @@ extension L10nResolver on AppLocalizations {
       'type' => type,
       'uid' => uid,
       'used' => used,
+      'usedBreakdown' => usedBreakdown,
+      'usedPss' => usedPss,
       'user' => user,
       'userApp' => userApp,
-      'verifyCommand' => verifyCommand,
       'visible' => visible,
       'workingMode' => workingMode,
       'yes' => yes,
+      'zramPhysical' => zramPhysical,
+      'zramSection' => zramSection,
+      'zramSwapUsed' => zramSwapUsed,
+      'zramTotalSwap' => zramTotalSwap,
       _ => key,
     };
   }

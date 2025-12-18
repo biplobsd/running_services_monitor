@@ -28,6 +28,7 @@ class ProcessListItem extends StatelessWidget {
         title: Text(
           displayName,
           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
+          maxLines: 1,
         ),
         trailing: process.pid != null
             ? FilledButton.icon(
@@ -41,33 +42,40 @@ class ProcessListItem extends StatelessWidget {
               )
             : null,
         subtitle: Column(
+          spacing: 8.h,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4.h),
             Text(
               processName,
               style: TextStyle(fontSize: 12.sp, color: colorScheme.onSurfaceVariant),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: 4.h),
             Row(
+              spacing: 8.w,
               children: [
-                Icon(Icons.storage, size: 12.w, color: colorScheme.secondary),
-                SizedBox(width: 4.w),
-                Text(
-                  formatRam(process.ramKb),
-                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold, color: colorScheme.secondary),
+                Row(
+                  spacing: 4.w,
+                  children: [
+                    Icon(Icons.storage, size: 12.w, color: colorScheme.secondary),
+                    Text(
+                      formatRam(process.ramKb),
+                      style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold, color: colorScheme.secondary),
+                    ),
+                  ],
                 ),
-                if (process.pid != null) ...[
-                  SizedBox(width: 12.w),
-                  Icon(Icons.numbers, size: 12.w, color: colorScheme.primary),
-                  SizedBox(width: 4.w),
-                  Text(
-                    '${context.loc.pid}: ${process.pid}',
-                    style: TextStyle(fontSize: 11.sp, color: colorScheme.primary),
+
+                if (process.pid != null)
+                  Row(
+                    spacing: 4.w,
+                    children: [
+                      Icon(Icons.numbers, size: 12.w, color: colorScheme.primary),
+                      Text(
+                        '${context.loc.pid}: ${process.pid}',
+                        style: TextStyle(fontSize: 11.sp, color: colorScheme.primary),
+                      ),
+                    ],
                   ),
-                ],
               ],
             ),
           ],

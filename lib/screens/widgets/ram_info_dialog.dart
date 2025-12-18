@@ -274,7 +274,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                 ],
                                 SizedBox(height: 16.h),
                                 Text(
-                                  loc.verifyCommand,
+                                  loc.playCommand,
                                   style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(height: 8.h),

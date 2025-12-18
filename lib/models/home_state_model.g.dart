@@ -13,9 +13,11 @@ _HomeStateModel _$HomeStateModelFromJson(Map<String, dynamic> json) =>
               ?.map((e) => AppProcessInfo.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      totalRamKb: (json['totalRamKb'] as num?)?.toDouble() ?? 0.0,
-      freeRamKb: (json['freeRamKb'] as num?)?.toDouble() ?? 0.0,
-      usedRamKb: (json['usedRamKb'] as num?)?.toDouble() ?? 0.0,
+      systemRamInfo: json['systemRamInfo'] == null
+          ? const SystemRamInfo()
+          : SystemRamInfo.fromJson(
+              json['systemRamInfo'] as Map<String, dynamic>,
+            ),
       isSearching: json['isSearching'] as bool? ?? false,
       searchQuery: json['searchQuery'] as String? ?? '',
       selectedProcessFilter:
@@ -30,9 +32,7 @@ _HomeStateModel _$HomeStateModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$HomeStateModelToJson(_HomeStateModel instance) =>
     <String, dynamic>{
       'allApps': instance.allApps,
-      'totalRamKb': instance.totalRamKb,
-      'freeRamKb': instance.freeRamKb,
-      'usedRamKb': instance.usedRamKb,
+      'systemRamInfo': instance.systemRamInfo,
       'isSearching': instance.isSearching,
       'searchQuery': instance.searchQuery,
       'selectedProcessFilter':

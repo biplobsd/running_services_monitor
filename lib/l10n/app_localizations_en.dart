@@ -135,7 +135,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get processAnd => 'process and';
 
   @override
-  String get services => 'services';
+  String get services => 'Services';
 
   @override
   String get apps => 'Apps';
@@ -331,7 +331,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'RAM is calculated from system memory info. PID = Process ID lookup, Process = Process name lookup, LRU = Recent process list.';
 
   @override
-  String get verifyCommand => 'Verify Command';
+  String get playCommand => 'Play Command';
 
   @override
   String get copiedToClipboard => 'Copied to clipboard';
@@ -595,4 +595,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noProcessesFound => 'No processes found';
+
+  @override
+  String get usedBreakdown => 'Used Breakdown';
+
+  @override
+  String get freeBreakdown => 'Free Breakdown';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get usedPss => 'Used PSS';
+
+  @override
+  String get kernel => 'Kernel';
+
+  @override
+  String get cachedPss => 'Cached PSS';
+
+  @override
+  String get cachedKernel => 'Cached Kernel';
+
+  @override
+  String get actualFree => 'Actual Free';
+
+  @override
+  String get gpu => 'GPU';
+
+  @override
+  String get lostRam => 'Lost RAM';
+
+  @override
+  String get zramPhysical => 'ZRAM Physical';
+
+  @override
+  String get zramSwapUsed => 'ZRAM Swap Used';
+
+  @override
+  String get zramTotalSwap => 'ZRAM Total Swap';
+
+  @override
+  String get oomThreshold => 'OOM Threshold';
+
+  @override
+  String get restoreLimit => 'Restore Limit';
+
+  @override
+  String get zramSection => 'ZRAM';
+
+  @override
+  String get memoryThresholds => 'Memory Thresholds';
 }

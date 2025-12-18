@@ -53,57 +53,48 @@ class CommandOutputScreen extends StatelessWidget {
           ),
           body: CustomScrollView(
             slivers: [
-              SliverPadding(
-                padding: EdgeInsets.all(16.w),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            context.loc.command,
-                            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-                          ),
-                          SizedBox(height: 4.h),
-                          SelectableText(
-                            entry.command,
-                            style: TextStyle(fontSize: 13.sp, fontFamily: 'monospace'),
-                          ),
-                        ],
-                      ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Container(
+                    margin: EdgeInsets.all(16.w),
+                    width: double.infinity,
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      context.loc.rawOutput,
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8.h),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
-                      ),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SelectableText(
-                          scrollPhysics: const NeverScrollableScrollPhysics(),
-                          entry.output.isEmpty ? context.loc.noOutput : entry.output,
-                          style: TextStyle(fontSize: 12.sp, fontFamily: 'monospace', height: 1.5, color: const Color(0xFF4EC9B0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          context.loc.command,
+                          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                         ),
+                        SizedBox(height: 4.h),
+                        SelectableText(
+                          entry.command,
+                          style: TextStyle(fontSize: 13.sp, fontFamily: 'monospace'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SelectableText(
+                        scrollPhysics: const NeverScrollableScrollPhysics(),
+                        entry.output.isEmpty ? context.loc.noOutput : entry.output,
+                        style: TextStyle(fontSize: 12.sp, fontFamily: 'monospace', height: 1.5, color: const Color(0xFF4EC9B0)),
                       ),
                     ),
-                  ]),
-                ),
+                  ),
+                ]),
               ),
             ],
           ),

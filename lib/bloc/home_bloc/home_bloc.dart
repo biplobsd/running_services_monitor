@@ -113,12 +113,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
       emit(
         HomeState.success(
-          state.value.copyWith(
-            allApps: allApps,
-            totalRamKb: ramInfo?[0] ?? state.value.totalRamKb,
-            freeRamKb: ramInfo?[1] ?? state.value.freeRamKb,
-            usedRamKb: ramInfo?[2] ?? state.value.usedRamKb,
-          ),
+          state.value.copyWith(allApps: allApps, systemRamInfo: ramInfo ?? state.value.systemRamInfo),
           event.notify ? L10nKeys.refreshedSuccessfully : null,
         ),
       );
@@ -146,12 +141,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       final ramInfo = await streamResult.systemRamInfo;
       emit(
         HomeState.success(
-          state.value.copyWith(
-            allApps: allApps,
-            totalRamKb: ramInfo?[0] ?? state.value.totalRamKb,
-            freeRamKb: ramInfo?[1] ?? state.value.freeRamKb,
-            usedRamKb: ramInfo?[2] ?? state.value.usedRamKb,
-          ),
+          state.value.copyWith(allApps: allApps, systemRamInfo: ramInfo ?? state.value.systemRamInfo),
           L10nKeys.refreshedSuccessfully,
         ),
       );

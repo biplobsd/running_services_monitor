@@ -254,7 +254,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
         spacing: 8.w,
         children: [
           FilterChip(
-            label: Text('${context.loc.activeServices} ($serviceCount)'),
+            label: Text('${context.loc.services} ($serviceCount)'),
             selected: selectedFilter == AppDetailsFilter.services,
             onSelected: (_) => setState(() => selectedFilter = AppDetailsFilter.services),
           ),

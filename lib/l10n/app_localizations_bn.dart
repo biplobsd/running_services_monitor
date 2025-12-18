@@ -333,7 +333,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'র‍্যাম সিস্টেম মেমোরি তথ্য থেকে গণনা করা হয়। PID = প্রসেস আইডি লুকআপ, Process = প্রসেস নাম লুকআপ, LRU = সাম্প্রতিক প্রসেস তালিকা।';
 
   @override
-  String get verifyCommand => 'যাচাই কমান্ড';
+  String get playCommand => 'কমান্ড চালান';
 
   @override
   String get copiedToClipboard => 'ক্লিপবোর্ডে কপি হয়েছে';
@@ -597,4 +597,55 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get noProcessesFound => 'কোনো প্রসেস পাওয়া যায়নি';
+
+  @override
+  String get usedBreakdown => 'ব্যবহৃত ভাঙ্গন';
+
+  @override
+  String get freeBreakdown => 'ফাঁকা ভাঙ্গন';
+
+  @override
+  String get other => 'অন্যান্য';
+
+  @override
+  String get usedPss => 'ব্যবহৃত PSS';
+
+  @override
+  String get kernel => 'কার্নেল';
+
+  @override
+  String get cachedPss => 'ক্যাশড PSS';
+
+  @override
+  String get cachedKernel => 'ক্যাশড কার্নেল';
+
+  @override
+  String get actualFree => 'প্রকৃত ফাঁকা';
+
+  @override
+  String get gpu => 'GPU';
+
+  @override
+  String get lostRam => 'হারানো র‍্যাম';
+
+  @override
+  String get zramPhysical => 'ZRAM ফিজিক্যাল';
+
+  @override
+  String get zramSwapUsed => 'ZRAM সোয়াপ ব্যবহৃত';
+
+  @override
+  String get zramTotalSwap => 'ZRAM মোট সোয়াপ';
+
+  @override
+  String get oomThreshold => 'OOM থ্রেশহোল্ড';
+
+  @override
+  String get restoreLimit => 'পুনরুদ্ধার সীমা';
+
+  @override
+  String get zramSection => 'ZRAM';
+
+  @override
+  String get memoryThresholds => 'মেমোরি থ্রেশহোল্ড';
 }

@@ -323,7 +323,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '内存数据来自系统内存信息。PID = 进程ID查找，Process = 进程名称查找，LRU = 最近进程列表。';
 
   @override
-  String get verifyCommand => '验证命令';
+  String get playCommand => '执行命令';
 
   @override
   String get copiedToClipboard => '已复制到剪贴板';
@@ -547,4 +547,55 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noProcessesFound => '未找到进程';
+
+  @override
+  String get usedBreakdown => '已用内存分解';
+
+  @override
+  String get freeBreakdown => '可用内存分解';
+
+  @override
+  String get other => '其他';
+
+  @override
+  String get usedPss => '已用 PSS';
+
+  @override
+  String get kernel => '内核';
+
+  @override
+  String get cachedPss => '缓存 PSS';
+
+  @override
+  String get cachedKernel => '缓存内核';
+
+  @override
+  String get actualFree => '实际可用';
+
+  @override
+  String get gpu => 'GPU';
+
+  @override
+  String get lostRam => '丢失内存';
+
+  @override
+  String get zramPhysical => 'ZRAM 物理';
+
+  @override
+  String get zramSwapUsed => 'ZRAM 交换已用';
+
+  @override
+  String get zramTotalSwap => 'ZRAM 总交换';
+
+  @override
+  String get oomThreshold => 'OOM 阈值';
+
+  @override
+  String get restoreLimit => '恢复限制';
+
+  @override
+  String get zramSection => 'ZRAM';
+
+  @override
+  String get memoryThresholds => '内存阈值';
 }
