@@ -542,12 +542,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( String packageName,  String? serviceName)?  stopping,TResult Function( String? packageName,  String? serviceName,  int? servicePid)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( String packageName,  String? serviceName)?  stopping,TResult Function( String? packageName,  String? serviceName,  int? pid)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Stopping() when stopping != null:
 return stopping(_that.packageName,_that.serviceName);case _Success() when success != null:
-return success(_that.packageName,_that.serviceName,_that.servicePid);case _Error() when error != null:
+return success(_that.packageName,_that.serviceName,_that.pid);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -566,12 +566,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( String packageName,  String? serviceName)  stopping,required TResult Function( String? packageName,  String? serviceName,  int? servicePid)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( String packageName,  String? serviceName)  stopping,required TResult Function( String? packageName,  String? serviceName,  int? pid)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Stopping():
 return stopping(_that.packageName,_that.serviceName);case _Success():
-return success(_that.packageName,_that.serviceName,_that.servicePid);case _Error():
+return success(_that.packageName,_that.serviceName,_that.pid);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -589,12 +589,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( String packageName,  String? serviceName)?  stopping,TResult? Function( String? packageName,  String? serviceName,  int? servicePid)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( String packageName,  String? serviceName)?  stopping,TResult? Function( String? packageName,  String? serviceName,  int? pid)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Stopping() when stopping != null:
 return stopping(_that.packageName,_that.serviceName);case _Success() when success != null:
-return success(_that.packageName,_that.serviceName,_that.servicePid);case _Error() when error != null:
+return success(_that.packageName,_that.serviceName,_that.pid);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -707,12 +707,12 @@ as String?,
 
 
 class _Success implements StopServiceState {
-  const _Success({this.packageName, this.serviceName, this.servicePid});
+  const _Success({this.packageName, this.serviceName, this.pid});
   
 
  final  String? packageName;
  final  String? serviceName;
- final  int? servicePid;
+ final  int? pid;
 
 /// Create a copy of StopServiceState
 /// with the given fields replaced by the non-null parameter values.
@@ -724,16 +724,16 @@ _$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.packageName, packageName) || other.packageName == packageName)&&(identical(other.serviceName, serviceName) || other.serviceName == serviceName)&&(identical(other.servicePid, servicePid) || other.servicePid == servicePid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.packageName, packageName) || other.packageName == packageName)&&(identical(other.serviceName, serviceName) || other.serviceName == serviceName)&&(identical(other.pid, pid) || other.pid == pid));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,packageName,serviceName,servicePid);
+int get hashCode => Object.hash(runtimeType,packageName,serviceName,pid);
 
 @override
 String toString() {
-  return 'StopServiceState.success(packageName: $packageName, serviceName: $serviceName, servicePid: $servicePid)';
+  return 'StopServiceState.success(packageName: $packageName, serviceName: $serviceName, pid: $pid)';
 }
 
 
@@ -744,7 +744,7 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $StopServiceStateCopyWit
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- String? packageName, String? serviceName, int? servicePid
+ String? packageName, String? serviceName, int? pid
 });
 
 
@@ -761,11 +761,11 @@ class __$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of StopServiceState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? packageName = freezed,Object? serviceName = freezed,Object? servicePid = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? packageName = freezed,Object? serviceName = freezed,Object? pid = freezed,}) {
   return _then(_Success(
 packageName: freezed == packageName ? _self.packageName : packageName // ignore: cast_nullable_to_non_nullable
 as String?,serviceName: freezed == serviceName ? _self.serviceName : serviceName // ignore: cast_nullable_to_non_nullable
-as String?,servicePid: freezed == servicePid ? _self.servicePid : servicePid // ignore: cast_nullable_to_non_nullable
+as String?,pid: freezed == pid ? _self.pid : pid // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }

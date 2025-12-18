@@ -6,7 +6,7 @@ class StopServiceState with _$StopServiceState {
 
   const factory StopServiceState.stopping({required String packageName, String? serviceName}) = _Stopping;
 
-  const factory StopServiceState.success({String? packageName, String? serviceName, int? servicePid}) = _Success;
+  const factory StopServiceState.success({String? packageName, String? serviceName, int? pid}) = _Success;
 
   const factory StopServiceState.error({required String message}) = _Error;
 }

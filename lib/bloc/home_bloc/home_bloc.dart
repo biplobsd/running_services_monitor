@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
+import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/services/process_service.dart';
 import 'package:running_services_monitor/services/shizuku_service.dart';
@@ -29,8 +30,10 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_UpdateSearchQuery>(_onUpdateSearchQuery);
     on<_RemoveApp>(_onRemoveApp);
     on<_RemoveService>(_onRemoveService);
+    on<_RemoveByPid>(_onRemoveByPid);
     on<_SetProcessFilter>(_onSetProcessFilter);
     on<_ToggleSortOrder>(_onToggleSortOrder);
+    on<_UpdateCachedApps>(_onUpdateCachedApps);
   }
 
   @override
@@ -169,7 +172,11 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   Future<void> _onToggleSearch(_ToggleSearch event, Emitter<HomeState> emit) async {
     final newSearchState = !state.value.isSearching;
 
-    emit(HomeState.success(state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : '')));
+    emit(
+      HomeState.success(
+        state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : ''),
+      ),
+    );
   }
 
   Future<void> _onUpdateSearchQuery(_UpdateSearchQuery event, Emitter<HomeState> emit) async {
@@ -204,7 +211,47 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
         }
       }
 
-      return app.copyWith(services: updatedServices, pids: pids.toList(), totalRamInKb: totalRamKb, totalRam: formatRam(totalRamKb));
+      return app.copyWith(
+        services: updatedServices,
+        pids: pids.toList(),
+        totalRamInKb: totalRamKb,
+        totalRam: formatRam(totalRamKb),
+      );
+    }
+
+    final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
+
+    emit(HomeState.success(currentState.copyWith(allApps: updatedAllApps)));
+  }
+
+  Future<void> _onRemoveByPid(_RemoveByPid event, Emitter<HomeState> emit) async {
+    final currentState = state.value;
+
+    AppProcessInfo? updateApp(AppProcessInfo app) {
+      if (app.packageName != event.packageName) return app;
+
+      final updatedServices = app.services.where((s) => s.pid != event.pid).toList();
+      final updatedPids = app.pids.where((p) => p != event.pid).toList();
+
+      if (updatedServices.isEmpty) return null;
+
+      double totalRamKb = 0;
+      final Set<int> pids = {};
+      for (var service in updatedServices) {
+        if (service.pid != null) {
+          final isNewPid = pids.add(service.pid!);
+          if (isNewPid) {
+            totalRamKb += service.ramInKb ?? 0;
+          }
+        }
+      }
+
+      return app.copyWith(
+        services: updatedServices,
+        pids: updatedPids,
+        totalRamInKb: totalRamKb,
+        totalRam: formatRam(totalRamKb),
+      );
     }
 
     final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
@@ -218,6 +265,18 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
   Future<void> _onToggleSortOrder(_ToggleSortOrder event, Emitter<HomeState> emit) async {
     emit(HomeState.success(state.value.copyWith(sortAscending: !state.value.sortAscending)));
+  }
+
+  Future<void> _onUpdateCachedApps(_UpdateCachedApps event, Emitter<HomeState> emit) async {
+    final updatedApps = state.value.allApps.map((app) {
+      final cached = event.cachedApps[app.packageName];
+      if (cached != null) {
+        return app.copyWith(appName: cached.appName, isSystemApp: cached.isSystemApp);
+      }
+      return app;
+    }).toList();
+
+    emit(HomeState.success(state.value.copyWith(allApps: updatedApps)));
   }
 
   @override

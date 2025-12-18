@@ -38,7 +38,11 @@ class ServiceListItem extends StatelessWidget {
                       Icon(Icons.memory, size: 12.w, color: Theme.of(context).colorScheme.secondary),
                       Text(
                         service.ramUsage!,
-                        style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.secondary),
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
                     ],
                   ),
@@ -49,21 +53,21 @@ class ServiceListItem extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                Row(
-                  spacing: 4.w,
-                  children: [
-                    Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
-                    Text(
-                      '${context.loc.pid}: ${service.pid?.toString() ?? 'N/A'}',
-                      style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
-                    ),
-                  ],
-                ),
+                if (service.pid != null)
+                  Row(
+                    spacing: 4.w,
+                    children: [
+                      Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
+                      Text(
+                        '${context.loc.pid}: ${service.pid?.toString() ?? 'N/A'}',
+                        style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ],
         ),
-        trailing: Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.onSurfaceVariant),
         onTap: () {
           final stopServiceBloc = context.read<StopServiceBloc>();
           showDialog(

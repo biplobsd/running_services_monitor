@@ -83,31 +83,35 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [BlocProvider.value(value: homeBloc)],
-      child: BlocListener<HomeBloc, HomeState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            failure: (value, message) {
-              if (message == L10nKeys.shizukuNotRunning) {
-                _showShizukuSetupDialog();
-              } else if (message == L10nKeys.permissionDeniedShizuku || message == L10nKeys.failedToInitialize) {
-                _showPermissionDialog();
-              }
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<HomeBloc, HomeState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                failure: (value, message) {
+                  if (message == L10nKeys.shizukuNotRunning) {
+                    _showShizukuSetupDialog();
+                  } else if (message == L10nKeys.permissionDeniedShizuku || message == L10nKeys.failedToInitialize) {
+                    _showPermissionDialog();
+                  }
+                },
+                success: (value, toast) {
+                  if (toast != null) {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(context.loc.resolve(toast), style: TextStyle(fontSize: 14.sp)),
+                        duration: const Duration(seconds: 1),
+                        behavior: SnackBarBehavior.fixed,
+                      ),
+                    );
+                  }
+                },
+                orElse: () {},
+              );
             },
-            success: (value, toast) {
-              if (toast != null) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(context.loc.resolve(toast), style: TextStyle(fontSize: 14.sp)),
-                    duration: const Duration(seconds: 1),
-                    behavior: SnackBarBehavior.fixed,
-                  ),
-                );
-              }
-            },
-            orElse: () {},
-          );
-        },
+          ),
+        ],
         child: Scaffold(
           appBar: AppBar(
             title: BlocSelector<HomeBloc, HomeState, bool>(
@@ -182,6 +186,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     icon: Icon(data.isSearching ? Icons.close : Icons.search),
                     onPressed: () {
                       if (!data.isSearching) {
+                        final cachedApps = getIt<AppInfoBloc>().state.value.cachedApps;
+                        homeBloc.add(HomeEvent.updateCachedApps(cachedApps));
                         homeBloc.add(const HomeEvent.toggleSearch());
                       } else {
                         _searchController.clear();

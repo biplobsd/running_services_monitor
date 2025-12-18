@@ -345,10 +345,10 @@ packages:
     dependency: transitive
     description:
       name: hive_ce
-      sha256: "81d39a03c4c0ba5938260a8c3547d2e71af59defecea21793d57fc3551f0d230"
+      sha256: "412c638aeac0f003bba664884e3048b9547e541aaca13f10cc639da788184bed"
       url: "https://pub.dev"
     source: hosted
-    version: "2.15.1"
+    version: "2.16.0"
   http:
     dependency: transitive
     description:
@@ -401,10 +401,10 @@ packages:
     dependency: "direct main"
     description:
       name: installed_apps
-      sha256: "19dbde9377f89cf816379d59ba413cf0cea382e63e8d31bebec0f157b967f7c8"
+      sha256: a111e54eb48d84db5680871c25b1d6fbe7d044baf5c262d97d9d18c1b769e196
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   intl:
     dependency: "direct main"
     description:
@@ -633,10 +633,10 @@ packages:
     dependency: "direct dev"
     description:
       name: pigeon
-      sha256: ad2b4da1023fe734435395428c0530b495e0cce2e1c99f3d0df262d0469a4fa1
+      sha256: fcfee18cf18dae434a149879e6876214c1b57c8d2d5d0cc55a5ba0c85278b886
       url: "https://pub.dev"
     source: hosted
-    version: "26.1.4"
+    version: "26.1.5"
   platform:
     dependency: transitive
     description:

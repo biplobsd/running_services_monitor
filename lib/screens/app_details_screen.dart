@@ -38,208 +38,199 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<StopServiceBloc>(),
-      child: BlocListener<HomeBloc, HomeState>(
+      child: BlocSelector<HomeBloc, HomeState, AppProcessInfo?>(
         bloc: getIt<HomeBloc>(),
-        listenWhen: (previous, current) {
-          final prevApp = previous.value.allApps.any((app) => app.packageName == widget.packageId);
-          final currApp = current.value.allApps.any((app) => app.packageName == widget.packageId);
-          return prevApp && !currApp;
-        },
-        listener: (context, state) {
-          if (context.mounted) {
-            context.pop();
+        selector: (state) => state.value.allApps.firstWhereOrNull((app) => app.packageName == widget.packageId),
+        builder: (context, currentAppInfo) {
+          if (currentAppInfo == null) {
+            return const SizedBox.shrink();
           }
-        },
-        child: BlocSelector<HomeBloc, HomeState, AppProcessInfo?>(
-          bloc: getIt<HomeBloc>(),
-          selector: (state) => state.value.allApps.firstWhereOrNull((app) => app.packageName == widget.packageId),
-          builder: (context, currentAppInfo) {
-            if (currentAppInfo == null) {
-              return const SizedBox.shrink();
-            }
-
-            return BlocListener<StopServiceBloc, StopServiceState>(
-              listener: (context, state) {
-                state.when(
-                  initial: () {},
-                  stopping: (_, _) {
-                    SnackBarHelper.showLoading(context, context.loc.loading);
-                  },
-                  success: (packageName, serviceName, servicePid) {
-                    final message = serviceName != null ? '${context.loc.serviceStopped}: $serviceName' : context.loc.allServicesStopped;
-                    SnackBarHelper.showSuccess(context, message);
-
-                    if (serviceName != null && packageName != null) {
-                      getIt<HomeBloc>().add(HomeEvent.removeService(packageName: packageName, serviceName: serviceName));
-                    } else if (packageName != null) {
-                      getIt<HomeBloc>().add(HomeEvent.removeApp(packageName));
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        if (context.mounted) {
-                          context.pop();
-                        }
-                      });
+      
+          return BlocListener<StopServiceBloc, StopServiceState>(
+            listener: (context, state) {
+              state.when(
+                initial: () {},
+                stopping: (_, _) {
+                  SnackBarHelper.showLoading(context, context.loc.loading);
+                },
+                success: (packageName, serviceName, pid) {
+                  final homeBloc = getIt<HomeBloc>();
+                  final message = serviceName != null
+                      ? '${context.loc.serviceStopped}: $serviceName'
+                      : context.loc.allServicesStopped;
+                  SnackBarHelper.showSuccess(context, message);
+      
+                  if (packageName != null) {
+                    if (serviceName != null) {
+                      homeBloc.add(HomeEvent.removeService(packageName: packageName, serviceName: serviceName));
+                    } else if (pid != null) {
+                      homeBloc.add(HomeEvent.removeByPid(packageName: packageName, pid: pid));
+      
+                    } else {
+                      homeBloc.add(HomeEvent.removeApp(packageName));
+                      context.pop();
                     }
-                  },
-                  error: (message) {
-                    SnackBarHelper.showError(
-                      context,
-                      '${context.loc.stopServiceError}: ${context.loc.resolve(message)}',
-                      actionLabel: context.loc.ok,
-                    );
-                  },
-                );
-              },
-              child: Scaffold(
-                appBar: AppBar(
-                  title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.info_outline),
-                      tooltip: context.loc.appInfoTooltip,
-                      onPressed: () {
-                        InstalledApps.openSettings(currentAppInfo.packageName);
-                      },
+                  }
+                },
+                error: (message) {
+                  SnackBarHelper.showError(
+                    context,
+                    '${context.loc.stopServiceError}: ${context.loc.resolve(message)}',
+                    actionLabel: context.loc.ok,
+                  );
+                },
+              );
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.info_outline),
+                    tooltip: context.loc.appInfoTooltip,
+                    onPressed: () {
+                      InstalledApps.openSettings(currentAppInfo.packageName);
+                    },
+                  ),
+                ],
+              ),
+              body: ExpressiveRefreshIndicator.contained(
+                onRefresh: () async {
+                  final homeBloc = getIt<HomeBloc>();
+                  homeBloc.add(const HomeEvent.loadData(silent: true, notify: true));
+                  await Future.delayed(const Duration(milliseconds: 100));
+                  await homeBloc.stream.first;
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 24.0.w, right: 24.0.w, top: 24.0.w, bottom: 5.0.w),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate([
+                          AppHeader(appInfo: currentAppInfo, tabIndex: widget.tabIndex),
+                          SizedBox(height: 16.h),
+                          StateBadges(appInfo: currentAppInfo),
+                          SizedBox(height: 16.h),
+                          const AppDetailsDescription(),
+                          SizedBox(height: 24.h),
+                          const Divider(),
+                          SizedBox(height: 8.h),
+                          _buildFilterChips(context, currentAppInfo),
+                          SizedBox(height: 8.h),
+                        ]),
+                      ),
                     ),
+                    if (selectedFilter == AppDetailsFilter.services) ...[
+                      if (currentAppInfo.services.isEmpty)
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
+                          sliver: SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              child: Center(
+                                child: Text(
+                                  context.loc.noServicesFound,
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      else
+                        ServiceList(services: currentAppInfo.services),
+                    ] else ...[
+                      if (currentAppInfo.processes.isEmpty)
+                        SliverPadding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
+                          sliver: SliverToBoxAdapter(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              child: Center(
+                                child: Text(
+                                  context.loc.noProcessesFound,
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      else
+                        ProcessList(processes: currentAppInfo.processes, packageName: currentAppInfo.packageName),
+                    ],
                   ],
                 ),
-                body: ExpressiveRefreshIndicator.contained(
-                  onRefresh: () async {
-                    final homeBloc = getIt<HomeBloc>();
-                    homeBloc.add(const HomeEvent.loadData(silent: true, notify: true));
-                    await Future.delayed(const Duration(milliseconds: 100));
-                    await homeBloc.stream.first;
-                  },
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverPadding(
-                        padding: EdgeInsets.only(left: 24.0.w, right: 24.0.w, top: 24.0.w, bottom: 5.0.w),
-                        sliver: SliverList(
-                          delegate: SliverChildListDelegate([
-                            AppHeader(appInfo: currentAppInfo, tabIndex: widget.tabIndex),
-                            SizedBox(height: 16.h),
-                            StateBadges(appInfo: currentAppInfo),
-                            SizedBox(height: 16.h),
-                            const AppDetailsDescription(),
-                            SizedBox(height: 24.h),
-                            const Divider(),
-                            SizedBox(height: 8.h),
-                            _buildFilterChips(context, currentAppInfo),
-                            SizedBox(height: 8.h),
-                          ]),
-                        ),
-                      ),
-                      if (selectedFilter == AppDetailsFilter.services) ...[
-                        if (currentAppInfo.services.isEmpty)
-                          SliverPadding(
-                            padding: EdgeInsets.symmetric(horizontal: 24.w),
-                            sliver: SliverToBoxAdapter(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 24.h),
-                                child: Center(
-                                  child: Text(
-                                    context.loc.noServicesFound,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                  ),
+              ),
+              floatingActionButton: currentAppInfo.pids.isEmpty
+                  ? null
+                  : FloatingActionButton.extended(
+                      onPressed: () async {
+                        final confirmed = await showDialog<bool>(
+                          context: context,
+                          builder: (dialogContext) => AlertDialog(
+                            title: Text(context.loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  currentAppInfo.appName,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                                 ),
-                              ),
-                            ),
-                          )
-                        else
-                          ServiceList(services: currentAppInfo.services),
-                      ] else ...[
-                        if (currentAppInfo.processes.isEmpty)
-                          SliverPadding(
-                            padding: EdgeInsets.symmetric(horizontal: 24.w),
-                            sliver: SliverToBoxAdapter(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 24.h),
-                                child: Center(
-                                  child: Text(
-                                    context.loc.noProcessesFound,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        else
-                          ProcessList(processes: currentAppInfo.processes, packageName: currentAppInfo.packageName),
-                      ],
-                    ],
-                  ),
-                ),
-                floatingActionButton: currentAppInfo.pids.isEmpty
-                    ? null
-                    : FloatingActionButton.extended(
-                        onPressed: () async {
-                          final confirmed = await showDialog<bool>(
-                            context: context,
-                            builder: (dialogContext) => AlertDialog(
-                              title: Text(context.loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    currentAppInfo.appName,
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
-                                  ),
-                                  SizedBox(height: 8.h),
-                                  Text(context.loc.stopServiceWarning, style: TextStyle(fontSize: 14.sp)),
-                                  if (currentAppInfo.isSystemApp ?? false) ...[
-                                    SizedBox(height: 12.h),
-                                    Container(
-                                      padding: EdgeInsets.all(12.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red[900]?.withValues(alpha: 0.3),
-                                        border: Border.all(color: Colors.red, width: 2.w),
-                                        borderRadius: BorderRadius.circular(8.rSafe),
-                                      ),
-                                      child: Text(
-                                        context.loc.systemAppWarning,
-                                        style: TextStyle(
-                                          color: Theme.of(context).colorScheme.error,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13.sp,
-                                        ),
+                                SizedBox(height: 8.h),
+                                Text(context.loc.stopServiceWarning, style: TextStyle(fontSize: 14.sp)),
+                                if (currentAppInfo.isSystemApp ?? false) ...[
+                                  SizedBox(height: 12.h),
+                                  Container(
+                                    padding: EdgeInsets.all(12.w),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red[900]?.withValues(alpha: 0.3),
+                                      border: Border.all(color: Colors.red, width: 2.w),
+                                      borderRadius: BorderRadius.circular(8.rSafe),
+                                    ),
+                                    child: Text(
+                                      context.loc.systemAppWarning,
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.error,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13.sp,
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(dialogContext).pop(false),
-                                  child: Text(context.loc.cancel, style: TextStyle(fontSize: 14.sp)),
-                                ),
-                                FilledButton(
-                                  onPressed: () => Navigator.of(dialogContext).pop(true),
-                                  style: FilledButton.styleFrom(backgroundColor: Colors.red),
-                                  child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
-                                ),
                               ],
                             ),
-                          );
-
-                          if (confirmed == true) {
-                            if (context.mounted) {
-                              context.read<StopServiceBloc>().add(
-                                StopServiceEvent.stopAllServices(packageName: currentAppInfo.packageName),
-                              );
-                            }
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                                child: Text(context.loc.cancel, style: TextStyle(fontSize: 14.sp)),
+                              ),
+                              FilledButton(
+                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                                style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                                child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
+                              ),
+                            ],
+                          ),
+                        );
+      
+                        if (confirmed == true) {
+                          if (context.mounted) {
+                            context.read<StopServiceBloc>().add(
+                              StopServiceEvent.stopAllServices(packageName: currentAppInfo.packageName),
+                            );
                           }
-                        },
-                        icon: const Icon(Icons.stop_circle),
-                        label: Text(context.loc.stopAllServices, style: TextStyle(fontSize: 14.sp)),
-                      ),
-              ),
-            );
-          },
-        ),
+                        }
+                      },
+                      icon: const Icon(Icons.stop_circle),
+                      label: Text(context.loc.stopAllServices, style: TextStyle(fontSize: 14.sp)),
+                    ),
+            ),
+          );
+        },
       ),
     );
   }

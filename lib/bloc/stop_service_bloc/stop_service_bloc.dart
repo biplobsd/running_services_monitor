@@ -44,12 +44,12 @@ class StopServiceBloc extends Bloc<StopServiceEvent, StopServiceState> {
       final success = await _processService.stopServiceByComponent(packageName: event.packageName, serviceName: event.serviceName);
 
       if (success) {
-        emit(StopServiceState.success(packageName: event.packageName, serviceName: event.serviceName, servicePid: event.pid));
+        emit(StopServiceState.success(packageName: event.packageName, serviceName: event.serviceName, pid: event.pid));
       } else {
         if (event.pid != null) {
           final killSuccess = await _processService.stopServiceByPid(event.pid!);
           if (killSuccess) {
-            emit(StopServiceState.success(packageName: event.packageName, serviceName: event.serviceName, servicePid: event.pid));
+            emit(StopServiceState.success(packageName: event.packageName, serviceName: event.serviceName, pid: event.pid));
             return;
           }
         }
@@ -68,7 +68,7 @@ class StopServiceBloc extends Bloc<StopServiceEvent, StopServiceState> {
       final success = await _processService.stopServiceByPid(event.pid);
 
       if (success) {
-        emit(StopServiceState.success(packageName: event.packageName, servicePid: event.pid));
+        emit(StopServiceState.success(packageName: event.packageName, pid: event.pid));
       } else {
         emit(const StopServiceState.error(message: L10nKeys.stopServiceError));
       }

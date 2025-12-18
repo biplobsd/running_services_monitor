@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
@@ -10,7 +9,7 @@ import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'app_list.dart';
-import 'ram_bar.dart';
+
 import 'loading_state.dart';
 import 'error_state.dart';
 import 'process_filter_chips.dart';
@@ -87,8 +86,6 @@ class HomeBody extends StatelessWidget {
               );
             }
 
-            final ramInfo = data.model.systemRamInfo;
-
             return NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
@@ -112,15 +109,6 @@ class HomeBody extends StatelessWidget {
                       );
                     },
                   ),
-                  if (ramInfo.totalRamKb > 0)
-                    SliverToBoxAdapter(
-                      child: Container(
-                        color: Theme.of(context).colorScheme.surface,
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child: RamBar(ramInfo: ramInfo, isLoading: data.isLoading),
-                      ),
-                    ),
-                  SliverToBoxAdapter(child: Divider(height: 1.h)),
                 ];
               },
               body: Builder(

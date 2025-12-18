@@ -37,7 +37,7 @@ class SnackBarHelper {
         ),
         backgroundColor: Colors.green[700],
         duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
+        behavior: SnackBarBehavior.fixed,
       ),
     );
   }
@@ -57,7 +57,7 @@ class SnackBarHelper {
         ),
         backgroundColor: Colors.red[700],
         duration: const Duration(seconds: 4),
-        behavior: SnackBarBehavior.floating,
+        behavior: SnackBarBehavior.fixed,
         action: actionLabel != null
             ? SnackBarAction(label: actionLabel, textColor: Colors.white, onPressed: onAction ?? () {})
             : null,

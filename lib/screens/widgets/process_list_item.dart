@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_bloc.dart';
+import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -30,17 +32,25 @@ class ProcessListItem extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
           maxLines: 1,
         ),
-        trailing: process.pid != null
-            ? FilledButton.icon(
-                onPressed: () => _confirmStopProcess(context),
-                label: Text(context.loc.stop, style: TextStyle(fontSize: 12.sp)),
-                style: FilledButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                  minimumSize: Size.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-              )
-            : null,
+        trailing: BlocSelector<WorkingModeBloc, WorkingModeState, bool>(
+          bloc: getIt<WorkingModeBloc>(),
+          selector: (state) {
+            return process.pid != null && state.value.isRootAvailable;
+          },
+          builder: (context, isShow) {
+            return isShow
+                ? FilledButton.icon(
+                    onPressed: () => _confirmStopProcess(context),
+                    label: Text(context.loc.stop, style: TextStyle(fontSize: 12.sp)),
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  )
+                : const SizedBox();
+          },
+        ),
         subtitle: Column(
           spacing: 8.h,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +152,11 @@ ${context.loc.pid}: ${process.pid ?? 'N/A'}
             width: 100.w,
             child: Text(
               label,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 13.sp,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
           Expanded(
@@ -179,7 +193,9 @@ ${context.loc.pid}: ${process.pid ?? 'N/A'}
             onPressed: () {
               Navigator.of(dialogContext).pop();
               if (process.pid != null) {
-                context.read<StopServiceBloc>().add(StopServiceEvent.stopByPid(packageName: packageName, pid: process.pid!));
+                context.read<StopServiceBloc>().add(
+                  StopServiceEvent.stopByPid(packageName: packageName, pid: process.pid!),
+                );
               }
             },
             style: FilledButton.styleFrom(backgroundColor: Colors.red),
