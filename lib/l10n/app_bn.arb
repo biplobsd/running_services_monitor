@@ -190,5 +190,6 @@
   "oomThreshold": "OOM থ্রেশহোল্ড",
   "restoreLimit": "পুনরুদ্ধার সীমা",
   "zramSection": "ZRAM",
-  "memoryThresholds": "মেমোরি থ্রেশহোল্ড"
+  "memoryThresholds": "মেমোরি থ্রেশহোল্ড",
+  "boundServiceCannotStop": "এই সার্ভিসটি অন্য একটি প্রসেসের সাথে বাউন্ড এবং সরাসরি বন্ধ করা যায় না। আপনি পুরো অ্যাপটি বন্ধ করতে পারেন।"
 }

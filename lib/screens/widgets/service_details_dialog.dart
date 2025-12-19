@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
+// import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_detail_row.dart';
@@ -183,20 +183,29 @@ class ServiceDetailsDialog extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(context.loc.close, style: TextStyle(fontSize: 14.sp)),
         ),
-        FilledButton(
-          onPressed: () {
-            context.read<StopServiceBloc>().add(
-              StopServiceEvent.stopSingleService(
-                packageName: service.packageName,
-                serviceName: service.serviceName,
-                pid: service.pid,
-              ),
-            );
-            Navigator.of(context).pop();
-          },
-          style: FilledButton.styleFrom(backgroundColor: Colors.red),
-          child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
-        ),
+        // if (service.isStoppable)
+        //   FilledButton(
+        //     onPressed: () {
+        //       context.read<StopServiceBloc>().add(
+        //         StopServiceEvent.stopSingleService(
+        //           packageName: service.packageName,
+        //           serviceName: service.serviceName,
+        //           pid: service.pid,
+        //         ),
+        //       );
+        //       Navigator.of(context).pop();
+        //     },
+        //     style: FilledButton.styleFrom(backgroundColor: Colors.red),
+        //     child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
+        //   )
+        // else
+        //   Tooltip(
+        //     message: context.loc.boundServiceCannotStop,
+        //     child: OutlinedButton(
+        //       onPressed: null,
+        //       child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
+        //     ),
+        //   ),
       ],
     );
   }

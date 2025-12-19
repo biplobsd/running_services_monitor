@@ -646,4 +646,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get memoryThresholds => 'Memory Thresholds';
+
+  @override
+  String get boundServiceCannotStop =>
+      'This service is bound by another process and cannot be stopped directly. You can stop the entire app instead.';
 }

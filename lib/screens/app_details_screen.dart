@@ -43,9 +43,14 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
         selector: (state) => state.value.allApps.firstWhereOrNull((app) => app.packageName == widget.packageId),
         builder: (context, currentAppInfo) {
           if (currentAppInfo == null) {
-            return const SizedBox.shrink();
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
+              ),
+              body: Center(child: Text(context.loc.noOutput)),
+            );
           }
-      
+
           return BlocListener<StopServiceBloc, StopServiceState>(
             listener: (context, state) {
               state.when(
@@ -55,17 +60,14 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                 },
                 success: (packageName, serviceName, pid) {
                   final homeBloc = getIt<HomeBloc>();
-                  final message = serviceName != null
-                      ? '${context.loc.serviceStopped}: $serviceName'
-                      : context.loc.allServicesStopped;
+                  final message = serviceName != null ? '${context.loc.serviceStopped}: $serviceName' : context.loc.allServicesStopped;
                   SnackBarHelper.showSuccess(context, message);
-      
+
                   if (packageName != null) {
                     if (serviceName != null) {
                       homeBloc.add(HomeEvent.removeService(packageName: packageName, serviceName: serviceName));
                     } else if (pid != null) {
                       homeBloc.add(HomeEvent.removeByPid(packageName: packageName, pid: pid));
-      
                     } else {
                       homeBloc.add(HomeEvent.removeApp(packageName));
                       context.pop();
@@ -130,9 +132,9 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                               child: Center(
                                 child: Text(
                                   context.loc.noServicesFound,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                  ),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ),
                             ),
@@ -150,9 +152,9 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                               child: Center(
                                 child: Text(
                                   context.loc.noProcessesFound,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                  ),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ),
                             ),
@@ -216,12 +218,10 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                             ],
                           ),
                         );
-      
+
                         if (confirmed == true) {
                           if (context.mounted) {
-                            context.read<StopServiceBloc>().add(
-                              StopServiceEvent.stopAllServices(packageName: currentAppInfo.packageName),
-                            );
+                            context.read<StopServiceBloc>().add(StopServiceEvent.stopAllServices(packageName: currentAppInfo.packageName));
                           }
                         }
                       },

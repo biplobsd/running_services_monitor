@@ -17,7 +17,9 @@ class ProcessParser {
   static final _usedRamRegex = RegExp(r'Used RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+used pss\s*\+\s*([\d,]+)K\s+kernel\)');
   static final _gpuRegex = RegExp(r'GPU:\s+([\d,]+)K');
   static final _lostRamRegex = RegExp(r'Lost RAM:\s+([\d,]+)K');
-  static final _zramRegex = RegExp(r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)');
+  static final _zramRegex = RegExp(
+    r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)',
+  );
   static final _tuningRegex = RegExp(r'Tuning:.*oom\s+([\d,]+)K.*restore limit\s+([\d,]+)K');
 
   static double _parseKb(String? value) {
@@ -67,6 +69,7 @@ class ProcessParser {
     bool? createdFromFg;
     int? recentCallingUid;
     List<ConnectionRecord>? connections;
+    bool hasBound = false;
 
     for (var i = 0; i < lines.length; i++) {
       final line = lines[i];
@@ -79,7 +82,6 @@ class ProcessParser {
       if (firstChar == '*' || firstChar == 'C') {
         if (trimmed.startsWith('* ConnectionRecord{') || trimmed.startsWith('ConnectionRecord{')) {
           final connMatch = _connectionRegex.firstMatch(trimmed);
-          // print("Conn Match: g1: ${connMatch?.group(1)} g2: ${connMatch?.group(2)}} From: $line");
           if (connMatch != null) {
             connections ??= [];
             connections.add(
@@ -101,16 +103,20 @@ class ProcessParser {
           serviceName = serviceRecordRegex.firstMatch(trimmed)?.group(2);
           continue;
         }
+        if (trimmed.startsWith('* IntentBindRecord{')) {
+          if (trimmed.contains('hasBound=true')) {
+            hasBound = true;
+          }
+          continue;
+        }
       }
 
       if (firstChar == 'i' && trimmed.startsWith('intent=')) {
         intent = trimmed.substring(7);
       } else if (firstChar == 'p' && trimmed.startsWith('packageName=')) {
         packageName = trimmed.substring(12);
-        // print("Pkg Name: ${packageName} From: $line");
       } else if (firstChar == 'p' && trimmed.startsWith('processName=')) {
         processName = trimmed.substring(12);
-        // print("Pkg process Name: ${processName} From: $line");
       } else if (firstChar == 'b' && trimmed.startsWith('baseDir=')) {
         baseDir = trimmed.substring(8);
       } else if (firstChar == 'd' && trimmed.startsWith('dataDir=')) {
@@ -133,7 +139,10 @@ class ProcessParser {
         final pidMatch = _processRecordRegex.firstMatch(trimmed);
         if (pidMatch != null) {
           pid = int.tryParse(pidMatch.group(1) ?? '');
-          uid = (int.tryParse(pidMatch.group(3) ?? '0') ?? 0) * 100000 + 10000 + (int.tryParse(pidMatch.group(4) ?? '0') ?? 0);
+          uid =
+              (int.tryParse(pidMatch.group(3) ?? '0') ?? 0) * 100000 +
+              10000 +
+              (int.tryParse(pidMatch.group(4) ?? '0') ?? 0);
         }
       }
     }
@@ -142,7 +151,6 @@ class ProcessParser {
 
     for (var line in lines) {
       rawBuffer.write(line);
-      // rawBuffer.write('\n');
     }
 
     return RunningServiceInfo(
@@ -154,7 +162,8 @@ class ProcessParser {
       isSystemApp:
           !packageName.contains('.') ||
           (uid != null && uid < 10000) ||
-          (baseDir != null && (baseDir.startsWith('/system') || baseDir.startsWith('/product') || baseDir.startsWith('/system_ext'))),
+          (baseDir != null &&
+              (baseDir.startsWith('/system') || baseDir.startsWith('/product') || baseDir.startsWith('/system_ext'))),
       intent: intent,
       baseDir: baseDir,
       dataDir: dataDir,
@@ -168,6 +177,7 @@ class ProcessParser {
       uid: uid,
       recentCallingUid: recentCallingUid,
       connections: connections ?? const [],
+      hasBound: hasBound,
     );
   }
 
@@ -241,7 +251,9 @@ class ProcessParser {
     return (pidMap: pidMap, processNameMap: processNameMap);
   }
 
-  static ({Map<String, double> totals, Map<String, List<ProcessEntry>> processes}) parseAllAppsFromMeminfo(String meminfoOutput) {
+  static ({Map<String, double> totals, Map<String, List<ProcessEntry>> processes}) parseAllAppsFromMeminfo(
+    String meminfoOutput,
+  ) {
     if (meminfoOutput.isEmpty) return (totals: const {}, processes: const {});
 
     final pssStart = meminfoOutput.indexOf('Total PSS by process:');
@@ -274,7 +286,9 @@ class ProcessParser {
       final pid = int.tryParse(match.group(3) ?? '');
       if (pssKb > 0) {
         totals.update(basePackage, (v) => v + pssKb, ifAbsent: () => pssKb);
-        processes.putIfAbsent(basePackage, () => []).add(ProcessEntry(processName: fullProcessName, ramKb: pssKb, pid: pid));
+        processes
+            .putIfAbsent(basePackage, () => [])
+            .add(ProcessEntry(processName: fullProcessName, ramKb: pssKb, pid: pid));
       }
     }
 

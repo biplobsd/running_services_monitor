@@ -1239,6 +1239,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Memory Thresholds'**
   String get memoryThresholds;
+
+  /// No description provided for @boundServiceCannotStop.
+  ///
+  /// In en, this message translates to:
+  /// **'This service is bound by another process and cannot be stopped directly. You can stop the entire app instead.'**
+  String get boundServiceCannotStop;
 }
 
 class _AppLocalizationsDelegate

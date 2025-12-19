@@ -253,5 +253,6 @@
   "oomThreshold": "OOM Threshold",
   "restoreLimit": "Restore Limit",
   "zramSection": "ZRAM",
-  "memoryThresholds": "Memory Thresholds"
+  "memoryThresholds": "Memory Thresholds",
+  "boundServiceCannotStop": "This service is bound by another process and cannot be stopped directly. You can stop the entire app instead."
 }

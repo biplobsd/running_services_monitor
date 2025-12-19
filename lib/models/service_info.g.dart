@@ -35,6 +35,7 @@ _RunningServiceInfo _$RunningServiceInfoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ConnectionRecord.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      hasBound: json['hasBound'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RunningServiceInfoToJson(_RunningServiceInfo instance) =>
@@ -62,6 +63,7 @@ Map<String, dynamic> _$RunningServiceInfoToJson(_RunningServiceInfo instance) =>
       'uid': instance.uid,
       'recentCallingUid': instance.recentCallingUid,
       'connections': instance.connections,
+      'hasBound': instance.hasBound,
     };
 
 _AppProcessInfo _$AppProcessInfoFromJson(Map<String, dynamic> json) =>

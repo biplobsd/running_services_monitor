@@ -172,11 +172,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   Future<void> _onToggleSearch(_ToggleSearch event, Emitter<HomeState> emit) async {
     final newSearchState = !state.value.isSearching;
 
-    emit(
-      HomeState.success(
-        state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : ''),
-      ),
-    );
+    emit(HomeState.success(state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : '')));
   }
 
   Future<void> _onUpdateSearchQuery(_UpdateSearchQuery event, Emitter<HomeState> emit) async {
@@ -211,12 +207,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
         }
       }
 
-      return app.copyWith(
-        services: updatedServices,
-        pids: pids.toList(),
-        totalRamInKb: totalRamKb,
-        totalRam: formatRam(totalRamKb),
-      );
+      return app.copyWith(services: updatedServices, pids: pids.toList(), totalRamInKb: totalRamKb, totalRam: formatRam(totalRamKb));
     }
 
     final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
@@ -227,16 +218,25 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   Future<void> _onRemoveByPid(_RemoveByPid event, Emitter<HomeState> emit) async {
     final currentState = state.value;
 
-    AppProcessInfo? updateApp(AppProcessInfo app) {
+    AppProcessInfo updateApp(AppProcessInfo app) {
       if (app.packageName != event.packageName) return app;
 
       final updatedServices = app.services.where((s) => s.pid != event.pid).toList();
       final updatedPids = app.pids.where((p) => p != event.pid).toList();
-
-      if (updatedServices.isEmpty) return null;
+      final updatedProcesses = app.processes.where((p) => p.pid != event.pid).toList();
 
       double totalRamKb = 0;
       final Set<int> pids = {};
+
+      for (var process in updatedProcesses) {
+        if (process.pid != null) {
+          final isNewPid = pids.add(process.pid!);
+          if (isNewPid) {
+            totalRamKb += process.ramKb;
+          }
+        }
+      }
+
       for (var service in updatedServices) {
         if (service.pid != null) {
           final isNewPid = pids.add(service.pid!);
@@ -249,12 +249,13 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       return app.copyWith(
         services: updatedServices,
         pids: updatedPids,
+        processes: updatedProcesses,
         totalRamInKb: totalRamKb,
         totalRam: formatRam(totalRamKb),
       );
     }
 
-    final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
+    final updatedAllApps = currentState.allApps.map(updateApp).toList();
 
     emit(HomeState.success(currentState.copyWith(allApps: updatedAllApps)));
   }

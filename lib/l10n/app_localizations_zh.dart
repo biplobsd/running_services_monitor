@@ -598,4 +598,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get memoryThresholds => '内存阈值';
+
+  @override
+  String get boundServiceCannotStop => '此服务被另一个进程绑定，无法直接停止。您可以改用停止整个应用。';
 }

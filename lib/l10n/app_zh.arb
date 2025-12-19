@@ -190,5 +190,6 @@
   "oomThreshold": "OOM 阈值",
   "restoreLimit": "恢复限制",
   "zramSection": "ZRAM",
-  "memoryThresholds": "内存阈值"
+  "memoryThresholds": "内存阈值",
+  "boundServiceCannotStop": "此服务被另一个进程绑定，无法直接停止。您可以改用停止整个应用。"
 }

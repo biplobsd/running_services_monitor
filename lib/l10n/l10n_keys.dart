@@ -21,6 +21,7 @@ abstract class L10nKeys {
   static const available = 'available';
   static const baseDir = 'baseDir';
   static const blogs = 'blogs';
+  static const boundServiceCannotStop = 'boundServiceCannotStop';
   static const buyMeCoffee = 'buyMeCoffee';
   static const cached = 'cached';
   static const cachedKernel = 'cachedKernel';
@@ -208,6 +209,7 @@ extension L10nResolver on AppLocalizations {
       'available' => available,
       'baseDir' => baseDir,
       'blogs' => blogs,
+      'boundServiceCannotStop' => boundServiceCannotStop,
       'buyMeCoffee' => buyMeCoffee,
       'cached' => cached,
       'cachedKernel' => cachedKernel,

@@ -6,6 +6,7 @@ part 'service_info.g.dart';
 
 @freezed
 abstract class RunningServiceInfo with _$RunningServiceInfo {
+  const RunningServiceInfo._();
   const factory RunningServiceInfo({
     required String user,
     int? pid,
@@ -30,9 +31,12 @@ abstract class RunningServiceInfo with _$RunningServiceInfo {
     int? uid,
     int? recentCallingUid,
     @Default([]) List<ConnectionRecord> connections,
+    @Default(false) bool hasBound,
   }) = _RunningServiceInfo;
 
   factory RunningServiceInfo.fromJson(Map<String, dynamic> json) => _$RunningServiceInfoFromJson(json);
+
+  bool get isStoppable => startRequested == true || !hasBound;
 }
 
 @freezed
@@ -62,6 +66,7 @@ abstract class AppProcessInfo with _$AppProcessInfo {
   int get processCount {
     return allPids.isNotEmpty ? allPids.length : (processes.isNotEmpty ? processes.length : pids.length);
   }
+
   List<int> get allPids => <int>{...pids, ...processes.map((p) => p.pid).whereType<int>()}.toList();
 }
 
@@ -69,7 +74,8 @@ enum RamSourceType { pid, lru, processName, meminfoPss }
 
 @freezed
 abstract class RamSourceInfo with _$RamSourceInfo {
-  const factory RamSourceInfo({required RamSourceType source, required double ramKb, int? pid, String? processName}) = _RamSourceInfo;
+  const factory RamSourceInfo({required RamSourceType source, required double ramKb, int? pid, String? processName}) =
+      _RamSourceInfo;
 
   factory RamSourceInfo.fromJson(Map<String, dynamic> json) => _$RamSourceInfoFromJson(json);
 }
@@ -121,5 +127,11 @@ class ProcessedAppsResult {
   final double appsRam;
   final List<double>? ramInfo;
 
-  ProcessedAppsResult({required this.allApps, required this.userApps, required this.systemApps, required this.appsRam, this.ramInfo});
+  ProcessedAppsResult({
+    required this.allApps,
+    required this.userApps,
+    required this.systemApps,
+    required this.appsRam,
+    this.ramInfo,
+  });
 }

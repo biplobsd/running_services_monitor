@@ -648,4 +648,8 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get memoryThresholds => 'মেমোরি থ্রেশহোল্ড';
+
+  @override
+  String get boundServiceCannotStop =>
+      'এই সার্ভিসটি অন্য একটি প্রসেসের সাথে বাউন্ড এবং সরাসরি বন্ধ করা যায় না। আপনি পুরো অ্যাপটি বন্ধ করতে পারেন।';
 }
