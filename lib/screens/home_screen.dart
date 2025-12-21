@@ -10,14 +10,14 @@ import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
-import 'widgets/shizuku_permission_dialog.dart';
-import 'widgets/home_body.dart';
-import 'widgets/language_selector.dart';
-import 'widgets/theme_toggle_button.dart';
-import 'widgets/about_button.dart';
-import 'widgets/app_logo.dart';
-import 'widgets/search_field.dart';
-import 'widgets/loading_indicator.dart';
+import 'widgets/settings/shizuku_permission_dialog.dart';
+import 'widgets/home/home_body.dart';
+import 'widgets/settings/language_selector.dart';
+import 'widgets/settings/theme_toggle_button.dart';
+import 'widgets/about/about_button.dart';
+import 'widgets/home/app_logo.dart';
+import 'widgets/home/search_field.dart';
+import 'widgets/common/loading_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

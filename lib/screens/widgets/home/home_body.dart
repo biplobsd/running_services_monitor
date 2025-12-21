@@ -11,11 +11,11 @@ import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'app_list.dart';
 
-import 'loading_state.dart';
-import 'error_state.dart';
-import 'process_filter_chips.dart';
-import 'sliver_header_delegates.dart';
-import 'custom_scroll_provider.dart';
+import '../common/loading_state.dart';
+import '../common/error_state.dart';
+import '../service/process_filter_chips.dart';
+import '../common/sliver_header_delegates.dart';
+import '../common/custom_scroll_provider.dart';
 
 class HomeBody extends StatelessWidget {
   final TabController tabController;

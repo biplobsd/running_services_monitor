@@ -5,7 +5,7 @@ import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';
-import 'filter_chip_widget.dart';
+import '../common/filter_chip_widget.dart';
 
 class ProcessFilterChips extends StatelessWidget {
   final ProcessStateFilter selectedFilter;
@@ -42,7 +42,8 @@ class ProcessFilterChips extends StatelessWidget {
           FilterChipWidget(
             label: '${context.loc.services} ($servicesCount)',
             isSelected: selectedFilter == ProcessStateFilter.withServices,
-            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
+            onSelected: () =>
+                context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
             color: Colors.blue,
             sortAscending: selectedFilter == ProcessStateFilter.withServices ? sortAscending : null,
           ),

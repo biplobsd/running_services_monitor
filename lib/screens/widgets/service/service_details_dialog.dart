@@ -4,9 +4,9 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 // import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
-import 'code_output_box.dart';
+import '../common/code_output_box.dart';
 import 'service_detail_row.dart';
-import 'status_badge.dart';
+import '../common/status_badge.dart';
 
 class ServiceDetailsDialog extends StatelessWidget {
   final RunningServiceInfo service;

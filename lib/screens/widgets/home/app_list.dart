@@ -8,10 +8,10 @@ import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'app_list_item.dart';
-import 'empty_list_state.dart';
-import 'custom_scroll_provider.dart';
-import 'ram_bar.dart';
-import 'sliver_refresh_indicator.dart';
+import '../common/empty_list_state.dart';
+import '../common/custom_scroll_provider.dart';
+import '../ram/ram_bar.dart';
+import '../common/sliver_refresh_indicator.dart';
 
 class AppList extends StatefulWidget {
   final List<AppProcessInfo> apps;

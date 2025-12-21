@@ -5,9 +5,9 @@ import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'ram_legend_item.dart';
-import 'constrained_wavy_progress.dart';
+import '../common/constrained_wavy_progress.dart';
 import 'ram_expanded_section.dart';
-import 'linear_progress.dart';
+import '../common/linear_progress.dart';
 
 class RamBar extends StatefulWidget {
   final SystemRamInfo ramInfo;

@@ -7,9 +7,9 @@ import 'package:running_services_monitor/core/dependency_injection/dependency_in
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/contributor_info.dart';
 import 'package:running_services_monitor/utils/url_launcher_helper.dart';
-import 'widgets/about_info_tile.dart';
-import 'widgets/about_header.dart';
-import 'widgets/contributor_list_tile.dart';
+import 'widgets/about/about_info_tile.dart';
+import 'widgets/about/about_header.dart';
+import 'widgets/about/contributor_list_tile.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});

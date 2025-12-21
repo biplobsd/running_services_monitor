@@ -601,4 +601,67 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get boundServiceCannotStop => '此服务被另一个进程绑定，无法直接停止。您可以改用停止整个应用。';
+
+  @override
+  String get memoryInfo => 'Memory Info';
+
+  @override
+  String get viewRawOutput => 'View Raw';
+
+  @override
+  String get hideRawOutput => 'Hide Raw';
+
+  @override
+  String get compareWithOther => 'Compare';
+
+  @override
+  String get memoryCategories => 'Memory Categories';
+
+  @override
+  String get appSummary => 'App Summary';
+
+  @override
+  String get objects => 'Objects';
+
+  @override
+  String get memoryComparison => 'Memory Comparison';
+
+  @override
+  String get selectAppToCompare => 'Select an app to compare';
+
+  @override
+  String get selectApp => 'Select app...';
+
+  @override
+  String get totalPss => 'Total PSS';
+
+  @override
+  String get totalRss => 'Total RSS';
+
+  @override
+  String get javaHeap => 'Java Heap';
+
+  @override
+  String get nativeHeap => 'Native Heap';
+
+  @override
+  String get code => 'Code';
+
+  @override
+  String get graphics => 'Graphics';
+
+  @override
+  String get current => 'Current';
+
+  @override
+  String get allApps => 'All';
+
+  @override
+  String get userApps => 'User';
+
+  @override
+  String get systemApps => 'System';
+
+  @override
+  String get compareWith => 'Compare with';
 }

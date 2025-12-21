@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
-import 'package:running_services_monitor/services/process_parser.dart';
+import 'package:running_services_monitor/parsers/process_parser.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'shizuku_service.dart';
 

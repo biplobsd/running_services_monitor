@@ -6,7 +6,7 @@ import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/command_log_entry.dart';
-import 'package:running_services_monitor/screens/widgets/code_output_box.dart';
+import 'package:running_services_monitor/screens/widgets/common/code_output_box.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CommandOutputScreen extends StatelessWidget {

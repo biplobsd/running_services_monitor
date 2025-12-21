@@ -1,1 +1,49 @@
-{}
+{
+  "bn": [
+    "memoryInfo",
+    "viewRawOutput",
+    "hideRawOutput",
+    "compareWithOther",
+    "memoryCategories",
+    "appSummary",
+    "objects",
+    "memoryComparison",
+    "selectAppToCompare",
+    "selectApp",
+    "totalPss",
+    "totalRss",
+    "javaHeap",
+    "nativeHeap",
+    "code",
+    "graphics",
+    "current",
+    "allApps",
+    "userApps",
+    "systemApps",
+    "compareWith"
+  ],
+
+  "zh": [
+    "memoryInfo",
+    "viewRawOutput",
+    "hideRawOutput",
+    "compareWithOther",
+    "memoryCategories",
+    "appSummary",
+    "objects",
+    "memoryComparison",
+    "selectAppToCompare",
+    "selectApp",
+    "totalPss",
+    "totalRss",
+    "javaHeap",
+    "nativeHeap",
+    "code",
+    "graphics",
+    "current",
+    "allApps",
+    "userApps",
+    "systemApps",
+    "compareWith"
+  ]
+}

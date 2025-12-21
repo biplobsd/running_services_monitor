@@ -6,6 +6,7 @@ import 'package:running_services_monitor/screens/about_screen.dart';
 import 'package:running_services_monitor/screens/app_details_screen.dart';
 import 'package:running_services_monitor/screens/command_log_screen.dart';
 import 'package:running_services_monitor/screens/command_output_screen.dart';
+import 'package:running_services_monitor/screens/meminfo_compare_screen.dart';
 
 GoRouter createAppRouter() {
   return GoRouter(
@@ -45,6 +46,23 @@ GoRouter createAppRouter() {
           }
 
           return AppDetailsScreen(packageId: packageId, tabIndex: tabIndex);
+        },
+      ),
+      GoRoute(
+        path: '/meminfo-compare',
+        name: 'meminfo-compare',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          final packageName = extra?['packageName'] as String?;
+
+          if (packageName == null) {
+            return Scaffold(
+              appBar: AppBar(title: Text(context.loc.error)),
+              body: Center(child: Text(context.loc.error)),
+            );
+          }
+
+          return MemInfoCompareScreen(packageName: packageName);
         },
       ),
     ],

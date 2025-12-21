@@ -652,4 +652,67 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get boundServiceCannotStop =>
       'এই সার্ভিসটি অন্য একটি প্রসেসের সাথে বাউন্ড এবং সরাসরি বন্ধ করা যায় না। আপনি পুরো অ্যাপটি বন্ধ করতে পারেন।';
+
+  @override
+  String get memoryInfo => 'Memory Info';
+
+  @override
+  String get viewRawOutput => 'View Raw';
+
+  @override
+  String get hideRawOutput => 'Hide Raw';
+
+  @override
+  String get compareWithOther => 'Compare';
+
+  @override
+  String get memoryCategories => 'Memory Categories';
+
+  @override
+  String get appSummary => 'App Summary';
+
+  @override
+  String get objects => 'Objects';
+
+  @override
+  String get memoryComparison => 'Memory Comparison';
+
+  @override
+  String get selectAppToCompare => 'Select an app to compare';
+
+  @override
+  String get selectApp => 'Select app...';
+
+  @override
+  String get totalPss => 'Total PSS';
+
+  @override
+  String get totalRss => 'Total RSS';
+
+  @override
+  String get javaHeap => 'Java Heap';
+
+  @override
+  String get nativeHeap => 'Native Heap';
+
+  @override
+  String get code => 'Code';
+
+  @override
+  String get graphics => 'Graphics';
+
+  @override
+  String get current => 'Current';
+
+  @override
+  String get allApps => 'All';
+
+  @override
+  String get userApps => 'User';
+
+  @override
+  String get systemApps => 'System';
+
+  @override
+  String get compareWith => 'Compare with';
 }

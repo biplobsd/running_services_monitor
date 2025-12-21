@@ -1245,6 +1245,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This service is bound by another process and cannot be stopped directly. You can stop the entire app instead.'**
   String get boundServiceCannotStop;
+
+  /// No description provided for @memoryInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Info'**
+  String get memoryInfo;
+
+  /// No description provided for @viewRawOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'View Raw'**
+  String get viewRawOutput;
+
+  /// No description provided for @hideRawOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Raw'**
+  String get hideRawOutput;
+
+  /// No description provided for @compareWithOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare'**
+  String get compareWithOther;
+
+  /// No description provided for @memoryCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Categories'**
+  String get memoryCategories;
+
+  /// No description provided for @appSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'App Summary'**
+  String get appSummary;
+
+  /// No description provided for @objects.
+  ///
+  /// In en, this message translates to:
+  /// **'Objects'**
+  String get objects;
+
+  /// No description provided for @memoryComparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Comparison'**
+  String get memoryComparison;
+
+  /// No description provided for @selectAppToCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an app to compare'**
+  String get selectAppToCompare;
+
+  /// No description provided for @selectApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Select app...'**
+  String get selectApp;
+
+  /// No description provided for @totalPss.
+  ///
+  /// In en, this message translates to:
+  /// **'Total PSS'**
+  String get totalPss;
+
+  /// No description provided for @totalRss.
+  ///
+  /// In en, this message translates to:
+  /// **'Total RSS'**
+  String get totalRss;
+
+  /// No description provided for @javaHeap.
+  ///
+  /// In en, this message translates to:
+  /// **'Java Heap'**
+  String get javaHeap;
+
+  /// No description provided for @nativeHeap.
+  ///
+  /// In en, this message translates to:
+  /// **'Native Heap'**
+  String get nativeHeap;
+
+  /// No description provided for @code.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get code;
+
+  /// No description provided for @graphics.
+  ///
+  /// In en, this message translates to:
+  /// **'Graphics'**
+  String get graphics;
+
+  /// No description provided for @current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get current;
+
+  /// No description provided for @allApps.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allApps;
+
+  /// No description provided for @userApps.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get userApps;
+
+  /// No description provided for @systemApps.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get systemApps;
+
+  /// No description provided for @compareWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare with'**
+  String get compareWith;
 }
 
 class _AppLocalizationsDelegate

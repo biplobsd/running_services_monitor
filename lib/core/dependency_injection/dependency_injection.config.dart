@@ -17,6 +17,7 @@ import '../../bloc/app_info_bloc/app_info_bloc.dart' as _i340;
 import '../../bloc/command_log_bloc/command_log_bloc.dart' as _i725;
 import '../../bloc/home_bloc/home_bloc.dart' as _i98;
 import '../../bloc/language_bloc/language_bloc.dart' as _i663;
+import '../../bloc/meminfo_bloc/meminfo_bloc.dart' as _i414;
 import '../../bloc/stop_service_bloc/stop_service_bloc.dart' as _i256;
 import '../../bloc/working_mode_bloc/working_mode_bloc.dart' as _i552;
 import '../../services/app_info_service.dart' as _i825;
@@ -64,6 +65,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i404.CommandLogService>(),
         gh<_i842.ShizukuService>(),
       ),
+    );
+    gh.factory<_i414.MeminfoBloc>(
+      () => _i414.MeminfoBloc(gh<_i842.ShizukuService>()),
     );
     gh.lazySingleton<_i622.ProcessService>(
       () => _i622.ProcessService(gh<_i842.ShizukuService>()),

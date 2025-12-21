@@ -5,7 +5,7 @@ import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
-import 'status_badge.dart';
+import '../common/status_badge.dart';
 
 import 'package:running_services_monitor/l10n/app_localizations.dart';
 

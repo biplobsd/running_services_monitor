@@ -5,7 +5,7 @@ import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 // import 'ram_legend_item.dart';
 import 'stacked_ram_bar.dart';
-import 'legend_widgets.dart';
+import '../meminfo/legend_widgets.dart';
 
 class RamExpandedSection extends StatelessWidget {
   final SystemRamInfo ram;

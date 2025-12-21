@@ -6,8 +6,8 @@ import 'package:running_services_monitor/core/dependency_injection/dependency_in
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
-import 'app_icon.dart';
-import 'ram_info_dialog.dart';
+import '../common/app_icon.dart';
+import '../ram/ram_info_dialog.dart';
 
 class AppHeader extends StatelessWidget {
   final AppProcessInfo appInfo;
@@ -41,7 +41,9 @@ class AppHeader extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text(
                   appInfo.packageName,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
