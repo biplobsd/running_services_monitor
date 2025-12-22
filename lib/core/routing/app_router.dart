@@ -55,13 +55,6 @@ GoRouter createAppRouter() {
           final extra = state.extra as Map<String, dynamic>?;
           final packageName = extra?['packageName'] as String?;
 
-          if (packageName == null) {
-            return Scaffold(
-              appBar: AppBar(title: Text(context.loc.error)),
-              body: Center(child: Text(context.loc.error)),
-            );
-          }
-
           return MemInfoCompareScreen(packageName: packageName);
         },
       ),

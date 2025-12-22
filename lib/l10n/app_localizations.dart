@@ -1713,6 +1713,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Y: RAM (MB), X: App Index'**
   String get statsScatterSubtitle;
+
+  /// No description provided for @core.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get core;
+
+  /// No description provided for @coreAppInfoLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited info available for system processes'**
+  String get coreAppInfoLimited;
+
+  /// No description provided for @showCoreApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Core Apps'**
+  String get showCoreApps;
 }
 
 class _AppLocalizationsDelegate

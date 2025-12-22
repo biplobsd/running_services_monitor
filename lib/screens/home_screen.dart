@@ -7,7 +7,6 @@ import 'package:running_services_monitor/core/dependency_injection/dependency_in
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
-import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_ui_bloc/home_ui_bloc.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'widgets/settings/shizuku_permission_dialog.dart';
@@ -27,35 +26,42 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final HomeBloc homeBloc;
   late final HomeUiBloc homeUiBloc;
 
-  late TabController _tabController;
+  TabController? _tabController;
   final TextEditingController _searchController = TextEditingController();
+  bool _showCoreApps = false;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-
     homeBloc = getIt<HomeBloc>();
     homeUiBloc = getIt<HomeUiBloc>();
+
+    // Initialize state from bloc
+    _showCoreApps = homeBloc.state.value.showCoreApps;
+    _initTabController();
 
     _searchController.addListener(() {
       homeBloc.add(HomeEvent.updateSearchQuery(_searchController.text.toLowerCase()));
     });
+  }
 
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        homeUiBloc.add(HomeUiEvent.tabChanged(_tabController.index));
+  void _initTabController() {
+    _tabController?.dispose();
+    _tabController = TabController(length: _showCoreApps ? 5 : 4, vsync: this);
+    _tabController!.addListener(() {
+      if (!_tabController!.indexIsChanging) {
+        homeUiBloc.add(HomeUiEvent.tabChanged(_tabController!.index));
       }
     });
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController?.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -96,6 +102,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ],
       child: MultiBlocListener(
         listeners: [
+          BlocListener<HomeBloc, HomeState>(
+            listenWhen: (previous, current) => previous.value.showCoreApps != current.value.showCoreApps,
+            listener: (context, state) {
+              setState(() {
+                _showCoreApps = state.value.showCoreApps;
+                _initTabController();
+              });
+            },
+          ),
           BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
               state.maybeWhen(
@@ -151,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     return app.isSystemApp == true;
                   },
                 ),
+                if (_showCoreApps) AppCountTab(label: context.loc.core, filter: (app, cached) => app.isCoreApp),
                 Tab(
                   child: Text(context.loc.stats, style: TextStyle(fontSize: 14.sp)),
                 ),
@@ -165,8 +181,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     icon: Icon(data.isSearching ? Icons.close : Icons.search),
                     onPressed: () {
                       if (!data.isSearching) {
-                        final cachedApps = getIt<AppInfoBloc>().state.value.cachedApps;
-                        homeBloc.add(HomeEvent.updateCachedApps(cachedApps));
                         homeBloc.add(const HomeEvent.toggleSearch());
                       } else {
                         _searchController.clear();
@@ -228,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               homeUiBloc.add(HomeUiEvent.scrollDirectionChanged(direction));
               return false;
             },
-            child: HomeBody(tabController: _tabController),
+            child: HomeBody(tabController: _tabController!),
           ),
           floatingActionButton: BlocBuilder<HomeUiBloc, HomeUiState>(
             builder: (context, uiState) {

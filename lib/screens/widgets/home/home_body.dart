@@ -42,15 +42,19 @@ class HomeBody extends StatelessWidget {
             HomeStateModel model,
             List<AppProcessInfo> userApps,
             List<AppProcessInfo> systemApps,
+            List<AppProcessInfo> coreApps,
           })
         >(
           selector: (state) {
             final (isLoading, loadingMessage) = state.mapOrNull(loading: (s) => (true, s.message)) ?? (false, null);
             final (isError, errorMessage) = state.mapOrNull(failure: (s) => (true, s.message)) ?? (false, null);
 
-            final allApps = state.value.allApps;
-            final userApps = allApps.where((a) => Helper.isSystemApp(a, cachedApps) == false).toList();
-            final systemApps = allApps.where((a) => Helper.isSystemApp(a, cachedApps) == true).toList();
+            final showCoreApps = state.value.showCoreApps;
+            final rawApps = state.value.allApps;
+            final allApps = showCoreApps ? rawApps : rawApps.where((a) => !a.isCoreApp).toList();
+            final userApps = allApps.where((a) => Helper.isSystemApp(a, cachedApps) == false && !a.isCoreApp).toList();
+            final systemApps = allApps.where((a) => Helper.isSystemApp(a, cachedApps) == true && !a.isCoreApp).toList();
+            final coreApps = showCoreApps ? rawApps.where((a) => a.isCoreApp).toList() : <AppProcessInfo>[];
 
             return (
               isLoading: isLoading,
@@ -61,6 +65,7 @@ class HomeBody extends StatelessWidget {
               model: state.value,
               userApps: userApps,
               systemApps: systemApps,
+              coreApps: coreApps,
             );
           },
           builder: (context, data) {
@@ -76,12 +81,16 @@ class HomeBody extends StatelessWidget {
             }
 
             return NestedScrollView(
+              key: ValueKey(data.model.showCoreApps),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   ListenableBuilder(
-                    listenable: tabController.animation!,
+                    listenable: tabController.animation ?? const AlwaysStoppedAnimation(0.0),
                     builder: (context, child) {
-                      final animValue = tabController.animation!.value;
+                      final animation = tabController.animation;
+                      if (animation == null) return const SizedBox.shrink();
+
+                      final animValue = animation.value;
                       final progress = (animValue - 2.0).clamp(0.0, 1.0);
 
                       final defaultHeight = 52.h;
@@ -101,6 +110,7 @@ class HomeBody extends StatelessWidget {
                               0 => data.model.allApps,
                               1 => data.userApps,
                               2 => data.systemApps,
+                              3 => data.model.showCoreApps ? data.coreApps : [],
                               _ => data.model.allApps,
                             },
                             sortAscending: data.model.sortAscending,
@@ -122,7 +132,8 @@ class HomeBody extends StatelessWidget {
                         AppList(apps: data.model.allApps, tabIndex: 0),
                         AppList(apps: data.userApps, tabIndex: 1),
                         AppList(apps: data.systemApps, tabIndex: 2),
-                        const StatsTab(),
+                        if (data.model.showCoreApps) AppList(apps: data.coreApps, tabIndex: 3),
+                        StatsTab(tabIndex: data.model.showCoreApps ? 4 : 3),
                       ],
                     ),
                   );

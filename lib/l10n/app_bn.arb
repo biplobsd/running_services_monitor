@@ -248,5 +248,8 @@
   "statsProcessStateBar": "অ্যাপ স্টেট বিতরণ",
   "statsProcessStateSubtitle": "সক্রিয়, ব্যাকগ্রাউন্ড, এবং ক্যাশড অ্যাপস",
   "statsScatterChart": "র‍্যাম বিতরণ স্ক্যাটার",
-  "statsScatterSubtitle": "Y: র‍্যাম (MB), X: অ্যাপ ইনডেক্স"
+  "statsScatterSubtitle": "Y: র‍্যাম (MB), X: অ্যাপ ইনডেক্স",
+  "core": "কোর",
+  "coreAppInfoLimited": "সিস্টেম প্রসেসের জন্য সীমিত তথ্য পাওয়া যাচ্ছে",
+  "showCoreApps": "কোর প্রসেস দেখান"
 }

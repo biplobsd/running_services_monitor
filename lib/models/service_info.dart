@@ -53,11 +53,13 @@ abstract class AppProcessInfo with _$AppProcessInfo {
     @Default([]) List<RamSourceInfo> ramSources,
     @Default(0) double cachedMemoryKb,
     @Default([]) List<ProcessEntry> processes,
+    @Default(false) bool isCoreApp,
   }) = _AppProcessInfo;
 
   factory AppProcessInfo.fromJson(Map<String, dynamic> json) => _$AppProcessInfoFromJson(json);
 
-  bool get hasActiveService => services.any((s) => s.startRequested == true || s.isForeground == true || s.hasBound || s.pid != null);
+  bool get hasActiveService =>
+      services.any((s) => s.startRequested == true || s.isForeground == true || s.hasBound || s.pid != null);
   bool get isActive => isActiveState(processState, hasServices: hasServices, hasActiveService: hasActiveService);
   bool get isCached => isCachedState(processState);
   int get processCount {

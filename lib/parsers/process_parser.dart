@@ -9,15 +9,11 @@ class ProcessParser {
   static final _connectionRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+):@([a-f0-9]+)\s+flags=(0x[a-f0-9]+)');
   static final _pssLineRegex = RegExp(r'^\s*([\d,]+)K:\s+([a-zA-Z0-9._:]+)(?:\s+\(pid\s+(\d+))?', caseSensitive: false);
   static final _totalRamRegex = RegExp(r'Total RAM:\s+([\d,]+)K\s*(?:\(status\s+(\w+)\))?');
-  static final _freeRamRegex = RegExp(
-   r'Free RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+cached pss\s*\+\s*([\d,]+)K\s+cached kernel\s*\+\s*([\d,]+)K\s+free\)',
-  );
+  static final _freeRamRegex = RegExp(r'Free RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+cached pss\s*\+\s*([\d,]+)K\s+cached kernel\s*\+\s*([\d,]+)K\s+free\)');
   static final _usedRamRegex = RegExp(r'Used RAM:\s+([\d,]+)K\s*\(\s*([\d,]+)K\s+used pss\s*\+\s*([\d,]+)K\s+kernel\)');
   static final _gpuRegex = RegExp(r'GPU:\s+([\d,]+)K');
   static final _lostRamRegex = RegExp(r'Lost RAM:\s+([\d,]+)K');
-  static final _zramRegex = RegExp(
-    r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)',
-  );
+  static final _zramRegex = RegExp(r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)');
   static final _tuningRegex = RegExp(r'Tuning:.*oom\s+([\d,]+)K.*restore limit\s+([\d,]+)K');
 
   static double _parseKb(String? value) {
@@ -130,10 +126,7 @@ class ProcessParser {
         final pidMatch = _processRecordRegex.firstMatch(trimmed);
         if (pidMatch != null) {
           pid = int.tryParse(pidMatch.group(1) ?? '');
-          uid =
-              (int.tryParse(pidMatch.group(3) ?? '0') ?? 0) * 100000 +
-              10000 +
-              (int.tryParse(pidMatch.group(4) ?? '0') ?? 0);
+          uid = (int.tryParse(pidMatch.group(3) ?? '0') ?? 0) * 100000 + 10000 + (int.tryParse(pidMatch.group(4) ?? '0') ?? 0);
         }
       }
     }
@@ -154,8 +147,7 @@ class ProcessParser {
       isSystemApp:
           !packageName.contains('.') ||
           (uid != null && uid < 10000) ||
-          (baseDir != null &&
-              (baseDir.startsWith('/system') || baseDir.startsWith('/product') || baseDir.startsWith('/system_ext'))),
+          (baseDir != null && (baseDir.startsWith('/system') || baseDir.startsWith('/product') || baseDir.startsWith('/system_ext'))),
       intent: intent,
       baseDir: baseDir,
       dataDir: dataDir,
@@ -243,9 +235,7 @@ class ProcessParser {
     return (pidMap: pidMap, processNameMap: processNameMap);
   }
 
-  static ({Map<String, double> totals, Map<String, List<ProcessEntry>> processes}) parseAllAppsFromMeminfo(
-    String meminfoOutput,
-  ) {
+  static ({Map<String, double> totals, Map<String, List<ProcessEntry>> processes}) parseAllAppsFromMeminfo(String meminfoOutput) {
     if (meminfoOutput.isEmpty) return (totals: const {}, processes: const {});
 
     final pssStart = meminfoOutput.indexOf('Total PSS by process:');
@@ -278,9 +268,7 @@ class ProcessParser {
       final pid = int.tryParse(match.group(3) ?? '');
       if (pssKb > 0) {
         totals.update(basePackage, (v) => v + pssKb, ifAbsent: () => pssKb);
-        processes
-            .putIfAbsent(basePackage, () => [])
-            .add(ProcessEntry(processName: fullProcessName, ramKb: pssKb, pid: pid));
+        processes.putIfAbsent(basePackage, () => []).add(ProcessEntry(processName: fullProcessName, ramKb: pssKb, pid: pid));
       }
     }
 
@@ -305,6 +293,7 @@ class ProcessParser {
 
     return AppProcessInfo(
       packageName: packageName,
+      isCoreApp: !packageName.contains('.'),
       services: const [],
       pids: [lruInfo.pid],
       totalRamInKb: ramKb,
@@ -324,10 +313,12 @@ class ProcessParser {
     final pids = <int>{};
     final ramSources = <RamSourceInfo>[];
     var totalRamKb = 0.0;
+    var isSystemApp = false;
 
     final enrichedServices = List<RunningServiceInfo>.generate(services.length, (i) {
       final service = services[i];
       final pid = service.pid;
+      isSystemApp = service.isSystemApp;
 
       if (pid != null && pids.add(pid)) {
         final ramKb = pidRamMap[pid];
@@ -349,6 +340,7 @@ class ProcessParser {
     }
 
     return AppProcessInfo(
+      isCoreApp: isSystemApp && !packageName.contains('.'),
       packageName: packageName,
       services: enrichedServices,
       pids: pids.toList(),

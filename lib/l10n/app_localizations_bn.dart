@@ -896,4 +896,14 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get statsScatterSubtitle => 'Y: র‍্যাম (MB), X: অ্যাপ ইনডেক্স';
+
+  @override
+  String get core => 'কোর';
+
+  @override
+  String get coreAppInfoLimited =>
+      'সিস্টেম প্রসেসের জন্য সীমিত তথ্য পাওয়া যাচ্ছে';
+
+  @override
+  String get showCoreApps => 'কোর প্রসেস দেখান';
 }

@@ -840,4 +840,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get statsScatterSubtitle => 'Y: RAM (MB), X: App Index';
+
+  @override
+  String get core => '核心';
+
+  @override
+  String get coreAppInfoLimited => '系统进程可用信息有限';
+
+  @override
+  String get showCoreApps => '显示核心进程';
 }

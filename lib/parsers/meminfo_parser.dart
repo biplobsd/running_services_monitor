@@ -1,6 +1,13 @@
 import 'package:running_services_monitor/models/meminfo_data.dart';
 
 class MemInfoParser {
+  static final _pidRegex = RegExp(r'pid\s+(\d+)');
+  static final _summaryRegex = RegExp(r'^\s*([A-Za-z\s]+):\s*(\d+)\s*(\d+)?');
+  static final _totalSummaryRegex = RegExp(r'TOTAL\s+PSS:\s*(\d+).*?TOTAL\s+RSS:\s*(\d+).*?SWAP\s+PSS:\s*(\d+)', caseSensitive: false);
+  static final _objectsRegex = RegExp(r'(\w+[\w\s]*):\s*(\d+)');
+  static final _allocationRegex = RegExp(r'(\d+)\s+(\d+)');
+  static final _categoryRegex = RegExp(r'^\s*([\w\s\.]+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)(?:\s+(\d+)\s+(\d+)\s+(\d+))?');
+
   static MemInfoData parse(String packageName, String output) {
     final lines = output.split('\n');
     final categories = <MemInfoCategory>[];
@@ -10,7 +17,7 @@ class MemInfoParser {
     NativeAllocations? nativeAllocations;
     int pid = 0;
 
-    final pidMatch = RegExp(r'pid\s+(\d+)').firstMatch(output);
+    final pidMatch = _pidRegex.firstMatch(output);
     if (pidMatch != null) {
       pid = int.tryParse(pidMatch.group(1) ?? '0') ?? 0;
     }
@@ -64,7 +71,7 @@ class MemInfoParser {
       }
 
       if (inAppSummary) {
-        final summaryMatch = RegExp(r'^\s*([A-Za-z\s]+):\s*(\d+)\s*(\d+)?').firstMatch(line);
+        final summaryMatch = _summaryRegex.firstMatch(line);
         if (summaryMatch != null) {
           final label = summaryMatch.group(1)?.trim() ?? '';
           final val1 = int.tryParse(summaryMatch.group(2) ?? '0') ?? 0;
@@ -93,10 +100,7 @@ class MemInfoParser {
             unknownRss = val2 > 0 ? val2 : val1;
           }
         }
-        final totalMatch = RegExp(
-          r'TOTAL\s+PSS:\s*(\d+).*?TOTAL\s+RSS:\s*(\d+).*?SWAP\s+PSS:\s*(\d+)',
-          caseSensitive: false,
-        ).firstMatch(line);
+        final totalMatch = _totalSummaryRegex.firstMatch(line);
         if (totalMatch != null) {
           totalPss = int.tryParse(totalMatch.group(1) ?? '0') ?? 0;
           totalRss = int.tryParse(totalMatch.group(2) ?? '0') ?? 0;
@@ -106,7 +110,7 @@ class MemInfoParser {
       }
 
       if (inObjects) {
-        final objectsMatch = RegExp(r'(\w+[\w\s]*):\s*(\d+)').allMatches(line);
+        final objectsMatch = _objectsRegex.allMatches(line);
         for (final match in objectsMatch) {
           final label = match.group(1)?.trim() ?? '';
           final val = int.tryParse(match.group(2) ?? '0') ?? 0;
@@ -142,19 +146,19 @@ class MemInfoParser {
 
       if (inNativeAllocations) {
         if (trimmed.contains('Bitmap') && trimmed.contains('malloced')) {
-          final allocMatch = RegExp(r'(\d+)\s+(\d+)').firstMatch(trimmed);
+          final allocMatch = _allocationRegex.firstMatch(trimmed);
           if (allocMatch != null) {
             bitmapCount = int.tryParse(allocMatch.group(1) ?? '0') ?? 0;
             bitmapTotalKb = int.tryParse(allocMatch.group(2) ?? '0') ?? 0;
           }
         } else if (trimmed.contains('Other') && trimmed.contains('malloced') && !trimmed.contains('non')) {
-          final allocMatch = RegExp(r'(\d+)\s+(\d+)').firstMatch(trimmed);
+          final allocMatch = _allocationRegex.firstMatch(trimmed);
           if (allocMatch != null) {
             otherMallocedCount = int.tryParse(allocMatch.group(1) ?? '0') ?? 0;
             otherMallocedKb = int.tryParse(allocMatch.group(2) ?? '0') ?? 0;
           }
         } else if (trimmed.contains('nonmalloced')) {
-          final allocMatch = RegExp(r'(\d+)\s+(\d+)').firstMatch(trimmed);
+          final allocMatch = _allocationRegex.firstMatch(trimmed);
           if (allocMatch != null) {
             otherNonMallocedCount = int.tryParse(allocMatch.group(1) ?? '0') ?? 0;
             otherNonMallocedKb = int.tryParse(allocMatch.group(2) ?? '0') ?? 0;
@@ -163,9 +167,7 @@ class MemInfoParser {
         continue;
       }
 
-      final categoryMatch = RegExp(
-        r'^\s*([\w\s\.]+?)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)(?:\s+(\d+)\s+(\d+)\s+(\d+))?',
-      ).firstMatch(line);
+      final categoryMatch = _categoryRegex.firstMatch(line);
 
       if (categoryMatch != null) {
         final name = categoryMatch.group(1)?.trim() ?? '';

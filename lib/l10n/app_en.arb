@@ -346,5 +346,8 @@
   "statsProcessStateBar": "App State Distribution",
   "statsProcessStateSubtitle": "Active, Background, and Cached apps",
   "statsScatterChart": "RAM Distribution Scatter",
-  "statsScatterSubtitle": "Y: RAM (MB), X: App Index"
+  "statsScatterSubtitle": "Y: RAM (MB), X: App Index",
+  "core": "Core",
+  "coreAppInfoLimited": "Limited info available for system processes",
+  "showCoreApps": "Show Core Apps"
 }

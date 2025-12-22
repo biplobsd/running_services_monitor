@@ -45,6 +45,8 @@ abstract class L10nKeys {
   static const contributors = 'contributors';
   static const copiedToClipboard = 'copiedToClipboard';
   static const copy = 'copy';
+  static const core = 'core';
+  static const coreAppInfoLimited = 'coreAppInfoLimited';
   static const createTime = 'createTime';
   static const createdFromFg = 'createdFromFg';
   static const current = 'current';
@@ -309,6 +311,8 @@ extension L10nResolver on AppLocalizations {
       'contributors' => contributors,
       'copiedToClipboard' => copiedToClipboard,
       'copy' => copy,
+      'core' => core,
+      'coreAppInfoLimited' => coreAppInfoLimited,
       'createTime' => createTime,
       'createdFromFg' => createdFromFg,
       'current' => current,

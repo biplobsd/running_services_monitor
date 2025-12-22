@@ -15,7 +15,12 @@ import 'waterfall_chart.dart';
 import 'polar_chart.dart';
 
 class StatsTab extends StatefulWidget {
-  const StatsTab({super.key});
+  final int tabIndex;
+
+  const StatsTab({
+    super.key,
+    this.tabIndex = 3,
+  });
 
   @override
   State<StatsTab> createState() => _StatsTabState();
@@ -47,7 +52,7 @@ class _StatsTabState extends State<StatsTab> with AutomaticKeepAliveClientMixin 
             await homeBloc.stream.first;
           },
           child: CustomScrollView(
-            controller: scrollProvider.scrollControllers[3],
+            controller: scrollProvider.scrollControllers[widget.tabIndex],
             slivers: [
               const SliverRefreshHeader(),
               SliverPadding(

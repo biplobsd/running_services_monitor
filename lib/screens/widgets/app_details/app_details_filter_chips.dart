@@ -27,21 +27,23 @@ class AppDetailsFilterChips extends StatelessWidget {
       child: Row(
         spacing: 8.w,
         children: [
-          FilterChip(
-            label: Text('${context.loc.services} ($serviceCount)'),
-            selected: selectedFilter == AppDetailsFilter.services,
-            onSelected: (_) => onFilterChanged(AppDetailsFilter.services),
-          ),
+          if (!appInfo.isCoreApp)
+            FilterChip(
+              label: Text('${context.loc.services} ($serviceCount)'),
+              selected: selectedFilter == AppDetailsFilter.services,
+              onSelected: (_) => onFilterChanged(AppDetailsFilter.services),
+            ),
           FilterChip(
             label: Text('${context.loc.processes} ($processCount)'),
             selected: selectedFilter == AppDetailsFilter.processes,
             onSelected: (_) => onFilterChanged(AppDetailsFilter.processes),
           ),
-          FilterChip(
-            label: Text(context.loc.memoryInfo),
-            selected: selectedFilter == AppDetailsFilter.meminfo,
-            onSelected: (_) => onFilterChanged(AppDetailsFilter.meminfo),
-          ),
+          if (!appInfo.isCoreApp)
+            FilterChip(
+              label: Text(context.loc.memoryInfo),
+              selected: selectedFilter == AppDetailsFilter.meminfo,
+              onSelected: (_) => onFilterChanged(AppDetailsFilter.meminfo),
+            ),
         ],
       ),
     );

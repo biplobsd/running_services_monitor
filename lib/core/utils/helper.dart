@@ -3,12 +3,19 @@ import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 
 class Helper {
-  static List<AppProcessInfo> filterApps(List<AppProcessInfo> apps, String searchQuery, ProcessStateFilter filter) {
+  static List<AppProcessInfo> filterApps(
+    List<AppProcessInfo> apps,
+    String searchQuery,
+    ProcessStateFilter filter,
+    Map<String, CachedAppInfo> cachedApps,
+  ) {
     return apps.where((app) {
       if (searchQuery.trim().isNotEmpty) {
         final query = searchQuery.trim().toLowerCase();
         final pkg = app.packageName.trim().toLowerCase();
-        if (!pkg.contains(query)) {
+        final cached = cachedApps[app.packageName];
+        final name = cached?.appName.trim().toLowerCase() ?? pkg;
+        if (!pkg.contains(query) && !name.contains(query)) {
           return false;
         }
       }

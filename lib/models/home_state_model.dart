@@ -23,6 +23,7 @@ abstract class HomeStateModel with _$HomeStateModel {
     @Default(ProcessStateFilter.all)
     ProcessStateFilter selectedProcessFilter,
     @JsonKey(includeFromJson: false, includeToJson: false) @Default(false) bool sortAscending,
+    @Default(false) bool showCoreApps,
   }) = _HomeStateModel;
 
   factory HomeStateModel.fromJson(Map<String, dynamic> json) => _$HomeStateModelFromJson(json);

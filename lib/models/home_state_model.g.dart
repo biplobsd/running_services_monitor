@@ -18,10 +18,12 @@ _HomeStateModel _$HomeStateModelFromJson(Map<String, dynamic> json) =>
           : SystemRamInfo.fromJson(
               json['systemRamInfo'] as Map<String, dynamic>,
             ),
+      showCoreApps: json['showCoreApps'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$HomeStateModelToJson(_HomeStateModel instance) =>
     <String, dynamic>{
       'allApps': instance.allApps,
       'systemRamInfo': instance.systemRamInfo,
+      'showCoreApps': instance.showCoreApps,
     };

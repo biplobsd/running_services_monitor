@@ -191,5 +191,8 @@
   "restoreLimit": "恢复限制",
   "zramSection": "ZRAM",
   "memoryThresholds": "内存阈值",
-  "boundServiceCannotStop": "此服务被另一个进程绑定，无法直接停止。您可以改用停止整个应用。"
+  "boundServiceCannotStop": "此服务被另一个进程绑定，无法直接停止。您可以改用停止整个应用。",
+  "core": "核心",
+  "coreAppInfoLimited": "系统进程可用信息有限",
+  "showCoreApps": "显示核心进程"
 }

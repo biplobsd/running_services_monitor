@@ -158,6 +158,31 @@ class ProcessService {
         updatedApps[packageName] = updatedApp;
       }
 
+      final coreAppsAdded = <String>[];
+      for (final entry in meminfoAppsMap.entries) {
+        final packageName = entry.key;
+        if (updatedApps.containsKey(packageName)) continue;
+
+        final totalRam = entry.value;
+        final processList = meminfoProcesses[packageName] ?? [];
+        final pids = processList.map((p) => p.pid).whereType<int>().toList();
+
+        final ramSources = processList
+            .map((p) => RamSourceInfo(source: RamSourceType.meminfoPss, ramKb: p.ramKb, processName: p.processName))
+            .toList();
+
+        updatedApps[packageName] = AppProcessInfo(
+          packageName: packageName,
+          services: const [],
+          pids: pids,
+          totalRamInKb: totalRam,
+          hasServices: false,
+          isCoreApp: true,
+          ramSources: ramSources,
+          processes: processList,
+        );
+        coreAppsAdded.add(packageName);
+      }
       callback(updatedApps);
     }
 
@@ -224,11 +249,7 @@ class ProcessService {
       return s.copyWith(ramInKb: ramKb);
     }).toList();
 
-    final app = existing.copyWith(
-      services: enrichedServices,
-      pids: mergedPids.toList(),
-      totalRamInKb: totalRamKb,
-    );
+    final app = existing.copyWith(services: enrichedServices, pids: mergedPids.toList(), totalRamInKb: totalRamKb);
     groupedApps[packageName] = app;
     return app;
   }

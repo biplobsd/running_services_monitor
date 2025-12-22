@@ -124,10 +124,19 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: AppDetailsFilterChips(
-                        appInfo: currentAppInfo,
-                        selectedFilter: selectedFilter,
-                        onFilterChanged: (filter) => setState(() => selectedFilter = filter),
+                      child: Builder(
+                        builder: (context) {
+                          if (currentAppInfo.isCoreApp && selectedFilter == AppDetailsFilter.services) {
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              if (mounted) setState(() => selectedFilter = AppDetailsFilter.processes);
+                            });
+                          }
+                          return AppDetailsFilterChips(
+                            appInfo: currentAppInfo,
+                            selectedFilter: selectedFilter,
+                            onFilterChanged: (filter) => setState(() => selectedFilter = filter),
+                          );
+                        },
                       ),
                     ),
                     if (selectedFilter == AppDetailsFilter.services) ...[
@@ -181,7 +190,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                   ],
                 ),
               ),
-              floatingActionButton: currentAppInfo.pids.isEmpty
+              floatingActionButton: currentAppInfo.isCoreApp || currentAppInfo.pids.isEmpty
                   ? null
                   : FloatingActionButton.extended(
                       onPressed: () async {

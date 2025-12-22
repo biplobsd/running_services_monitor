@@ -889,4 +889,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statsScatterSubtitle => 'Y: RAM (MB), X: App Index';
+
+  @override
+  String get core => 'Core';
+
+  @override
+  String get coreAppInfoLimited =>
+      'Limited info available for system processes';
+
+  @override
+  String get showCoreApps => 'Show Core Apps';
 }

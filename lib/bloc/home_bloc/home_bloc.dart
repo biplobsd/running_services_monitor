@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
-import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/services/process_service.dart';
@@ -34,6 +33,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_SetProcessFilter>(_onSetProcessFilter);
     on<_ToggleSortOrder>(_onToggleSortOrder);
     on<_UpdateRamInfo>(_onUpdateRamInfo);
+    on<_ToggleShowCoreApps>(_onToggleShowCoreApps);
   }
 
   @override
@@ -121,10 +121,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       await for (final app in streamResult.apps) {
         final prevApp = previousApps[app.packageName];
         if (prevApp != null && app.totalRamInKb <= 0) {
-          appsMap[app.packageName] = app.copyWith(
-            totalRamInKb: prevApp.totalRamInKb,
-            ramSources: prevApp.ramSources,
-          );
+          appsMap[app.packageName] = app.copyWith(totalRamInKb: prevApp.totalRamInKb, ramSources: prevApp.ramSources);
         } else {
           appsMap[app.packageName] = app;
         }
@@ -133,7 +130,8 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       final updatedAppsMap = await ramInfoCompleter.future;
       final ramInfo = await streamResult.systemRamInfo;
 
-      final allApps = appsMap.keys.map((key) => updatedAppsMap[key] ?? appsMap[key]!).toList();
+      final showCoreApps = state.value.showCoreApps;
+      final allApps = updatedAppsMap.values.where((a) => showCoreApps || !a.isCoreApp).toList();
       emit(
         HomeState.success(
           state.value.copyWith(
@@ -231,11 +229,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
         }
       }
 
-      return app.copyWith(
-        services: updatedServices,
-        pids: pids.toList(),
-        totalRamInKb: totalRamKb,
-      );
+      return app.copyWith(services: updatedServices, pids: pids.toList(), totalRamInKb: totalRamKb);
     }
 
     final updatedAllApps = currentState.allApps.map(updateApp).whereType<AppProcessInfo>().toList();
@@ -300,13 +294,19 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     emit(
       HomeState.success(
         state.value.copyWith(
-          allApps: event.apps,
+          allApps: state.value.showCoreApps ? event.apps : event.apps.where((a) => !a.isCoreApp).toList(),
           systemRamInfo: ramInfo ?? state.value.systemRamInfo,
           isLoadingRam: false,
         ),
         event.notify ? L10nKeys.refreshedSuccessfully : null,
       ),
     );
+  }
+
+  Future<void> _onToggleShowCoreApps(_ToggleShowCoreApps event, Emitter<HomeState> emit) async {
+    final newValue = !state.value.showCoreApps;
+    emit(HomeState.success(state.value.copyWith(showCoreApps: newValue, allApps: [])));
+    add(const HomeEvent.loadData());
   }
 
   @override
