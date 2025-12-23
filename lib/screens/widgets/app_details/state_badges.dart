@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -108,15 +109,12 @@ class StateBadges extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                      title: Text(loc.processStateTitle, style: TextStyle(fontSize: 18.sp)),
-                      content: Text(
-                        getProcessStateDescription(appInfo.processState!, loc),
-                        style: TextStyle(fontSize: 14.sp),
-                      ),
+                      title: Text(loc.processStateTitle, style: AppStyles.titleStyle),
+                      content: Text(getProcessStateDescription(appInfo.processState!, loc), style: AppStyles.bodyStyle),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          child: Text(loc.ok, style: TextStyle(fontSize: 14.sp)),
+                          child: Text(loc.ok, style: AppStyles.bodyStyle),
                         ),
                       ],
                     ),

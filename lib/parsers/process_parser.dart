@@ -1,6 +1,84 @@
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 
+({Map<int, double> pidMap, Map<String, double> processNameMap}) computeParseRamMaps(String meminfoOutput) {
+  return ProcessParser.parseRamMaps(meminfoOutput);
+}
+
+({Map<String, double> totals, Map<String, List<ProcessEntry>> processes}) computeParseMeminfo(String meminfoOutput) {
+  return ProcessParser.parseAllAppsFromMeminfo(meminfoOutput);
+}
+
+SystemRamInfo computeParseSystemRamInfo(String meminfoOutput) {
+  return ProcessParser.parseSystemRamInfo(meminfoOutput);
+}
+
+Map<String, ({String state, String adj, int pid, int uid})> computeParseLruProcesses(String lruOutput) {
+  return ProcessParser.parseLruProcesses(lruOutput);
+}
+
+Map<String, AppProcessInfo> computeEnrichAppsWithRamInfo(Map<String, dynamic> params) {
+  final groupedApps = (params['groupedApps'] as Map<String, dynamic>).map((k, v) => MapEntry(k, AppProcessInfo.fromJson(v as Map<String, dynamic>)));
+  final pidMap = (params['pidMap'] as Map<String, dynamic>).map((k, v) => MapEntry(int.parse(k), (v as num).toDouble()));
+  final processNameMap = (params['processNameMap'] as Map<String, dynamic>).map((k, v) => MapEntry(k, (v as num).toDouble()));
+  final totals = (params['totals'] as Map<String, dynamic>).map((k, v) => MapEntry(k, (v as num).toDouble()));
+  final processes = (params['processes'] as Map<String, dynamic>).map(
+    (k, v) => MapEntry(k, (v as List).map((p) => ProcessEntry.fromJson(p as Map<String, dynamic>)).toList()),
+  );
+
+  final updatedApps = <String, AppProcessInfo>{};
+
+  for (final entry in groupedApps.entries) {
+    final packageName = entry.key;
+    final existingApp = entry.value;
+    final meminfoRam = totals[packageName];
+    final processList = processes[packageName] ?? [];
+
+    var updatedApp = existingApp;
+
+    final enrichedServices = ProcessParser.enrichServicesWithRam(existingApp.services, pidMap);
+
+    final totalRamKb =
+        meminfoRam ??
+        ProcessParser.calculateTotalRamKb(services: enrichedServices, packageName: packageName, pidRamMap: pidMap, processNameRamMap: processNameMap);
+
+    final ramSources = processList.map((p) => RamSourceInfo(source: RamSourceType.meminfoPss, ramKb: p.ramKb, processName: p.processName)).toList();
+
+    updatedApp = updatedApp.copyWith(
+      services: enrichedServices,
+      totalRamInKb: totalRamKb,
+      ramSources: [...updatedApp.ramSources, ...ramSources],
+      processes: processList.isNotEmpty ? processList : updatedApp.processes,
+    );
+
+    updatedApps[packageName] = updatedApp;
+  }
+
+  for (final entry in totals.entries) {
+    final packageName = entry.key;
+    if (updatedApps.containsKey(packageName)) continue;
+
+    final totalRam = entry.value;
+    final processList = processes[packageName] ?? [];
+    final pids = processList.map((p) => p.pid).whereType<int>().toList();
+
+    final ramSources = processList.map((p) => RamSourceInfo(source: RamSourceType.meminfoPss, ramKb: p.ramKb, processName: p.processName)).toList();
+
+    updatedApps[packageName] = AppProcessInfo(
+      packageName: packageName,
+      services: const [],
+      pids: pids,
+      totalRamInKb: totalRam,
+      hasServices: false,
+      isCoreApp: true,
+      ramSources: ramSources,
+      processes: processList,
+    );
+  }
+
+  return updatedApps;
+}
+
 class ProcessParser {
   static final serviceRecordRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+)');
   static final _processRecordRegex = RegExp(r'(\d+):([^/]+)/u(\d+)a(\d+)');
@@ -375,5 +453,25 @@ class ProcessParser {
       totalRamInKb: totalRamKb,
       ramSources: ramSources,
     );
+  }
+
+  static Map<String, ({String state, String adj, int pid, int uid})> parseLruProcesses(String result) {
+    if (result.isEmpty) return const {};
+
+    final processes = <String, ({String state, String adj, int pid, int uid})>{};
+    var start = 0;
+
+    while (start < result.length) {
+      var end = result.indexOf('\n', start);
+      if (end == -1) end = result.length;
+
+      final parsed = parseLruLine(result.substring(start, end));
+      if (parsed != null) {
+        processes[parsed.packageName] = (state: parsed.state, adj: parsed.adj, pid: parsed.pid, uid: parsed.uid);
+      }
+      start = end + 1;
+    }
+
+    return processes;
   }
 }

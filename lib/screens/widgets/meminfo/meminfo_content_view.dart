@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'meminfo_summary_card.dart';
@@ -26,6 +27,9 @@ class MemInfoContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 16.h,
@@ -33,16 +37,9 @@ class MemInfoContentView extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Text(
-                'PID: ${data.pid}',
-                style: TextStyle(fontSize: 14.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
-              ),
+              child: Text('PID: ${data.pid}', style: AppStyles.bodyStyle.copyWith(color: colorScheme.onSurfaceVariant)),
             ),
-            IconButton(
-              icon: Icon(Icons.refresh, size: 20.sp),
-              onPressed: onRefresh,
-              tooltip: context.loc.refresh,
-            ),
+            IconButton(icon: AppStyles.refreshIcon, onPressed: onRefresh, tooltip: context.loc.refresh),
           ],
         ),
         Row(
@@ -52,17 +49,14 @@ class MemInfoContentView extends StatelessWidget {
               child: FilledButton.tonalIcon(
                 onPressed: onToggleRawOutput,
                 icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18.sp),
-                label: Text(
-                  showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput,
-                  style: TextStyle(fontSize: 12.sp),
-                ),
+                label: Text(showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput, style: AppStyles.smallStyle),
               ),
             ),
             Expanded(
               child: FilledButton.icon(
                 onPressed: () => context.push('/meminfo-compare', extra: {'packageName': packageName}),
                 icon: Icon(Icons.compare_arrows, size: 18.sp),
-                label: Text(context.loc.compareWithOther, style: TextStyle(fontSize: 12.sp)),
+                label: Text(context.loc.compareWithOther, style: AppStyles.smallStyle),
               ),
             ),
           ],

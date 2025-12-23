@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
@@ -27,13 +28,20 @@ class TopRamConsumersBarChart extends StatelessWidget {
           builder: (context, apps) {
             if (apps.isEmpty) return const SizedBox.shrink();
 
-            final sortedApps = List<AppProcessInfo>.from(apps)
-              ..sort((a, b) => b.totalRamInKb.compareTo(a.totalRamInKb));
+            final sortedApps = List<AppProcessInfo>.from(apps)..sort((a, b) => b.totalRamInKb.compareTo(a.totalRamInKb));
             final topApps = sortedApps.take(7).toList();
 
             String appName(String packageName) {
               return cachedApps[packageName]?.appName ?? packageName;
             }
+
+            final theme = Theme.of(context);
+            final colorScheme = theme.colorScheme;
+            final surfaceContainerHighest = colorScheme.surfaceContainerHighest;
+            final onSurfaceVariant = colorScheme.onSurfaceVariant;
+            final primary = colorScheme.primary;
+            final tertiary = colorScheme.tertiary;
+            final dividerColor = theme.dividerColor;
 
             return StatsChartCard(
               title: context.loc.statsTopRamConsumers,
@@ -44,23 +52,15 @@ class TopRamConsumersBarChart extends StatelessWidget {
                   maxY: topApps.isNotEmpty ? topApps.first.totalRamInKb * 1.1 : 0,
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
-                      getTooltipColor: (group) => Theme.of(context).colorScheme.surfaceContainerHighest,
+                      getTooltipColor: (group) => surfaceContainerHighest,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         return BarTooltipItem(
                           '${appName(topApps[groupIndex].packageName)}\n',
-                          TextStyle(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
-                          ),
+                          AppStyles.bodyStyle.copyWith(color: onSurfaceVariant, fontWeight: FontWeight.bold),
                           children: [
                             TextSpan(
                               text: rod.toY.formatRam(),
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: AppStyles.captionStyle.copyWith(color: primary, fontWeight: FontWeight.w500, fontSize: 12.sp),
                             ),
                           ],
                         );
@@ -80,7 +80,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                                 quarterTurns: 1,
                                 child: Text(
                                   appName(topApps[value.toInt()].packageName),
-                                  style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500),
+                                  style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -97,10 +97,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                         reservedSize: 50.w,
                         getTitlesWidget: (value, meta) {
                           if (value == 0) return const SizedBox.shrink();
-                          return Text(
-                            value.formatRam(decimalPlaces: 1),
-                            style: TextStyle(fontSize: 10.sp, color: Colors.grey),
-                          );
+                          return Text(value.formatRam(decimalPlaces: 1), style: AppStyles.smallStyle.copyWith(color: Colors.grey));
                         },
                       ),
                     ),
@@ -116,17 +113,13 @@ class TopRamConsumersBarChart extends StatelessWidget {
                       barRods: [
                         BarChartRodData(
                           toY: app.totalRamInKb,
-                          gradient: LinearGradient(
-                            colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.tertiary],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
+                          gradient: LinearGradient(colors: [primary, tertiary], begin: Alignment.bottomCenter, end: Alignment.topCenter),
                           width: 18.w,
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
                           backDrawRodData: BackgroundBarChartRodData(
                             show: true,
                             toY: topApps.first.totalRamInKb * 1.1,
-                            color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                            color: surfaceContainerHighest.withValues(alpha: 0.3),
                           ),
                         ),
                       ],
@@ -137,7 +130,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                     drawVerticalLine: false,
                     horizontalInterval: ((topApps.first.totalRamInKb * 1.1) / 5),
                     getDrawingHorizontalLine: (value) {
-                      return FlLine(color: Theme.of(context).dividerColor.withValues(alpha: 0.1), strokeWidth: 1);
+                      return FlLine(color: dividerColor.withValues(alpha: 0.1), strokeWidth: 1);
                     },
                   ),
                 ),

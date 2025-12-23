@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'meminfo_chart_data.dart';
@@ -15,22 +16,20 @@ class MemInfoPieChart extends StatelessWidget {
     final segments = MemInfoChartData.buildSegments(summary);
     final segmentsTotal = MemInfoChartData.getSegmentsTotal(segments);
     final double total = segmentsTotal > 0 ? segmentsTotal.toDouble() : 1.0;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Memory Distribution',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.h),
+          Text('Memory Distribution', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          AppStyles.spacingH16,
           Row(
             children: [
               SizedBox(
@@ -40,7 +39,7 @@ class MemInfoPieChart extends StatelessWidget {
                   painter: _PieChartPainter(segments: segments, total: total.toDouble()),
                 ),
               ),
-              SizedBox(width: 16.w),
+              AppStyles.spacing16,
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,22 +52,15 @@ class MemInfoPieChart extends StatelessWidget {
                           Container(
                             width: 12.w,
                             height: 12.w,
-                            decoration: BoxDecoration(
-                              color: segment.color,
-                              borderRadius: BorderRadius.circular(3.rSafe),
-                            ),
+                            decoration: BoxDecoration(color: segment.color, borderRadius: BorderRadius.circular(3.rSafe)),
                           ),
-                          SizedBox(width: 8.w),
+                          AppStyles.spacing8,
                           Expanded(
-                            child: Text(
-                              segment.label,
-                              style: TextStyle(fontSize: 11.sp),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            child: Text(segment.label, style: AppStyles.captionStyle, overflow: TextOverflow.ellipsis),
                           ),
                           Text(
                             '$percentage%',
-                            style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w600, color: segment.color),
+                            style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w600, color: segment.color),
                           ),
                         ],
                       ),
@@ -78,15 +70,11 @@ class MemInfoPieChart extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12.h),
+          AppStyles.spacingH12,
           Center(
             child: Text(
               'Total PSS: ${summary.totalPss.formatRam()}',
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: colorScheme.primary),
             ),
           ),
         ],

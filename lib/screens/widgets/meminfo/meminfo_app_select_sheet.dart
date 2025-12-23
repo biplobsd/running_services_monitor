@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
@@ -52,6 +53,9 @@ class _MemInfoAppSelectSheetState extends State<MemInfoAppSelectSheet> {
       selector: (state) => state.value.cachedApps,
       builder: (context, cachedApps) {
         final filteredApps = getFilteredApps(cachedApps);
+        final theme = Theme.of(context);
+        final colorScheme = theme.colorScheme;
+
         return DraggableScrollableSheet(
           initialChildSize: 0.7,
           minChildSize: 0.5,
@@ -65,20 +69,14 @@ class _MemInfoAppSelectSheetState extends State<MemInfoAppSelectSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        context.loc.selectApp,
-                        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.close, size: 24.sp),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
+                      Text(context.loc.selectApp, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+                      IconButton(icon: AppStyles.closeIcon, onPressed: () => Navigator.of(context).pop()),
                     ],
                   ),
                 ),
-                Divider(height: 1, color: Theme.of(context).colorScheme.outlineVariant),
+                Divider(height: 1, color: colorScheme.outlineVariant),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  padding: AppStyles.paddingH16V8,
                   child: SegmentedButton<AppFilterType>(
                     segments: [
                       ButtonSegment(

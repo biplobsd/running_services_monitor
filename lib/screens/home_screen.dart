@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
@@ -19,6 +20,7 @@ import 'widgets/home/app_logo.dart';
 import 'widgets/home/search_field.dart';
 import 'widgets/common/loading_indicator.dart';
 import 'widgets/home/app_count_tab.dart';
+import 'widgets/common/auto_refresh_timer_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -130,9 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 },
               ),
               if (_showCoreApps) AppCountTab(label: context.loc.core, filter: (app, cached) => app.isCoreApp),
-              Tab(
-                child: Text(context.loc.stats, style: TextStyle(fontSize: 14.sp)),
-              ),
+              Tab(child: Text(context.loc.stats, style: AppStyles.bodyStyle)),
             ],
           ),
           actions: [
@@ -154,30 +154,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 );
               },
             ),
-            BlocSelector<HomeBloc, HomeState, ({bool shizukuReady, bool isAutoUpdateEnabled})>(
-              selector: (state) => (shizukuReady: state.value.shizukuReady, isAutoUpdateEnabled: state.value.isAutoUpdateEnabled),
+            BlocSelector<HomeBloc, HomeState, ({bool shizukuReady, bool isAutoUpdateEnabled, Duration? autoUpdateInterval})>(
+              selector: (state) => (
+                shizukuReady: state.value.shizukuReady,
+                isAutoUpdateEnabled: state.value.isAutoUpdateEnabled,
+                autoUpdateInterval: state.value.autoUpdateInterval,
+              ),
               builder: (context, data) {
                 if (!data.shizukuReady) return const SizedBox.shrink();
-                return IconButton(
-                  icon: Icon(
-                    data.isAutoUpdateEnabled ? Icons.timer : Icons.timer_off,
-                    color: data.isAutoUpdateEnabled ? Theme.of(context).colorScheme.primary : null,
-                  ),
-                  onPressed: () => homeBloc.add(const HomeEvent.toggleAutoUpdate()),
-                  tooltip: context.loc.autoUpdate,
+                return AutoRefreshTimerButton(
+                  isEnabled: data.isAutoUpdateEnabled,
+                  currentInterval: data.autoUpdateInterval,
+                  onToggle: () => homeBloc.add(const HomeEvent.toggleAutoUpdate()),
+                  onIntervalSelected: (interval) => homeBloc.add(HomeEvent.setAutoUpdateInterval(interval)),
                 );
               },
             ),
             BlocSelector<HomeBloc, HomeState, ({bool shizukuReady, bool isLoading, bool hasApps})>(
               selector: (state) {
                 final isLoading = state.mapOrNull(loading: (_) => true) ?? false;
-
                 return (shizukuReady: state.value.shizukuReady, isLoading: isLoading, hasApps: state.value.allApps.isNotEmpty);
               },
               builder: (context, data) {
                 if (!data.shizukuReady) return const SizedBox.shrink();
                 return IconButton(
-                  icon: data.isLoading ? SizedBox(width: 30.w, height: 30.h, child: const LoadingIndicator()) : const Icon(Icons.refresh),
+                  icon: data.isLoading ? SizedBox(width: 30.w, height: 30.h, child: const LoadingIndicator()) : AppStyles.refreshIcon,
                   onPressed: data.isLoading ? null : () => homeBloc.add(const HomeEvent.loadData()),
                   tooltip: context.loc.refresh,
                 );
@@ -263,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             key: const ValueKey('extended'),
                             onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
                             icon: const Icon(Icons.security),
-                            label: Text(context.loc.runningServicesTitle, style: TextStyle(fontSize: 14.sp)),
+                            label: Text(context.loc.runningServicesTitle, style: AppStyles.bodyStyle),
                             tooltip: context.loc.openRunningServicesTooltip,
                           )
                         : FloatingActionButton(

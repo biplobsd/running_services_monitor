@@ -21,6 +21,7 @@ import '../../bloc/language_bloc/language_bloc.dart' as _i663;
 import '../../bloc/meminfo_bloc/meminfo_bloc.dart' as _i414;
 import '../../bloc/stats_bloc/stats_bloc.dart' as _i990;
 import '../../bloc/stop_service_bloc/stop_service_bloc.dart' as _i256;
+import '../../bloc/useful_commands_bloc/useful_commands_bloc.dart' as _i756;
 import '../../bloc/working_mode_bloc/working_mode_bloc.dart' as _i552;
 import '../../services/app_info_service.dart' as _i825;
 import '../../services/command_log_service.dart' as _i404;
@@ -43,6 +44,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i465.HomeUiBloc>(() => _i465.HomeUiBloc());
     gh.lazySingleton<_i663.LanguageBloc>(() => _i663.LanguageBloc());
     gh.lazySingleton<_i990.StatsBloc>(() => _i990.StatsBloc());
+    gh.lazySingleton<_i756.UsefulCommandsBloc>(
+      () => _i756.UsefulCommandsBloc(),
+    );
     gh.lazySingleton<_i118.ThemeBloc>(() => _i118.ThemeBloc());
     gh.lazySingleton<_i825.AppInfoService>(() => _i825.AppInfoService());
     gh.lazySingleton<_i404.CommandLogService>(
@@ -77,11 +81,11 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i98.HomeBloc(gh<_i842.ShizukuService>(), gh<_i622.ProcessService>()),
     );
-    gh.factory<_i414.MeminfoBloc>(
-      () => _i414.MeminfoBloc(gh<_i842.ShizukuService>()),
-    );
     gh.lazySingleton<_i552.WorkingModeBloc>(
       () => _i552.WorkingModeBloc(gh<_i842.ShizukuService>()),
+    );
+    gh.factory<_i414.MeminfoBloc>(
+      () => _i414.MeminfoBloc(gh<_i622.ProcessService>()),
     );
     gh.factory<_i256.StopServiceBloc>(
       () => _i256.StopServiceBloc(gh<_i622.ProcessService>()),

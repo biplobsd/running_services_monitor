@@ -33,8 +33,8 @@ class _MemInfoDetailsWidgetState extends State<MemInfoDetailsWidget> {
       buildWhen: (prev, curr) => prev.runtimeType != curr.runtimeType || prev != curr,
       builder: (context, state) {
         return state.when(
-          initial: () => Center(child: LoadingIndicator()),
-          loading: (currentData, comparisonData) => Center(child: LoadingIndicator()),
+          initial: () => const Center(child: LoadingIndicator()),
+          loading: (currentData, comparisonData) => const Center(child: LoadingIndicator()),
           error: (message, currentData) => MemInfoErrorView(
             message: message,
             onRetry: () => bloc!.add(MemInfoEvent.fetchMemInfo(packageName: widget.packageName)),

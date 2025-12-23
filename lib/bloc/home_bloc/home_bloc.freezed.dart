@@ -55,13 +55,14 @@ extension HomeEventPatterns on HomeEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _InitializeShizuku value)?  initializeShizuku,TResult Function( _LoadData value)?  loadData,TResult Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult Function( _ToggleSearch value)?  toggleSearch,TResult Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult Function( _RemoveApp value)?  removeApp,TResult Function( _RemoveService value)?  removeService,TResult Function( _RemoveByPid value)?  removeByPid,TResult Function( _SetProcessFilter value)?  setProcessFilter,TResult Function( _ToggleSortOrder value)?  toggleSortOrder,TResult Function( _UpdateRamInfo value)?  updateRamInfo,TResult Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _InitializeShizuku value)?  initializeShizuku,TResult Function( _LoadData value)?  loadData,TResult Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult Function( _ToggleSearch value)?  toggleSearch,TResult Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult Function( _RemoveApp value)?  removeApp,TResult Function( _RemoveService value)?  removeService,TResult Function( _RemoveByPid value)?  removeByPid,TResult Function( _SetProcessFilter value)?  setProcessFilter,TResult Function( _ToggleSortOrder value)?  toggleSortOrder,TResult Function( _UpdateRamInfo value)?  updateRamInfo,TResult Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that);case _LoadData() when loadData != null:
 return loadData(_that);case _ToggleAutoUpdate() when toggleAutoUpdate != null:
-return toggleAutoUpdate(_that);case _ToggleSearch() when toggleSearch != null:
+return toggleAutoUpdate(_that);case _SetAutoUpdateInterval() when setAutoUpdateInterval != null:
+return setAutoUpdateInterval(_that);case _ToggleSearch() when toggleSearch != null:
 return toggleSearch(_that);case _UpdateSearchQuery() when updateSearchQuery != null:
 return updateSearchQuery(_that);case _RemoveApp() when removeApp != null:
 return removeApp(_that);case _RemoveService() when removeService != null:
@@ -88,13 +89,14 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _InitializeShizuku value)  initializeShizuku,required TResult Function( _LoadData value)  loadData,required TResult Function( _ToggleAutoUpdate value)  toggleAutoUpdate,required TResult Function( _ToggleSearch value)  toggleSearch,required TResult Function( _UpdateSearchQuery value)  updateSearchQuery,required TResult Function( _RemoveApp value)  removeApp,required TResult Function( _RemoveService value)  removeService,required TResult Function( _RemoveByPid value)  removeByPid,required TResult Function( _SetProcessFilter value)  setProcessFilter,required TResult Function( _ToggleSortOrder value)  toggleSortOrder,required TResult Function( _UpdateRamInfo value)  updateRamInfo,required TResult Function( _ToggleShowCoreApps value)  toggleShowCoreApps,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _InitializeShizuku value)  initializeShizuku,required TResult Function( _LoadData value)  loadData,required TResult Function( _ToggleAutoUpdate value)  toggleAutoUpdate,required TResult Function( _SetAutoUpdateInterval value)  setAutoUpdateInterval,required TResult Function( _ToggleSearch value)  toggleSearch,required TResult Function( _UpdateSearchQuery value)  updateSearchQuery,required TResult Function( _RemoveApp value)  removeApp,required TResult Function( _RemoveService value)  removeService,required TResult Function( _RemoveByPid value)  removeByPid,required TResult Function( _SetProcessFilter value)  setProcessFilter,required TResult Function( _ToggleSortOrder value)  toggleSortOrder,required TResult Function( _UpdateRamInfo value)  updateRamInfo,required TResult Function( _ToggleShowCoreApps value)  toggleShowCoreApps,}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku():
 return initializeShizuku(_that);case _LoadData():
 return loadData(_that);case _ToggleAutoUpdate():
-return toggleAutoUpdate(_that);case _ToggleSearch():
+return toggleAutoUpdate(_that);case _SetAutoUpdateInterval():
+return setAutoUpdateInterval(_that);case _ToggleSearch():
 return toggleSearch(_that);case _UpdateSearchQuery():
 return updateSearchQuery(_that);case _RemoveApp():
 return removeApp(_that);case _RemoveService():
@@ -120,13 +122,14 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _InitializeShizuku value)?  initializeShizuku,TResult? Function( _LoadData value)?  loadData,TResult? Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult? Function( _ToggleSearch value)?  toggleSearch,TResult? Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult? Function( _RemoveApp value)?  removeApp,TResult? Function( _RemoveService value)?  removeService,TResult? Function( _RemoveByPid value)?  removeByPid,TResult? Function( _SetProcessFilter value)?  setProcessFilter,TResult? Function( _ToggleSortOrder value)?  toggleSortOrder,TResult? Function( _UpdateRamInfo value)?  updateRamInfo,TResult? Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _InitializeShizuku value)?  initializeShizuku,TResult? Function( _LoadData value)?  loadData,TResult? Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult? Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult? Function( _ToggleSearch value)?  toggleSearch,TResult? Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult? Function( _RemoveApp value)?  removeApp,TResult? Function( _RemoveService value)?  removeService,TResult? Function( _RemoveByPid value)?  removeByPid,TResult? Function( _SetProcessFilter value)?  setProcessFilter,TResult? Function( _ToggleSortOrder value)?  toggleSortOrder,TResult? Function( _UpdateRamInfo value)?  updateRamInfo,TResult? Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that);case _LoadData() when loadData != null:
 return loadData(_that);case _ToggleAutoUpdate() when toggleAutoUpdate != null:
-return toggleAutoUpdate(_that);case _ToggleSearch() when toggleSearch != null:
+return toggleAutoUpdate(_that);case _SetAutoUpdateInterval() when setAutoUpdateInterval != null:
+return setAutoUpdateInterval(_that);case _ToggleSearch() when toggleSearch != null:
 return toggleSearch(_that);case _UpdateSearchQuery() when updateSearchQuery != null:
 return updateSearchQuery(_that);case _RemoveApp() when removeApp != null:
 return removeApp(_that);case _RemoveService() when removeService != null:
@@ -152,12 +155,13 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool silent,  bool notify)?  initializeShizuku,TResult Function( bool silent,  bool notify)?  loadData,TResult Function()?  toggleAutoUpdate,TResult Function()?  toggleSearch,TResult Function( String query)?  updateSearchQuery,TResult Function( String packageName)?  removeApp,TResult Function( String packageName,  String serviceName)?  removeService,TResult Function( String packageName,  int pid)?  removeByPid,TResult Function( ProcessStateFilter filter)?  setProcessFilter,TResult Function()?  toggleSortOrder,TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult Function()?  toggleShowCoreApps,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool silent,  bool notify)?  initializeShizuku,TResult Function( bool silent,  bool notify)?  loadData,TResult Function()?  toggleAutoUpdate,TResult Function( Duration? interval)?  setAutoUpdateInterval,TResult Function()?  toggleSearch,TResult Function( String query)?  updateSearchQuery,TResult Function( String packageName)?  removeApp,TResult Function( String packageName,  String serviceName)?  removeService,TResult Function( String packageName,  int pid)?  removeByPid,TResult Function( ProcessStateFilter filter)?  setProcessFilter,TResult Function()?  toggleSortOrder,TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult Function()?  toggleShowCoreApps,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that.silent,_that.notify);case _LoadData() when loadData != null:
 return loadData(_that.silent,_that.notify);case _ToggleAutoUpdate() when toggleAutoUpdate != null:
-return toggleAutoUpdate();case _ToggleSearch() when toggleSearch != null:
+return toggleAutoUpdate();case _SetAutoUpdateInterval() when setAutoUpdateInterval != null:
+return setAutoUpdateInterval(_that.interval);case _ToggleSearch() when toggleSearch != null:
 return toggleSearch();case _UpdateSearchQuery() when updateSearchQuery != null:
 return updateSearchQuery(_that.query);case _RemoveApp() when removeApp != null:
 return removeApp(_that.packageName);case _RemoveService() when removeService != null:
@@ -184,12 +188,13 @@ return toggleShowCoreApps();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool silent,  bool notify)  initializeShizuku,required TResult Function( bool silent,  bool notify)  loadData,required TResult Function()  toggleAutoUpdate,required TResult Function()  toggleSearch,required TResult Function( String query)  updateSearchQuery,required TResult Function( String packageName)  removeApp,required TResult Function( String packageName,  String serviceName)  removeService,required TResult Function( String packageName,  int pid)  removeByPid,required TResult Function( ProcessStateFilter filter)  setProcessFilter,required TResult Function()  toggleSortOrder,required TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)  updateRamInfo,required TResult Function()  toggleShowCoreApps,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool silent,  bool notify)  initializeShizuku,required TResult Function( bool silent,  bool notify)  loadData,required TResult Function()  toggleAutoUpdate,required TResult Function( Duration? interval)  setAutoUpdateInterval,required TResult Function()  toggleSearch,required TResult Function( String query)  updateSearchQuery,required TResult Function( String packageName)  removeApp,required TResult Function( String packageName,  String serviceName)  removeService,required TResult Function( String packageName,  int pid)  removeByPid,required TResult Function( ProcessStateFilter filter)  setProcessFilter,required TResult Function()  toggleSortOrder,required TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)  updateRamInfo,required TResult Function()  toggleShowCoreApps,}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku():
 return initializeShizuku(_that.silent,_that.notify);case _LoadData():
 return loadData(_that.silent,_that.notify);case _ToggleAutoUpdate():
-return toggleAutoUpdate();case _ToggleSearch():
+return toggleAutoUpdate();case _SetAutoUpdateInterval():
+return setAutoUpdateInterval(_that.interval);case _ToggleSearch():
 return toggleSearch();case _UpdateSearchQuery():
 return updateSearchQuery(_that.query);case _RemoveApp():
 return removeApp(_that.packageName);case _RemoveService():
@@ -215,12 +220,13 @@ return toggleShowCoreApps();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool silent,  bool notify)?  initializeShizuku,TResult? Function( bool silent,  bool notify)?  loadData,TResult? Function()?  toggleAutoUpdate,TResult? Function()?  toggleSearch,TResult? Function( String query)?  updateSearchQuery,TResult? Function( String packageName)?  removeApp,TResult? Function( String packageName,  String serviceName)?  removeService,TResult? Function( String packageName,  int pid)?  removeByPid,TResult? Function( ProcessStateFilter filter)?  setProcessFilter,TResult? Function()?  toggleSortOrder,TResult? Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult? Function()?  toggleShowCoreApps,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool silent,  bool notify)?  initializeShizuku,TResult? Function( bool silent,  bool notify)?  loadData,TResult? Function()?  toggleAutoUpdate,TResult? Function( Duration? interval)?  setAutoUpdateInterval,TResult? Function()?  toggleSearch,TResult? Function( String query)?  updateSearchQuery,TResult? Function( String packageName)?  removeApp,TResult? Function( String packageName,  String serviceName)?  removeService,TResult? Function( String packageName,  int pid)?  removeByPid,TResult? Function( ProcessStateFilter filter)?  setProcessFilter,TResult? Function()?  toggleSortOrder,TResult? Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult? Function()?  toggleShowCoreApps,}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that.silent,_that.notify);case _LoadData() when loadData != null:
 return loadData(_that.silent,_that.notify);case _ToggleAutoUpdate() when toggleAutoUpdate != null:
-return toggleAutoUpdate();case _ToggleSearch() when toggleSearch != null:
+return toggleAutoUpdate();case _SetAutoUpdateInterval() when setAutoUpdateInterval != null:
+return setAutoUpdateInterval(_that.interval);case _ToggleSearch() when toggleSearch != null:
 return toggleSearch();case _UpdateSearchQuery() when updateSearchQuery != null:
 return updateSearchQuery(_that.query);case _RemoveApp() when removeApp != null:
 return removeApp(_that.packageName);case _RemoveService() when removeService != null:
@@ -404,6 +410,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _SetAutoUpdateInterval implements HomeEvent {
+  const _SetAutoUpdateInterval(this.interval);
+  
+
+ final  Duration? interval;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SetAutoUpdateIntervalCopyWith<_SetAutoUpdateInterval> get copyWith => __$SetAutoUpdateIntervalCopyWithImpl<_SetAutoUpdateInterval>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetAutoUpdateInterval&&(identical(other.interval, interval) || other.interval == interval));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,interval);
+
+@override
+String toString() {
+  return 'HomeEvent.setAutoUpdateInterval(interval: $interval)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SetAutoUpdateIntervalCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory _$SetAutoUpdateIntervalCopyWith(_SetAutoUpdateInterval value, $Res Function(_SetAutoUpdateInterval) _then) = __$SetAutoUpdateIntervalCopyWithImpl;
+@useResult
+$Res call({
+ Duration? interval
+});
+
+
+
+
+}
+/// @nodoc
+class __$SetAutoUpdateIntervalCopyWithImpl<$Res>
+    implements _$SetAutoUpdateIntervalCopyWith<$Res> {
+  __$SetAutoUpdateIntervalCopyWithImpl(this._self, this._then);
+
+  final _SetAutoUpdateInterval _self;
+  final $Res Function(_SetAutoUpdateInterval) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? interval = freezed,}) {
+  return _then(_SetAutoUpdateInterval(
+freezed == interval ? _self.interval : interval // ignore: cast_nullable_to_non_nullable
+as Duration?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

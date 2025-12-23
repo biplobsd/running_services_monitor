@@ -8,6 +8,7 @@ import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/core/extensions.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 
 class RamInfoBottomSheet extends StatefulWidget {
@@ -33,10 +34,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
 
   String _formatRawKb(double kb) {
     final kbInt = kb.toInt();
-    final formatted = kbInt.toString().replaceAllMapped(
-      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (Match m) => '${m[1]},',
-    );
+    final formatted = kbInt.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
     return '${formatted}K';
   }
 
@@ -74,9 +72,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
   Widget _buildCommandButton(String command, String displayCommand, String tooltip) {
     final isLoading = loadingCommand == command;
     return IconButton(
-      icon: isLoading
-          ? SizedBox(width: 16.sp, height: 16.sp, child: const CircularProgressIndicator(strokeWidth: 2))
-          : Icon(Icons.play_arrow, size: 16.sp),
+      icon: isLoading ? SizedBox(width: 16.sp, height: 16.sp, child: const CircularProgressIndicator(strokeWidth: 2)) : Icon(Icons.play_arrow, size: 16.sp),
       onPressed: loadingCommand != null ? null : () => _executeCommand(command),
       tooltip: tooltip,
       padding: EdgeInsets.zero,
@@ -87,7 +83,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = context.loc;
+    final loc = context.loc; // Cached
     final verifyCommand = 'adb shell dumpsys meminfo | grep "${widget.packageName}"';
     final command1 = 'dumpsys meminfo | grep "${widget.packageName}"';
     final command2 = 'dumpsys meminfo ${widget.packageName}';
@@ -113,6 +109,11 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
         bloc: getIt<HomeBloc>(),
         selector: (state) => state.value.allApps.firstWhereOrNull((app) => app.packageName == widget.packageName),
         builder: (context, appInfo) {
+          final theme = Theme.of(context); // Cached
+          final colorScheme = theme.colorScheme;
+          final onSurfaceVariant = colorScheme.onSurfaceVariant;
+          final surfaceContainerHighest = colorScheme.surfaceContainerHighest;
+
           return DraggableScrollableSheet(
             initialChildSize: 0.6,
             minChildSize: 0.3,
@@ -121,7 +122,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
             builder: (context, scrollController) {
               return Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: theme.colorScheme.surface,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16.rSafe)),
                 ),
                 child: Column(
@@ -130,101 +131,69 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                       margin: EdgeInsets.symmetric(vertical: 12.h),
                       width: 40.w,
                       height: 4.h,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
-                        borderRadius: BorderRadius.circular(2.rSafe),
-                      ),
+                      decoration: BoxDecoration(color: onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2.rSafe)),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      padding: AppStyles.paddingH16, // Use AppStyles
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             loc.ramCalculation,
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                            style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold), // Fixed style name
                           ),
                           IconButton(
-                            icon: Icon(Icons.close, size: 24.sp),
+                            icon: AppStyles.closeIcon, // Use AppStyles
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                         ],
                       ),
                     ),
-                    Divider(height: 1, color: Theme.of(context).colorScheme.outlineVariant),
+                    Divider(height: 1, color: theme.colorScheme.outlineVariant),
                     Expanded(
                       child: appInfo == null
                           ? Center(child: Text(loc.noRamDataAvailable))
                           : ListView(
                               controller: scrollController,
-                              padding: EdgeInsets.all(16.w),
+                              padding: AppStyles.padding16, // Use AppStyles
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(12.w),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.primaryContainer,
-                                    borderRadius: BorderRadius.circular(8.rSafe),
-                                  ),
+                                  padding: AppStyles.padding12, // Use AppStyles
+                                  decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8.rSafe)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        loc.totalRam,
-                                        style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
-                                      ),
+                                      Text(loc.totalRam, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w500)),
                                       Text(
                                         appInfo.totalRamInKb.formatRam(),
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).colorScheme.primary,
-                                        ),
+                                        style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold, color: colorScheme.primary),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 16.h),
+                                AppStyles.spacingH16,
                                 if (appInfo.ramSources.isEmpty)
                                   Container(
-                                    padding: EdgeInsets.all(12.w),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                      borderRadius: BorderRadius.circular(8.rSafe),
-                                    ),
+                                    padding: AppStyles.padding12,
+                                    decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
                                     child: Row(
                                       children: [
-                                        Icon(
-                                          Icons.info_outline,
-                                          size: 20.sp,
-                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                        ),
-                                        SizedBox(width: 8.w),
+                                        Icon(Icons.info_outline, size: 20.sp, color: onSurfaceVariant),
+                                        AppStyles.spacing8,
                                         Expanded(
-                                          child: Text(
-                                            loc.noRamDataAvailable,
-                                            style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                            ),
-                                          ),
+                                          child: Text(loc.noRamDataAvailable, style: AppStyles.captionStyle.copyWith(color: onSurfaceVariant)),
                                         ),
                                       ],
                                     ),
                                   )
                                 else ...[
-                                  Text(
-                                    loc.ramSources,
-                                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                                  ),
-                                  SizedBox(height: 8.h),
+                                  Text(loc.ramSources, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w600)),
+                                  AppStyles.spacingH8,
                                   ...appInfo.ramSources.map(
                                     (source) => Container(
                                       margin: EdgeInsets.only(bottom: 8.h),
-                                      padding: EdgeInsets.all(10.w),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                        borderRadius: BorderRadius.circular(8.rSafe),
-                                      ),
+                                      padding: AppStyles.padding10,
+                                      decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -232,51 +201,38 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                             children: [
                                               Container(
                                                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                                                decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.secondaryContainer,
-                                                  borderRadius: BorderRadius.circular(4.rSafe),
-                                                ),
+                                                decoration: BoxDecoration(color: colorScheme.secondaryContainer, borderRadius: BorderRadius.circular(4.rSafe)),
                                                 child: Text(
                                                   _getSourceLabel(source.source),
-                                                  style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                                                  ),
+                                                  style: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSecondaryContainer),
                                                 ),
                                               ),
-                                              SizedBox(width: 8.w),
+                                              AppStyles.spacing8,
                                               Expanded(
                                                 child: Text(
                                                   source.pid != null ? 'PID ${source.pid}' : source.processName ?? '-',
-                                                  style: TextStyle(fontSize: 12.sp),
+                                                  style: AppStyles.captionStyle,
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               Text(
                                                 source.ramKb.formatRam(),
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                ),
+                                                style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: colorScheme.primary),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 6.h),
+                                          AppStyles.spacingH6,
                                           Container(
                                             width: double.infinity,
-                                            padding: EdgeInsets.all(8.w),
+                                            padding: AppStyles.padding8,
                                             decoration: BoxDecoration(
-                                              color: Theme.of(context).colorScheme.surface,
+                                              color: theme.colorScheme.surface,
                                               borderRadius: BorderRadius.circular(4.rSafe),
-                                              border: Border.all(
-                                                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
-                                              ),
+                                              border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
                                             ),
                                             child: SelectableText(
                                               _getRawDataLine(source, widget.packageName),
-                                              style: TextStyle(fontSize: 10.sp, fontFamily: 'monospace'),
+                                              style: AppStyles.smallStyle.copyWith(fontFamily: 'monospace'),
                                             ),
                                           ),
                                         ],
@@ -284,59 +240,40 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                     ),
                                   ),
                                 ],
-                                SizedBox(height: 16.h),
-                                Text(
-                                  loc.playCommand,
-                                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(height: 8.h),
+                                AppStyles.spacingH16,
+                                Text(loc.playCommand, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w600)),
+                                AppStyles.spacingH8,
                                 Container(
                                   width: double.infinity,
-                                  padding: EdgeInsets.all(10.w),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                    borderRadius: BorderRadius.circular(8.rSafe),
-                                  ),
+                                  padding: AppStyles.padding10,
+                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        child: SelectableText(
-                                          verifyCommand,
-                                          style: TextStyle(fontSize: 10.sp, fontFamily: 'monospace'),
-                                        ),
+                                        child: SelectableText(verifyCommand, style: AppStyles.smallStyle.copyWith(fontFamily: 'monospace')),
                                       ),
                                       _buildCommandButton(command1, verifyCommand, loc.executeCommand),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 8.h),
+                                AppStyles.spacingH8,
                                 Container(
                                   width: double.infinity,
-                                  padding: EdgeInsets.all(10.w),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                    borderRadius: BorderRadius.circular(8.rSafe),
-                                  ),
+                                  padding: AppStyles.padding10,
+                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        child: SelectableText(
-                                          'adb shell $command2',
-                                          style: TextStyle(fontSize: 10.sp, fontFamily: 'monospace'),
-                                        ),
+                                        child: SelectableText('adb shell $command2', style: AppStyles.smallStyle.copyWith(fontFamily: 'monospace')),
                                       ),
                                       _buildCommandButton(command2, 'adb shell $command2', loc.executeCommand),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 12.h),
+                                AppStyles.spacingH12,
                                 Text(
                                   loc.ramCalculationExplanation,
-                                  style: TextStyle(
-                                    fontSize: 11.sp,
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                                  style: AppStyles.smallStyle.copyWith(color: onSurfaceVariant, fontStyle: FontStyle.italic),
                                 ),
                               ],
                             ),

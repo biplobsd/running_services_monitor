@@ -272,5 +272,14 @@
   "statsProcessStateBar": "应用状态分布",
   "statsProcessStateSubtitle": "活跃、后台和缓存应用",
   "statsScatterChart": "RAM 分布散点图",
-  "statsScatterSubtitle": "Y: RAM (MB), X: 应用索引"
+  "statsScatterSubtitle": "Y: RAM (MB), X: 应用索引",
+  "usefulCommands": "实用命令",
+  "commands": "命令",
+  "addCommand": "添加命令",
+  "placeholders": "占位符",
+  "commandTitle": "标题",
+  "commandDescription": "描述",
+  "reExecute": "重新执行",
+  "bound": "绑定",
+  "processRecord": "进程记录"
 }

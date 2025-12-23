@@ -9,6 +9,7 @@ abstract class L10nKeys {
   static const active = 'active';
   static const activeServices = 'activeServices';
   static const actualFree = 'actualFree';
+  static const addCommand = 'addCommand';
   static const all = 'all';
   static const allApps = 'allApps';
   static const allServicesStopped = 'allServicesStopped';
@@ -23,6 +24,7 @@ abstract class L10nKeys {
   static const available = 'available';
   static const baseDir = 'baseDir';
   static const blogs = 'blogs';
+  static const bound = 'bound';
   static const boundServiceCannotStop = 'boundServiceCannotStop';
   static const buyMeCoffee = 'buyMeCoffee';
   static const cached = 'cached';
@@ -37,8 +39,11 @@ abstract class L10nKeys {
   static const closeSearch = 'closeSearch';
   static const code = 'code';
   static const command = 'command';
+  static const commandDescription = 'commandDescription';
   static const commandLogs = 'commandLogs';
   static const commandOutput = 'commandOutput';
+  static const commandTitle = 'commandTitle';
+  static const commands = 'commands';
   static const compareWith = 'compareWith';
   static const compareWithOther = 'compareWithOther';
   static const connections = 'connections';
@@ -118,9 +123,11 @@ abstract class L10nKeys {
   static const permissionStep3 = 'permissionStep3';
   static const permissionSteps = 'permissionSteps';
   static const pid = 'pid';
+  static const placeholders = 'placeholders';
   static const playCommand = 'playCommand';
   static const process = 'process';
   static const processAnd = 'processAnd';
+  static const processRecord = 'processRecord';
   static const processStateBfgs = 'processStateBfgs';
   static const processStateBtop = 'processStateBtop';
   static const processStateCch = 'processStateCch';
@@ -150,6 +157,7 @@ abstract class L10nKeys {
   static const ramSources = 'ramSources';
   static const ramUsage = 'ramUsage';
   static const rawOutput = 'rawOutput';
+  static const reExecute = 'reExecute';
   static const recentCallingUid = 'recentCallingUid';
   static const refresh = 'refresh';
   static const refreshedSuccessfully = 'refreshedSuccessfully';
@@ -255,6 +263,7 @@ abstract class L10nKeys {
   static const used = 'used';
   static const usedBreakdown = 'usedBreakdown';
   static const usedPss = 'usedPss';
+  static const usefulCommands = 'usefulCommands';
   static const user = 'user';
   static const userApp = 'userApp';
   static const userApps = 'userApps';
@@ -276,6 +285,7 @@ extension L10nResolver on AppLocalizations {
       'active' => active,
       'activeServices' => activeServices,
       'actualFree' => actualFree,
+      'addCommand' => addCommand,
       'all' => all,
       'allApps' => allApps,
       'allServicesStopped' => allServicesStopped,
@@ -290,6 +300,7 @@ extension L10nResolver on AppLocalizations {
       'available' => available,
       'baseDir' => baseDir,
       'blogs' => blogs,
+      'bound' => bound,
       'boundServiceCannotStop' => boundServiceCannotStop,
       'buyMeCoffee' => buyMeCoffee,
       'cached' => cached,
@@ -304,8 +315,11 @@ extension L10nResolver on AppLocalizations {
       'closeSearch' => closeSearch,
       'code' => code,
       'command' => command,
+      'commandDescription' => commandDescription,
       'commandLogs' => commandLogs,
       'commandOutput' => commandOutput,
+      'commandTitle' => commandTitle,
+      'commands' => commands,
       'compareWith' => compareWith,
       'compareWithOther' => compareWithOther,
       'connections' => connections,
@@ -385,9 +399,11 @@ extension L10nResolver on AppLocalizations {
       'permissionStep3' => permissionStep3,
       'permissionSteps' => permissionSteps,
       'pid' => pid,
+      'placeholders' => placeholders,
       'playCommand' => playCommand,
       'process' => process,
       'processAnd' => processAnd,
+      'processRecord' => processRecord,
       'processStateBfgs' => processStateBfgs,
       'processStateBtop' => processStateBtop,
       'processStateCch' => processStateCch,
@@ -417,6 +433,7 @@ extension L10nResolver on AppLocalizations {
       'ramSources' => ramSources,
       'ramUsage' => ramUsage,
       'rawOutput' => rawOutput,
+      'reExecute' => reExecute,
       'recentCallingUid' => recentCallingUid,
       'refresh' => refresh,
       'refreshedSuccessfully' => refreshedSuccessfully,
@@ -522,6 +539,7 @@ extension L10nResolver on AppLocalizations {
       'used' => used,
       'usedBreakdown' => usedBreakdown,
       'usedPss' => usedPss,
+      'usefulCommands' => usefulCommands,
       'user' => user,
       'userApp' => userApp,
       'userApps' => userApps,

@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/core/constants.dart';
+import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
+import 'package:running_services_monitor/parsers/meminfo_parser.dart';
 import 'package:running_services_monitor/parsers/process_parser.dart';
 import 'shizuku_service.dart';
 
@@ -88,10 +91,12 @@ class ProcessService {
       if (data == null) return;
 
       final groupedApps = await groupedAppsCompleter.future;
-      final ramMaps = ProcessParser.parseRamMaps(data);
+
+      final ramMaps = await compute(computeParseRamMaps, data);
+      final meminfoResult = await compute(computeParseMeminfo, data);
+
       final pidRamMap = ramMaps.pidMap;
       final processNameRamMap = ramMaps.processNameMap;
-      final meminfoResult = ProcessParser.parseAllAppsFromMeminfo(data);
       final meminfoAppsMap = meminfoResult.totals;
       final meminfoProcesses = meminfoResult.processes;
 
@@ -123,7 +128,6 @@ class ProcessService {
         updatedApps[packageName] = updatedApp;
       }
 
-      final coreAppsAdded = <String>[];
       for (final entry in meminfoAppsMap.entries) {
         final packageName = entry.key;
         if (updatedApps.containsKey(packageName)) continue;
@@ -144,14 +148,17 @@ class ProcessService {
           ramSources: ramSources,
           processes: processList,
         );
-        coreAppsAdded.add(packageName);
       }
+
       callback(updatedApps);
     }
 
     return (
       apps: appStream(),
-      systemRamInfo: meminfoFuture.then((data) => data != null ? ProcessParser.parseSystemRamInfo(data) : null),
+      systemRamInfo: meminfoFuture.then((data) async {
+        if (data == null) return null;
+        return await compute(computeParseSystemRamInfo, data);
+      }),
       onRamInfoReady: onRamInfoReady,
     );
   }
@@ -206,21 +213,7 @@ class ProcessService {
     final result = await shizukuService.executeCommand(AppConstants.cmdDumpsysActivityLru);
     if (result == null || result.isEmpty) return const {};
 
-    final processes = <String, ({String state, String adj, int pid, int uid})>{};
-    var start = 0;
-
-    while (start < result.length) {
-      var end = result.indexOf('\n', start);
-      if (end == -1) end = result.length;
-
-      final parsed = ProcessParser.parseLruLine(result.substring(start, end));
-      if (parsed != null) {
-        processes[parsed.packageName] = (state: parsed.state, adj: parsed.adj, pid: parsed.pid, uid: parsed.uid);
-      }
-      start = end + 1;
-    }
-
-    return processes;
+    return await compute(computeParseLruProcesses, result);
   }
 
   Future<String?> meminfo({void Function(String)? onProgress}) async {
@@ -245,5 +238,10 @@ class ProcessService {
   Future<bool> stopService(String packageName) async {
     final result = await shizukuService.executeCommand('am force-stop $packageName');
     return result == null || result.isEmpty || !result.toLowerCase().contains('error');
+  }
+
+  Future<MemInfoData> fetchMemInfoData(String packageName) async {
+    final output = await shizukuService.executeCommand('dumpsys meminfo $packageName') ?? '';
+    return await compute(computeParseMemInfoData, {'packageName': packageName, 'output': output});
   }
 }

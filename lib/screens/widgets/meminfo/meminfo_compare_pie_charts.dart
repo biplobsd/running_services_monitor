@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'meminfo_chart_data.dart';
@@ -11,13 +12,7 @@ class MemInfoComparePieCharts extends StatelessWidget {
   final String currentLabel;
   final String compareLabel;
 
-  const MemInfoComparePieCharts({
-    super.key,
-    required this.currentData,
-    required this.comparisonData,
-    required this.currentLabel,
-    required this.compareLabel,
-  });
+  const MemInfoComparePieCharts({super.key, required this.currentData, required this.comparisonData, required this.currentLabel, required this.compareLabel});
 
   @override
   Widget build(BuildContext context) {
@@ -28,41 +23,33 @@ class MemInfoComparePieCharts extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Memory Distribution',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.h),
+          Text('Memory Distribution', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          AppStyles.spacingH16,
           Row(
             children: [
               Expanded(
-                child: _PieChartColumn(
-                  summary: currentSummary,
-                  label: currentLabel,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: _PieChartColumn(summary: currentSummary, label: currentLabel, color: colorScheme.primary),
               ),
-              SizedBox(width: 16.w),
+              AppStyles.spacing16,
               Expanded(
-                child: _PieChartColumn(
-                  summary: compareSummary,
-                  label: compareLabel,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                child: _PieChartColumn(summary: compareSummary, label: compareLabel, color: colorScheme.secondary),
               ),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           _buildLegend(context),
         ],
       ),
@@ -83,8 +70,8 @@ class MemInfoComparePieCharts extends StatelessWidget {
                   height: 10.w,
                   decoration: BoxDecoration(color: item.color, borderRadius: BorderRadius.circular(2.rSafe)),
                 ),
-                SizedBox(width: 4.w),
-                Text(item.label, style: TextStyle(fontSize: 10.sp)),
+                AppStyles.spacing4,
+                Text(item.label, style: AppStyles.smallStyle),
               ],
             ),
           )
@@ -109,12 +96,12 @@ class _PieChartColumn extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w600, color: color),
+          style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w600, color: color),
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        SizedBox(height: 8.h),
+        AppStyles.spacingH8,
         SizedBox(
           width: 80.w,
           height: 80.w,
@@ -122,14 +109,12 @@ class _PieChartColumn extends StatelessWidget {
               ? CustomPaint(
                   painter: _MiniPieChartPainter(segments: segments, total: total),
                 )
-              : Center(
-                  child: Text('N/A', style: TextStyle(fontSize: 12.sp)),
-                ),
+              : Center(child: Text('N/A', style: AppStyles.subtitleStyle)),
         ),
-        SizedBox(height: 8.h),
+        AppStyles.spacingH8,
         Text(
           summary != null ? summary!.totalPss.formatRam() : '-',
-          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: color),
+          style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.bold, color: color),
         ),
       ],
     );

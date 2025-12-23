@@ -124,8 +124,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final constraints =
-        widget.constraints ?? const BoxConstraints(minWidth: 48.0, minHeight: 48.0, maxWidth: 48.0, maxHeight: 48.0);
+    final constraints = widget.constraints ?? const BoxConstraints(minWidth: 48.0, minHeight: 48.0, maxWidth: 48.0, maxHeight: 48.0);
     final activeIndicatorScale = 38.0 / math.min(constraints.maxWidth, constraints.maxHeight);
     final shapesScaleFactor = _calculateScaleFactor(defaultPolygons) * activeIndicatorScale;
     final color = widget.color ?? Theme.of(context).colorScheme.primary;
@@ -147,12 +146,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> with TickerProvider
               return Transform.rotate(
                 angle: totalRotationRadians,
                 child: CustomPaint(
-                  painter: _MorphPainter(
-                    morph: morphSequence[currentMorphIndex],
-                    progress: morphProgress,
-                    color: color,
-                    scaleFactor: shapesScaleFactor,
-                  ),
+                  painter: _MorphPainter(morph: morphSequence[currentMorphIndex], progress: morphProgress, color: color, scaleFactor: shapesScaleFactor),
                   child: const SizedBox.expand(),
                 ),
               );
@@ -191,10 +185,7 @@ class _MorphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_MorphPainter oldDelegate) {
-    return oldDelegate.morph != morph ||
-        oldDelegate.progress != progress ||
-        oldDelegate.color != color ||
-        oldDelegate.scaleFactor != scaleFactor;
+    return oldDelegate.morph != morph || oldDelegate.progress != progress || oldDelegate.color != color || oldDelegate.scaleFactor != scaleFactor;
   }
 
   Path _processPath(Path path, Size size) {

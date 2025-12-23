@@ -48,12 +48,7 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
         builder: (context, cachedApps) {
           return BlocSelector<HomeBloc, HomeState, List<AppProcessInfo>>(
             selector: (state) {
-              final filteredApps = Helper.filterApps(
-                widget.apps,
-                state.value.searchQuery,
-                state.value.selectedProcessFilter,
-                cachedApps,
-              );
+              final filteredApps = Helper.filterApps(widget.apps, state.value.searchQuery, state.value.selectedProcessFilter, cachedApps);
               return Helper.sortApps(filteredApps, state.value.sortAscending);
             },
             builder: (context, filteredApps) {
@@ -70,22 +65,14 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
                   SliverToBoxAdapter(
                     child: widget.tabIndex != 0
                         ? const SizedBox.shrink()
-                        : BlocSelector<
-                            HomeBloc,
-                            HomeState,
-                            ({SystemRamInfo ramInfo, bool showSkeleton, bool isLoadingRam})
-                          >(
+                        : BlocSelector<HomeBloc, HomeState, ({SystemRamInfo ramInfo, bool showSkeleton, bool isLoadingRam})>(
                             selector: (state) {
                               final rawRamInfo = state.value.systemRamInfo;
                               final showSkeleton = state.value.isLoadingRam && rawRamInfo.totalRamKb <= 0;
                               final ramInfo = rawRamInfo.totalRamKb > 0
                                   ? rawRamInfo
                                   : const SystemRamInfo(totalRamKb: 8000000, usedRamKb: 4000000, freeRamKb: 4000000);
-                              return (
-                                ramInfo: ramInfo,
-                                showSkeleton: showSkeleton,
-                                isLoadingRam: state.value.isLoadingRam,
-                              );
+                              return (ramInfo: ramInfo, showSkeleton: showSkeleton, isLoadingRam: state.value.isLoadingRam);
                             },
                             builder: (context, state) {
                               return Column(
@@ -106,7 +93,7 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      return AppListItem(appInfo: filteredApps[index], tabIndex: widget.tabIndex);
+                      return AppListItem(key: ValueKey(filteredApps[index].packageName), appInfo: filteredApps[index], tabIndex: widget.tabIndex);
                     }, childCount: filteredApps.length),
                   ),
                 ],

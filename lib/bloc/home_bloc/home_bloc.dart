@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:running_services_monitor/core/utils/log_helper.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -25,8 +26,9 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_InitializeShizuku>(_onInitializeShizuku);
     on<_LoadData>(_onLoadData);
     on<_ToggleAutoUpdate>(_onToggleAutoUpdate);
+    on<_SetAutoUpdateInterval>(_onSetAutoUpdateInterval);
     on<_ToggleSearch>(_onToggleSearch);
-    on<_UpdateSearchQuery>(_onUpdateSearchQuery);
+    on<_UpdateSearchQuery>(_onUpdateSearchQuery, transformer: (events, mapper) => events.debounceTime(const Duration(milliseconds: 300)).switchMap(mapper));
     on<_RemoveApp>(_onRemoveApp);
     on<_RemoveService>(_onRemoveService);
     on<_RemoveByPid>(_onRemoveByPid);
@@ -134,11 +136,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       final allApps = updatedAppsMap.values.where((a) => showCoreApps || !a.isCoreApp).toList();
       emit(
         HomeState.success(
-          state.value.copyWith(
-            allApps: allApps,
-            systemRamInfo: ramInfo ?? state.value.systemRamInfo,
-            isLoadingRam: false,
-          ),
+          state.value.copyWith(allApps: allApps, systemRamInfo: ramInfo ?? state.value.systemRamInfo, isLoadingRam: false),
           event.notify ? L10nKeys.refreshedSuccessfully : null,
         ),
       );
@@ -176,7 +174,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     final newAutoUpdateState = !state.value.isAutoUpdateEnabled;
 
     if (newAutoUpdateState) {
-      _autoUpdateTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+      _autoUpdateTimer = Timer.periodic(state.value.autoUpdateInterval ?? const Duration(seconds: 3), (_) {
         add(const HomeEvent.loadData(silent: true));
       });
     } else {
@@ -187,14 +185,24 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     emit(HomeState.success(state.value.copyWith(isAutoUpdateEnabled: newAutoUpdateState)));
   }
 
+  Future<void> _onSetAutoUpdateInterval(_SetAutoUpdateInterval event, Emitter<HomeState> emit) async {
+    _autoUpdateTimer?.cancel();
+    _autoUpdateTimer = null;
+
+    if (event.interval != null) {
+      _autoUpdateTimer = Timer.periodic(event.interval!, (_) {
+        add(const HomeEvent.loadData(silent: true));
+      });
+      emit(HomeState.success(state.value.copyWith(isAutoUpdateEnabled: true, autoUpdateInterval: event.interval)));
+    } else {
+      emit(HomeState.success(state.value.copyWith(isAutoUpdateEnabled: false, autoUpdateInterval: null)));
+    }
+  }
+
   Future<void> _onToggleSearch(_ToggleSearch event, Emitter<HomeState> emit) async {
     final newSearchState = !state.value.isSearching;
 
-    emit(
-      HomeState.success(
-        state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : ''),
-      ),
-    );
+    emit(HomeState.success(state.value.copyWith(isSearching: newSearchState, searchQuery: newSearchState ? state.value.searchQuery : '')));
   }
 
   Future<void> _onUpdateSearchQuery(_UpdateSearchQuery event, Emitter<HomeState> emit) async {
@@ -268,12 +276,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
         }
       }
 
-      return app.copyWith(
-        services: updatedServices,
-        pids: updatedPids,
-        processes: updatedProcesses,
-        totalRamInKb: totalRamKb,
-      );
+      return app.copyWith(services: updatedServices, pids: updatedPids, processes: updatedProcesses, totalRamInKb: totalRamKb);
     }
 
     final updatedAllApps = currentState.allApps.map(updateApp).toList();

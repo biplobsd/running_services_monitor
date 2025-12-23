@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 
@@ -31,36 +32,31 @@ class MemInfoObjectsCard extends StatelessWidget {
       return SizedBox.shrink();
     }
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.widgets, size: 20.sp, color: Theme.of(context).colorScheme.secondary),
-              SizedBox(width: 8.w),
-              Text(
-                context.loc.objects,
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-              ),
+              Icon(Icons.widgets, size: 20.sp, color: colorScheme.secondary),
+              AppStyles.spacing8,
+              Text(context.loc.objects, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           GridView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 8.w,
-              mainAxisSpacing: 8.h,
-              childAspectRatio: 1.3,
-            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 8.w, mainAxisSpacing: 8.h, childAspectRatio: 1.3),
             itemCount: nonZeroItems.length,
             itemBuilder: (context, index) {
               final item = nonZeroItems[index];
@@ -73,29 +69,26 @@ class MemInfoObjectsCard extends StatelessWidget {
   }
 
   Widget _buildObjectTile(BuildContext context, _ObjectItem item) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: EdgeInsets.all(8.w),
+      padding: AppStyles.padding8,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.1)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(item.icon, size: 18.sp, color: Theme.of(context).colorScheme.primary),
-          SizedBox(height: 4.h),
+          Icon(item.icon, size: 18.sp, color: colorScheme.primary),
+          AppStyles.spacingH4,
           Text(
             '${item.value}',
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold, color: colorScheme.onSurface),
           ),
           Text(
             item.label,
-            style: TextStyle(fontSize: 8.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: TextStyle(fontSize: 8.sp, color: colorScheme.onSurfaceVariant),
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

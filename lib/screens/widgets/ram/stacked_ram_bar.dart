@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 
 class StackedRamBar extends StatelessWidget {
   final List<RamBarSegment> segments;
@@ -65,14 +66,7 @@ class RamProgressRow extends StatelessWidget {
   final Color color;
   final Color? backgroundColor;
 
-  const RamProgressRow({
-    super.key,
-    required this.label,
-    required this.value,
-    required this.progress,
-    required this.color,
-    this.backgroundColor,
-  });
+  const RamProgressRow({super.key, required this.label, required this.value, required this.progress, required this.color, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -84,18 +78,12 @@ class RamProgressRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(
-              label,
-              style: TextStyle(fontSize: 12.sp, color: colorScheme.onSurfaceVariant),
-            ),
+            Text(label, style: AppStyles.captionStyle.copyWith(color: colorScheme.onSurfaceVariant)),
             const Spacer(),
-            Text(
-              value,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-            ),
+            Text(value, style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500)),
           ],
         ),
-        SizedBox(height: 4.h),
+        AppStyles.spacingH4,
         ClipRRect(
           borderRadius: BorderRadius.circular(3.r),
           child: SizedBox(

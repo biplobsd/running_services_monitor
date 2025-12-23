@@ -351,5 +351,12 @@
   "statsScatterSubtitle": "Y: RAM (MB), X: App Index",
   "core": "Core",
   "coreAppInfoLimited": "Limited info available for system processes",
-  "showCoreApps": "Show Core Apps"
+  "showCoreApps": "Show Core Apps",
+  "usefulCommands": "Useful Commands",
+  "commands": "Commands",
+  "addCommand": "Add Command",
+  "placeholders": "Placeholders",
+  "commandTitle": "Title",
+  "commandDescription": "Description",
+  "reExecute": "Re-execute"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 
 class AboutHeader extends StatelessWidget {
@@ -13,16 +14,16 @@ class AboutHeader extends StatelessWidget {
       child: Column(
         children: [
           Image.asset('assets/logo.png', width: 64.w, height: 64.h, color: Theme.of(context).colorScheme.onSurface),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           Text(
             context.loc.appTitle,
-            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+            style: AppStyles.headerStyle.copyWith(fontSize: 24.sp),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
           Text(
             version,
-            style: TextStyle(fontSize: 16.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: AppStyles.bodyStyle.copyWith(fontSize: 16.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
           ),
         ],
       ),

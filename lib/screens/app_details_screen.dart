@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:installed_apps/installed_apps.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -15,6 +16,7 @@ import 'widgets/app_details/app_details_description.dart';
 import 'widgets/app_details/state_badges.dart';
 import 'widgets/meminfo/meminfo_details_widget.dart';
 import 'widgets/app_details/app_details_filter_chips.dart';
+import 'widgets/app_details/useful_commands_bottom_sheet.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
@@ -44,12 +46,11 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
         bloc: getIt<HomeBloc>(),
         selector: (state) => state.value.allApps.firstWhereOrNull((app) => app.packageName == widget.packageId),
         builder: (context, currentAppInfo) {
+          final loc = context.loc;
           if (currentAppInfo == null) {
             return Scaffold(
-              appBar: AppBar(
-                title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
-              ),
-              body: Center(child: Text(context.loc.noOutput)),
+              appBar: AppBar(title: Text(loc.appDetails, style: AppStyles.headlineStyle)),
+              body: Center(child: Text(loc.noOutput)),
             );
           }
 
@@ -58,11 +59,11 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
               state.when(
                 initial: () {},
                 stopping: (_, _) {
-                  SnackBarHelper.showLoading(context, context.loc.loading);
+                  SnackBarHelper.showLoading(context, loc.loading);
                 },
                 success: (packageName, serviceName, pid) {
                   final homeBloc = getIt<HomeBloc>();
-                  final message = serviceName != null ? '${context.loc.serviceStopped}: $serviceName' : context.loc.allServicesStopped;
+                  final message = serviceName != null ? '${loc.serviceStopped}: $serviceName' : loc.allServicesStopped;
                   SnackBarHelper.showSuccess(context, message);
 
                   if (packageName != null) {
@@ -77,18 +78,23 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                   }
                 },
                 error: (message) {
-                  SnackBarHelper.showError(context, '${context.loc.stopServiceError}: ${context.loc.resolve(message)}', actionLabel: context.loc.ok);
+                  SnackBarHelper.showError(context, '${loc.stopServiceError}: ${context.loc.resolve(message)}', actionLabel: loc.ok);
                 },
               );
             },
             child: Scaffold(
               extendBody: true,
               appBar: AppBar(
-                title: Text(context.loc.appDetails, style: TextStyle(fontSize: 20.sp)),
+                title: Text(loc.appDetails, style: AppStyles.headlineStyle),
                 actions: [
                   IconButton(
-                    icon: const Icon(Icons.info_outline),
-                    tooltip: context.loc.appInfoTooltip,
+                    icon: AppStyles.playIcon,
+                    tooltip: loc.commands,
+                    onPressed: () => UsefulCommandsBottomSheet.show(context, currentAppInfo.packageName, appInfo: currentAppInfo),
+                  ),
+                  IconButton(
+                    icon: AppStyles.infoIcon,
+                    tooltip: loc.appInfoTooltip,
                     onPressed: () {
                       InstalledApps.openSettings(currentAppInfo.packageName);
                     },
@@ -109,9 +115,9 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                       sliver: SliverList(
                         delegate: SliverChildListDelegate([
                           AppHeader(appInfo: currentAppInfo, tabIndex: widget.tabIndex),
-                          SizedBox(height: 16.h),
+                          AppStyles.spacingH16,
                           StateBadges(appInfo: currentAppInfo),
-                          SizedBox(height: 16.h),
+                          AppStyles.spacingH16,
                           const AppDetailsDescription(),
                           SizedBox(height: 24.h),
                           const Divider(),
@@ -137,13 +143,13 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                     if (selectedFilter == AppDetailsFilter.services) ...[
                       if (currentAppInfo.services.isEmpty)
                         SliverPadding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          padding: AppStyles.listPadding,
                           sliver: SliverToBoxAdapter(
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 24.h),
                               child: Center(
                                 child: Text(
-                                  context.loc.noServicesFound,
+                                  loc.noServicesFound,
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ),
@@ -154,19 +160,19 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                         ServiceList(services: currentAppInfo.services),
                     ] else if (selectedFilter == AppDetailsFilter.meminfo) ...[
                       SliverPadding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        padding: AppStyles.listPadding,
                         sliver: SliverToBoxAdapter(child: MemInfoDetailsWidget(packageName: currentAppInfo.packageName)),
                       ),
                     ] else ...[
                       if (currentAppInfo.processes.isEmpty)
                         SliverPadding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          padding: AppStyles.listPadding,
                           sliver: SliverToBoxAdapter(
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 24.h),
                               child: Center(
                                 child: Text(
-                                  context.loc.noProcessesFound,
+                                  loc.noProcessesFound,
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ),
@@ -186,17 +192,14 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                         final confirmed = await showDialog<bool>(
                           context: context,
                           builder: (dialogContext) => AlertDialog(
-                            title: Text(context.loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
+                            title: Text(loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  currentAppInfo.packageName,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
-                                ),
-                                SizedBox(height: 8.h),
-                                Text(context.loc.stopServiceWarning, style: TextStyle(fontSize: 14.sp)),
+                                Text(currentAppInfo.packageName, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+                                AppStyles.spacingH8,
+                                Text(loc.stopServiceWarning, style: AppStyles.bodyStyle),
                                 if (currentAppInfo.isSystemApp ?? false) ...[
                                   SizedBox(height: 12.h),
                                   Container(
@@ -207,7 +210,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                                       borderRadius: BorderRadius.circular(8.rSafe),
                                     ),
                                     child: Text(
-                                      context.loc.systemAppWarning,
+                                      loc.systemAppWarning,
                                       style: TextStyle(color: Theme.of(context).colorScheme.error, fontWeight: FontWeight.bold, fontSize: 13.sp),
                                     ),
                                   ),
@@ -217,11 +220,11 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.of(dialogContext).pop(false),
-                                child: Text(context.loc.cancel, style: TextStyle(fontSize: 14.sp)),
+                                child: Text(loc.cancel, style: AppStyles.bodyStyle),
                               ),
                               FilledButton(
                                 onPressed: () => Navigator.of(dialogContext).pop(true),
-                                child: Text(context.loc.stop, style: TextStyle(fontSize: 14.sp)),
+                                child: Text(loc.stop, style: AppStyles.bodyStyle),
                               ),
                             ],
                           ),
@@ -233,8 +236,8 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                           }
                         }
                       },
-                      icon: const Icon(Icons.stop_circle),
-                      label: Text(context.loc.stopAllServices, style: TextStyle(fontSize: 14.sp)),
+                      icon: AppStyles.stopIcon,
+                      label: Text(loc.stopAllServices, style: AppStyles.bodyStyle),
                     ),
             ),
           );

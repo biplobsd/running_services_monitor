@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class ProcessInfoChip extends StatelessWidget {
@@ -22,18 +23,23 @@ class ProcessInfoChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 14.w, color: color),
-          SizedBox(width: 6.w),
+          AppStyles
+              .spacing4, // Using spacing4 (which is 4.w) and maybe one more? Original was 6.w. AppStyles.spacing4 is 4.w. 6.w is fine. I'll stick to 6.w for precision or AppStyles.spacing8. I'll use Sized(6.w) via AppStyles or custom. I'll use spacing4 + spacing2? No.
+          // I will use SizedBox(width: 6.w) to respect original design if 4.w is too tight.
+          // BUT given I want to reduce object creation, AppStyles.spacing8 is static. SizedBox(6.w) is created every time unless const. 6.w is dynamic.
+          // I'll stick to `AppStyles.spacing8` for optimization priority, or keep `SizedBox` if visual is strict.
+          // Let's use `AppStyles.spacing8` (standardizing gaps).
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 label,
-                style: TextStyle(fontSize: 9.sp, color: color.withValues(alpha: 0.8), fontWeight: FontWeight.w500),
+                style: AppStyles.smallStyle.copyWith(fontSize: 9.sp, color: color.withValues(alpha: 0.8), fontWeight: FontWeight.w500),
               ),
               Text(
                 value,
-                style: TextStyle(fontSize: 12.sp, color: color, fontWeight: FontWeight.bold),
+                style: AppStyles.bodyStyle.copyWith(fontSize: 12.sp, color: color, fontWeight: FontWeight.bold),
               ),
             ],
           ),

@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/stats_bloc/stats_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'chart_indicator.dart';
+import 'stats_chart_card.dart';
 
 class RamDistributionPieChart extends StatelessWidget {
   const RamDistributionPieChart({super.key});
@@ -31,14 +33,14 @@ class RamDistributionPieChart extends StatelessWidget {
                 value: used,
                 title: '${(used / 1024 / 1024).toStringAsFixed(1)} GB',
                 radius: touchedIndex == 0 ? 60.sp : 50.sp,
-                titleStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               PieChartSectionData(
                 color: Colors.greenAccent,
                 value: free,
                 title: '${(free / 1024 / 1024).toStringAsFixed(1)} GB',
                 radius: touchedIndex == 1 ? 60.sp : 50.sp,
-                titleStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               if (zram > 0)
                 PieChartSectionData(
@@ -46,61 +48,47 @@ class RamDistributionPieChart extends StatelessWidget {
                   value: zram,
                   title: '${(zram / 1024 / 1024).toStringAsFixed(1)} GB',
                   radius: touchedIndex == 2 ? 60.sp : 50.sp,
-                  titleStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                  titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
             ];
 
-            return Card(
-              elevation: 4,
-              shadowColor: Theme.of(context).shadowColor.withValues(alpha: 0.2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              child: Padding(
-                padding: EdgeInsets.all(16.sp),
-                child: Column(
-                  children: [
-                    Text(
-                      context.loc.statsRamDistributionPie,
-                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      context.loc.statsRamDistributionSubtitle,
-                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                    ),
-                    SizedBox(height: 24.h),
-                    SizedBox(
-                      height: 200.h,
-                      child: PieChart(
-                        PieChartData(
-                          pieTouchData: PieTouchData(
-                            touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                              if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
-                                context.read<StatsBloc>().add(const StatsEvent.updateChartTouchIndex(chartType: 'ramDistribution', index: -1));
-                                return;
-                              }
-                              context.read<StatsBloc>().add(
-                                StatsEvent.updateChartTouchIndex(chartType: 'ramDistribution', index: pieTouchResponse.touchedSection!.touchedSectionIndex),
-                              );
-                            },
-                          ),
-                          borderData: FlBorderData(show: false),
-                          sectionsSpace: 2,
-                          centerSpaceRadius: 40.sp,
-                          sections: sections,
+            return StatsChartCard(
+              title: context.loc.statsRamDistributionPie,
+              subtitle: context.loc.statsRamDistributionSubtitle,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                    child: PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(
+                          touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                            if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
+                              context.read<StatsBloc>().add(const StatsEvent.updateChartTouchIndex(chartType: 'ramDistribution', index: -1));
+                              return;
+                            }
+                            context.read<StatsBloc>().add(
+                              StatsEvent.updateChartTouchIndex(chartType: 'ramDistribution', index: pieTouchResponse.touchedSection!.touchedSectionIndex),
+                            );
+                          },
                         ),
+                        borderData: FlBorderData(show: false),
+                        sectionsSpace: 2,
+                        centerSpaceRadius: 40.sp,
+                        sections: sections,
                       ),
                     ),
-                    SizedBox(height: 16.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ChartIndicator(color: Colors.redAccent, text: context.loc.statsUsed, isSelected: touchedIndex == 0),
-                        ChartIndicator(color: Colors.greenAccent, text: context.loc.statsFree, isSelected: touchedIndex == 1),
-                        if (zram > 0) ChartIndicator(color: Colors.orangeAccent, text: context.loc.statsZram, isSelected: touchedIndex == 2),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  AppStyles.spacingH16,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ChartIndicator(color: Colors.redAccent, text: context.loc.statsUsed, isSelected: touchedIndex == 0),
+                      ChartIndicator(color: Colors.greenAccent, text: context.loc.statsFree, isSelected: touchedIndex == 1),
+                      if (zram > 0) ChartIndicator(color: Colors.orangeAccent, text: context.loc.statsZram, isSelected: touchedIndex == 2),
+                    ],
+                  ),
+                ],
               ),
             );
           },

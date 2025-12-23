@@ -10,18 +10,12 @@ class DefaultServiceIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(8.rSafe),
-      ),
-      child: Icon(
-        service.isSystemApp ? Icons.android : Icons.apps,
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
-        size: size * 0.6,
-      ),
+      decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8.rSafe)),
+      child: Icon(service.isSystemApp ? Icons.android : Icons.apps, color: colorScheme.onPrimaryContainer, size: size * 0.6),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 
@@ -10,49 +11,37 @@ class MemInfoCompareBarChart extends StatelessWidget {
   final String currentLabel;
   final String compareLabel;
 
-  const MemInfoCompareBarChart({
-    super.key,
-    required this.currentData,
-    required this.comparisonData,
-    required this.currentLabel,
-    required this.compareLabel,
-  });
+  const MemInfoCompareBarChart({super.key, required this.currentData, required this.comparisonData, required this.currentLabel, required this.compareLabel});
 
   @override
   Widget build(BuildContext context) {
     final metrics = _buildMetrics();
     final maxValue = metrics.expand((m) => [m.currentValue, m.compareValue]).reduce((a, b) => a > b ? a : b);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Memory Comparison',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.h),
+          Text('Memory Comparison', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          AppStyles.spacingH8,
           Row(
             children: [
-              _LegendItem(color: Theme.of(context).colorScheme.primary, label: currentLabel),
-              SizedBox(width: 16.w),
-              _LegendItem(color: Theme.of(context).colorScheme.secondary, label: compareLabel),
+              _LegendItem(color: colorScheme.primary, label: currentLabel),
+              AppStyles.spacing16,
+              _LegendItem(color: colorScheme.secondary, label: compareLabel),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           ...metrics.map(
-            (metric) => _MetricBarRow(
-              metric: metric,
-              maxValue: maxValue,
-              primaryColor: Theme.of(context).colorScheme.primary,
-              secondaryColor: Theme.of(context).colorScheme.secondary,
-            ),
+            (metric) => _MetricBarRow(metric: metric, maxValue: maxValue, primaryColor: colorScheme.primary, secondaryColor: colorScheme.secondary),
           ),
         ],
       ),
@@ -114,12 +103,7 @@ class _MetricBarRow extends StatelessWidget {
   final Color primaryColor;
   final Color secondaryColor;
 
-  const _MetricBarRow({
-    required this.metric,
-    required this.maxValue,
-    required this.primaryColor,
-    required this.secondaryColor,
-  });
+  const _MetricBarRow({required this.metric, required this.maxValue, required this.primaryColor, required this.secondaryColor});
 
   @override
   Widget build(BuildContext context) {
@@ -134,34 +118,28 @@ class _MetricBarRow extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                metric.label,
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-              ),
+              Text(metric.label, style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.w500)),
               Row(
                 children: [
                   Text(
                     metric.currentValue.formatRam(),
-                    style: TextStyle(fontSize: 10.sp, color: primaryColor, fontWeight: FontWeight.w600),
+                    style: AppStyles.smallStyle.copyWith(color: primaryColor, fontWeight: FontWeight.w600),
                   ),
-                  Text(' / ', style: TextStyle(fontSize: 10.sp)),
+                  Text(' / ', style: AppStyles.smallStyle),
                   Text(
                     metric.compareValue.formatRam(),
-                    style: TextStyle(fontSize: 10.sp, color: secondaryColor, fontWeight: FontWeight.w600),
+                    style: AppStyles.smallStyle.copyWith(color: secondaryColor, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 4.h),
+          AppStyles.spacingH4,
           Stack(
             children: [
               Container(
                 height: 8.h,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(4.rSafe),
-                ),
+                decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4.rSafe)),
               ),
               Row(
                 children: [
@@ -172,10 +150,7 @@ class _MetricBarRow extends StatelessWidget {
                           widthFactor: math.min(1.0, compareWidth),
                           child: Container(
                             height: 8.h,
-                            decoration: BoxDecoration(
-                              color: secondaryColor.withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(4.rSafe),
-                            ),
+                            decoration: BoxDecoration(color: secondaryColor.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(4.rSafe)),
                           ),
                         ),
                         FractionallySizedBox(

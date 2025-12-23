@@ -1,5 +1,9 @@
 import 'package:running_services_monitor/models/meminfo_data.dart';
 
+MemInfoData computeParseMemInfoData(Map<String, String> params) {
+  return MemInfoParser.parse(params['packageName']!, params['output']!);
+}
+
 class MemInfoParser {
   static final _pidRegex = RegExp(r'pid\s+(\d+)');
   static final _summaryRegex = RegExp(r'^\s*([A-Za-z\s]+):\s*(\d+)\s*(\d+)?');

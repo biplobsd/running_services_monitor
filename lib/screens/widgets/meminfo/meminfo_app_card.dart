@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/app_icon.dart';
 import '../common/app_name_text.dart';
@@ -11,21 +12,26 @@ class MemInfoAppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final secondaryContainer = colorScheme.secondaryContainer;
+    final secondary = colorScheme.secondary;
+
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.5),
+        color: secondaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.3)),
+        border: Border.all(color: secondary.withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
           if (appInfo != null) AppIcon(appInfo: appInfo!, size: 40.w) else Icon(Icons.android, size: 40.w),
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
           if (appInfo != null)
             AppNameText(
               packageName: appInfo!.packageName,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+              style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -33,7 +39,7 @@ class MemInfoAppCard extends StatelessWidget {
           else
             Text(
               'Unknown',
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+              style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
         ],

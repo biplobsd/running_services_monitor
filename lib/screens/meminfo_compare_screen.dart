@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/meminfo_bloc/meminfo_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
@@ -34,15 +35,13 @@ class _MemInfoCompareScreenState extends State<MemInfoCompareScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.loc.memoryComparison, style: TextStyle(fontSize: 20.sp)),
-      ),
+      appBar: AppBar(title: Text(context.loc.memoryComparison, style: AppStyles.headlineStyle)),
       body: BlocBuilder<MeminfoBloc, MemInfoState>(
         bloc: bloc,
         buildWhen: (prev, curr) => prev.runtimeType != curr.runtimeType || prev != curr,
         builder: (context, state) {
           return state.when(
-            initial: () => widget.packageName == null ? _buildAppSelector(context) : Center(child: LoadingIndicator()),
+            initial: () => widget.packageName == null ? _buildAppSelector(context) : const Center(child: LoadingIndicator()),
             loading: (currentData, _) => currentData != null
                 ? MemInfoCompareContent(
                     bloc: bloc!,
@@ -51,7 +50,7 @@ class _MemInfoCompareScreenState extends State<MemInfoCompareScreen> {
                     isLoadingComparison: true,
                     packageName: widget.packageName ?? currentData.packageName,
                   )
-                : Center(child: LoadingIndicator()),
+                : const Center(child: LoadingIndicator()),
             error: (message, _) => Center(child: Text(message)),
             loaded: (data, comparisonData) => MemInfoCompareContent(
               bloc: bloc!,
@@ -76,11 +75,8 @@ class _MemInfoCompareScreenState extends State<MemInfoCompareScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.compare_arrows_rounded, size: 64.sp, color: Theme.of(context).colorScheme.primary),
-              SizedBox(height: 16.h),
-              Text(
-                context.loc.selectAppToCompare,
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-              ),
+              AppStyles.spacingH16,
+              Text(context.loc.selectAppToCompare, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.w500)),
               SizedBox(height: 24.h),
               FilledButton.icon(
                 onPressed: () {

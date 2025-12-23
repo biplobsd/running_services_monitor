@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/screens/widgets/meminfo/meminfo_chart_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -11,13 +12,7 @@ class MemInfoCompareRadarChart extends StatefulWidget {
   final String currentLabel;
   final String compareLabel;
 
-  const MemInfoCompareRadarChart({
-    super.key,
-    required this.currentData,
-    required this.comparisonData,
-    required this.currentLabel,
-    required this.compareLabel,
-  });
+  const MemInfoCompareRadarChart({super.key, required this.currentData, required this.comparisonData, required this.currentLabel, required this.compareLabel});
 
   @override
   State<MemInfoCompareRadarChart> createState() => _MemInfoCompareRadarChartState();
@@ -39,48 +34,87 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
 
     if (maxValue == 0) return const SizedBox.shrink();
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final primary = colorScheme.primary;
+    final secondary = colorScheme.secondary;
+    final onPrimary = colorScheme.onPrimary;
+    final onSurface = colorScheme.onSurface;
+    final dividerColor = theme.dividerColor;
+
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Memory Profile Comparison',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.h),
+          Text('Memory Profile Comparison', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          AppStyles.spacingH8,
           Row(
             children: [
-              _LegendDot(color: Theme.of(context).colorScheme.primary, label: widget.currentLabel),
-              SizedBox(width: 16.w),
-              _LegendDot(color: Theme.of(context).colorScheme.secondary, label: widget.compareLabel),
+              _LegendDot(color: primary, label: widget.currentLabel),
+              AppStyles.spacing16,
+              _LegendDot(color: secondary, label: widget.compareLabel),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           _buildTotalComparison(context, totalPss, totalRss),
-          SizedBox(height: 16.h),
-          _buildToggleButton(context),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
+          Container(
+            decoration: BoxDecoration(color: colorScheme.surfaceContainerHigh, borderRadius: BorderRadius.circular(8.rSafe)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => showPss = true),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      decoration: BoxDecoration(color: showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8.rSafe)),
+                      child: Text(
+                        'PSS',
+                        textAlign: TextAlign.center,
+                        style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w600, color: showPss ? onPrimary : onSurface),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => showPss = false),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      decoration: BoxDecoration(color: !showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8.rSafe)),
+                      child: Text(
+                        'RSS',
+                        textAlign: TextAlign.center,
+                        style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w600, color: !showPss ? onPrimary : onSurface),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          AppStyles.spacingH16,
           SizedBox(
             height: 220.h,
             child: RadarChart(
               RadarChartData(
                 dataSets: [
                   RadarDataSet(
-                    fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                    borderColor: Theme.of(context).colorScheme.primary,
+                    fillColor: primary.withValues(alpha: 0.3),
+                    borderColor: primary,
                     borderWidth: 2,
                     entryRadius: 3,
                     dataEntries: metrics.map((m) => RadarEntry(value: m.currentValue)).toList(),
                   ),
                   RadarDataSet(
-                    fillColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
-                    borderColor: Theme.of(context).colorScheme.secondary,
+                    fillColor: secondary.withValues(alpha: 0.2),
+                    borderColor: secondary,
                     borderWidth: 2,
                     entryRadius: 3,
                     dataEntries: metrics.map((m) => RadarEntry(value: m.compareValue)).toList(),
@@ -88,88 +122,28 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                 ],
                 radarBackgroundColor: Colors.transparent,
                 borderData: FlBorderData(show: false),
-                radarBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+                radarBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.3)),
                 titlePositionPercentageOffset: 0.2,
-                titleTextStyle: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                titleTextStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.w500),
                 getTitle: (index, angle) {
                   return RadarChartTitle(text: metrics[index].label, angle: angle);
                 },
                 tickCount: 4,
                 ticksTextStyle: TextStyle(fontSize: 8.sp, color: Colors.grey),
-                tickBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
-                gridBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
+                tickBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
+                gridBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
               ),
             ),
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           _buildMetricsTable(context, metrics),
         ],
       ),
     );
   }
 
-  Widget _buildToggleButton(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(8.rSafe),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => showPss = true),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: showPss ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                  borderRadius: BorderRadius.circular(8.rSafe),
-                ),
-                child: Text(
-                  'PSS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                    color: showPss ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => showPss = false),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: !showPss ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                  borderRadius: BorderRadius.circular(8.rSafe),
-                ),
-                child: Text(
-                  'RSS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                    color: !showPss ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildTotalComparison(BuildContext context, MemoryMetric totalPss, MemoryMetric totalRss) {
-    final maxValue = [
-      totalPss.currentValue,
-      totalPss.compareValue,
-      totalRss.currentValue,
-      totalRss.compareValue,
-    ].reduce((a, b) => a > b ? a : b);
+    final maxValue = [totalPss.currentValue, totalPss.compareValue, totalRss.currentValue, totalRss.compareValue].reduce((a, b) => a > b ? a : b);
 
     if (maxValue == 0) return const SizedBox.shrink();
 
@@ -184,10 +158,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
               getTooltipColor: (group) => Theme.of(context).colorScheme.surfaceContainerHighest,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 final label = groupIndex == 0 ? 'Total PSS' : 'Total RSS';
-                return BarTooltipItem(
-                  '$label\n${rod.toY.formatRam()}',
-                  TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12.sp),
-                );
+                return BarTooltipItem('$label\n${rod.toY.formatRam()}', TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12.sp));
               },
             ),
           ),
@@ -257,6 +228,10 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
   }
 
   Widget _buildMetricsTable(BuildContext context, List<MemoryMetric> metrics) {
+    final theme = Theme.of(context);
+    final primary = theme.colorScheme.primary;
+    final secondary = theme.colorScheme.secondary;
+
     return Column(
       children: metrics.map((metric) {
         final diff = metric.currentValue - metric.compareValue;
@@ -268,19 +243,16 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
           padding: EdgeInsets.symmetric(vertical: 4.h),
           child: Row(
             children: [
-              Expanded(
-                flex: 2,
-                child: Text(metric.label, style: TextStyle(fontSize: 11.sp)),
-              ),
+              Expanded(flex: 2, child: Text(metric.label, style: AppStyles.captionStyle)),
               Expanded(
                 flex: 2,
                 child: Text(
                   metric.currentValue.formatRam(),
-                  style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
+                  style: AppStyles.captionStyle.copyWith(color: primary),
                   textAlign: TextAlign.end,
                 ),
               ),
-              SizedBox(width: 8.w),
+              AppStyles.spacing8,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
                 decoration: BoxDecoration(
@@ -294,30 +266,21 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (!isEqual)
-                      Icon(
-                        isLower ? Icons.arrow_downward : Icons.arrow_upward,
-                        size: 10.sp,
-                        color: isLower ? Colors.green : Colors.red,
-                      ),
+                    if (!isEqual) Icon(isLower ? Icons.arrow_downward : Icons.arrow_upward, size: 10.sp, color: isLower ? Colors.green : Colors.red),
                     SizedBox(width: 2.w),
                     Text(
                       isEqual ? '=' : '${diffPercent.toStringAsFixed(0)}%',
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
-                        color: isEqual ? Colors.grey : (isLower ? Colors.green : Colors.red),
-                      ),
+                      style: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: isEqual ? Colors.grey : (isLower ? Colors.green : Colors.red)),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 8.w),
+              AppStyles.spacing8,
               Expanded(
                 flex: 2,
                 child: Text(
                   metric.compareValue.formatRam(),
-                  style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.secondary),
+                  style: AppStyles.captionStyle.copyWith(color: secondary),
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -346,11 +309,7 @@ class _LegendDot extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 6.w),
-        Text(
-          label,
-          style: TextStyle(fontSize: 11.sp),
-          overflow: TextOverflow.ellipsis,
-        ),
+        Text(label, style: AppStyles.captionStyle, overflow: TextOverflow.ellipsis),
       ],
     );
   }

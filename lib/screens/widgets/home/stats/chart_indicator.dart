@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 
 class ChartIndicator extends StatelessWidget {
   final Color color;
@@ -26,7 +27,7 @@ class ChartIndicator extends StatelessWidget {
             height: 14.sp,
             decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           ),
-          SizedBox(width: 8.w),
+          AppStyles.spacing8,
           Text(
             text,
             style: TextStyle(fontSize: 13.sp, fontWeight: isSelected ? FontWeight.bold : FontWeight.w500),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -25,18 +26,13 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
   late double previousRatio;
   bool isExpanded = false;
 
-  double get usedRatio => widget.ramInfo.totalRamKb > 0
-      ? widget.ramInfo.usedRamKb / (widget.ramInfo.totalRamKb + widget.ramInfo.zramTotalSwapKb)
-      : 0;
+  double get usedRatio => widget.ramInfo.totalRamKb > 0 ? widget.ramInfo.usedRamKb / (widget.ramInfo.totalRamKb + widget.ramInfo.zramTotalSwapKb) : 0;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-    animation = Tween<double>(
-      begin: 0,
-      end: usedRatio,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+    animation = Tween<double>(begin: 0, end: usedRatio).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
     if (!widget.isLoading) {
       controller.forward();
     }
@@ -56,19 +52,13 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
     if (!oldWidget.isLoading && widget.isLoading) {
       previousRatio = animation.value;
     } else if (oldWidget.isLoading && !widget.isLoading) {
-      animation = Tween<double>(
-        begin: previousRatio,
-        end: usedRatio,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+      animation = Tween<double>(begin: previousRatio, end: usedRatio).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
       controller.forward(from: 0);
       previousRatio = usedRatio;
     } else if (!widget.isLoading) {
       final newRatio = usedRatio;
       if (newRatio != previousRatio) {
-        animation = Tween<double>(
-          begin: previousRatio,
-          end: newRatio,
-        ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+        animation = Tween<double>(begin: previousRatio, end: newRatio).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
         controller.forward(from: 0);
         previousRatio = newRatio;
       }
@@ -91,74 +81,55 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
     final loc = context.loc;
     final ram = widget.ramInfo;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () => setState(() => isExpanded = !isExpanded),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        loc.deviceMemory,
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-                      ),
-                      // if (ram.totalRamStatus.isNotEmpty) ...[
-                      //   SizedBox(width: 8.w),
-                      //   Container(
-                      //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                      //     decoration: BoxDecoration(
-                      //       color: colorScheme.primaryContainer,
-                      //       borderRadius: BorderRadius.circular(4.r),
-                      //     ),
-                      //     child: Text(
-                      //       ram.totalRamStatus.capitalize(),
-                      //       style: TextStyle(fontSize: 10.sp, color: colorScheme.onPrimaryContainer),
-                      //     ),
-                      //   ),
-                      // ],
-                      AnimatedRotation(
-                        turns: isExpanded ? 0.5 : 0,
-                        duration: const Duration(milliseconds: 200),
-                        child: Icon(Icons.expand_more, size: 20.sp),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 15.h),
-                  widget.isLoading
-                      ? Skeleton.shade(child: ConstrainedWavyProgress(value: previousRatio, animate: true))
-                      : AnimatedBuilder(
-                          animation: animation,
-                          builder: (context, child) {
-                            return LinearProgress(value: animation.value);
-                          },
+    return RepaintBoundary(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => setState(() => isExpanded = !isExpanded),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(loc.deviceMemory, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.w500)),
+                        AnimatedRotation(
+                          turns: isExpanded ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 200),
+                          child: Icon(Icons.expand_more, size: 20.sp),
                         ),
-                  SizedBox(height: 16.h),
-                  RamLegendItem(color: colorScheme.primary, label: loc.used, value: ram.usedRamKb.formatRam()),
-                  SizedBox(height: 8.h),
-                  RamLegendItem(
-                    color: colorScheme.surfaceContainerHighest,
-                    label: loc.free,
-                    value: ram.freeRamKb.formatRam(),
-                  ),
-                ],
+                      ],
+                    ),
+                    AppStyles.spacingH16, // Was 15.h, 16.h is standard
+                    widget.isLoading
+                        ? Skeleton.shade(child: ConstrainedWavyProgress(value: previousRatio, animate: true))
+                        : AnimatedBuilder(
+                            animation: animation,
+                            builder: (context, child) {
+                              return LinearProgress(value: animation.value);
+                            },
+                          ),
+                    AppStyles.spacingH16,
+                    RamLegendItem(color: colorScheme.primary, label: loc.used, value: ram.usedRamKb.formatRam()),
+                    AppStyles.spacingH8,
+                    RamLegendItem(color: colorScheme.surfaceContainerHighest, label: loc.free, value: ram.freeRamKb.formatRam()),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        AnimatedSize(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          child: isExpanded ? RamExpandedSection(ram: ram) : const SizedBox(),
-        ),
-      ],
+          AnimatedSize(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            child: isExpanded ? RamExpandedSection(ram: ram) : const SizedBox(),
+          ),
+        ],
+      ),
     );
   }
 }

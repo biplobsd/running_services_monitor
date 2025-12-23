@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/status_badge.dart';
@@ -11,7 +12,10 @@ class ConnectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Container(
       margin: EdgeInsets.only(bottom: 8.h),
       padding: EdgeInsets.all(12.w),
@@ -30,24 +34,24 @@ class ConnectionCard extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.link_rounded, size: 14.w, color: colorScheme.primary),
-              SizedBox(width: 6.w),
+              AppStyles.spacing8,
               Expanded(
                 child: Text(
                   '${conn.packageName}/${conn.serviceName}',
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: colorScheme.onSurface),
+                  style: textTheme.bodyMedium?.copyWith(fontSize: 12.sp, fontWeight: FontWeight.w600, color: colorScheme.onSurface),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
           if (conn.flags != null) ...[
-            SizedBox(height: 6.h),
+            SizedBox(height: 6.h), // Keeping 6.h
             Text(
               '${context.loc.flags}: ${conn.flags}',
-              style: TextStyle(fontSize: 10.sp, color: colorScheme.onSurfaceVariant),
+              style: textTheme.bodySmall?.copyWith(fontSize: 10.sp, color: colorScheme.onSurfaceVariant),
             ),
           ],
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
           Wrap(
             spacing: 6.w,
             runSpacing: 4.h,

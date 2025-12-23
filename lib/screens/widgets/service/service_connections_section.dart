@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'connection_card.dart';
@@ -11,7 +12,10 @@ class ServiceConnectionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerLow,
@@ -24,13 +28,13 @@ class ServiceConnectionsSection extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.rSafe)),
         collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.rSafe)),
         leading: Container(
-          padding: EdgeInsets.all(8.w),
+          padding: AppStyles.padding8, // Assuming/using padding8 (added or existing)
           decoration: BoxDecoration(color: colorScheme.primaryContainer.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(10.rSafe)),
           child: Icon(Icons.cable_rounded, size: 18.w, color: colorScheme.primary),
         ),
         title: Text(
           '${context.loc.connections} (${service.connections.length})',
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+          style: textTheme.titleSmall?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.bold),
         ),
         children: service.connections.map((conn) => ConnectionCard(conn: conn)).toList(),
       ),

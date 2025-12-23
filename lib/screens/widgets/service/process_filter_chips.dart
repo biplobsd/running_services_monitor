@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -24,7 +25,6 @@ class ProcessFilterChips extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       child: Row(
-        spacing: 8.w,
         children: [
           FilterChipWidget(
             label: context.loc.all,
@@ -32,6 +32,7 @@ class ProcessFilterChips extends StatelessWidget {
             onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.all)),
             sortAscending: selectedFilter == ProcessStateFilter.all ? sortAscending : null,
           ),
+          AppStyles.spacing8,
           FilterChipWidget(
             label: '${context.loc.active} ($activeCount)',
             isSelected: selectedFilter == ProcessStateFilter.active,
@@ -39,14 +40,15 @@ class ProcessFilterChips extends StatelessWidget {
             color: Colors.green,
             sortAscending: selectedFilter == ProcessStateFilter.active ? sortAscending : null,
           ),
+          AppStyles.spacing8,
           FilterChipWidget(
             label: '${context.loc.services} ($servicesCount)',
             isSelected: selectedFilter == ProcessStateFilter.withServices,
-            onSelected: () =>
-                context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
+            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
             color: Colors.blue,
             sortAscending: selectedFilter == ProcessStateFilter.withServices ? sortAscending : null,
           ),
+          AppStyles.spacing8,
           FilterChipWidget(
             label: '${context.loc.cached} ($cachedCount)',
             isSelected: selectedFilter == ProcessStateFilter.cached,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 
 class StatsChartCard extends StatelessWidget {
   final String title;
@@ -21,15 +22,9 @@ class StatsChartCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: AppStyles.titleStyle.copyWith(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            if (subtitle != null) ...[
-              SizedBox(height: 8.h),
-              Text(
-                subtitle!,
-                style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-              ),
-            ],
+            if (subtitle != null) ...[AppStyles.spacingH8, Text(subtitle!, style: AppStyles.captionStyle)],
             SizedBox(height: 24.h),
             if (height != null) SizedBox(height: height, child: child) else child,
           ],

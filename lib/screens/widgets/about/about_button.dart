@@ -6,6 +6,7 @@ import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_blo
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/working_mode.dart';
 import '../settings/working_mode_selector.dart';
 
@@ -44,8 +45,8 @@ class AboutButton extends StatelessWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.settings, size: 20.sp),
-                    title: Text(context.loc.workingMode, style: TextStyle(fontSize: 14.sp)),
-                    subtitle: currentMode != null ? Text(_getModeDisplayName(context, currentMode), style: TextStyle(fontSize: 12.sp)) : null,
+                    title: Text(context.loc.workingMode, style: AppStyles.bodyStyle),
+                    subtitle: currentMode != null ? Text(_getModeDisplayName(context, currentMode), style: AppStyles.subtitleStyle) : null,
                   ),
                 ),
                 PopupMenuItem<String>(
@@ -65,7 +66,7 @@ class AboutButton extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: Text(context.loc.showCoreApps, style: TextStyle(fontSize: 14.sp)),
+                    title: Text(context.loc.showCoreApps, style: AppStyles.bodyStyle),
                   ),
                 ),
                 PopupMenuItem<String>(
@@ -73,7 +74,7 @@ class AboutButton extends StatelessWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.terminal, size: 20.sp),
-                    title: Text(context.loc.commandLogs, style: TextStyle(fontSize: 14.sp)),
+                    title: Text(context.loc.commandLogs, style: AppStyles.bodyStyle),
                   ),
                 ),
                 PopupMenuItem<String>(
@@ -81,7 +82,7 @@ class AboutButton extends StatelessWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.compare_arrows, size: 20.sp),
-                    title: Text(context.loc.compareWithOther, style: TextStyle(fontSize: 14.sp)),
+                    title: Text(context.loc.compareWithOther, style: AppStyles.bodyStyle),
                   ),
                 ),
                 PopupMenuItem<String>(
@@ -89,7 +90,7 @@ class AboutButton extends StatelessWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(Icons.info_outline, size: 20.sp),
-                    title: Text(context.loc.about, style: TextStyle(fontSize: 14.sp)),
+                    title: Text(context.loc.about, style: AppStyles.bodyStyle),
                   ),
                 ),
               ],

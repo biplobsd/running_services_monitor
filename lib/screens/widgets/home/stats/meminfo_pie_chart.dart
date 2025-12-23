@@ -1,7 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
+import 'package:running_services_monitor/screens/widgets/home/stats/stats_chart_card.dart';
 import 'package:running_services_monitor/screens/widgets/meminfo/meminfo_chart_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 
@@ -17,21 +19,11 @@ class MemInfoPieChart extends StatelessWidget {
 
     if (segmentsTotal == 0) return const SizedBox.shrink();
 
-    return Container(
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
-      ),
+    return StatsChartCard(
+      title: 'Memory Distribution',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Memory Distribution',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.h),
           Row(
             children: [
               SizedBox(
@@ -48,13 +40,13 @@ class MemInfoPieChart extends StatelessWidget {
                         value: segment.value,
                         title: percentage > 10 ? '${percentage.toStringAsFixed(0)}%' : '',
                         radius: 60.w,
-                        titleStyle: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                        titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                       );
                     }).toList(),
                   ),
                 ),
               ),
-              SizedBox(width: 16.w),
+              AppStyles.spacing16,
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,22 +59,15 @@ class MemInfoPieChart extends StatelessWidget {
                           Container(
                             width: 12.w,
                             height: 12.w,
-                            decoration: BoxDecoration(
-                              color: segment.color,
-                              borderRadius: BorderRadius.circular(3.rSafe),
-                            ),
+                            decoration: BoxDecoration(color: segment.color, borderRadius: BorderRadius.circular(3.rSafe)),
                           ),
-                          SizedBox(width: 8.w),
+                          AppStyles.spacing8,
                           Expanded(
-                            child: Text(
-                              segment.label,
-                              style: TextStyle(fontSize: 11.sp),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            child: Text(segment.label, style: AppStyles.captionStyle, overflow: TextOverflow.ellipsis),
                           ),
                           Text(
                             '$percentage%',
-                            style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w600, color: segment.color),
+                            style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w600, color: segment.color),
                           ),
                         ],
                       ),
@@ -96,11 +81,7 @@ class MemInfoPieChart extends StatelessWidget {
           Center(
             child: Text(
               'Total PSS: ${summary.totalPss.formatRam()}',
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: AppStyles.bodyStyle.copyWith(fontSize: 13.sp, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.primary),
             ),
           ),
         ],

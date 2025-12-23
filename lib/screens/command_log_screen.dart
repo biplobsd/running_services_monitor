@@ -4,6 +4,7 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/command_log_entry.dart';
@@ -17,14 +18,14 @@ class CommandLogScreen extends StatelessWidget {
       value: getIt<CommandLogBloc>()..add(const CommandLogEvent.started()),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(context.loc.commandLogs, style: TextStyle(fontSize: 20.sp)),
+          title: Text(context.loc.commandLogs, style: AppStyles.headlineStyle),
           actions: [
             BlocSelector<CommandLogBloc, CommandLogState, bool>(
               selector: (state) => state.value.isNotEmpty,
               builder: (context, hasEntries) {
                 if (!hasEntries) return const SizedBox.shrink();
                 return IconButton(
-                  icon: const Icon(Icons.delete_outline),
+                  icon: AppStyles.deleteIcon,
                   tooltip: context.loc.clearLogs,
                   onPressed: () {
                     showDialog(
@@ -59,10 +60,10 @@ class CommandLogScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.terminal, size: 64.w, color: Theme.of(context).colorScheme.outline),
-                    SizedBox(height: 16.h),
+                    AppStyles.spacingH16,
                     Text(
                       context.loc.noCommandLogs,
-                      style: TextStyle(fontSize: 16.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      style: AppStyles.bodyStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 16.sp),
                     ),
                   ],
                 ),
@@ -70,7 +71,7 @@ class CommandLogScreen extends StatelessWidget {
             }
 
             return ListView.separated(
-              padding: EdgeInsets.all(16.w),
+              padding: AppStyles.sectionPadding,
               itemCount: entries.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
@@ -78,18 +79,15 @@ class CommandLogScreen extends StatelessWidget {
                 final dateFormat = DateFormat('HH:mm:ss');
                 return ListTile(
                   contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                  leading: Icon(
-                    entry.isSuccess ? Icons.check_circle_outline : Icons.error_outline,
-                    color: entry.isSuccess ? Colors.green : Colors.red,
-                  ),
+                  leading: Icon(entry.isSuccess ? Icons.check_circle_outline : Icons.error_outline, color: entry.isSuccess ? Colors.green : Colors.red),
                   title: Text(
                     entry.command,
-                    style: TextStyle(fontSize: 13.sp, fontFamily: 'monospace'),
+                    style: AppStyles.bodyStyle.copyWith(fontSize: 13.sp, fontFamily: 'monospace'),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  subtitle: Text('${context.loc.executedAt} ${dateFormat.format(entry.timestamp)}', style: TextStyle(fontSize: 11.sp)),
-                  trailing: const Icon(Icons.chevron_right),
+                  subtitle: Text('${context.loc.executedAt} ${dateFormat.format(entry.timestamp)}', style: AppStyles.smallStyle),
+                  trailing: AppStyles.arrowForwardIcon,
                   onTap: () {
                     context.push('/command-output', extra: entry.id);
                   },

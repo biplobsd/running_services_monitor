@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'stats_chart_card.dart';
@@ -64,7 +65,7 @@ class FunnelChart extends StatelessWidget {
                       width: 60.w,
                       child: Text(
                         tier.$1,
-                        style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
                       ),
                     ),
                     Expanded(
@@ -76,15 +77,12 @@ class FunnelChart extends StatelessWidget {
                             height: 30.h - (index * 2),
                             decoration: BoxDecoration(
                               color: tier.$3,
-                              borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(4),
-                                right: Radius.circular(15),
-                              ),
+                              borderRadius: const BorderRadius.horizontal(left: Radius.circular(4), right: Radius.circular(15)),
                             ),
                             alignment: Alignment.center,
                             child: Text(
                               '${tier.$2}',
-                              style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              style: AppStyles.bodyStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
                             ),
                           ),
                         ),

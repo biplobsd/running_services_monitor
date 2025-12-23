@@ -8,7 +8,7 @@ class ThemeToggleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = Theme.of(context).brightness; // Already cached effectively
     final isDark = brightness == Brightness.dark;
     return IconButton(
       icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),

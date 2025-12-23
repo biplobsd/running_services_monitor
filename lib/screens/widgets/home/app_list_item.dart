@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -20,40 +21,23 @@ class AppListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = context.loc;
     final processCount = appInfo.processCount;
     final serviceCount = appInfo.services.length;
-    final loc = context.loc;
 
-    String buildSubtitleText() {
-      final hasService = serviceCount > 0;
-      final hasProcess = processCount > 0;
-      if (hasService && hasProcess) {
-        return loc.service_process_string(serviceCount, processCount);
-      } else if (hasService) {
-        return loc.service_string(serviceCount);
-      } else if (hasProcess) {
-        return loc.process_string(processCount);
-      } else {
-        return '';
-      }
-    }
+    final subtitleText = _buildSubtitleText(loc, serviceCount, processCount);
 
     return ListTile(
       leading: Hero(
         tag: 'app-icon-$tabIndex-${appInfo.packageName}',
         child: AppIcon(appInfo: appInfo, size: 40.sp),
       ),
-      title: AppNameText(
-        packageName: appInfo.packageName,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontSize: 16.sp),
-      ),
+      title: AppNameText(packageName: appInfo.packageName, maxLines: 1, overflow: TextOverflow.ellipsis, style: AppStyles.titleStyle),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(buildSubtitleText(), style: Theme.of(context).textTheme.bodySmall),
-          SizedBox(height: 4.h),
+          Text(subtitleText, style: Theme.of(context).textTheme.bodySmall),
+          AppStyles.spacingH4,
           Wrap(
             spacing: 4.w,
             runSpacing: 2.h,
@@ -71,13 +55,28 @@ class AppListItem extends StatelessWidget {
         builder: (context, showSkeleton) {
           return Skeletonizer(
             enabled: showSkeleton,
-            child: Text(showSkeleton ? '00.0 MB' : appInfo.totalRamInKb.formatRam(), style: TextStyle(fontSize: 14.sp)),
+            child: Text(showSkeleton ? '00.0 MB' : appInfo.totalRamInKb.formatRam(), style: AppStyles.bodyStyle),
           );
         },
       ),
-      onTap: () {
-        context.push('/app-details', extra: {'packageName': appInfo.packageName, 'tabIndex': tabIndex});
-      },
+      onTap: () => _onTap(context),
     );
+  }
+
+  void _onTap(BuildContext context) {
+    context.push('/app-details', extra: {'packageName': appInfo.packageName, 'tabIndex': tabIndex});
+  }
+
+  String _buildSubtitleText(dynamic loc, int serviceCount, int processCount) {
+    final hasService = serviceCount > 0;
+    final hasProcess = processCount > 0;
+    if (hasService && hasProcess) {
+      return loc.service_process_string(serviceCount, processCount);
+    } else if (hasService) {
+      return loc.service_string(serviceCount);
+    } else if (hasProcess) {
+      return loc.process_string(processCount);
+    }
+    return '';
   }
 }

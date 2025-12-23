@@ -905,4 +905,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get showCoreApps => 'Show Core Apps';
+
+  @override
+  String get usefulCommands => 'Useful Commands';
+
+  @override
+  String get commands => 'Commands';
+
+  @override
+  String get addCommand => 'Add Command';
+
+  @override
+  String get placeholders => 'Placeholders';
+
+  @override
+  String get commandTitle => 'Title';
+
+  @override
+  String get commandDescription => 'Description';
+
+  @override
+  String get reExecute => 'Re-execute';
 }

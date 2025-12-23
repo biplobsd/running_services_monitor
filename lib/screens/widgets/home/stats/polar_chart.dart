@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'stats_chart_card.dart';
@@ -30,6 +31,10 @@ class PolarChart extends StatelessWidget {
         final maxValue = data.map((e) => e.$2).reduce((a, b) => a > b ? a : b).toDouble();
         if (maxValue == 0) return const SizedBox.shrink();
 
+        final theme = Theme.of(context);
+        final colorScheme = theme.colorScheme;
+        final dividerColor = theme.dividerColor;
+
         return StatsChartCard(
           title: context.loc.statsPolarChart,
           subtitle: context.loc.statsPolarSubtitle,
@@ -38,8 +43,8 @@ class PolarChart extends StatelessWidget {
             RadarChartData(
               dataSets: [
                 RadarDataSet(
-                  fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                  borderColor: Theme.of(context).colorScheme.primary,
+                  fillColor: colorScheme.primary.withValues(alpha: 0.3),
+                  borderColor: colorScheme.primary,
                   borderWidth: 2,
                   entryRadius: 4,
                   dataEntries: data.map((e) => RadarEntry(value: e.$2.toDouble())).toList(),
@@ -47,16 +52,16 @@ class PolarChart extends StatelessWidget {
               ],
               radarBackgroundColor: Colors.transparent,
               borderData: FlBorderData(show: false),
-              radarBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+              radarBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.3)),
               titlePositionPercentageOffset: 0.2,
-              titleTextStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+              titleTextStyle: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
               getTitle: (index, angle) {
                 return RadarChartTitle(text: '${data[index].$1}\n(${data[index].$2})', angle: angle);
               },
               tickCount: 4,
-              ticksTextStyle: TextStyle(fontSize: 10.sp, color: Colors.grey),
-              tickBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
-              gridBorderData: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
+              ticksTextStyle: AppStyles.smallStyle.copyWith(color: Colors.grey),
+              tickBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
+              gridBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
             ),
           ),
         );

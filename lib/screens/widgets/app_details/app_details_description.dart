@@ -6,9 +6,7 @@ class AppDetailsDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      context.loc.stopWarning,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-    );
+    final theme = Theme.of(context);
+    return Text(context.loc.stopWarning, style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant));
   }
 }

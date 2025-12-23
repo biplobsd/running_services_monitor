@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
@@ -35,6 +36,12 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
             double maxRam = 0;
             double maxServices = 0;
 
+            final theme = Theme.of(context);
+            final dividerColor = theme.dividerColor;
+            final surfaceContainerHighest = theme.colorScheme.surfaceContainerHighest;
+            final onSurface = theme.colorScheme.onSurface;
+            final primary = theme.colorScheme.primary;
+
             for (int i = 0; i < apps.length; i++) {
               final app = apps[i];
               if (app.totalRamInKb > maxRam) maxRam = app.totalRamInKb;
@@ -49,9 +56,7 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                   show: true,
                   dotPainter: FlDotCirclePainter(
                     radius: radius,
-                    color: app.isSystemApp == true
-                        ? Colors.deepPurpleAccent.withValues(alpha: 0.6)
-                        : Colors.blueAccent.withValues(alpha: 0.6),
+                    color: app.isSystemApp == true ? Colors.deepPurpleAccent.withValues(alpha: 0.6) : Colors.blueAccent.withValues(alpha: 0.6),
                     strokeWidth: 0,
                   ),
                 ),
@@ -66,28 +71,19 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                 ScatterChartData(
                   scatterTouchData: ScatterTouchData(
                     touchTooltipData: ScatterTouchTooltipData(
-                      getTooltipColor: (spot) => Theme.of(context).colorScheme.surfaceContainerHighest,
+                      getTooltipColor: (spot) => surfaceContainerHighest,
                       getTooltipItems: (ScatterSpot spot) {
-                        final matchingApps = apps
-                            .where(
-                              (app) =>
-                                  app.services.length.toDouble() == spot.x && (app.totalRamInKb - spot.y).abs() < 0.1,
-                            )
-                            .toList();
+                        final matchingApps = apps.where((app) => app.services.length.toDouble() == spot.x && (app.totalRamInKb - spot.y).abs() < 0.1).toList();
 
                         if (matchingApps.isNotEmpty) {
                           final app = matchingApps.first;
                           return ScatterTooltipItem(
                             '${appName(app.packageName)}\n',
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                            textStyle: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold, color: onSurface),
                             children: [
                               TextSpan(
-                                text:
-                                    'RAM: ${app.totalRamInKb.formatRam()}\n${context.loc.services}: ${app.services.length}',
-                                style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 12.sp),
+                                text: 'RAM: ${app.totalRamInKb.formatRam()}\n${context.loc.services}: ${app.services.length}',
+                                style: AppStyles.smallStyle.copyWith(color: primary, fontSize: 12.sp),
                               ),
                             ],
                           );
@@ -100,10 +96,8 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                     show: true,
                     drawHorizontalLine: true,
                     drawVerticalLine: true,
-                    getDrawingHorizontalLine: (value) =>
-                        FlLine(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
-                    getDrawingVerticalLine: (value) =>
-                        FlLine(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)),
+                    getDrawingHorizontalLine: (value) => FlLine(color: dividerColor.withValues(alpha: 0.2)),
+                    getDrawingVerticalLine: (value) => FlLine(color: dividerColor.withValues(alpha: 0.2)),
                   ),
                   titlesData: FlTitlesData(
                     show: true,
@@ -112,8 +106,7 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 30,
-                        getTitlesWidget: (val, meta) =>
-                            Text(val.toInt().toString(), style: const TextStyle(fontSize: 10)),
+                        getTitlesWidget: (val, meta) => Text(val.toInt().toString(), style: const TextStyle(fontSize: 10)),
                       ),
                     ),
                     topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -124,7 +117,7 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                   maxX: maxServices + 1,
                   minY: 0,
                   maxY: maxRam * 1.1,
-                  scatterSpots: spots,
+                  scatterSpots: spots.map((s) => s).toList(), // Copy list
                 ),
               ),
             );

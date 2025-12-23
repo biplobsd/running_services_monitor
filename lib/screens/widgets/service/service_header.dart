@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/status_chip.dart';
@@ -11,7 +12,10 @@ class ServiceHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       decoration: BoxDecoration(
@@ -31,19 +35,16 @@ class ServiceHeader extends StatelessWidget {
             ),
             child: Icon(Icons.miscellaneous_services_rounded, color: colorScheme.onPrimaryContainer, size: 24.w),
           ),
-          SizedBox(width: 12.w),
+          AppStyles.spacing16,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  service.serviceName,
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
-                ),
-                SizedBox(height: 2.h),
+                Text(service.serviceName, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                AppStyles.spacingH4,
                 Text(
                   service.packageName,
-                  style: TextStyle(fontSize: 12.sp, color: colorScheme.onSurfaceVariant),
+                  style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

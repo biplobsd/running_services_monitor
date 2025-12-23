@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -28,7 +28,7 @@ class AppCountTab extends StatelessWidget {
               }).length;
             },
             builder: (context, count) {
-              return Text('$label ($count)', style: TextStyle(fontSize: 14.sp));
+              return Text('$label ($count)', style: AppStyles.bodyStyle);
             },
           );
         },

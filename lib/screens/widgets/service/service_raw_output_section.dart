@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/code_output_box.dart';
@@ -11,15 +12,18 @@ class ServiceRawOutputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return ExpansionTile(
-      tilePadding: EdgeInsets.symmetric(horizontal: 4.w),
+      tilePadding: AppStyles.paddingH4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.rSafe)),
       collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.rSafe)),
       leading: Icon(Icons.code_rounded, size: 20.w, color: colorScheme.primary),
       title: Text(
         context.loc.rawOutput,
-        style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+        style: textTheme.titleSmall?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.bold),
       ),
       children: [
         CodeOutputBox(

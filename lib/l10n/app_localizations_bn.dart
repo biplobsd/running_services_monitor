@@ -301,10 +301,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get flags => 'ফ্ল্যাগস';
 
   @override
-  String get bound => 'Bound';
+  String get bound => 'বাঁধা';
 
   @override
-  String get processRecord => 'Process Record';
+  String get processRecord => 'প্রক্রিয়া রেকর্ড';
 
   @override
   String get visible => 'দৃশ্যমান';
@@ -912,4 +912,25 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get showCoreApps => 'কোর প্রসেস দেখান';
+
+  @override
+  String get usefulCommands => 'দরকারী কমান্ড';
+
+  @override
+  String get commands => 'কমান্ড';
+
+  @override
+  String get addCommand => 'কমান্ড যোগ করুন';
+
+  @override
+  String get placeholders => 'প্লেসহোল্ডার';
+
+  @override
+  String get commandTitle => 'শিরোনাম';
+
+  @override
+  String get commandDescription => 'বিবরণ';
+
+  @override
+  String get reExecute => 'পুনরায় চালান';
 }

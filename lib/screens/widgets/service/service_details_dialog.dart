@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_header.dart';
 import 'service_info_section.dart';
@@ -24,7 +25,8 @@ class ServiceDetailsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
@@ -50,11 +52,11 @@ class ServiceDetailsSheet extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 children: [
                   ServiceInfoSection(service: service),
-                  SizedBox(height: 16.h),
-                  if (service.pid != null || service.uid != null) ...[ServiceProcessSection(service: service), SizedBox(height: 16.h)],
-                  if (service.connections.isNotEmpty) ...[ServiceConnectionsSection(service: service), SizedBox(height: 16.h)],
+                  AppStyles.spacingH16,
+                  if (service.pid != null || service.uid != null) ...[ServiceProcessSection(service: service), AppStyles.spacingH16],
+                  if (service.connections.isNotEmpty) ...[ServiceConnectionsSection(service: service), AppStyles.spacingH16],
                   if (service.rawServiceRecord != null) ServiceRawOutputSection(service: service),
-                  SizedBox(height: 24.h),
+                  AppStyles.spacingH24,
                 ],
               ),
             ),

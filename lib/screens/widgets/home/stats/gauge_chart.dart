@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'stats_chart_card.dart';
@@ -18,6 +19,10 @@ class GaugeChart extends StatelessWidget {
         if (ramInfo.totalRamKb == 0) return const SizedBox.shrink();
 
         final usagePercent = (ramInfo.usedRamKb / ramInfo.totalRamKb).clamp(0.0, 1.0);
+        final theme = Theme.of(context);
+        final primaryColor = theme.colorScheme.primary;
+        final backgroundColor = theme.dividerColor.withValues(alpha: 0.2);
+        final onSurface = theme.colorScheme.onSurface;
 
         return StatsChartCard(
           title: context.loc.statsGaugeChart,
@@ -28,9 +33,9 @@ class GaugeChart extends StatelessWidget {
               size: Size(double.infinity, 200.h),
               painter: GaugePainter(
                 percentage: usagePercent,
-                primaryColor: Theme.of(context).colorScheme.primary,
-                backgroundColor: Theme.of(context).dividerColor.withValues(alpha: 0.2),
-                textColor: Theme.of(context).colorScheme.onSurface,
+                primaryColor: primaryColor,
+                backgroundColor: backgroundColor,
+                textStyle: AppStyles.headlineStyle.copyWith(color: onSurface, fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -44,14 +49,9 @@ class GaugePainter extends CustomPainter {
   final double percentage;
   final Color primaryColor;
   final Color backgroundColor;
-  final Color textColor;
+  final TextStyle textStyle;
 
-  GaugePainter({
-    required this.percentage,
-    required this.primaryColor,
-    required this.backgroundColor,
-    required this.textColor,
-  });
+  GaugePainter({required this.percentage, required this.primaryColor, required this.backgroundColor, required this.textStyle});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -81,18 +81,9 @@ class GaugePainter extends CustomPainter {
       ..strokeWidth = 20
       ..strokeCap = StrokeCap.round;
 
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius),
-      math.pi,
-      math.pi * percentage,
-      false,
-      progressPaint,
-    );
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), math.pi, math.pi * percentage, false, progressPaint);
 
-    final textSpan = TextSpan(
-      text: '${(percentage * 100).toStringAsFixed(0)}%',
-      style: TextStyle(color: textColor, fontSize: 32, fontWeight: FontWeight.bold),
-    );
+    final textSpan = TextSpan(text: '${(percentage * 100).toStringAsFixed(0)}%', style: textStyle);
     final textPainter = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
     textPainter.layout();
     textPainter.paint(canvas, Offset(center.dx - textPainter.width / 2, center.dy - textPainter.height - 10));
@@ -100,6 +91,6 @@ class GaugePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant GaugePainter oldDelegate) {
-    return oldDelegate.percentage != percentage;
+    return oldDelegate.percentage != percentage || oldDelegate.textStyle != textStyle;
   }
 }

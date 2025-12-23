@@ -272,5 +272,14 @@
   "allApps": "সব",
   "userApps": "ব্যবহারকারী",
   "systemApps": "সিস্টেম",
-  "compareWith": "এর সাথে তুলনা করুন"
+  "compareWith": "এর সাথে তুলনা করুন",
+  "usefulCommands": "দরকারী কমান্ড",
+  "commands": "কমান্ড",
+  "addCommand": "কমান্ড যোগ করুন",
+  "placeholders": "প্লেসহোল্ডার",
+  "commandTitle": "শিরোনাম",
+  "commandDescription": "বিবরণ",
+  "reExecute": "পুনরায় চালান",
+  "bound": "বাঁধা",
+  "processRecord": "প্রক্রিয়া রেকর্ড"
 }

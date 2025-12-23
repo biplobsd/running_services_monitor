@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -12,21 +13,18 @@ class ServiceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final loc = context.loc;
+
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 4.h),
+      margin: AppStyles.cardMargin,
       child: ListTile(
-        title: Text(
-          service.packageName,
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
-        ),
+        title: Text(service.packageName, style: AppStyles.titleStyle),
         subtitle: Column(
           spacing: 8.h,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              service.serviceName,
-              style: TextStyle(fontSize: 12.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
-            ),
+            Text(service.serviceName, style: AppStyles.subtitleStyle.copyWith(color: colors.onSurfaceVariant)),
             Row(
               spacing: 8.w,
               children: [
@@ -34,29 +32,28 @@ class ServiceListItem extends StatelessWidget {
                   Row(
                     spacing: 4.w,
                     children: [
-                      Icon(Icons.memory, size: 12.w, color: Theme.of(context).colorScheme.secondary),
+                      Icon(Icons.memory, size: 12.w, color: colors.secondary),
                       Text(
                         service.ramInKb.formatRam(),
-                        style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.secondary),
+                        style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: colors.secondary),
                       ),
                     ],
                   ),
                 if (service.serviceClass != null)
-                  Text(
-                    '${context.loc.service}: ${service.serviceClass}',
-                    style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Flexible(
+                    child: Text(
+                      '${loc.service}: ${service.serviceClass}',
+                      style: AppStyles.captionStyle.copyWith(color: colors.onSurfaceVariant),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 if (service.pid != null)
                   Row(
                     spacing: 4.w,
                     children: [
-                      Icon(Icons.numbers, size: 12.w, color: Theme.of(context).colorScheme.primary),
-                      Text(
-                        '${context.loc.pid}: ${service.pid?.toString() ?? 'N/A'}',
-                        style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.primary),
-                      ),
+                      Icon(Icons.numbers, size: 12.w, color: colors.primary),
+                      Text('${loc.pid}: ${service.pid}', style: AppStyles.captionStyle.copyWith(color: colors.primary)),
                     ],
                   ),
               ],

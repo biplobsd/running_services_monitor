@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -18,6 +19,11 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final primary = colorScheme.primary;
+    final secondaryContainer = colorScheme.secondaryContainer;
+
     final items = [
       _SummaryItem('Java Heap', widget.summary.javaHeapPss, widget.summary.javaHeapRss, Colors.green),
       _SummaryItem('Native Heap', widget.summary.nativeHeapPss, widget.summary.nativeHeapRss, Colors.orange),
@@ -30,18 +36,15 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
     ];
 
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.5),
-            Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.3),
-          ],
+          colors: [colorScheme.primaryContainer.withValues(alpha: 0.5), secondaryContainer.withValues(alpha: 0.3)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16.rSafe),
-        border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,37 +52,26 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
         children: [
           Row(
             children: [
-              Icon(Icons.analytics, size: 20.sp, color: Theme.of(context).colorScheme.primary),
-              SizedBox(width: 8.w),
+              Icon(Icons.analytics, size: 20.sp, color: primary),
+              AppStyles.spacing8,
               Expanded(
-                child: Text(
-                  context.loc.appSummary,
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                ),
+                child: Text(context.loc.appSummary, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
               ),
             ],
           ),
           Row(
             spacing: 12.w,
             children: [
-              Expanded(
-                child: _buildTotalCard(context, 'Total PSS', widget.summary.totalPss, Colors.blue, Icons.memory),
-              ),
-              Expanded(
-                child: _buildTotalCard(context, 'Total RSS', widget.summary.totalRss, Colors.purple, Icons.storage),
-              ),
+              Expanded(child: _buildTotalCard(context, 'Total PSS', widget.summary.totalPss, Colors.blue, Icons.memory)),
+              Expanded(child: _buildTotalCard(context, 'Total RSS', widget.summary.totalRss, Colors.purple, Icons.storage)),
             ],
           ),
-          if (widget.summary.totalSwapPss > 0)
-            _buildTotalCard(context, 'Swap PSS', widget.summary.totalSwapPss, Colors.orange, Icons.swap_horiz),
+          if (widget.summary.totalSwapPss > 0) _buildTotalCard(context, 'Swap PSS', widget.summary.totalSwapPss, Colors.orange, Icons.swap_horiz),
           _buildToggleButton(context),
           Wrap(
             spacing: 8.w,
             runSpacing: 8.h,
-            children: items
-                .where((item) => item.pss > 0 || item.rss > 0)
-                .map((item) => _buildSummaryChip(context, item))
-                .toList(),
+            children: items.where((item) => item.pss > 0 || item.rss > 0).map((item) => _buildSummaryChip(context, item)).toList(),
           ),
         ],
       ),
@@ -88,10 +80,7 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
 
   Widget _buildToggleButton(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(8.rSafe),
-      ),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHigh, borderRadius: BorderRadius.circular(8.rSafe)),
       child: Row(
         children: [
           Expanded(

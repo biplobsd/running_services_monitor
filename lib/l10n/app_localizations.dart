@@ -1743,6 +1743,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show Core Apps'**
   String get showCoreApps;
+
+  /// No description provided for @usefulCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'Useful Commands'**
+  String get usefulCommands;
+
+  /// No description provided for @commands.
+  ///
+  /// In en, this message translates to:
+  /// **'Commands'**
+  String get commands;
+
+  /// No description provided for @addCommand.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Command'**
+  String get addCommand;
+
+  /// No description provided for @placeholders.
+  ///
+  /// In en, this message translates to:
+  /// **'Placeholders'**
+  String get placeholders;
+
+  /// No description provided for @commandTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get commandTitle;
+
+  /// No description provided for @commandDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get commandDescription;
+
+  /// No description provided for @reExecute.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-execute'**
+  String get reExecute;
 }
 
 class _AppLocalizationsDelegate

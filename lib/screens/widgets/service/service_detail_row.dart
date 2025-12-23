@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class ServiceDetailRow extends StatelessWidget {
@@ -13,11 +14,11 @@ class ServiceDetailRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
-        SizedBox(height: 2.h),
+        AppStyles.spacingH2, // Replacing 2.h with spacingH2
         SelectableText(
-          scrollPhysics: NeverScrollableScrollPhysics(),
+          scrollPhysics: const NeverScrollableScrollPhysics(),
           value,
-          style: TextStyle(fontSize: 14.sp),
+          style: AppStyles.bodyStyle.copyWith(fontSize: 14.sp),
         ),
       ],
     );

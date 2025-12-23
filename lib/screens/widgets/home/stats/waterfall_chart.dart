@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'stats_chart_card.dart';
@@ -44,22 +45,15 @@ class WaterfallChart extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 80.w,
-                      child: Text(
-                        item.$1,
-                        style: TextStyle(fontSize: 11.sp),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: Text(item.$1, style: AppStyles.captionStyle, overflow: TextOverflow.ellipsis),
                     ),
-                    SizedBox(width: 8.w),
+                    AppStyles.spacing8,
                     Expanded(
                       child: Stack(
                         children: [
                           Container(
                             height: 20.h,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
+                            decoration: BoxDecoration(color: Theme.of(context).dividerColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
                           ),
                           FractionallySizedBox(
                             widthFactor: widthFactor,
@@ -71,12 +65,12 @@ class WaterfallChart extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(width: 8.w),
+                    AppStyles.spacing8,
                     SizedBox(
                       width: 50.w,
                       child: Text(
                         '${(item.$2 / 1024 / 1024).toStringAsFixed(1)}G',
-                        style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                        style: AppStyles.captionStyle.copyWith(fontSize: 10.sp, fontWeight: FontWeight.w500),
                         textAlign: TextAlign.end,
                       ),
                     ),

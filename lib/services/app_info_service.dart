@@ -10,6 +10,7 @@ class AppInfoService {
   Map<String, AppInfo>? _cachedApps;
   DateTime? _lastFetchTime;
   static const Duration _cacheValidity = Duration(minutes: 15);
+  Future<void>? _initFuture;
 
   Map<String, AppInfo>? get cachedAppsMap => _cachedApps;
 
@@ -18,7 +19,21 @@ class AppInfoService {
   }
 
   Future<void> _ensureCacheValid() async {
-    if (_cachedApps == null || _lastFetchTime == null || DateTime.now().difference(_lastFetchTime!) > _cacheValidity) {
+    if (_cachedApps != null && _lastFetchTime != null && DateTime.now().difference(_lastFetchTime!) <= _cacheValidity) {
+      return;
+    }
+
+    if (_initFuture != null) {
+      return _initFuture;
+    }
+
+    _initFuture = _fetchApps();
+    await _initFuture;
+    _initFuture = null;
+  }
+
+  Future<void> _fetchApps() async {
+    try {
       final token = RootIsolateToken.instance;
       if (token == null) {
         throw Exception('RootIsolateToken is null');
@@ -28,6 +43,9 @@ class AppInfoService {
 
       _cachedApps = {for (var app in appsList) app.packageName: app};
       _lastFetchTime = DateTime.now();
+    } catch (e) {
+      debugPrint('Error fetching apps: $e');
+      _cachedApps ??= {}; // Prevent infinite retry loops if failing
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -14,62 +15,51 @@ class RamExpandedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final loc = context.loc;
 
     final primaryColor = colorScheme.primary;
     final freeColor = colorScheme.primaryContainer;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w), // Consider adding to AppStyles if reused more
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // RamLegendItem(label: loc.totalRam, value: '${formatRam(ram.totalRamKb)} + ${formatRam(ram.zramTotalSwapKb)}'),
-          SizedBox(height: 12.h),
+          AppStyles.spacingH12,
           Divider(height: 1.h),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           Text(
             loc.usedBreakdown,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
+            style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
           ),
-          SizedBox(height: 10.h),
+          AppStyles.spacingH10,
           StackedRamBar(
             segments: [
               RamBarSegment(value: ram.usedPssKb, color: primaryColor, label: loc.usedPss, showLabel: true),
-              RamBarSegment(
-                value: ram.kernelKb,
-                color: primaryColor.withValues(alpha: 0.6),
-                label: loc.kernel,
-                showLabel: true,
-              ),
+              RamBarSegment(value: ram.kernelKb, color: primaryColor.withValues(alpha: 0.6), label: loc.kernel, showLabel: true),
             ],
           ),
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
           Row(
             children: [
               LegendDot(color: primaryColor),
-              Text(' ${loc.usedPss}: ${ram.usedPssKb.formatRam()}', style: TextStyle(fontSize: 11.sp)),
-              SizedBox(width: 12.w),
+              Text(' ${loc.usedPss}: ${ram.usedPssKb.formatRam()}', style: AppStyles.smallStyle),
+              AppStyles.spacing12,
               LegendDot(color: primaryColor.withValues(alpha: 0.6)),
-              Text(' ${loc.kernel}: ${ram.kernelKb.formatRam()}', style: TextStyle(fontSize: 11.sp)),
+              Text(' ${loc.kernel}: ${ram.kernelKb.formatRam()}', style: AppStyles.smallStyle),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           Text(
             loc.freeBreakdown,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
+            style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
           ),
-          SizedBox(height: 10.h),
+          AppStyles.spacingH10,
           StackedRamBar(
             segments: [
-              RamBarSegment(
-                value: ram.cachedPssKb,
-                color: freeColor,
-                label: loc.cachedPss,
-                showLabel: true,
-                labelColor: colorScheme.onPrimaryContainer,
-              ),
+              RamBarSegment(value: ram.cachedPssKb, color: freeColor, label: loc.cachedPss, showLabel: true, labelColor: colorScheme.onPrimaryContainer),
               RamBarSegment(
                 value: ram.cachedKernelKb,
                 color: freeColor.withValues(alpha: 0.7),
@@ -86,36 +76,25 @@ class RamExpandedSection extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
           Wrap(
             spacing: 12.w,
             runSpacing: 4.h,
             children: [
               LegendLabel(color: freeColor, text: '${loc.cachedPss}: ${ram.cachedPssKb.formatRam()}'),
-              LegendLabel(
-                color: freeColor.withValues(alpha: 0.7),
-                text: '${loc.cachedKernel}: ${ram.cachedKernelKb.formatRam()}',
-              ),
-              LegendLabel(
-                color: freeColor.withValues(alpha: 0.4),
-                text: '${loc.actualFree}: ${ram.actualFreeKb.formatRam()}',
-              ),
+              LegendLabel(color: freeColor.withValues(alpha: 0.7), text: '${loc.cachedKernel}: ${ram.cachedKernelKb.formatRam()}'),
+              LegendLabel(color: freeColor.withValues(alpha: 0.4), text: '${loc.actualFree}: ${ram.actualFreeKb.formatRam()}'),
             ],
           ),
-          SizedBox(height: 16.h),
+          AppStyles.spacingH16,
           Text(
             loc.other,
-            style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
+            style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
           ),
-          SizedBox(height: 10.h),
+          AppStyles.spacingH10,
           if (ram.gpuKb > 0) ...[
-            RamProgressRow(
-              label: loc.gpu,
-              value: ram.gpuKb.formatRam(),
-              progress: ram.gpuKb / ram.totalRamKb,
-              color: primaryColor,
-            ),
-            SizedBox(height: 8.h),
+            RamProgressRow(label: loc.gpu, value: ram.gpuKb.formatRam(), progress: ram.gpuKb / ram.totalRamKb, color: primaryColor),
+            AppStyles.spacingH8,
           ],
           RamProgressRow(
             label: loc.lostRam,
@@ -124,19 +103,14 @@ class RamExpandedSection extends StatelessWidget {
             color: primaryColor.withValues(alpha: 0.5),
           ),
           if (ram.zramPhysicalKb > 0) ...[
-            SizedBox(height: 12.h),
+            AppStyles.spacingH12,
             Text(
               loc.zramSection,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
+              style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
             ),
-            SizedBox(height: 8.h),
-            RamProgressRow(
-              label: loc.zramPhysical,
-              value: ram.zramPhysicalKb.formatRam(),
-              progress: ram.zramPhysicalKb / ram.totalRamKb,
-              color: primaryColor,
-            ),
-            SizedBox(height: 6.h),
+            AppStyles.spacingH8,
+            RamProgressRow(label: loc.zramPhysical, value: ram.zramPhysicalKb.formatRam(), progress: ram.zramPhysicalKb / ram.totalRamKb, color: primaryColor),
+            AppStyles.spacingH6,
             RamProgressRow(
               label: loc.zramSwapUsed,
               value: '${ram.zramSwapKb.formatRam()} / ${ram.zramTotalSwapKb.formatRam()}',
@@ -145,19 +119,19 @@ class RamExpandedSection extends StatelessWidget {
             ),
           ],
           if (ram.oomKb > 0) ...[
-            SizedBox(height: 12.h),
+            AppStyles.spacingH12,
             Text(
               loc.memoryThresholds,
-              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
+              style: AppStyles.subtitleStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSurfaceVariant),
             ),
-            SizedBox(height: 8.h),
+            AppStyles.spacingH8,
             RamProgressRow(
               label: loc.oomThreshold,
               value: ram.oomKb.formatRam(),
               progress: ram.oomKb / ram.totalRamKb,
               color: primaryColor.withValues(alpha: 0.8),
             ),
-            SizedBox(height: 6.h),
+            AppStyles.spacingH6,
             RamProgressRow(
               label: loc.restoreLimit,
               value: ram.restoreLimitKb.formatRam(),
@@ -165,7 +139,7 @@ class RamExpandedSection extends StatelessWidget {
               color: primaryColor.withValues(alpha: 0.5),
             ),
           ],
-          SizedBox(height: 8.h),
+          AppStyles.spacingH8,
         ],
       ),
     );

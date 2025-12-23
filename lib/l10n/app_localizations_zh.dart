@@ -292,10 +292,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get flags => '标志';
 
   @override
-  String get bound => 'Bound';
+  String get bound => '绑定';
 
   @override
-  String get processRecord => 'Process Record';
+  String get processRecord => '进程记录';
 
   @override
   String get visible => '可见';
@@ -854,4 +854,25 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get showCoreApps => '显示核心进程';
+
+  @override
+  String get usefulCommands => '实用命令';
+
+  @override
+  String get commands => '命令';
+
+  @override
+  String get addCommand => '添加命令';
+
+  @override
+  String get placeholders => '占位符';
+
+  @override
+  String get commandTitle => '标题';
+
+  @override
+  String get commandDescription => '描述';
+
+  @override
+  String get reExecute => '重新执行';
 }

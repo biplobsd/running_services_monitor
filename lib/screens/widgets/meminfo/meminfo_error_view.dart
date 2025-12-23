@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 
 class MemInfoErrorView extends StatelessWidget {
@@ -12,24 +13,17 @@ class MemInfoErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(24.w),
+        padding: AppStyles.padding24,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.error_outline, size: 48.sp, color: Theme.of(context).colorScheme.error),
-            SizedBox(height: 16.h),
-            Text(
-              context.loc.error,
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              message,
-              style: TextStyle(fontSize: 14.sp),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 16.h),
-            FilledButton.icon(onPressed: onRetry, icon: Icon(Icons.refresh), label: Text(context.loc.retry)),
+            AppStyles.spacingH16,
+            Text(context.loc.error, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+            AppStyles.spacingH8,
+            Text(message, style: AppStyles.bodyStyle, textAlign: TextAlign.center),
+            AppStyles.spacingH16,
+            FilledButton.icon(onPressed: onRetry, icon: AppStyles.refreshIcon, label: Text(context.loc.retry)),
           ],
         ),
       ),

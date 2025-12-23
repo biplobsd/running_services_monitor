@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/meminfo_bloc/meminfo_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
@@ -44,17 +45,15 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
       selector: (state) {
         final allApps = state.value.allApps;
         final currentApp = allApps.firstWhereOrNull((a) => a.packageName == widget.packageName);
-        final selectedApp = widget.comparisonData != null
-            ? allApps.firstWhereOrNull((a) => a.packageName == widget.comparisonData!.packageName)
-            : null;
+        final selectedApp = widget.comparisonData != null ? allApps.firstWhereOrNull((a) => a.packageName == widget.comparisonData!.packageName) : null;
         return (allApps, currentApp, selectedApp);
       },
       builder: (context, data) {
         final (allApps, currentApp, selectedApp) = data;
-        final otherAppsForCurrent = allApps
-            .where((app) => app.packageName != (widget.comparisonData?.packageName ?? ''))
-            .toList();
+        final otherAppsForCurrent = allApps.where((app) => app.packageName != (widget.comparisonData?.packageName ?? '')).toList();
         final otherAppsForCompare = allApps.where((app) => app.packageName != widget.packageName).toList();
+        final theme = Theme.of(context);
+        final colorScheme = theme.colorScheme;
 
         void showCurrentAppSelector() {
           MemInfoAppSelectSheet.show(context, otherAppsForCurrent, (packageName) {
@@ -71,7 +70,7 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
         return CustomScrollView(
           slivers: [
             SliverPadding(
-              padding: EdgeInsets.all(16.w),
+              padding: AppStyles.sectionPadding,
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   Row(
@@ -82,9 +81,9 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
                           child: MemInfoAppCard(appInfo: currentApp),
                         ),
                       ),
-                      SizedBox(width: 8.w),
-                      Icon(Icons.compare_arrows, color: Theme.of(context).colorScheme.primary),
-                      SizedBox(width: 8.w),
+                      AppStyles.spacing8,
+                      Icon(Icons.compare_arrows, color: colorScheme.primary),
+                      AppStyles.spacing8,
                       Expanded(
                         child: GestureDetector(
                           onTap: showCompareAppSelector,
@@ -93,22 +92,19 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.h),
+                  AppStyles.spacingH16,
                   FilledButton.tonalIcon(
                     onPressed: () => setState(() => showRawOutput = !showRawOutput),
                     icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18.sp),
-                    label: Text(
-                      showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput,
-                      style: TextStyle(fontSize: 12.sp),
-                    ),
+                    label: Text(showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput, style: AppStyles.subtitleStyle),
                   ),
                   if (showRawOutput) ...[
-                    SizedBox(height: 12.h),
+                    AppStyles.spacingH12,
                     Text(
                       '${context.loc.current}:',
                       style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(height: 8.h),
+                    AppStyles.spacingH8,
                     CodeOutputBox(
                       text: widget.currentData.rawOutput.isEmpty ? context.loc.noOutput : widget.currentData.rawOutput,
                       fontSize: 9.sp,
@@ -118,16 +114,14 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
                       hasBorder: true,
                     ),
                     if (widget.comparisonData != null) ...[
-                      SizedBox(height: 12.h),
+                      AppStyles.spacingH12,
                       Text(
                         '${context.loc.compareWith}:',
                         style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(height: 8.h),
+                      AppStyles.spacingH8,
                       CodeOutputBox(
-                        text: widget.comparisonData!.rawOutput.isEmpty
-                            ? context.loc.noOutput
-                            : widget.comparisonData!.rawOutput,
+                        text: widget.comparisonData!.rawOutput.isEmpty ? context.loc.noOutput : widget.comparisonData!.rawOutput,
                         fontSize: 9.sp,
                         textColor: const Color(0xFF4EC9B0),
                         backgroundColor: Colors.black,
@@ -136,7 +130,7 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
                       ),
                     ],
                   ],
-                  SizedBox(height: 24.h),
+                  AppStyles.spacingH24,
                   if (widget.isLoadingComparison)
                     Center(child: LoadingIndicator())
                   else if (widget.comparisonData != null)

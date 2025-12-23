@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -14,12 +15,7 @@ class MemInfoAppSelector extends StatefulWidget {
   final String? selectedPackage;
   final ValueChanged<String> onSelected;
 
-  const MemInfoAppSelector({
-    super.key,
-    required this.otherApps,
-    required this.selectedPackage,
-    required this.onSelected,
-  });
+  const MemInfoAppSelector({super.key, required this.otherApps, required this.selectedPackage, required this.onSelected});
 
   @override
   State<MemInfoAppSelector> createState() => _MemInfoAppSelectorState();
@@ -46,6 +42,9 @@ class _MemInfoAppSelectorState extends State<MemInfoAppSelector> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,41 +55,36 @@ class _MemInfoAppSelectorState extends State<MemInfoAppSelector> {
                 segments: [
                   ButtonSegment(
                     value: AppFilterType.all,
-                    label: Text(context.loc.allApps, style: TextStyle(fontSize: 11.sp)),
+                    label: Text(context.loc.allApps, style: AppStyles.smallStyle),
                   ),
                   ButtonSegment(
                     value: AppFilterType.user,
-                    label: Text(context.loc.userApps, style: TextStyle(fontSize: 11.sp)),
+                    label: Text(context.loc.userApps, style: AppStyles.smallStyle),
                   ),
                   ButtonSegment(
                     value: AppFilterType.system,
-                    label: Text(context.loc.systemApps, style: TextStyle(fontSize: 11.sp)),
+                    label: Text(context.loc.systemApps, style: AppStyles.smallStyle),
                   ),
                 ],
                 selected: {filterType},
                 onSelectionChanged: (set) => setState(() => filterType = set.first),
-                style: ButtonStyle(
-                  visualDensity: VisualDensity.compact,
-                  padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8.w)),
-                ),
+                style: ButtonStyle(visualDensity: VisualDensity.compact, padding: WidgetStatePropertyAll(AppStyles.paddingH8)),
               ),
             ),
           ],
         ),
-        SizedBox(height: 12.h),
+        AppStyles.spacingH12,
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          padding: AppStyles.paddingH12,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12.rSafe),
-            border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3)),
+            border: Border.all(color: colorScheme.outline.withValues(alpha: 0.3)),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               isExpanded: true,
-              value: filteredApps.any((app) => app.packageName == widget.selectedPackage)
-                  ? widget.selectedPackage
-                  : null,
+              value: filteredApps.any((app) => app.packageName == widget.selectedPackage) ? widget.selectedPackage : null,
               hint: Text('${context.loc.selectApp} (${filteredApps.length})'),
               items: filteredApps.map((app) {
                 return DropdownMenuItem(

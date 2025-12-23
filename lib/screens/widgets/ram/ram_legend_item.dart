@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class RamLegendItem extends StatelessWidget {
@@ -21,11 +22,14 @@ class RamLegendItem extends StatelessWidget {
               decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4.rSafe)),
             ),
           ),
-          SizedBox(width: 12.w),
+          AppStyles.spacing12,
         ],
-        Text(label, style: TextStyle(fontSize: 14.sp)),
+        Text(
+          label,
+          style: const TextStyle().copyWith(fontSize: 14.sp),
+        ), // or use a predefined style and override fontSize if needed, 14.sp is close to bodyStyle (14.sp)
         const Spacer(),
-        Text(value, style: TextStyle(fontSize: 14.sp)),
+        Text(value, style: const TextStyle().copyWith(fontSize: 14.sp)),
       ],
     );
   }
