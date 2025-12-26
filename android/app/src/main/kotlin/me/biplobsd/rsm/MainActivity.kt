@@ -89,7 +89,9 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     override fun onDestroy() {
         super.onDestroy()
         Shizuku.removeRequestPermissionResultListener(this)
-        unbindShellService()
+        CoroutineScope(Dispatchers.IO).launch {
+            unbindShellService()
+        }
     }
 
     override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {

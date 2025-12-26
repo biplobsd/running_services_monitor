@@ -51,6 +51,9 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
+    <!-- Shizuku API permission -->
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+
     <!-- Internet permission for potential future features -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
     <!-- Required to query activities that can process text, see:
