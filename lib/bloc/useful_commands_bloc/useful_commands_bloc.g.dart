@@ -8,13 +8,21 @@ part of 'useful_commands_bloc.dart';
 
 _UsefulCommandsState _$UsefulCommandsStateFromJson(Map<String, dynamic> json) =>
     _UsefulCommandsState(
-      commands:
-          (json['commands'] as List<dynamic>?)
+      userCommands:
+          (json['userCommands'] as List<dynamic>?)
               ?.map((e) => UsefulCommand.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      hiddenDefaultCommandIds:
+          (json['hiddenDefaultCommandIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toSet() ??
+          const <String>{},
     );
 
 Map<String, dynamic> _$UsefulCommandsStateToJson(
   _UsefulCommandsState instance,
-) => <String, dynamic>{'commands': instance.commands};
+) => <String, dynamic>{
+  'userCommands': instance.userCommands,
+  'hiddenDefaultCommandIds': instance.hiddenDefaultCommandIds.toList(),
+};

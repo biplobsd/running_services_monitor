@@ -1845,6 +1845,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Average RAM usage per process state'**
   String get statsProcessStateRamSubtitle;
+
+  /// No description provided for @myCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'My Commands'**
+  String get myCommands;
+
+  /// No description provided for @defaultCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Commands'**
+  String get defaultCommands;
+
+  /// No description provided for @resetDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Defaults'**
+  String get resetDefaults;
 }
 
 class _AppLocalizationsDelegate

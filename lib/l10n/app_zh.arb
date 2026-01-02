@@ -291,5 +291,8 @@
   "statsServicesVsProcesses": "服务 vs 进程",
   "statsServicesVsProcessesSubtitle": "X: 进程数, Y: 服务数",
   "statsProcessStateRam": "进程状态 vs RAM",
-  "statsProcessStateRamSubtitle": "按状态分组的平均 RAM 使用量"
+  "statsProcessStateRamSubtitle": "按状态分组的平均 RAM 使用量",
+  "myCommands": "我的命令",
+  "defaultCommands": "默认命令",
+  "resetDefaults": "重置默认"
 }

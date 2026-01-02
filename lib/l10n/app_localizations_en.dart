@@ -960,4 +960,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get statsProcessStateRamSubtitle =>
       'Average RAM usage per process state';
+
+  @override
+  String get myCommands => 'My Commands';
+
+  @override
+  String get defaultCommands => 'Default Commands';
+
+  @override
+  String get resetDefaults => 'Reset Defaults';
 }

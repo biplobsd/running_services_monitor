@@ -968,4 +968,13 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get statsProcessStateRamSubtitle =>
       'স্টেট অনুযায়ী গড় র‍্যাম ব্যবহার';
+
+  @override
+  String get myCommands => 'আমার কমান্ড';
+
+  @override
+  String get defaultCommands => 'ডিফল্ট কমান্ড';
+
+  @override
+  String get resetDefaults => 'ডিফল্ট রিসেট করুন';
 }

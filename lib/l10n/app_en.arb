@@ -368,5 +368,8 @@
   "statsServicesVsProcesses": "Services vs Processes",
   "statsServicesVsProcessesSubtitle": "Correlation between Service and Process counts",
   "statsProcessStateRam": "RAM by Process State",
-  "statsProcessStateRamSubtitle": "Average RAM usage per process state"
+  "statsProcessStateRamSubtitle": "Average RAM usage per process state",
+  "myCommands": "My Commands",
+  "defaultCommands": "Default Commands",
+  "resetDefaults": "Reset Defaults"
 }

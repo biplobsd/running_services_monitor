@@ -905,4 +905,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get statsProcessStateRamSubtitle => '按状态分组的平均 RAM 使用量';
+
+  @override
+  String get myCommands => '我的命令';
+
+  @override
+  String get defaultCommands => '默认命令';
+
+  @override
+  String get resetDefaults => '重置默认';
 }

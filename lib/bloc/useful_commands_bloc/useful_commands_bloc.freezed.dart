@@ -55,13 +55,15 @@ extension UsefulCommandsEventPatterns on UsefulCommandsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _AddCommand value)?  addCommand,TResult Function( _RemoveCommand value)?  removeCommand,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _AddCommand value)?  addCommand,TResult Function( _RemoveCommand value)?  removeCommand,TResult Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult Function( _ResetDefaults value)?  resetDefaults,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _AddCommand() when addCommand != null:
 return addCommand(_that);case _RemoveCommand() when removeCommand != null:
-return removeCommand(_that);case _:
+return removeCommand(_that);case _HideDefaultCommand() when hideDefaultCommand != null:
+return hideDefaultCommand(_that);case _ResetDefaults() when resetDefaults != null:
+return resetDefaults(_that);case _:
   return orElse();
 
 }
@@ -79,13 +81,15 @@ return removeCommand(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _AddCommand value)  addCommand,required TResult Function( _RemoveCommand value)  removeCommand,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _AddCommand value)  addCommand,required TResult Function( _RemoveCommand value)  removeCommand,required TResult Function( _HideDefaultCommand value)  hideDefaultCommand,required TResult Function( _ResetDefaults value)  resetDefaults,}){
 final _that = this;
 switch (_that) {
 case _Started():
 return started(_that);case _AddCommand():
 return addCommand(_that);case _RemoveCommand():
-return removeCommand(_that);}
+return removeCommand(_that);case _HideDefaultCommand():
+return hideDefaultCommand(_that);case _ResetDefaults():
+return resetDefaults(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -99,13 +103,15 @@ return removeCommand(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _AddCommand value)?  addCommand,TResult? Function( _RemoveCommand value)?  removeCommand,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _AddCommand value)?  addCommand,TResult? Function( _RemoveCommand value)?  removeCommand,TResult? Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult? Function( _ResetDefaults value)?  resetDefaults,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _AddCommand() when addCommand != null:
 return addCommand(_that);case _RemoveCommand() when removeCommand != null:
-return removeCommand(_that);case _:
+return removeCommand(_that);case _HideDefaultCommand() when hideDefaultCommand != null:
+return hideDefaultCommand(_that);case _ResetDefaults() when resetDefaults != null:
+return resetDefaults(_that);case _:
   return null;
 
 }
@@ -122,12 +128,14 @@ return removeCommand(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String title,  String description,  String command)?  addCommand,TResult Function( String id)?  removeCommand,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String title,  String description,  String command)?  addCommand,TResult Function( String id)?  removeCommand,TResult Function( String id)?  hideDefaultCommand,TResult Function()?  resetDefaults,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _AddCommand() when addCommand != null:
 return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
-return removeCommand(_that.id);case _:
+return removeCommand(_that.id);case _HideDefaultCommand() when hideDefaultCommand != null:
+return hideDefaultCommand(_that.id);case _ResetDefaults() when resetDefaults != null:
+return resetDefaults();case _:
   return orElse();
 
 }
@@ -145,12 +153,14 @@ return removeCommand(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String title,  String description,  String command)  addCommand,required TResult Function( String id)  removeCommand,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String title,  String description,  String command)  addCommand,required TResult Function( String id)  removeCommand,required TResult Function( String id)  hideDefaultCommand,required TResult Function()  resetDefaults,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _AddCommand():
 return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand():
-return removeCommand(_that.id);}
+return removeCommand(_that.id);case _HideDefaultCommand():
+return hideDefaultCommand(_that.id);case _ResetDefaults():
+return resetDefaults();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +174,14 @@ return removeCommand(_that.id);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String title,  String description,  String command)?  addCommand,TResult? Function( String id)?  removeCommand,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String title,  String description,  String command)?  addCommand,TResult? Function( String id)?  removeCommand,TResult? Function( String id)?  hideDefaultCommand,TResult? Function()?  resetDefaults,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _AddCommand() when addCommand != null:
 return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
-return removeCommand(_that.id);case _:
+return removeCommand(_that.id);case _HideDefaultCommand() when hideDefaultCommand != null:
+return hideDefaultCommand(_that.id);case _ResetDefaults() when resetDefaults != null:
+return resetDefaults();case _:
   return null;
 
 }
@@ -345,11 +357,109 @@ as String,
 
 }
 
+/// @nodoc
+
+
+class _HideDefaultCommand implements UsefulCommandsEvent {
+  const _HideDefaultCommand(this.id);
+  
+
+ final  String id;
+
+/// Create a copy of UsefulCommandsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HideDefaultCommandCopyWith<_HideDefaultCommand> get copyWith => __$HideDefaultCommandCopyWithImpl<_HideDefaultCommand>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HideDefaultCommand&&(identical(other.id, id) || other.id == id));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id);
+
+@override
+String toString() {
+  return 'UsefulCommandsEvent.hideDefaultCommand(id: $id)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HideDefaultCommandCopyWith<$Res> implements $UsefulCommandsEventCopyWith<$Res> {
+  factory _$HideDefaultCommandCopyWith(_HideDefaultCommand value, $Res Function(_HideDefaultCommand) _then) = __$HideDefaultCommandCopyWithImpl;
+@useResult
+$Res call({
+ String id
+});
+
+
+
+
+}
+/// @nodoc
+class __$HideDefaultCommandCopyWithImpl<$Res>
+    implements _$HideDefaultCommandCopyWith<$Res> {
+  __$HideDefaultCommandCopyWithImpl(this._self, this._then);
+
+  final _HideDefaultCommand _self;
+  final $Res Function(_HideDefaultCommand) _then;
+
+/// Create a copy of UsefulCommandsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+  return _then(_HideDefaultCommand(
+null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _ResetDefaults implements UsefulCommandsEvent {
+  const _ResetDefaults();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResetDefaults);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'UsefulCommandsEvent.resetDefaults()';
+}
+
+
+}
+
+
+
+
 
 /// @nodoc
 mixin _$UsefulCommandsState {
 
- List<UsefulCommand> get commands;
+ List<UsefulCommand> get userCommands; Set<String> get hiddenDefaultCommandIds;
 /// Create a copy of UsefulCommandsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -362,16 +472,16 @@ $UsefulCommandsStateCopyWith<UsefulCommandsState> get copyWith => _$UsefulComman
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsefulCommandsState&&const DeepCollectionEquality().equals(other.commands, commands));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsefulCommandsState&&const DeepCollectionEquality().equals(other.userCommands, userCommands)&&const DeepCollectionEquality().equals(other.hiddenDefaultCommandIds, hiddenDefaultCommandIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(commands));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(userCommands),const DeepCollectionEquality().hash(hiddenDefaultCommandIds));
 
 @override
 String toString() {
-  return 'UsefulCommandsState(commands: $commands)';
+  return 'UsefulCommandsState(userCommands: $userCommands, hiddenDefaultCommandIds: $hiddenDefaultCommandIds)';
 }
 
 
@@ -382,7 +492,7 @@ abstract mixin class $UsefulCommandsStateCopyWith<$Res>  {
   factory $UsefulCommandsStateCopyWith(UsefulCommandsState value, $Res Function(UsefulCommandsState) _then) = _$UsefulCommandsStateCopyWithImpl;
 @useResult
 $Res call({
- List<UsefulCommand> commands
+ List<UsefulCommand> userCommands, Set<String> hiddenDefaultCommandIds
 });
 
 
@@ -399,10 +509,11 @@ class _$UsefulCommandsStateCopyWithImpl<$Res>
 
 /// Create a copy of UsefulCommandsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? commands = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? userCommands = null,Object? hiddenDefaultCommandIds = null,}) {
   return _then(_self.copyWith(
-commands: null == commands ? _self.commands : commands // ignore: cast_nullable_to_non_nullable
-as List<UsefulCommand>,
+userCommands: null == userCommands ? _self.userCommands : userCommands // ignore: cast_nullable_to_non_nullable
+as List<UsefulCommand>,hiddenDefaultCommandIds: null == hiddenDefaultCommandIds ? _self.hiddenDefaultCommandIds : hiddenDefaultCommandIds // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 
@@ -484,10 +595,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UsefulCommand> commands)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<UsefulCommand> userCommands,  Set<String> hiddenDefaultCommandIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UsefulCommandsState() when $default != null:
-return $default(_that.commands);case _:
+return $default(_that.userCommands,_that.hiddenDefaultCommandIds);case _:
   return orElse();
 
 }
@@ -505,10 +616,10 @@ return $default(_that.commands);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UsefulCommand> commands)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<UsefulCommand> userCommands,  Set<String> hiddenDefaultCommandIds)  $default,) {final _that = this;
 switch (_that) {
 case _UsefulCommandsState():
-return $default(_that.commands);}
+return $default(_that.userCommands,_that.hiddenDefaultCommandIds);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -522,10 +633,10 @@ return $default(_that.commands);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UsefulCommand> commands)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<UsefulCommand> userCommands,  Set<String> hiddenDefaultCommandIds)?  $default,) {final _that = this;
 switch (_that) {
 case _UsefulCommandsState() when $default != null:
-return $default(_that.commands);case _:
+return $default(_that.userCommands,_that.hiddenDefaultCommandIds);case _:
   return null;
 
 }
@@ -536,15 +647,22 @@ return $default(_that.commands);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _UsefulCommandsState implements UsefulCommandsState {
-  const _UsefulCommandsState({final  List<UsefulCommand> commands = const []}): _commands = commands;
+class _UsefulCommandsState extends UsefulCommandsState {
+  const _UsefulCommandsState({final  List<UsefulCommand> userCommands = const [], final  Set<String> hiddenDefaultCommandIds = const <String>{}}): _userCommands = userCommands,_hiddenDefaultCommandIds = hiddenDefaultCommandIds,super._();
   factory _UsefulCommandsState.fromJson(Map<String, dynamic> json) => _$UsefulCommandsStateFromJson(json);
 
- final  List<UsefulCommand> _commands;
-@override@JsonKey() List<UsefulCommand> get commands {
-  if (_commands is EqualUnmodifiableListView) return _commands;
+ final  List<UsefulCommand> _userCommands;
+@override@JsonKey() List<UsefulCommand> get userCommands {
+  if (_userCommands is EqualUnmodifiableListView) return _userCommands;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_commands);
+  return EqualUnmodifiableListView(_userCommands);
+}
+
+ final  Set<String> _hiddenDefaultCommandIds;
+@override@JsonKey() Set<String> get hiddenDefaultCommandIds {
+  if (_hiddenDefaultCommandIds is EqualUnmodifiableSetView) return _hiddenDefaultCommandIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_hiddenDefaultCommandIds);
 }
 
 
@@ -561,16 +679,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsefulCommandsState&&const DeepCollectionEquality().equals(other._commands, _commands));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsefulCommandsState&&const DeepCollectionEquality().equals(other._userCommands, _userCommands)&&const DeepCollectionEquality().equals(other._hiddenDefaultCommandIds, _hiddenDefaultCommandIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_commands));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_userCommands),const DeepCollectionEquality().hash(_hiddenDefaultCommandIds));
 
 @override
 String toString() {
-  return 'UsefulCommandsState(commands: $commands)';
+  return 'UsefulCommandsState(userCommands: $userCommands, hiddenDefaultCommandIds: $hiddenDefaultCommandIds)';
 }
 
 
@@ -581,7 +699,7 @@ abstract mixin class _$UsefulCommandsStateCopyWith<$Res> implements $UsefulComma
   factory _$UsefulCommandsStateCopyWith(_UsefulCommandsState value, $Res Function(_UsefulCommandsState) _then) = __$UsefulCommandsStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<UsefulCommand> commands
+ List<UsefulCommand> userCommands, Set<String> hiddenDefaultCommandIds
 });
 
 
@@ -598,10 +716,11 @@ class __$UsefulCommandsStateCopyWithImpl<$Res>
 
 /// Create a copy of UsefulCommandsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? commands = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? userCommands = null,Object? hiddenDefaultCommandIds = null,}) {
   return _then(_UsefulCommandsState(
-commands: null == commands ? _self._commands : commands // ignore: cast_nullable_to_non_nullable
-as List<UsefulCommand>,
+userCommands: null == userCommands ? _self._userCommands : userCommands // ignore: cast_nullable_to_non_nullable
+as List<UsefulCommand>,hiddenDefaultCommandIds: null == hiddenDefaultCommandIds ? _self._hiddenDefaultCommandIds : hiddenDefaultCommandIds // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 

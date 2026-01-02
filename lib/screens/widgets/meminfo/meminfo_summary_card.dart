@@ -67,63 +67,10 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
             ],
           ),
           if (widget.summary.totalSwapPss > 0) _buildTotalCard(context, 'Swap PSS', widget.summary.totalSwapPss, Colors.orange, Icons.swap_horiz),
-          _buildToggleButton(context),
           Wrap(
             spacing: 8.w,
             runSpacing: 8.h,
             children: items.where((item) => item.pss > 0 || item.rss > 0).map((item) => _buildSummaryChip(context, item)).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildToggleButton(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHigh, borderRadius: BorderRadius.circular(8.rSafe)),
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => showPss = true),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: showPss ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                  borderRadius: BorderRadius.circular(8.rSafe),
-                ),
-                child: Text(
-                  'PSS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                    color: showPss ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() => showPss = false),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: !showPss ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                  borderRadius: BorderRadius.circular(8.rSafe),
-                ),
-                child: Text(
-                  'RSS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                    color: !showPss ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-              ),
-            ),
           ),
         ],
       ),

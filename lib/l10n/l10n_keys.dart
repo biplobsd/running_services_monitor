@@ -56,6 +56,7 @@ abstract class L10nKeys {
   static const createdFromFg = 'createdFromFg';
   static const current = 'current';
   static const dataDir = 'dataDir';
+  static const defaultCommands = 'defaultCommands';
   static const developer = 'developer';
   static const deviceMemory = 'deviceMemory';
   static const donate = 'donate';
@@ -94,6 +95,7 @@ abstract class L10nKeys {
   static const memoryInfo = 'memoryInfo';
   static const memoryThresholds = 'memoryThresholds';
   static const modeNotAvailable = 'modeNotAvailable';
+  static const myCommands = 'myCommands';
   static const nativeHeap = 'nativeHeap';
   static const no = 'no';
   static const noAppsFound = 'noAppsFound';
@@ -161,6 +163,7 @@ abstract class L10nKeys {
   static const recentCallingUid = 'recentCallingUid';
   static const refresh = 'refresh';
   static const refreshedSuccessfully = 'refreshedSuccessfully';
+  static const resetDefaults = 'resetDefaults';
   static const restoreLimit = 'restoreLimit';
   static const retry = 'retry';
   static const rootMode = 'rootMode';
@@ -342,6 +345,7 @@ extension L10nResolver on AppLocalizations {
       'createdFromFg' => createdFromFg,
       'current' => current,
       'dataDir' => dataDir,
+      'defaultCommands' => defaultCommands,
       'developer' => developer,
       'deviceMemory' => deviceMemory,
       'donate' => donate,
@@ -380,6 +384,7 @@ extension L10nResolver on AppLocalizations {
       'memoryInfo' => memoryInfo,
       'memoryThresholds' => memoryThresholds,
       'modeNotAvailable' => modeNotAvailable,
+      'myCommands' => myCommands,
       'nativeHeap' => nativeHeap,
       'no' => no,
       'noAppsFound' => noAppsFound,
@@ -447,6 +452,7 @@ extension L10nResolver on AppLocalizations {
       'recentCallingUid' => recentCallingUid,
       'refresh' => refresh,
       'refreshedSuccessfully' => refreshedSuccessfully,
+      'resetDefaults' => resetDefaults,
       'restoreLimit' => restoreLimit,
       'retry' => retry,
       'rootMode' => rootMode,

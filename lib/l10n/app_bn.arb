@@ -291,5 +291,8 @@
   "statsServicesVsProcesses": "সার্ভিস বনাম প্রসেস",
   "statsServicesVsProcessesSubtitle": "X: প্রসেস সংখ্যা, Y: সার্ভিস সংখ্যা",
   "statsProcessStateRam": "প্রসেস স্টেট বনাম র‍্যাম",
-  "statsProcessStateRamSubtitle": "স্টেট অনুযায়ী গড় র‍্যাম ব্যবহার"
+  "statsProcessStateRamSubtitle": "স্টেট অনুযায়ী গড় র‍্যাম ব্যবহার",
+  "myCommands": "আমার কমান্ড",
+  "defaultCommands": "ডিফল্ট কমান্ড",
+  "resetDefaults": "ডিফল্ট রিসেট করুন"
 }

@@ -79,6 +79,14 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
     setState(() => showAddForm = false);
   }
 
+  void _deleteCommand(UsefulCommand command) {
+    if (command.isCustom) {
+      getIt<UsefulCommandsBloc>().add(UsefulCommandsEvent.removeCommand(command.id));
+    } else {
+      getIt<UsefulCommandsBloc>().add(UsefulCommandsEvent.hideDefaultCommand(command.id));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
@@ -100,10 +108,12 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
           error: (_) => setState(() => loadingCommandId = null),
         );
       },
-      child: BlocSelector<UsefulCommandsBloc, UsefulCommandsState, List<UsefulCommand>>(
+      child: BlocBuilder<UsefulCommandsBloc, UsefulCommandsState>(
         bloc: getIt<UsefulCommandsBloc>(),
-        selector: (state) => state.commands,
-        builder: (context, commands) {
+        builder: (context, state) {
+          final userCommands = state.userCommands;
+          final defaultCommands = UsefulCommandsBloc.defaultCommands.where((c) => !state.hiddenDefaultCommandIds.contains(c.id)).toList();
+
           return DraggableScrollableSheet(
             initialChildSize: 0.7,
             minChildSize: 0.3,
@@ -132,6 +142,12 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              if (state.hasHiddenDefaults)
+                                IconButton(
+                                  icon: Icon(Icons.restore, size: 24.sp),
+                                  tooltip: loc.resetDefaults,
+                                  onPressed: () => getIt<UsefulCommandsBloc>().add(const UsefulCommandsEvent.resetDefaults()),
+                                ),
                               IconButton(
                                 icon: Icon(showAddForm ? Icons.close : Icons.add, size: 24.sp),
                                 onPressed: () => setState(() => showAddForm = !showAddForm),
@@ -152,7 +168,15 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
                         padding: EdgeInsets.all(16.w),
                         children: [
                           if (showAddForm) ...[_buildAddCommandForm(context), AppStyles.spacingH16],
-                          ...commands.map((cmd) => _buildCommandTile(context, cmd)),
+                          if (userCommands.isNotEmpty) ...[
+                            _buildSectionHeader(context, loc.myCommands),
+                            ...userCommands.map((cmd) => _buildCommandTile(context, cmd)),
+                            AppStyles.spacingH16,
+                          ],
+                          if (defaultCommands.isNotEmpty) ...[
+                            _buildSectionHeader(context, loc.defaultCommands),
+                            ...defaultCommands.map((cmd) => _buildCommandTile(context, cmd)),
+                          ],
                         ],
                       ),
                     ),
@@ -162,6 +186,17 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(BuildContext context, String title) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: Text(
+        title,
+        style: AppStyles.captionStyle.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -296,13 +331,12 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (command.isCustom)
-              IconButton(
-                icon: Icon(Icons.delete_outline, size: 20.sp, color: colorScheme.error),
-                onPressed: () => getIt<UsefulCommandsBloc>().add(UsefulCommandsEvent.removeCommand(command.id)),
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
-              ),
+            IconButton(
+              icon: Icon(command.isCustom ? Icons.delete_outline : Icons.visibility_off_outlined, size: 20.sp, color: colorScheme.error),
+              onPressed: () => _deleteCommand(command),
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
+            ),
             IconButton(
               icon: isLoading
                   ? SizedBox(width: 20.sp, height: 20.sp, child: const CircularProgressIndicator(strokeWidth: 2))
