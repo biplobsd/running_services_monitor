@@ -10,6 +10,7 @@ import 'package:running_services_monitor/core/utils/android_settings_helper.dart
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/home_ui_bloc/home_ui_bloc.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'widgets/settings/shizuku_permission_dialog.dart';
 import 'widgets/home/home_body.dart';
 import 'widgets/settings/language_selector.dart';
@@ -217,6 +218,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   },
                   orElse: () {},
                 );
+              },
+            ),
+            BlocListener<HomeBloc, HomeState>(
+              listenWhen: (previous, current) => !previous.value.shizukuReady && current.value.shizukuReady,
+              listener: (context, state) {
+                getIt<AppInfoBloc>().add(const AppInfoEvent.loadAllApps());
               },
             ),
           ],

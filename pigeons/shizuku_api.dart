@@ -20,6 +20,19 @@ class CommandResult {
   String? error;
 }
 
+class AppInfoData {
+  AppInfoData({required this.packageName, required this.appName, this.icon, required this.isSystemApp});
+  String packageName;
+  String appName;
+  Uint8List? icon;
+  bool isSystemApp;
+}
+
+class InstalledAppsResult {
+  InstalledAppsResult({required this.apps});
+  List<AppInfoData> apps;
+}
+
 @HostApi()
 abstract class ShizukuHostApi {
   @async
@@ -39,9 +52,15 @@ abstract class ShizukuHostApi {
   bool requestPermission();
 
   void setStreamCommand(String command, String? mode);
+
+  void startAppInfoStream();
+
+  @async
+  AppInfoData? getAppInfo(String packageName);
 }
 
 @EventChannelApi()
 abstract class ShizukuStreamApi {
   String streamOutput();
+  AppInfoData appInfoOutput();
 }
