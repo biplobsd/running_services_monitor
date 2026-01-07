@@ -88,48 +88,78 @@ class ShellService : IShellService.Stub {
         return readFd
     }
 
+    fun getInstalledPackagesMethod(pm: Any): java.lang.reflect.Method {
+        return try {
+            pm.javaClass.getMethod(
+                    "getInstalledPackages",
+                    Long::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+            )
+        } catch (e: NoSuchMethodException) {
+            pm.javaClass.getMethod(
+                    "getInstalledPackages",
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+            )
+        }
+    }
+
+    fun getPackageInfoMethod(pm: Any): java.lang.reflect.Method {
+        return try {
+            pm.javaClass.getMethod(
+                    "getPackageInfo",
+                    String::class.java,
+                    Long::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+            )
+        } catch (e: NoSuchMethodException) {
+            pm.javaClass.getMethod(
+                    "getPackageInfo",
+                    String::class.java,
+                    Int::class.javaPrimitiveType,
+                    Int::class.javaPrimitiveType
+            )
+        }
+    }
+
     override fun getInstalledApps(): List<AppInfoResult> {
         ensureInitialized()
         val pm = packageManager ?: throw Exception("PackageManager not available")
-        val getInstalledPackagesMethod =
-                pm.javaClass.getMethod(
-                        "getInstalledPackages",
-                        Long::class.javaPrimitiveType,
-                        Int::class.javaPrimitiveType
-                )
+        
+        return try {
+            val method = getInstalledPackagesMethod(pm)
+            val flags = if (method.parameterTypes[0] == Long::class.javaPrimitiveType) 0L else 0
+            val parceledListSlice = method.invoke(pm, flags, 0) ?: return emptyList()
+            
+            val getListMethod = parceledListSlice.javaClass.getMethod("getList")
+            @Suppress("UNCHECKED_CAST")
+            val packages = getListMethod.invoke(parceledListSlice) as? List<PackageInfo> ?: return emptyList()
 
-        val parceledListSlice = getInstalledPackagesMethod.invoke(pm, 0L, 0)
-        val getListMethod = parceledListSlice!!.javaClass.getMethod("getList")
-        @Suppress("UNCHECKED_CAST")
-        val packages = getListMethod.invoke(parceledListSlice) as List<PackageInfo>
-
-        return packages.mapNotNull { packageInfo ->
-            try {
-                val appInfo = packageInfo.applicationInfo ?: return@mapNotNull null
-                val isSystemApp = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-                val label = AppUtils.getAppLabel(context, appInfo, packageInfo.packageName)
-                AppInfoResult(packageInfo.packageName, label, null, isSystemApp)
-            } catch (e: Exception) {
-                null
+            packages.mapNotNull { packageInfo ->
+                try {
+                    val appInfo = packageInfo.applicationInfo ?: return@mapNotNull null
+                    val isSystemApp = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+                    val label = AppUtils.getAppLabel(context, appInfo, packageInfo.packageName)
+                    AppInfoResult(packageInfo.packageName, label, null, isSystemApp)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
         }
     }
 
     override fun getAppInfo(packageName: String): AppInfoResult? {
         ensureInitialized()
         val pm = packageManager ?: return null
+        
         return try {
-            val getPackageInfoMethod =
-                    pm.javaClass.getMethod(
-                            "getPackageInfo",
-                            String::class.java,
-                            Long::class.javaPrimitiveType,
-                            Int::class.javaPrimitiveType
-                    )
-
-            val packageInfo =
-                    getPackageInfoMethod.invoke(pm, packageName, 0L, 0) as? PackageInfo
-                            ?: return null
+            val method = getPackageInfoMethod(pm)
+            val flags = if (method.parameterTypes[1] == Long::class.javaPrimitiveType) 0L else 0
+            val packageInfo = method.invoke(pm, packageName, flags, 0) as? PackageInfo ?: return null
 
             val appInfo = packageInfo.applicationInfo ?: return null
             val isSystemApp = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
