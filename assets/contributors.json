@@ -2,8 +2,12 @@
   {
     "login": "biplobsd",
     "name": "Biplob Sutradhar",
-    "contributions": 154,
+    "contributions": 157,
     "pullRequests": [
+      {
+        "number": 13,
+        "title": "Getting PackageManager info from the shell user "
+      },
       {
         "number": 3,
         "title": "feat: Add adaptive launcher icons monochrome"
