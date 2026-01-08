@@ -29,6 +29,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     var isRootAvailable: Boolean? = null
     var pendingStreamCommand: String? = null
     var pendingStreamMode: String? = null
+    var pendingAppInfoStream: Boolean = false
 
     var shellService: IShellService? = null
     var boundConnection: ServiceConnection? = null
@@ -76,6 +77,41 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 }
             }
 
+    val appInfoStreamHandler =
+            object : AppInfoOutputStreamHandler() {
+                var eventSink: PigeonEventSink<AppInfoData>? = null
+
+                override fun onListen(p0: Any?, sink: PigeonEventSink<AppInfoData>) {
+                    eventSink = sink
+                    if (!pendingAppInfoStream) {
+                        sink.error(
+                                "NO_STREAM_REQUESTED",
+                                "No app info stream requested. Call startAppInfoStream first.",
+                                null
+                        )
+                        sink.endOfStream()
+                        return
+                    }
+                    pendingAppInfoStream = false
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            streamAppInfo(sink)
+                            withContext(Dispatchers.Main) { sink.endOfStream() }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                sink.error("EXECUTION_ERROR", e.message, null)
+                                sink.endOfStream()
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancel(p0: Any?) {
+                    eventSink = null
+                }
+            }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Shizuku.addRequestPermissionResultListener(this)
@@ -84,14 +120,16 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 flutterEngine.dartExecutor.binaryMessenger,
                 streamHandler
         )
+        AppInfoOutputStreamHandler.register(
+                flutterEngine.dartExecutor.binaryMessenger,
+                appInfoStreamHandler
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Shizuku.removeRequestPermissionResultListener(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            unbindShellService()
-        }
+        CoroutineScope(Dispatchers.IO).launch { unbindShellService() }
     }
 
     override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
@@ -108,7 +146,14 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 val mode = request.mode ?: "auto"
                 val result = executeCommand(request.command, mode)
                 withContext(Dispatchers.Main) {
-                    callback(Result.success(CommandResult(exitCode = result.exitCode.toLong(), output = result.output)))
+                    callback(
+                            Result.success(
+                                    CommandResult(
+                                            exitCode = result.exitCode.toLong(),
+                                            output = result.output
+                                    )
+                            )
+                    )
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -118,7 +163,6 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             }
         }
     }
-
 
     override fun pingBinder(): Boolean =
             try {
@@ -156,7 +200,12 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
                 callback(Result.success(true))
             } else {
-                pendingPermissionCallback = callback
+                pendingPermissionCallback = { result ->
+                    if (result.getOrNull() == true) {
+                        unbindShellService()
+                    }
+                    callback(result)
+                }
                 Shizuku.requestPermission(shizukuPermissionRequestCode)
             }
         } catch (e: Exception) {
@@ -167,6 +216,89 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     override fun setStreamCommand(command: String, mode: String?) {
         pendingStreamCommand = command
         pendingStreamMode = mode
+    }
+
+    override fun startAppInfoStream() {
+        pendingAppInfoStream = true
+    }
+
+    fun streamAppInfo(sink: PigeonEventSink<AppInfoData>) {
+        try {
+            val pm = packageManager
+            val apps: List<Pair<String, Boolean>>
+
+            if (bindShellService()) {
+                val shellApps = shellService?.getInstalledApps() ?: emptyList()
+                apps = shellApps.map { Pair(it.packageName, it.isSystemApp) }
+            } else {
+                val installedPackages = pm.getInstalledPackages(0)
+                apps =
+                        installedPackages.map { pkg ->
+                            val isSystemApp =
+                                    (pkg.applicationInfo?.flags
+                                            ?: 0) and
+                                            android.content.pm.ApplicationInfo.FLAG_SYSTEM != 0
+                            Pair(pkg.packageName, isSystemApp)
+                        }
+            }
+
+            if (apps.isEmpty()) {
+                mainHandler.post { sink.error("NO_APPS", "No apps returned", null) }
+                return
+            }
+
+            for ((packageName, isSystemApp) in apps) {
+                try {
+                    var appName = packageName.substringAfterLast(".")
+                    var icon: ByteArray? = null
+                    try {
+                        val appInfo = pm.getApplicationInfo(packageName, 0)
+                        appName = AppUtils.getAppLabel(this, appInfo, packageName)
+                        icon = AppUtils.getAppIconBytes(pm, appInfo)
+                    } catch (e: Exception) {}
+                    val appInfoData = AppInfoData(packageName, appName, icon, isSystemApp)
+                    mainHandler.post { sink.success(appInfoData) }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            mainHandler.post { sink.error("STREAM_ERROR", e.message, null) }
+        }
+    }
+
+    override fun getAppInfo(packageName: String, callback: (Result<AppInfoData?>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val pm = packageManager
+                var appName = packageName.substringAfterLast(".")
+                var icon: ByteArray? = null
+                var isSystemApp = false
+
+                if (bindShellService()) {
+                    val app = shellService?.getAppInfo(packageName)
+                    if (app != null) {
+                        appName = app.appName
+                        isSystemApp = app.isSystemApp
+                    }
+                }
+
+                try {
+                    val appInfo = pm.getApplicationInfo(packageName, 0)
+                    appName = AppUtils.getAppLabel(this@MainActivity, appInfo, packageName)
+                    icon = AppUtils.getAppIconBytes(pm, appInfo)
+                    isSystemApp =
+                            (appInfo.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) != 0
+                } catch (e: Exception) {}
+
+                val appInfoData = AppInfoData(packageName, appName, icon, isSystemApp)
+                withContext(Dispatchers.Main) { callback(Result.success(appInfoData)) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) { callback(Result.success(null)) }
+            }
+        }
     }
 
     fun bindShellService(): Boolean {

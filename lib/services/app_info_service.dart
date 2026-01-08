@@ -1,98 +1,96 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:installed_apps/app_info.dart';
-import 'package:installed_apps/installed_apps.dart';
-
 import 'package:injectable/injectable.dart';
+import 'package:running_services_monitor/services/shizuku_api.g.dart';
+
+class AppInfoData {
+  final String packageName;
+  final String name;
+  final Uint8List? icon;
+  final bool isSystemApp;
+
+  AppInfoData({required this.packageName, required this.name, this.icon, required this.isSystemApp});
+}
 
 @lazySingleton
 class AppInfoService {
-  Map<String, AppInfo>? _cachedApps;
-  DateTime? _lastFetchTime;
-  static const Duration _cacheValidity = Duration(minutes: 15);
-  Future<void>? _initFuture;
+  final ShizukuHostApi shizukuApi = ShizukuHostApi();
+  Map<String, AppInfoData>? cachedApps;
+  DateTime? lastFetchTime;
+  static const Duration cacheValidity = Duration(minutes: 15);
+  Future<void>? initFuture;
 
-  Map<String, AppInfo>? get cachedAppsMap => _cachedApps;
+  Map<String, AppInfoData>? get cachedAppsMap => cachedApps;
 
   Future<void> ensureCacheValid() async {
     await _ensureCacheValid();
   }
 
   Future<void> _ensureCacheValid() async {
-    if (_cachedApps != null && _lastFetchTime != null && DateTime.now().difference(_lastFetchTime!) <= _cacheValidity) {
+    final isCacheValid = cachedApps != null && cachedApps!.isNotEmpty && lastFetchTime != null && DateTime.now().difference(lastFetchTime!) <= cacheValidity;
+
+    if (isCacheValid) {
       return;
     }
 
-    if (_initFuture != null) {
-      return _initFuture;
+    if (initFuture != null) {
+      await initFuture;
+      if (cachedApps != null && cachedApps!.isNotEmpty) {
+        return;
+      }
     }
 
-    _initFuture = _fetchApps();
-    await _initFuture;
-    _initFuture = null;
+    initFuture = _fetchApps();
+    await initFuture;
+    initFuture = null;
   }
 
   Future<void> _fetchApps() async {
     try {
-      final token = RootIsolateToken.instance;
-      if (token == null) {
-        throw Exception('RootIsolateToken is null');
+      cachedApps = {};
+      await shizukuApi.startAppInfoStream();
+      await for (final appInfo in appInfoOutput()) {
+        try {
+          cachedApps![appInfo.packageName] = AppInfoData(
+            packageName: appInfo.packageName,
+            name: appInfo.appName,
+            icon: appInfo.icon,
+            isSystemApp: appInfo.isSystemApp,
+          );
+        } catch (e) {
+          debugPrint('Error parsing app info: $e');
+        }
       }
-
-      final appsList = await compute(_fetchInstalledApps, _FetchAppsParams(token: token));
-
-      _cachedApps = {for (var app in appsList) app.packageName: app};
-      _lastFetchTime = DateTime.now();
+      if (cachedApps!.isNotEmpty) {
+        lastFetchTime = DateTime.now();
+      }
     } catch (e) {
-      debugPrint('Error fetching apps: $e');
-      _cachedApps ??= {}; // Prevent infinite retry loops if failing
+      debugPrint('Error fetching apps via Shizuku stream: $e');
+      cachedApps ??= {};
     }
   }
 
-  Future<List<AppInfo>> getInstalledApps() async {
+  Future<List<AppInfoData>> getInstalledApps() async {
     await _ensureCacheValid();
-    return _cachedApps!.values.toList();
+    return cachedApps!.values.toList();
   }
 
-  Future<AppInfo?> getAppInfo(String packageName) async {
+  Future<AppInfoData?> getAppInfo(String packageName) async {
     await _ensureCacheValid();
 
-    if (_cachedApps!.containsKey(packageName)) {
-      return _cachedApps![packageName];
+    if (cachedApps!.containsKey(packageName)) {
+      return cachedApps![packageName];
     }
 
-    final token = RootIsolateToken.instance;
-    if (token == null) {
-      throw Exception('RootIsolateToken is null');
+    try {
+      final app = await shizukuApi.getAppInfo(packageName);
+      if (app != null) {
+        final appData = AppInfoData(packageName: app.packageName, name: app.appName, icon: app.icon, isSystemApp: app.isSystemApp);
+        cachedApps![packageName] = appData;
+        return appData;
+      }
+    } catch (e) {
+      debugPrint('Error fetching app info via Shizuku: $e');
     }
-
-    final app = await compute(_fetchAppInfo, _FetchAppInfoParams(token: token, packageName: packageName));
-    if (app != null) {
-      _cachedApps![app.packageName] = app;
-    }
-    return app;
+    return null;
   }
-}
-
-class _FetchAppsParams {
-  final RootIsolateToken token;
-
-  _FetchAppsParams({required this.token});
-}
-
-class _FetchAppInfoParams {
-  final RootIsolateToken token;
-  final String packageName;
-
-  _FetchAppInfoParams({required this.token, required this.packageName});
-}
-
-Future<List<AppInfo>> _fetchInstalledApps(_FetchAppsParams params) async {
-  BackgroundIsolateBinaryMessenger.ensureInitialized(params.token);
-  return InstalledApps.getInstalledApps(excludeNonLaunchableApps: false, excludeSystemApps: false, withIcon: true);
-}
-
-Future<AppInfo?> _fetchAppInfo(_FetchAppInfoParams params) async {
-  BackgroundIsolateBinaryMessenger.ensureInitialized(params.token);
-  return InstalledApps.getAppInfo(params.packageName);
 }
