@@ -1,3 +1,6 @@
+import 'dart:ui';
+import 'package:running_services_monitor/models/lang.dart';
+
 class AppConstants {
   AppConstants._();
 
@@ -10,10 +13,10 @@ class AppConstants {
   static const String cmdDumpsysActivityLru = 'dumpsys activity lru';
   static const String cmdDumpsysMeminfo = 'dumpsys meminfo';
 
-  static const String developerName = 'Biplob Kumar Sutradhar';
   static const String developerEmail = 'biplobsd11@gmail.com';
 
   static const String sourceCodeUrl = 'https://github.com/biplobsd/running_services_monitor';
-  static const String blogsUrl = 'https://biplobsd.github.io';
   static const String buyMeCoffeeUrl = 'https://buymeacoffee.com/biplobsd';
+
+  static const List<Lang> languages = [Lang(Locale('en'), 'English'), Lang(Locale('bn'), 'বাংলা'), Lang(Locale('zh'), '简体中文')];
 }

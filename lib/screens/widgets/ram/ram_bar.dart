@@ -32,18 +32,15 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-    animation = Tween<double>(begin: 0, end: usedRatio).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
-    if (!widget.isLoading) {
+
+    if (widget.isLoading) {
+      animation = Tween<double>(begin: 0, end: 0).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+      previousRatio = 0;
+    } else {
+      animation = Tween<double>(begin: usedRatio, end: usedRatio).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+      previousRatio = usedRatio;
       controller.forward();
     }
-
-    previousRatio = usedRatio;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        previousRatio = usedRatio;
-      });
-    });
   }
 
   @override

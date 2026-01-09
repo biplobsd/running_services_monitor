@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/bloc/language_bloc/language_bloc.dart';
+import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -11,7 +12,7 @@ class LanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final crtLocale = getIt<LanguageBloc>().state.locale;
-    final loc = context.loc; // Cached
+    final loc = context.loc;
     return PopupMenuButton<Locale>(
       icon: const Icon(Icons.language),
       tooltip: loc.resolve(L10nKeys.language),
@@ -25,20 +26,12 @@ class LanguageSelector extends StatelessWidget {
           value: Locale('_'),
           child: Text(loc.followSystem, style: AppStyles.bodyStyle),
         ),
-        CheckedPopupMenuItem(
-          checked: crtLocale == const Locale('en'),
-          value: const Locale('en'),
-          child: Text('English', style: AppStyles.bodyStyle),
-        ),
-        CheckedPopupMenuItem(
-          checked: crtLocale == const Locale('bn'),
-          value: const Locale('bn'),
-          child: Text('বাংলা', style: AppStyles.bodyStyle),
-        ),
-        CheckedPopupMenuItem(
-          checked: crtLocale == const Locale('zh'),
-          value: const Locale('zh'),
-          child: Text('简体中文', style: AppStyles.bodyStyle),
+        ...AppConstants.languages.map(
+          (lang) => CheckedPopupMenuItem(
+            checked: crtLocale == lang.locale,
+            value: lang.locale,
+            child: Text(lang.nativeName, style: AppStyles.bodyStyle),
+          ),
         ),
       ],
     );

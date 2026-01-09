@@ -6,14 +6,12 @@ import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
-import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/home_ui_bloc/home_ui_bloc.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'widgets/settings/shizuku_permission_dialog.dart';
 import 'widgets/home/home_body.dart';
-import 'widgets/settings/language_selector.dart';
 import 'package:running_services_monitor/utils/snackbar_helper.dart';
 import 'widgets/settings/theme_toggle_button.dart';
 import 'widgets/about/about_button.dart';
@@ -185,7 +183,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 );
               },
             ),
-            const LanguageSelector(),
             const ThemeToggleButton(),
             const AboutButton(),
           ],
@@ -239,52 +236,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             },
             child: HomeBody(tabController: _tabController!),
           ),
-        ),
-        floatingActionButton: BlocSelector<HomeUiBloc, HomeUiState, ({bool isFabVisible, bool isFabExtended})>(
-          selector: (state) => (isFabVisible: state.isFabVisible, isFabExtended: state.isFabExtended),
-          builder: (context, uiState) {
-            if (!uiState.isFabVisible) return const SizedBox.shrink();
-
-            return Transform.translate(
-              offset: const Offset(10, 10),
-              child: BlocSelector<HomeBloc, HomeState, bool>(
-                selector: (state) => state.value.shizukuReady,
-                builder: (context, shizukuReady) {
-                  if (!shizukuReady) return const SizedBox.shrink();
-
-                  return AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 250),
-                    transitionBuilder: (child, animation) => SizeTransition(
-                      sizeFactor: animation,
-                      axis: Axis.horizontal,
-                      axisAlignment: -1,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 5.h, right: 5.w),
-                          child: child,
-                        ),
-                      ),
-                    ),
-                    child: uiState.isFabExtended
-                        ? FloatingActionButton.extended(
-                            key: const ValueKey('extended'),
-                            onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
-                            icon: const Icon(Icons.security),
-                            label: Text(context.loc.runningServicesTitle, style: AppStyles.bodyStyle),
-                            tooltip: context.loc.openRunningServicesTooltip,
-                          )
-                        : FloatingActionButton(
-                            key: const ValueKey('collapsed'),
-                            onPressed: AndroidSettingsHelper.tryOpenSystemRunningServices,
-                            tooltip: context.loc.openRunningServicesTooltip,
-                            child: const Icon(Icons.security),
-                          ),
-                  );
-                },
-              ),
-            );
-          },
         ),
       ),
     );

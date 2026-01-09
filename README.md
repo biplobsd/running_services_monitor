@@ -130,9 +130,10 @@ Use the following prompt with an AI agent to automate the entire process:
 ```
 Add <language> localization to this project:
 1. Create app_<localeName>.arb in lib/l10n/ by translating all values from lib/l10n/app_en.arb. Keep the keys unchanged.
-2. Add the locale to android/app/src/main/res/xml/locales_config.xml
-3. Run "flutter gen-l10n" and "dart run build_runner build --delete-conflicting-outputs" commands
-4. how to create a PR for this change
+2. Add the new locale to AppConstants.supportedLanguages in lib/core/constants.dart
+3. Add the locale to android/app/src/main/res/xml/locales_config.xml
+4. Run "flutter gen-l10n" and "dart run build_runner build --delete-conflicting-outputs" commands
+5. how to create a PR for this change
 ```
 
 After completion, verify all translations are correct.
@@ -145,7 +146,17 @@ After completion, verify all translations are correct.
 
 2. Translate all fields from `app_en.arb` file to the new language
 
-3. Run the following command in the project root:
+3. Add the new language to `lib/core/constants.dart`:
+   ```dart
+   static const List<Lang> supportedLangs = [
+     Lang(Locale('en'), 'English'),
+     Lang(Locale('bn'), 'বাংলা'),
+     Lang(Locale('zh'), '简体中文'),
+     Lang(Locale('<localeName>'), '<Native Language Name>'), // Add here
+   ];
+   ```
+
+4. Run the following command in the project root:
    ```bash
    flutter gen-l10n
    ```
