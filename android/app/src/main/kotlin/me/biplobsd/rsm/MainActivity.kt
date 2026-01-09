@@ -14,6 +14,9 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
@@ -222,7 +225,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         pendingAppInfoStream = true
     }
 
-    fun streamAppInfo(sink: PigeonEventSink<AppInfoData>) {
+    suspend fun streamAppInfo(sink: PigeonEventSink<AppInfoData>) {
         try {
             val pm = packageManager
             val apps: List<Pair<String, Boolean>>
@@ -247,19 +250,30 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 return
             }
 
-            for ((packageName, isSystemApp) in apps) {
-                try {
-                    var appName = packageName.substringAfterLast(".")
-                    var icon: ByteArray? = null
-                    try {
-                        val appInfo = pm.getApplicationInfo(packageName, 0)
-                        appName = AppUtils.getAppLabel(this, appInfo, packageName)
-                        icon = AppUtils.getAppIconBytes(pm, appInfo)
-                    } catch (e: Exception) {}
-                    val appInfoData = AppInfoData(packageName, appName, icon, isSystemApp)
-                    mainHandler.post { sink.success(appInfoData) }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+            val parallelism = 20
+            coroutineScope {
+                apps.chunked(parallelism).forEach { chunk ->
+                    val results = chunk.map { (packageName, isSystemApp) ->
+                        async(Dispatchers.IO) {
+                            try {
+                                var appName = packageName.substringAfterLast(".")
+                                var icon: ByteArray? = null
+                                try {
+                                    val appInfo = pm.getApplicationInfo(packageName, 0)
+                                    appName = AppUtils.getAppLabel(this@MainActivity, appInfo, packageName)
+                                    icon = AppUtils.getAppIconBytes(pm, appInfo)
+                                } catch (e: Exception) {}
+                                AppInfoData(packageName, appName, icon, isSystemApp)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                null
+                            }
+                        }
+                    }.awaitAll()
+                    
+                    results.filterNotNull().forEach { appInfoData ->
+                        mainHandler.post { sink.success(appInfoData) }
+                    }
                 }
             }
         } catch (e: Exception) {
