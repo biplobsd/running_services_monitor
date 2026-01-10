@@ -21,11 +21,11 @@ class AppInfoService {
 
   Map<String, AppInfoData>? get cachedAppsMap => cachedApps;
 
-  Future<void> ensureCacheValid() async {
-    await _ensureCacheValid();
+  Future<void> ensureCacheValid({String? mode}) async {
+    await _ensureCacheValid(mode: mode);
   }
 
-  Future<void> _ensureCacheValid() async {
+  Future<void> _ensureCacheValid({String? mode}) async {
     final isCacheValid = cachedApps != null && cachedApps!.isNotEmpty && lastFetchTime != null && DateTime.now().difference(lastFetchTime!) <= cacheValidity;
 
     if (isCacheValid) {
@@ -39,15 +39,15 @@ class AppInfoService {
       }
     }
 
-    initFuture = _fetchApps();
+    initFuture = _fetchApps(mode: mode);
     await initFuture;
     initFuture = null;
   }
 
-  Future<void> _fetchApps() async {
+  Future<void> _fetchApps({String? mode}) async {
     try {
       cachedApps = {};
-      await shizukuApi.startAppInfoStream();
+      await shizukuApi.startAppInfoStream(mode);
       await for (final appInfo in appInfoOutput()) {
         try {
           cachedApps![appInfo.packageName] = AppInfoData(
@@ -69,20 +69,20 @@ class AppInfoService {
     }
   }
 
-  Future<List<AppInfoData>> getInstalledApps() async {
-    await _ensureCacheValid();
+  Future<List<AppInfoData>> getInstalledApps({String? mode}) async {
+    await _ensureCacheValid(mode: mode);
     return cachedApps!.values.toList();
   }
 
-  Future<AppInfoData?> getAppInfo(String packageName) async {
-    await _ensureCacheValid();
+  Future<AppInfoData?> getAppInfo(String packageName, {String? mode}) async {
+    await _ensureCacheValid(mode: mode);
 
     if (cachedApps!.containsKey(packageName)) {
       return cachedApps![packageName];
     }
 
     try {
-      final app = await shizukuApi.getAppInfo(packageName);
+      final app = await shizukuApi.getAppInfo(packageName, mode);
       if (app != null) {
         final appData = AppInfoData(packageName: app.packageName, name: app.appName, icon: app.icon, isSystemApp: app.isSystemApp);
         cachedApps![packageName] = appData;

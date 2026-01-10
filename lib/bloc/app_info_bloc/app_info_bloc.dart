@@ -23,7 +23,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
   Future<void> _onLoadAllApps(_LoadAllApps event, Emitter<AppInfoState> emit) async {
     emit(AppInfoState.loading(state.value));
     try {
-      await _appInfoService.ensureCacheValid();
+      await _appInfoService.ensureCacheValid(mode: event.mode);
       final cachedAppsMap = _appInfoService.cachedAppsMap;
       if (cachedAppsMap == null || cachedAppsMap.isEmpty) {
         emit(AppInfoState.success(state.value));
@@ -44,7 +44,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
   Future<void> _onLoadAppInfo(_LoadAppInfo event, Emitter<AppInfoState> emit) async {
     try {
-      final appInfo = await _appInfoService.getAppInfo(event.packageName);
+      final appInfo = await _appInfoService.getAppInfo(event.packageName, mode: event.mode);
       if (appInfo == null) return;
 
       final updatedCachedApps = Map<String, CachedAppInfo>.from(state.value.cachedApps);

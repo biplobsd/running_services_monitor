@@ -464,14 +464,14 @@ class ShizukuHostApi {
     }
   }
 
-  Future<void> startAppInfoStream() async {
+  Future<void> startAppInfoStream(String? mode) async {
     final pigeonVar_channelName = 'dev.flutter.pigeon.running_services_monitor.ShizukuHostApi.startAppInfoStream$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[mode]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);
@@ -486,14 +486,14 @@ class ShizukuHostApi {
     }
   }
 
-  Future<AppInfoData?> getAppInfo(String packageName) async {
+  Future<AppInfoData?> getAppInfo(String packageName, String? mode) async {
     final pigeonVar_channelName = 'dev.flutter.pigeon.running_services_monitor.ShizukuHostApi.getAppInfo$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[packageName]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[packageName, mode]);
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
       throw _createConnectionError(pigeonVar_channelName);

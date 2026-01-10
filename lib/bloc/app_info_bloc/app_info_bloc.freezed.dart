@@ -125,11 +125,11 @@ return updateAppsInfo(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadAllApps,TResult Function( String packageName)?  loadAppInfo,TResult Function( List<String> packageNames)?  updateAppsInfo,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? mode)?  loadAllApps,TResult Function( String packageName,  String? mode)?  loadAppInfo,TResult Function( List<String> packageNames)?  updateAppsInfo,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoadAllApps() when loadAllApps != null:
-return loadAllApps();case _LoadAppInfo() when loadAppInfo != null:
-return loadAppInfo(_that.packageName);case _UpdateAppsInfo() when updateAppsInfo != null:
+return loadAllApps(_that.mode);case _LoadAppInfo() when loadAppInfo != null:
+return loadAppInfo(_that.packageName,_that.mode);case _UpdateAppsInfo() when updateAppsInfo != null:
 return updateAppsInfo(_that.packageNames);case _:
   return orElse();
 
@@ -148,11 +148,11 @@ return updateAppsInfo(_that.packageNames);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadAllApps,required TResult Function( String packageName)  loadAppInfo,required TResult Function( List<String> packageNames)  updateAppsInfo,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? mode)  loadAllApps,required TResult Function( String packageName,  String? mode)  loadAppInfo,required TResult Function( List<String> packageNames)  updateAppsInfo,}) {final _that = this;
 switch (_that) {
 case _LoadAllApps():
-return loadAllApps();case _LoadAppInfo():
-return loadAppInfo(_that.packageName);case _UpdateAppsInfo():
+return loadAllApps(_that.mode);case _LoadAppInfo():
+return loadAppInfo(_that.packageName,_that.mode);case _UpdateAppsInfo():
 return updateAppsInfo(_that.packageNames);case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +170,11 @@ return updateAppsInfo(_that.packageNames);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadAllApps,TResult? Function( String packageName)?  loadAppInfo,TResult? Function( List<String> packageNames)?  updateAppsInfo,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? mode)?  loadAllApps,TResult? Function( String packageName,  String? mode)?  loadAppInfo,TResult? Function( List<String> packageNames)?  updateAppsInfo,}) {final _that = this;
 switch (_that) {
 case _LoadAllApps() when loadAllApps != null:
-return loadAllApps();case _LoadAppInfo() when loadAppInfo != null:
-return loadAppInfo(_that.packageName);case _UpdateAppsInfo() when updateAppsInfo != null:
+return loadAllApps(_that.mode);case _LoadAppInfo() when loadAppInfo != null:
+return loadAppInfo(_that.packageName,_that.mode);case _UpdateAppsInfo() when updateAppsInfo != null:
 return updateAppsInfo(_that.packageNames);case _:
   return null;
 
@@ -187,42 +187,77 @@ return updateAppsInfo(_that.packageNames);case _:
 
 
 class _LoadAllApps implements AppInfoEvent {
-  const _LoadAllApps();
+  const _LoadAllApps({this.mode});
   
 
+ final  String? mode;
 
-
+/// Create a copy of AppInfoEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadAllAppsCopyWith<_LoadAllApps> get copyWith => __$LoadAllAppsCopyWithImpl<_LoadAllApps>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadAllApps);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadAllApps&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'AppInfoEvent.loadAllApps()';
+  return 'AppInfoEvent.loadAllApps(mode: $mode)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$LoadAllAppsCopyWith<$Res> implements $AppInfoEventCopyWith<$Res> {
+  factory _$LoadAllAppsCopyWith(_LoadAllApps value, $Res Function(_LoadAllApps) _then) = __$LoadAllAppsCopyWithImpl;
+@useResult
+$Res call({
+ String? mode
+});
 
 
+
+
+}
+/// @nodoc
+class __$LoadAllAppsCopyWithImpl<$Res>
+    implements _$LoadAllAppsCopyWith<$Res> {
+  __$LoadAllAppsCopyWithImpl(this._self, this._then);
+
+  final _LoadAllApps _self;
+  final $Res Function(_LoadAllApps) _then;
+
+/// Create a copy of AppInfoEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? mode = freezed,}) {
+  return _then(_LoadAllApps(
+mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class _LoadAppInfo implements AppInfoEvent {
-  const _LoadAppInfo(this.packageName);
+  const _LoadAppInfo(this.packageName, {this.mode});
   
 
  final  String packageName;
+ final  String? mode;
 
 /// Create a copy of AppInfoEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +269,16 @@ _$LoadAppInfoCopyWith<_LoadAppInfo> get copyWith => __$LoadAppInfoCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadAppInfo&&(identical(other.packageName, packageName) || other.packageName == packageName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadAppInfo&&(identical(other.packageName, packageName) || other.packageName == packageName)&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,packageName);
+int get hashCode => Object.hash(runtimeType,packageName,mode);
 
 @override
 String toString() {
-  return 'AppInfoEvent.loadAppInfo(packageName: $packageName)';
+  return 'AppInfoEvent.loadAppInfo(packageName: $packageName, mode: $mode)';
 }
 
 
@@ -254,7 +289,7 @@ abstract mixin class _$LoadAppInfoCopyWith<$Res> implements $AppInfoEventCopyWit
   factory _$LoadAppInfoCopyWith(_LoadAppInfo value, $Res Function(_LoadAppInfo) _then) = __$LoadAppInfoCopyWithImpl;
 @useResult
 $Res call({
- String packageName
+ String packageName, String? mode
 });
 
 
@@ -271,10 +306,11 @@ class __$LoadAppInfoCopyWithImpl<$Res>
 
 /// Create a copy of AppInfoEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? packageName = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? packageName = null,Object? mode = freezed,}) {
   return _then(_LoadAppInfo(
 null == packageName ? _self.packageName : packageName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,mode: freezed == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

@@ -32,7 +32,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     var isRootAvailable: Boolean? = null
     var pendingStreamCommand: String? = null
     var pendingStreamMode: String? = null
-    var pendingAppInfoStream: Boolean = false
+    var pendingAppInfoMode: String? = null
 
     var shellService: IShellService? = null
     var boundConnection: ServiceConnection? = null
@@ -40,7 +40,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             Shizuku.UserServiceArgs(
                             ComponentName(BuildConfig.APPLICATION_ID, ShellService::class.java.name)
                     )
-                    .daemon(true)
+                    .daemon(false)
                     .processNameSuffix("shell_service")
                     .debuggable(BuildConfig.DEBUG)
                     .version(BuildConfig.VERSION_CODE)
@@ -86,20 +86,12 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
 
                 override fun onListen(p0: Any?, sink: PigeonEventSink<AppInfoData>) {
                     eventSink = sink
-                    if (!pendingAppInfoStream) {
-                        sink.error(
-                                "NO_STREAM_REQUESTED",
-                                "No app info stream requested. Call startAppInfoStream first.",
-                                null
-                        )
-                        sink.endOfStream()
-                        return
-                    }
-                    pendingAppInfoStream = false
+                    val mode = pendingAppInfoMode
+                    pendingAppInfoMode = null
 
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
-                            streamAppInfo(sink)
+                            streamAppInfo(sink, mode ?: "auto")
                             withContext(Dispatchers.Main) { sink.endOfStream() }
                         } catch (e: Exception) {
                             withContext(Dispatchers.Main) {
@@ -221,28 +213,48 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         pendingStreamMode = mode
     }
 
-    override fun startAppInfoStream() {
-        pendingAppInfoStream = true
+    override fun startAppInfoStream(mode: String?) {
+        pendingAppInfoMode = mode
     }
 
-    suspend fun streamAppInfo(sink: PigeonEventSink<AppInfoData>) {
+    suspend fun streamAppInfo(sink: PigeonEventSink<AppInfoData>, mode: String) {
         try {
             val pm = packageManager
             val apps: List<Pair<String, Boolean>>
 
-            if (bindShellService()) {
-                val shellApps = shellService?.getInstalledApps() ?: emptyList()
-                apps = shellApps.map { Pair(it.packageName, it.isSystemApp) }
-            } else {
-                val installedPackages = pm.getInstalledPackages(0)
-                apps =
-                        installedPackages.map { pkg ->
-                            val isSystemApp =
-                                    (pkg.applicationInfo?.flags
-                                            ?: 0) and
-                                            android.content.pm.ApplicationInfo.FLAG_SYSTEM != 0
-                            Pair(pkg.packageName, isSystemApp)
+            apps = when (mode) {
+                "shizuku" -> {
+                    if (!bindShellService()) throw Exception("Failed to bind Shizuku service")
+                    val shellApps = shellService?.getInstalledApps() ?: emptyList()
+                    shellApps.map { Pair(it.packageName, it.isSystemApp) }
+                }
+                "root" -> {
+                    if (!checkRootAvailable()) throw Exception("Root is not available")
+                    val rootApps = ShellExecutor.getInstalledPackages { cmd -> executeRootCommand(cmd) }
+                    rootApps.map { Pair(it.packageName, it.isSystemApp) }
+                }
+                else -> {
+                    when {
+                        bindShellService() -> {
+                            val shellApps = shellService?.getInstalledApps() ?: emptyList()
+                            shellApps.map { Pair(it.packageName, it.isSystemApp) }
                         }
+                        checkRootAvailable() -> {
+                            val rootApps = ShellExecutor.getInstalledPackages { cmd -> executeRootCommand(cmd) }
+                            rootApps.map { Pair(it.packageName, it.isSystemApp) }
+                        }
+                        else -> {
+                            val installedPackages = pm.getInstalledPackages(0)
+                            installedPackages.map { pkg ->
+                                val isSystemApp =
+                                        (pkg.applicationInfo?.flags
+                                                ?: 0) and
+                                                android.content.pm.ApplicationInfo.FLAG_SYSTEM != 0
+                                Pair(pkg.packageName, isSystemApp)
+                            }
+                        }
+                    }
+                }
             }
 
             if (apps.isEmpty()) {
@@ -282,19 +294,46 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         }
     }
 
-    override fun getAppInfo(packageName: String, callback: (Result<AppInfoData?>) -> Unit) {
+    override fun getAppInfo(packageName: String, mode: String?, callback: (Result<AppInfoData?>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val pm = packageManager
                 var appName = packageName.substringAfterLast(".")
                 var icon: ByteArray? = null
                 var isSystemApp = false
+                val effectiveMode = mode ?: "auto"
 
-                if (bindShellService()) {
-                    val app = shellService?.getAppInfo(packageName)
-                    if (app != null) {
-                        appName = app.appName
-                        isSystemApp = app.isSystemApp
+                when (effectiveMode) {
+                    "shizuku" -> {
+                        if (bindShellService()) {
+                            val app = shellService?.getAppInfo(packageName)
+                            if (app != null) {
+                                appName = app.appName
+                                isSystemApp = app.isSystemApp
+                            }
+                        }
+                    }
+                    "root" -> {
+                        if (checkRootAvailable()) {
+                            val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeRootCommand(cmd) }
+                            if (app != null) {
+                                isSystemApp = app.isSystemApp
+                            }
+                        }
+                    }
+                    else -> {
+                        if (bindShellService()) {
+                            val app = shellService?.getAppInfo(packageName)
+                            if (app != null) {
+                                appName = app.appName
+                                isSystemApp = app.isSystemApp
+                            }
+                        } else if (checkRootAvailable()) {
+                            val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeRootCommand(cmd) }
+                            if (app != null) {
+                                isSystemApp = app.isSystemApp
+                            }
+                        }
                     }
                 }
 
@@ -375,10 +414,8 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         if (isRootAvailable != null) return isRootAvailable!!
         isRootAvailable =
                 try {
-                    val process = Runtime.getRuntime().exec("su -c id")
-                    val output = process.inputStream.readToString()
-                    process.waitFor()
-                    output.contains("uid=0")
+                    val result = ShellExecutor.executeRootCommand("id")
+                    result.output.contains("uid=0")
                 } catch (e: Exception) {
                     e.printStackTrace()
                     false
@@ -387,12 +424,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     }
 
     fun executeRootCommand(command: String): ShellResult {
-        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
-        val output = process.inputStream.readToString()
-        val errorOutput = process.errorStream.readToString()
-        val exitCode = process.waitFor()
-
-        return ShellResult(exitCode, output + errorOutput)
+        return ShellExecutor.executeRootCommand(command)
     }
 
     fun executeCommandWithStream(command: String, mode: String, sink: PigeonEventSink<String>) =

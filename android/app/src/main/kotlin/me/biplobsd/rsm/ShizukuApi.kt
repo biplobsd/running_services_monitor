@@ -268,8 +268,8 @@ interface ShizukuHostApi {
   fun checkPermission(): Boolean
   fun requestPermission(callback: (Result<Boolean>) -> Unit)
   fun setStreamCommand(command: String, mode: String?)
-  fun startAppInfoStream()
-  fun getAppInfo(packageName: String, callback: (Result<AppInfoData?>) -> Unit)
+  fun startAppInfoStream(mode: String?)
+  fun getAppInfo(packageName: String, mode: String?, callback: (Result<AppInfoData?>) -> Unit)
 
   companion object {
     /** The codec used by ShizukuHostApi. */
@@ -406,9 +406,11 @@ interface ShizukuHostApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.running_services_monitor.ShizukuHostApi.startAppInfoStream$separatedMessageChannelSuffix", codec)
         if (api != null) {
-          channel.setMessageHandler { _, reply ->
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val modeArg = args[0] as String?
             val wrapped: List<Any?> = try {
-              api.startAppInfoStream()
+              api.startAppInfoStream(modeArg)
               listOf(null)
             } catch (exception: Throwable) {
               ShizukuApiPigeonUtils.wrapError(exception)
@@ -425,7 +427,8 @@ interface ShizukuHostApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val packageNameArg = args[0] as String
-            api.getAppInfo(packageNameArg) { result: Result<AppInfoData?> ->
+            val modeArg = args[1] as String?
+            api.getAppInfo(packageNameArg, modeArg) { result: Result<AppInfoData?> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(ShizukuApiPigeonUtils.wrapError(error))

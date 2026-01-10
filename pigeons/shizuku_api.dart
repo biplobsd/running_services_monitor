@@ -53,10 +53,10 @@ abstract class ShizukuHostApi {
 
   void setStreamCommand(String command, String? mode);
 
-  void startAppInfoStream();
+  void startAppInfoStream(String? mode);
 
   @async
-  AppInfoData? getAppInfo(String packageName);
+  AppInfoData? getAppInfo(String packageName, String? mode);
 }
 
 @EventChannelApi()
