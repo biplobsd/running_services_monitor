@@ -37,14 +37,6 @@ class ShellService : IShellService.Stub() {
         return readFd
     }
 
-    override fun getInstalledApps(): List<AppInfoResult> {
-        return ShellExecutor.getInstalledPackages { cmd -> executeCommand(cmd) }
-    }
-
-    override fun getAppInfo(packageName: String): AppInfoResult? {
-        return ShellExecutor.getPackageInfo(packageName) { cmd -> executeCommand(cmd) }
-    }
-
     override fun destroy() {
         exitProcess(0)
     }

@@ -225,7 +225,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             apps = when (mode) {
                 "shizuku" -> {
                     if (!bindShellService()) throw Exception("Failed to bind Shizuku service")
-                    val shellApps = shellService?.getInstalledApps() ?: emptyList()
+                    val shellApps = ShellExecutor.getInstalledPackages { cmd -> executeShizukuCommand(cmd) }
                     shellApps.map { Pair(it.packageName, it.isSystemApp) }
                 }
                 "root" -> {
@@ -236,7 +236,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 else -> {
                     when {
                         bindShellService() -> {
-                            val shellApps = shellService?.getInstalledApps() ?: emptyList()
+                            val shellApps = ShellExecutor.getInstalledPackages { cmd -> executeShizukuCommand(cmd) }
                             shellApps.map { Pair(it.packageName, it.isSystemApp) }
                         }
                         checkRootAvailable() -> {
@@ -306,9 +306,8 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 when (effectiveMode) {
                     "shizuku" -> {
                         if (bindShellService()) {
-                            val app = shellService?.getAppInfo(packageName)
+                            val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeShizukuCommand(cmd) }
                             if (app != null) {
-                                appName = app.appName
                                 isSystemApp = app.isSystemApp
                             }
                         }
@@ -323,9 +322,8 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                     }
                     else -> {
                         if (bindShellService()) {
-                            val app = shellService?.getAppInfo(packageName)
+                            val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeShizukuCommand(cmd) }
                             if (app != null) {
-                                appName = app.appName
                                 isSystemApp = app.isSystemApp
                             }
                         } else if (checkRootAvailable()) {
