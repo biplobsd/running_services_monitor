@@ -95,6 +95,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             return MaterialApp.router(
               routerConfig: router,
               onGenerateTitle: (context) => context.loc.appTitle,
+              localeResolutionCallback: (locale, supportedLocales) {
+                for (final supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale?.languageCode) {
+                    return supportedLocale;
+                  }
+                }
+                return const Locale('en');
+              },
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
