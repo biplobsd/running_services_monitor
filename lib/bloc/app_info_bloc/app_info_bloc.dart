@@ -32,7 +32,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
       final Map<String, CachedAppInfo> newCachedApps = {};
       for (final entry in cachedAppsMap.entries) {
-        newCachedApps[entry.key] = CachedAppInfo(appName: entry.value.name, icon: entry.value.icon, isSystemApp: entry.value.isSystemApp);
+        newCachedApps[entry.key] = CachedAppInfo(appName: entry.value.appName, icon: entry.value.icon, isSystemApp: entry.value.isSystemApp);
       }
 
       emit(AppInfoState.success(state.value.copyWith(cachedApps: newCachedApps)));
@@ -48,7 +48,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
       if (appInfo == null) return;
 
       final updatedCachedApps = Map<String, CachedAppInfo>.from(state.value.cachedApps);
-      updatedCachedApps[event.packageName] = CachedAppInfo(appName: appInfo.name, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
+      updatedCachedApps[event.packageName] = CachedAppInfo(appName: appInfo.appName, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
 
       emit(AppInfoState.success(state.value.copyWith(cachedApps: updatedCachedApps)));
     } catch (e, s) {
@@ -68,7 +68,7 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
         final appInfo = cachedAppsMap[packageName];
         if (appInfo != null) {
-          updatedCachedApps[packageName] = CachedAppInfo(appName: appInfo.name, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
+          updatedCachedApps[packageName] = CachedAppInfo(appName: appInfo.appName, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
         }
       }
 

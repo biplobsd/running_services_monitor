@@ -1,25 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:running_services_monitor/services/shizuku_api.g.dart';
-
-class AppInfoData {
-  final String packageName;
-  final String name;
-  final Uint8List? icon;
-  final bool isSystemApp;
-
-  AppInfoData({required this.packageName, required this.name, this.icon, required this.isSystemApp});
-}
+import 'package:running_services_monitor/services/shizuku_api.g.dart' as api;
 
 @lazySingleton
 class AppInfoService {
-  final ShizukuHostApi shizukuApi = ShizukuHostApi();
-  Map<String, AppInfoData>? cachedApps;
+  final api.ShizukuHostApi shizukuApi = api.ShizukuHostApi();
+  Map<String, api.AppInfoData>? cachedApps;
   DateTime? lastFetchTime;
   static const Duration cacheValidity = Duration(minutes: 15);
   Future<void>? initFuture;
 
-  Map<String, AppInfoData>? get cachedAppsMap => cachedApps;
+  Map<String, api.AppInfoData>? get cachedAppsMap => cachedApps;
 
   Future<void> ensureCacheValid({String? mode}) async {
     await _ensureCacheValid(mode: mode);
@@ -48,14 +39,9 @@ class AppInfoService {
     try {
       cachedApps = {};
       await shizukuApi.startAppInfoStream(mode);
-      await for (final appInfo in appInfoOutput()) {
+      await for (final appInfo in api.appInfoOutput()) {
         try {
-          cachedApps![appInfo.packageName] = AppInfoData(
-            packageName: appInfo.packageName,
-            name: appInfo.appName,
-            icon: appInfo.icon,
-            isSystemApp: appInfo.isSystemApp,
-          );
+          cachedApps![appInfo.packageName] = appInfo;
         } catch (e) {
           debugPrint('Error parsing app info: $e');
         }
@@ -69,12 +55,12 @@ class AppInfoService {
     }
   }
 
-  Future<List<AppInfoData>> getInstalledApps({String? mode}) async {
+  Future<List<api.AppInfoData>> getInstalledApps({String? mode}) async {
     await _ensureCacheValid(mode: mode);
     return cachedApps!.values.toList();
   }
 
-  Future<AppInfoData?> getAppInfo(String packageName, {String? mode}) async {
+  Future<api.AppInfoData?> getAppInfo(String packageName, {String? mode}) async {
     await _ensureCacheValid(mode: mode);
 
     if (cachedApps!.containsKey(packageName)) {
@@ -84,9 +70,8 @@ class AppInfoService {
     try {
       final app = await shizukuApi.getAppInfo(packageName, mode);
       if (app != null) {
-        final appData = AppInfoData(packageName: app.packageName, name: app.appName, icon: app.icon, isSystemApp: app.isSystemApp);
-        cachedApps![packageName] = appData;
-        return appData;
+        cachedApps![packageName] = app;
+        return app;
       }
     } catch (e) {
       debugPrint('Error fetching app info via Shizuku: $e');

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:running_services_monitor/services/shizuku_api.g.dart';
+import 'package:running_services_monitor/services/shizuku_api.g.dart' as gen;
 
 @module
 abstract class DependencyModule {
-  ShizukuHostApi get api => ShizukuHostApi();
+  gen.ShizukuHostApi get api => gen.ShizukuHostApi();
 }

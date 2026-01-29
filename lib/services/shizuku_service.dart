@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/models/working_mode.dart';
 import 'package:running_services_monitor/services/command_log_service.dart';
-import 'package:running_services_monitor/services/shizuku_api.g.dart';
+import 'package:running_services_monitor/services/shizuku_api.g.dart' as gen;
 
 @lazySingleton
 class ShizukuService {
   final CommandLogService commandLogService;
-  final ShizukuHostApi api;
+  final gen.ShizukuHostApi api;
 
   ShizukuService(this.commandLogService, this.api);
 
@@ -78,7 +78,7 @@ class ShizukuService {
       throw Exception('Not initialized or no permission');
     }
 
-    final result = await api.runCommand(CommandRequest(command: command, mode: currentMode?.name));
+    final result = await api.runCommand(gen.CommandRequest(command: command, mode: currentMode?.name));
 
     if (result.error != null) {
       if (logCommand) commandLogService.addEntry(command, 'Error: ${result.error}', isSuccess: false);
@@ -109,7 +109,7 @@ class ShizukuService {
     api
         .setStreamCommand(command, currentMode?.name)
         .then((_) {
-          streamOutput().listen(
+          gen.streamOutput().listen(
             (line) {
               outputBuffer.writeln(line);
               controller.add(line);
