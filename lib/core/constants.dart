@@ -9,9 +9,9 @@ class AppConstants {
   static const String shizukuPackageName = 'moe.shizuku.privileged.api';
   static const String shizukuPlayStoreUrl = 'https://play.google.com/store/apps/details?id=$shizukuPackageName';
 
-  static const String cmdDumpsysActivityServices = 'dumpsys activity services';
-  static const String cmdDumpsysActivityLru = 'dumpsys activity lru';
-  static const String cmdDumpsysMeminfo = 'dumpsys meminfo';
+  static const String cmdDumpsysActivityServices = 'dumpsys -t 120 activity services';
+  static const String cmdDumpsysActivityLru = 'dumpsys -t 120 activity lru';
+  static const String cmdDumpsysMeminfo = 'dumpsys -t 120 meminfo';
 
   static const String developerEmail = 'biplobsd11@gmail.com';
 
