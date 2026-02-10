@@ -18,5 +18,11 @@ class AppConstants {
   static const String sourceCodeUrl = 'https://github.com/biplobsd/running_services_monitor';
   static const String buyMeCoffeeUrl = 'https://buymeacoffee.com/biplobsd';
 
-  static const List<Lang> languages = [Lang(Locale('en'), 'English'), Lang(Locale('bn'), 'বাংলা'), Lang(Locale('zh'), '简体中文'), Lang(Locale('ru'), 'Русский')];
+  static const List<Lang> languages = [
+    Lang(Locale('en'), 'English'),
+    Lang(Locale('bn'), 'বাংলা'),
+    Lang(Locale('zh'), '简体中文'),
+    Lang(Locale('ru'), 'Русский'),
+    Lang(Locale('ja'), '日本語'),
+  ];
 }
