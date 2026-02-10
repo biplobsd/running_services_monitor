@@ -27,7 +27,7 @@ With a clean and intuitive interface, you can easily view system and user apps, 
 - **Root & Shizuku Integration**: First checks for root permission, then falls back to Shizuku for advanced system interactions (where supported).
 - **Material Design 3**: A modern and beautiful UI that adapts to your device's theme.
 - **Dark/Light Mode**: Toggle between dark and light themes for comfortable viewing.
-- **Localization**: Support for English, Bangla, Chinese languages.
+- **Localization**: Support for English, Bangla, Chinese and other languages.
 
 ## 📱 Screenshots
 
