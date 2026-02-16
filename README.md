@@ -5,6 +5,9 @@
 ![Platform](https://img.shields.io/badge/Platform-Android-brightgreen)
 [![Release](https://img.shields.io/github/v/release/biplobsd/running_services_monitor?label=Release&logo=github)](https://github.com/biplobsd/running_services_monitor/releases)
 [![GitHub stars](https://img.shields.io/github/stars/biplobsd/running_services_monitor?style=social)](https://github.com/biplobsd/running_services_monitor/stargazers)
+[![GitHub Downloads](https://img.shields.io/github/downloads/biplobsd/running_services_monitor/total?logo=github&label=Downloads)](https://github.com/biplobsd/running_services_monitor/releases)
+[![F-Droid Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fkitswas%2Ffdroid-metrics-dashboard%2Fraw%2Frefs%2Fheads%2Fmain%2Fprocessed%2Fmonthly%2Fme.biplobsd.rsm.json&query=%24.total_downloads&logo=fdroid&label=Downloads&color=blue)](https://f-droid.org/packages/me.biplobsd.rsm/)
+[![IzzyOnDroid Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdlstats.izzyondroid.org%2Fiod-stats-collector%2Fstats%2Fbasic%2Fyearly%2Frolling.json&query=%24.['me.biplobsd.rsm']&label=IzzyOnDroid%20Downloads&color=blue)](https://apt.izzysoft.de/packages/me.biplobsd.rsm)
 
 Running Services Monitor helps you monitor running services on your Android device.
 With a clean and intuitive interface, you can easily view system and user apps, check their status efficiently.
@@ -33,14 +36,15 @@ With a clean and intuitive interface, you can easily view system and user apps, 
 
 > Screenshots are stored in [`fastlane/metadata/android/en-US/images/phoneScreenshots`](fastlane/metadata/android/en-US/images/phoneScreenshots)|
 
-
 ## Requirements
 
 ### Essential
+
 - **Android 7.0 (API 24) or higher**
 - **Root access** (preferred) OR **Shizuku app** installed and running
 
 ### Permissions
+
 - `QUERY_ALL_PACKAGES` - To list all installed apps
 - Root permission OR Shizuku permission - The app first checks for root access, then falls back to Shizuku if root is unavailable
 
@@ -57,12 +61,14 @@ With a clean and intuitive interface, you can easily view system and user apps, 
 #### 1. Install Shizuku
 
 Download and install Shizuku from:
+
 - [Google Play Store](https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api)
 - [GitHub Releases](https://github.com/RikkaApps/Shizuku/releases)
 
 #### 2. Start Shizuku Service
 
 ##### Wireless Debugging:
+
 1. Enable **Developer Options** on your device
 2. Enable **Wireless Debugging** in Developer Options
 3. Open Shizuku app
@@ -85,11 +91,13 @@ This app uses root access or Shizuku to execute privileged ADB commands:
 Starting from Android 8.0 (API 26), the `ActivityManager.getRunningServices()` API was deprecated and restricted. Third-party apps can no longer query all running services on the device for privacy and security reasons.
 
 **Root access** provides the most seamless experience:
+
 - Direct access to system commands
 - No additional setup required
 - Works on all rooted devices
 
 **Shizuku** provides an alternative for non-rooted devices:
+
 - Running a privileged service that can access system APIs
 - Allowing apps to execute ADB commands without root
 - Working on non-rooted devices via Wireless Debugging (Android 11+) or USB ADB
@@ -147,6 +155,7 @@ After completion, verify all translations are correct.
 2. Translate all fields from `app_en.arb` file to the new language
 
 3. Add the new language to `lib/core/constants.dart`:
+
    ```dart
    static const List<Lang> supportedLangs = [
      Lang(Locale('en'), 'English'),
@@ -190,6 +199,17 @@ Thanks to all the amazing people who have contributed to this project!
 <a href="https://github.com/biplobsd/running_services_monitor/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=biplobsd/running_services_monitor" />
 </a>
+
+## Reviews
+
+[![Top 6 Best Android Privacy Apps You Should Use in 2025 | Stop Tracking, Secure Files & Data](https://img.youtube.com/vi/ykGuJ9J4poo/0.jpg)](https://youtu.be/ykGuJ9J4poo?si=1ERuKMY6YK8FYXs-&t=143)
+<br>[**Top 6 Best Android Privacy Apps You Should Use in 2025 | Stop Tracking, Secure Files & Data**](https://youtu.be/ykGuJ9J4poo?si=1ERuKMY6YK8FYXs-&t=143) by [Anurag - The Geek](https://www.youtube.com/@anurag-thegeek)
+
+[![10 APPS DIFERENCIADOS pro seu Android! 🔥 (Dezembro 2025)](https://img.youtube.com/vi/klIFntXWO6E/0.jpg)](https://youtu.be/klIFntXWO6E?si=XRi2NuV9iZ-7sYV_&t=216)
+<br>[**10 APPS DIFERENCIADOS pro seu Android! 🔥 (Dezembro 2025)**](https://youtu.be/klIFntXWO6E?si=XRi2NuV9iZ-7sYV_&t=216) by [VegaData](https://www.youtube.com/@VegaData)
+
+[![7 Melhores APLICATIVOS para CELULAR em 2025 #51](https://img.youtube.com/vi/lkVc1B7vN0Q/0.jpg)](https://youtu.be/lkVc1B7vN0Q?si=pwvze4AZL1iDbFQk&t=127)
+<br>[**7 Melhores APLICATIVOS para CELULAR em 2025 #51**](https://youtu.be/lkVc1B7vN0Q?si=pwvze4AZL1iDbFQk&t=127) by [ODORIZZI](https://www.youtube.com/@odorizzioficial)
 
 ## Star History
 
