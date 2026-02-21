@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -108,7 +109,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           title: BlocSelector<HomeBloc, HomeState, bool>(
             selector: (state) => state.value.isSearching,
             builder: (context, isSearching) {
-              return isSearching ? SearchField(controller: _searchController) : const AppLogo();
+              return isSearching
+                  ? SearchField(controller: _searchController)
+                  : Material(
+                      color: Colors.transparent,
+                      child: InkWell(onTap: () => context.push('/about'), child: const AppLogo()),
+                    );
             },
           ),
           bottom: TabBar(

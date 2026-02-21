@@ -57,6 +57,8 @@ abstract class ShizukuHostApi {
 
   @async
   AppInfoData? getAppInfo(String packageName, String? mode);
+
+  String getAppVersion();
 }
 
 @EventChannelApi()

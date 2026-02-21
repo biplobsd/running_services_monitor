@@ -56,9 +56,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i773.ContributorsService>(
       () => _i773.ContributorsService(),
     );
-    gh.lazySingleton<_i204.AboutBloc>(
-      () => _i204.AboutBloc(gh<_i773.ContributorsService>()),
-    );
     gh.lazySingleton<_i340.AppInfoBloc>(
       () => _i340.AppInfoBloc(gh<_i825.AppInfoService>()),
     );
@@ -80,6 +77,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i725.CommandLogBloc>(
       () => _i725.CommandLogBloc(
         gh<_i404.CommandLogService>(),
+        gh<_i842.ShizukuService>(),
+      ),
+    );
+    gh.lazySingleton<_i204.AboutBloc>(
+      () => _i204.AboutBloc(
+        gh<_i773.ContributorsService>(),
         gh<_i842.ShizukuService>(),
       ),
     );

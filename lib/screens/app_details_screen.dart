@@ -3,7 +3,6 @@ import 'package:expressive_refresh/expressive_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_scale_kit/flutter_scale_kit.dart';
-import 'package:installed_apps/installed_apps.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
@@ -17,10 +16,10 @@ import 'widgets/app_details/state_badges.dart';
 import 'widgets/meminfo/meminfo_details_widget.dart';
 import 'widgets/app_details/app_details_filter_chips.dart';
 import 'widgets/app_details/useful_commands_bottom_sheet.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
+import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 
 enum AppDetailsFilter { services, processes, meminfo }
@@ -96,7 +95,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                     icon: AppStyles.infoIcon,
                     tooltip: loc.appInfoTooltip,
                     onPressed: () {
-                      InstalledApps.openSettings(currentAppInfo.packageName);
+                      AndroidSettingsHelper.openAppInfo(currentAppInfo.packageName);
                     },
                   ),
                 ],

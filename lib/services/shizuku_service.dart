@@ -19,6 +19,8 @@ class ShizukuService {
 
   Future<bool> isShizukuRunning() async => api.pingBinder();
 
+  Future<String> getAppVersion() async => api.getAppVersion();
+
   Future<bool> checkRootPermission() async {
     hasRootPermission = await api.checkRootPermission();
     return hasRootPermission;

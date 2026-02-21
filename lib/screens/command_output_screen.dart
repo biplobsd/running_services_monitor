@@ -8,10 +8,10 @@ import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/command_log_entry.dart';
+import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/screens/widgets/common/auto_refresh_timer_button.dart';
 import 'package:running_services_monitor/screens/widgets/common/code_output_box.dart';
 import 'package:running_services_monitor/screens/widgets/common/loading_indicator.dart';
-import 'package:share_plus/share_plus.dart';
 
 class CommandOutputScreen extends StatefulWidget {
   final String entryId;
@@ -83,8 +83,7 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                       tooltip: 'Share',
                       onPressed: () async {
                         final text = '${context.loc.command}:\n${entry.command}\n\n${context.loc.rawOutput}:\n${entry.output}';
-                        final file = XFile.fromData(Uint8List.fromList(text.codeUnits), name: 'command_output.txt', mimeType: 'text/plain');
-                        await SharePlus.instance.share(ShareParams(files: [file]));
+                        await AndroidSettingsHelper.shareText(text);
                       },
                     ),
                     IconButton(

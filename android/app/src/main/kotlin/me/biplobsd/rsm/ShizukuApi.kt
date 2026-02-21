@@ -270,6 +270,7 @@ interface ShizukuHostApi {
   fun setStreamCommand(command: String, mode: String?)
   fun startAppInfoStream(mode: String?)
   fun getAppInfo(packageName: String, mode: String?, callback: (Result<AppInfoData?>) -> Unit)
+  fun getAppVersion(): String
 
   companion object {
     /** The codec used by ShizukuHostApi. */
@@ -437,6 +438,21 @@ interface ShizukuHostApi {
                 reply.reply(ShizukuApiPigeonUtils.wrapResult(data))
               }
             }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.running_services_monitor.ShizukuHostApi.getAppVersion$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            val wrapped: List<Any?> = try {
+              listOf(api.getAppVersion())
+            } catch (exception: Throwable) {
+              ShizukuApiPigeonUtils.wrapError(exception)
+            }
+            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

@@ -217,6 +217,10 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         pendingAppInfoMode = mode
     }
 
+    override fun getAppVersion(): String {
+        return BuildConfig.VERSION_NAME
+    }
+
     suspend fun streamAppInfo(sink: PigeonEventSink<AppInfoData>, mode: String) {
         try {
             val pm = packageManager

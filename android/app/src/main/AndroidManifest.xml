@@ -5,7 +5,6 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:localeConfig="@xml/locales_config"
-        android:extractNativeLibs="true"
         android:allowBackup="false"
         android:fullBackupContent="false"
         tools:replace="android:allowBackup">
