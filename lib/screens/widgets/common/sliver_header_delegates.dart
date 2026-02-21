@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class RamBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget ramBar;
@@ -12,10 +11,10 @@ class RamBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 150.h;
+  double get maxExtent => 150;
 
   @override
-  double get minExtent => 150.h;
+  double get minExtent => 150;
 
   @override
   bool shouldRebuild(covariant RamBarDelegate oldDelegate) {
@@ -30,7 +29,7 @@ class FilterChipsDelegate extends SliverPersistentHeaderDelegate {
   final double slideOffset;
 
   FilterChipsDelegate({required this.child, double? height, this.opacity = 1.0, this.slideOffset = 0.0})
-    : height = height ?? 52.h;
+    : height = height ?? 52;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -64,7 +63,7 @@ class AnimatedFilterChipsDelegate extends SliverPersistentHeaderDelegate {
   final bool isVisible;
   final double height;
 
-  AnimatedFilterChipsDelegate({required this.child, required this.isVisible, double? height}) : height = height ?? 52.h;
+  AnimatedFilterChipsDelegate({required this.child, required this.isVisible, double? height}) : height = height ?? 52;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

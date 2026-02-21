@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -30,7 +29,7 @@ class MemInfoComparePieCharts extends StatelessWidget {
       padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
@@ -58,17 +57,17 @@ class MemInfoComparePieCharts extends StatelessWidget {
 
   Widget _buildLegend(BuildContext context) {
     return Wrap(
-      spacing: 12.w,
-      runSpacing: 6.h,
+      spacing: 12,
+      runSpacing: 6,
       children: MemInfoChartData.legendItems
           .map(
             (item) => Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 10.w,
-                  height: 10.w,
-                  decoration: BoxDecoration(color: item.color, borderRadius: BorderRadius.circular(2.rSafe)),
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(color: item.color, borderRadius: BorderRadius.circular(2)),
                 ),
                 AppStyles.spacing4,
                 Text(item.label, style: AppStyles.smallStyle),
@@ -103,8 +102,8 @@ class _PieChartColumn extends StatelessWidget {
         ),
         AppStyles.spacingH8,
         SizedBox(
-          width: 80.w,
-          height: 80.w,
+          width: 80,
+          height: 80,
           child: segments.isNotEmpty && total > 0
               ? CustomPaint(
                   painter: _MiniPieChartPainter(segments: segments, total: total),

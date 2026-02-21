@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -98,7 +97,7 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
             return StatsChartCard(
               title: context.loc.statsServicesVsRamCorrelation,
               subtitle: '${context.loc.statsServicesVsRamSubtitle} (r = ${correlation.toStringAsFixed(2)})',
-              height: 250.h,
+              height: 250,
               child: Stack(
                 children: [
                   CustomPaint(
@@ -131,7 +130,7 @@ class ServicesVsRamBubbleChart extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: 'RAM: ${app.totalRamInKb.formatRam()}\n${context.loc.services}: ${app.services.length}',
-                                    style: AppStyles.smallStyle.copyWith(color: primary, fontSize: 12.sp),
+                                    style: AppStyles.smallStyle.copyWith(color: primary, fontSize: 12),
                                   ),
                                 ],
                               );

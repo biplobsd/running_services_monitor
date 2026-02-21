@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.dart';
@@ -59,11 +58,11 @@ class CommandLogScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.terminal, size: 64.w, color: Theme.of(context).colorScheme.outline),
+                    Icon(Icons.terminal, size: 64, color: Theme.of(context).colorScheme.outline),
                     AppStyles.spacingH16,
                     Text(
                       context.loc.noCommandLogs,
-                      style: AppStyles.bodyStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 16.sp),
+                      style: AppStyles.bodyStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 16),
                     ),
                   ],
                 ),
@@ -78,11 +77,11 @@ class CommandLogScreen extends StatelessWidget {
                 final entry = entries[index];
                 final dateFormat = DateFormat('HH:mm:ss');
                 return ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   leading: Icon(entry.isSuccess ? Icons.check_circle_outline : Icons.error_outline, color: entry.isSuccess ? Colors.green : Colors.red),
                   title: Text(
                     entry.command,
-                    style: AppStyles.bodyStyle.copyWith(fontSize: 13.sp, fontFamily: 'monospace'),
+                    style: AppStyles.bodyStyle.copyWith(fontSize: 13, fontFamily: 'monospace'),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
@@ -59,7 +58,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.runningServices,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.security, size: 20.sp),
+                        leading: Icon(Icons.security, size: 20),
                         title: Text(context.loc.runningServicesTitle, style: AppStyles.bodyStyle),
                       ),
                     ),
@@ -67,7 +66,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.mode,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.settings, size: 20.sp),
+                        leading: Icon(Icons.settings, size: 20),
                         title: Text(context.loc.workingMode, style: AppStyles.bodyStyle),
                         subtitle: currentMode != null ? Text(_getModeDisplayName(context, currentMode), style: AppStyles.subtitleStyle) : null,
                       ),
@@ -76,7 +75,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.language,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.language, size: 20.sp),
+                        leading: Icon(Icons.language, size: 20),
                         title: Text(context.loc.language, style: AppStyles.bodyStyle),
                         subtitle: Text(_getLanguageDisplayName(context, currentLocale), style: AppStyles.subtitleStyle),
                       ),
@@ -89,9 +88,9 @@ class AboutButton extends StatelessWidget {
                           child: Transform.scale(
                             scale: 0.50,
                             child: SizedBox(
-                              width: 15.sp,
+                              width: 15,
                               child: Padding(
-                                padding: EdgeInsets.only(left: 15.sp),
+                                padding: EdgeInsets.only(left: 15),
                                 child: Switch(value: showCoreApps, onChanged: (_) {}, materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
                               ),
                             ),
@@ -104,7 +103,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.logs,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.terminal, size: 20.sp),
+                        leading: Icon(Icons.terminal, size: 20),
                         title: Text(context.loc.commandLogs, style: AppStyles.bodyStyle),
                       ),
                     ),
@@ -112,7 +111,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.compare,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.compare_arrows, size: 20.sp),
+                        leading: Icon(Icons.compare_arrows, size: 20),
                         title: Text(context.loc.compareWithOther, style: AppStyles.bodyStyle),
                       ),
                     ),
@@ -120,7 +119,7 @@ class AboutButton extends StatelessWidget {
                       value: AboutMenuItem.about,
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: Icon(Icons.info_outline, size: 20.sp),
+                        leading: Icon(Icons.info_outline, size: 20),
                         title: Text(context.loc.about, style: AppStyles.bodyStyle),
                       ),
                     ),

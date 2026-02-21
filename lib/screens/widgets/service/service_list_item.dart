@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -21,18 +20,18 @@ class ServiceListItem extends StatelessWidget {
       child: ListTile(
         title: Text(service.packageName, style: AppStyles.titleStyle),
         subtitle: Column(
-          spacing: 8.h,
+          spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(service.serviceName, style: AppStyles.subtitleStyle.copyWith(color: colors.onSurfaceVariant)),
             Row(
-              spacing: 8.w,
+              spacing: 8,
               children: [
                 if (service.ramInKb != null)
                   Row(
-                    spacing: 4.w,
+                    spacing: 4,
                     children: [
-                      Icon(Icons.memory, size: 12.w, color: colors.secondary),
+                      Icon(Icons.memory, size: 12, color: colors.secondary),
                       Text(
                         service.ramInKb.formatRam(),
                         style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: colors.secondary),
@@ -50,9 +49,9 @@ class ServiceListItem extends StatelessWidget {
                   ),
                 if (service.pid != null)
                   Row(
-                    spacing: 4.w,
+                    spacing: 4,
                     children: [
-                      Icon(Icons.numbers, size: 12.w, color: colors.primary),
+                      Icon(Icons.numbers, size: 12, color: colors.primary),
                       Text('${loc.pid}: ${service.pid}', style: AppStyles.captionStyle.copyWith(color: colors.primary)),
                     ],
                   ),

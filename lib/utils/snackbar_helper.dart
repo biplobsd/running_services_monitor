@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class SnackBarHelper {
   static void showLoading(BuildContext context, String message) {
@@ -58,29 +57,29 @@ class SnackBarHelper {
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(color: colorScheme.onSurface.withValues(alpha: 0.5)),
               child: Row(
                 children: [
-                  if (icon != null) ...[icon, SizedBox(width: 12.w)],
+                  if (icon != null) ...[icon, SizedBox(width: 12)],
                   Expanded(
                     child: Text(
                       message,
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: colorScheme.surface),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: colorScheme.surface),
                     ),
                   ),
                   if (actionLabel != null) ...[
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 8),
                     TextButton(
                       onPressed: onAction ?? () {},
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: Text(
                         actionLabel,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ),
                   ],

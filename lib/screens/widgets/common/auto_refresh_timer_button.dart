@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 
 class AutoRefreshTimerButton extends StatelessWidget {
@@ -37,7 +36,7 @@ class AutoRefreshTimerButton extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (isSelected) Icon(Icons.check, size: 18.sp, color: Theme.of(context).colorScheme.primary) else SizedBox(width: 18.sp),
+                if (isSelected) Icon(Icons.check, size: 18, color: Theme.of(context).colorScheme.primary) else SizedBox(width: 18),
                 AppStyles.spacingH8,
                 Text(_formatDuration(interval)),
               ],
@@ -51,7 +50,7 @@ class AutoRefreshTimerButton extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.stop, size: 18.sp, color: Theme.of(context).colorScheme.error),
+                Icon(Icons.stop, size: 18, color: Theme.of(context).colorScheme.error),
                 AppStyles.spacingH8,
                 Text('Stop', style: TextStyle(color: Theme.of(context).colorScheme.error)),
               ],

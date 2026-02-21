@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -65,7 +64,7 @@ class _MemInfoAppSelectSheetState extends State<MemInfoAppSelectSheet> {
             return Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -81,51 +80,51 @@ class _MemInfoAppSelectSheetState extends State<MemInfoAppSelectSheet> {
                     segments: [
                       ButtonSegment(
                         value: AppFilterType.all,
-                        label: Text(context.loc.allApps, style: TextStyle(fontSize: 11.sp)),
+                        label: Text(context.loc.allApps, style: TextStyle(fontSize: 11)),
                       ),
                       ButtonSegment(
                         value: AppFilterType.user,
-                        label: Text(context.loc.userApps, style: TextStyle(fontSize: 11.sp)),
+                        label: Text(context.loc.userApps, style: TextStyle(fontSize: 11)),
                       ),
                       ButtonSegment(
                         value: AppFilterType.system,
-                        label: Text(context.loc.systemApps, style: TextStyle(fontSize: 11.sp)),
+                        label: Text(context.loc.systemApps, style: TextStyle(fontSize: 11)),
                       ),
                     ],
                     selected: {filterType},
                     onSelectionChanged: (set) => setState(() => filterType = set.first),
                     style: ButtonStyle(
                       visualDensity: VisualDensity.compact,
-                      padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8.w)),
+                      padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8)),
                     ),
                   ),
                 ),
-                SizedBox(height: 4.h),
+                SizedBox(height: 4),
                 Expanded(
                   child: ListView.builder(
                     controller: scrollController,
-                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    padding: EdgeInsets.symmetric(horizontal: 12),
                     itemCount: filteredApps.length,
                     itemBuilder: (context, index) {
                       final app = filteredApps[index];
                       return Card(
-                        margin: EdgeInsets.symmetric(vertical: 4.h),
+                        margin: EdgeInsets.symmetric(vertical: 4),
                         child: ListTile(
-                          leading: AppIcon(appInfo: app, size: 40.w),
+                          leading: AppIcon(appInfo: app, size: 40),
                           title: BlocSelector<AppInfoBloc, AppInfoState, String?>(
                             bloc: getIt<AppInfoBloc>(),
                             selector: (state) => state.value.cachedApps[app.packageName]?.appName,
                             builder: (context, appName) {
                               return Text(
                                 appName ?? app.packageName,
-                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
                                 overflow: TextOverflow.ellipsis,
                               );
                             },
                           ),
                           subtitle: Text(
                             app.packageName,
-                            style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             overflow: TextOverflow.ellipsis,
                           ),
                           onTap: () {

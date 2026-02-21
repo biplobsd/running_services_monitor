@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/stats_bloc/stats_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -32,14 +31,14 @@ class RamDistributionPieChart extends StatelessWidget {
                 color: Colors.redAccent,
                 value: used,
                 title: '${(used / 1024 / 1024).toStringAsFixed(1)} GB',
-                radius: touchedIndex == 0 ? 60.sp : 50.sp,
+                radius: touchedIndex == 0 ? 60 : 50,
                 titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               PieChartSectionData(
                 color: Colors.greenAccent,
                 value: free,
                 title: '${(free / 1024 / 1024).toStringAsFixed(1)} GB',
-                radius: touchedIndex == 1 ? 60.sp : 50.sp,
+                radius: touchedIndex == 1 ? 60 : 50,
                 titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               if (zram > 0)
@@ -47,7 +46,7 @@ class RamDistributionPieChart extends StatelessWidget {
                   color: Colors.orangeAccent,
                   value: zram,
                   title: '${(zram / 1024 / 1024).toStringAsFixed(1)} GB',
-                  radius: touchedIndex == 2 ? 60.sp : 50.sp,
+                  radius: touchedIndex == 2 ? 60 : 50,
                   titleStyle: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                 ),
             ];
@@ -58,7 +57,7 @@ class RamDistributionPieChart extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 200.h,
+                    height: 200,
                     child: PieChart(
                       PieChartData(
                         pieTouchData: PieTouchData(
@@ -74,7 +73,7 @@ class RamDistributionPieChart extends StatelessWidget {
                         ),
                         borderData: FlBorderData(show: false),
                         sectionsSpace: 2,
-                        centerSpaceRadius: 40.sp,
+                        centerSpaceRadius: 40,
                         sections: sections,
                       ),
                     ),

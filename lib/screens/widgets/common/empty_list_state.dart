@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 
 class EmptyListState extends StatelessWidget {
@@ -20,8 +19,8 @@ class EmptyListState extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.inbox_outlined, size: 64.w, color: Theme.of(context).colorScheme.outline),
-                    SizedBox(height: 16.h),
+                    Icon(Icons.inbox_outlined, size: 64, color: Theme.of(context).colorScheme.outline),
+                    SizedBox(height: 16),
                     Text(
                       isSearching ? context.loc.noMatchingApps : context.loc.noAppsFound,
                       style: Theme.of(context).textTheme.bodyLarge,

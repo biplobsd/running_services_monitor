@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -38,7 +37,7 @@ class ProcessListItem extends StatelessWidget {
               onPressed: () => _confirmStopProcess(context),
               label: Text(loc.stop, style: AppStyles.subtitleStyle),
               style: FilledButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 minimumSize: Size.zero,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
@@ -46,7 +45,7 @@ class ProcessListItem extends StatelessWidget {
           },
         ),
         subtitle: Column(
-          spacing: 8.h,
+          spacing: 8,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -56,12 +55,12 @@ class ProcessListItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Row(
-              spacing: 8.w,
+              spacing: 8,
               children: [
                 Row(
-                  spacing: 4.w,
+                  spacing: 4,
                   children: [
-                    Icon(Icons.storage, size: 12.w, color: colors.secondary),
+                    Icon(Icons.storage, size: 12, color: colors.secondary),
                     Text(
                       process.ramKb.formatRam(),
                       style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: colors.secondary),
@@ -70,9 +69,9 @@ class ProcessListItem extends StatelessWidget {
                 ),
                 if (process.pid != null)
                   Row(
-                    spacing: 4.w,
+                    spacing: 4,
                     children: [
-                      Icon(Icons.numbers, size: 12.w, color: colors.primary),
+                      Icon(Icons.numbers, size: 12, color: colors.primary),
                       Text('${loc.pid}: ${process.pid}', style: AppStyles.captionStyle.copyWith(color: colors.primary)),
                     ],
                   ),
@@ -134,19 +133,19 @@ class ProcessListItem extends StatelessWidget {
 
   Widget _buildDetailRow(BuildContext context, String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4.h),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 100.w,
+            width: 100,
             child: Text(
               label,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ),
           Expanded(
-            child: SelectableText(value, style: TextStyle(fontSize: 13.sp)),
+            child: SelectableText(value, style: TextStyle(fontSize: 13)),
           ),
         ],
       ),

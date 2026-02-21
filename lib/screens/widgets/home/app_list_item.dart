@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -30,7 +29,7 @@ class AppListItem extends StatelessWidget {
     return ListTile(
       leading: Hero(
         tag: 'app-icon-$tabIndex-${appInfo.packageName}',
-        child: AppIcon(appInfo: appInfo, size: 40.sp),
+        child: AppIcon(appInfo: appInfo, size: 40),
       ),
       title: AppNameText(packageName: appInfo.packageName, maxLines: 1, overflow: TextOverflow.ellipsis, style: AppStyles.titleStyle),
       subtitle: Column(
@@ -39,8 +38,8 @@ class AppListItem extends StatelessWidget {
           Text(subtitleText, style: Theme.of(context).textTheme.bodySmall),
           AppStyles.spacingH4,
           Wrap(
-            spacing: 4.w,
-            runSpacing: 2.h,
+            spacing: 4,
+            runSpacing: 2,
             children: [
               if (appInfo.isActive) StatusBadge(label: loc.active, color: Colors.green),
               if (appInfo.isCached) StatusBadge(label: loc.cached, color: Colors.grey),

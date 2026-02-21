@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -32,7 +31,7 @@ class MemInfoContentView extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 16.h,
+      spacing: 16,
       children: [
         Row(
           children: [
@@ -43,19 +42,19 @@ class MemInfoContentView extends StatelessWidget {
           ],
         ),
         Row(
-          spacing: 8.w,
+          spacing: 8,
           children: [
             Expanded(
               child: FilledButton.tonalIcon(
                 onPressed: onToggleRawOutput,
-                icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18.sp),
+                icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18),
                 label: Text(showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput, style: AppStyles.smallStyle),
               ),
             ),
             Expanded(
               child: FilledButton.icon(
                 onPressed: () => context.push('/meminfo-compare', extra: {'packageName': packageName}),
-                icon: Icon(Icons.compare_arrows, size: 18.sp),
+                icon: Icon(Icons.compare_arrows, size: 18),
                 label: Text(context.loc.compareWithOther, style: AppStyles.smallStyle),
               ),
             ),
@@ -64,7 +63,7 @@ class MemInfoContentView extends StatelessWidget {
         if (showRawOutput)
           CodeOutputBox(
             text: data.rawOutput.isEmpty ? context.loc.noOutput : data.rawOutput,
-            fontSize: 10.sp,
+            fontSize: 10,
             textColor: const Color(0xFF4EC9B0),
             backgroundColor: Colors.black,
             horizontalScroll: true,

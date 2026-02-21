@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
@@ -43,16 +42,16 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 16.h,
+        spacing: 16,
         children: [
           Row(
             children: [
-              Icon(Icons.analytics, size: 20.sp, color: primary),
+              Icon(Icons.analytics, size: 20, color: primary),
               AppStyles.spacing8,
               Expanded(
                 child: Text(context.loc.appSummary, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
@@ -60,7 +59,7 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
             ],
           ),
           Row(
-            spacing: 12.w,
+            spacing: 12,
             children: [
               Expanded(child: _buildTotalCard(context, 'Total PSS', widget.summary.totalPss, Colors.blue, Icons.memory)),
               Expanded(child: _buildTotalCard(context, 'Total RSS', widget.summary.totalRss, Colors.purple, Icons.storage)),
@@ -68,8 +67,8 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
           ),
           if (widget.summary.totalSwapPss > 0) _buildTotalCard(context, 'Swap PSS', widget.summary.totalSwapPss, Colors.orange, Icons.swap_horiz),
           Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
+            spacing: 8,
+            runSpacing: 8,
             children: items.where((item) => item.pss > 0 || item.rss > 0).map((item) => _buildSummaryChip(context, item)).toList(),
           ),
         ],
@@ -79,10 +78,10 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
 
   Widget _buildTotalCard(BuildContext context, String label, int value, Color color, IconData icon) {
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12.rSafe),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Column(
@@ -90,18 +89,18 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
         children: [
           Row(
             children: [
-              Icon(icon, size: 14.sp, color: color),
-              SizedBox(width: 6.w),
+              Icon(icon, size: 14, color: color),
+              SizedBox(width: 6),
               Text(
                 label,
-                style: TextStyle(fontSize: 11.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ],
           ),
-          SizedBox(height: 4.h),
+          SizedBox(height: 4),
           Text(
             value.formatRam(),
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: color),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color),
           ),
         ],
       ),
@@ -114,37 +113,37 @@ class _MemInfoSummaryCardState extends State<MemInfoSummaryCard> {
     final secondaryLabel = showPss ? 'RSS' : 'PSS';
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: item.color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20.rSafe),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: item.color.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 8.w,
-            height: 8.w,
+            width: 8,
+            height: 8,
             decoration: BoxDecoration(color: item.color, shape: BoxShape.circle),
           ),
-          SizedBox(width: 8.w),
+          SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 item.label,
-                style: TextStyle(fontSize: 10.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                style: TextStyle(fontSize: 10, color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
               if (primaryValue > 0)
                 Text(
                   primaryValue.formatRam(),
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: item.color),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: item.color),
                 ),
               if (secondaryValue > 0)
                 Text(
                   '$secondaryLabel: ${secondaryValue.formatRam()}',
-                  style: TextStyle(fontSize: 9.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: TextStyle(fontSize: 9, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
             ],
           ),

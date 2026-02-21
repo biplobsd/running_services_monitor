@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -43,7 +42,7 @@ class UserVsSystemBarChart extends StatelessWidget {
         return StatsChartCard(
           title: context.loc.statsUserVsSystemBar,
           subtitle: context.loc.statsUserVsSystemBarSubtitle,
-          height: 200.h,
+          height: 200,
           child: BarChart(
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
@@ -99,8 +98,8 @@ class UserVsSystemBarChart extends StatelessWidget {
                           text = '';
                       }
                       return Padding(
-                        padding: EdgeInsets.only(top: 8.h),
-                        child: Text(text, style: AppStyles.captionStyle.copyWith(fontSize: 10.sp)),
+                        padding: EdgeInsets.only(top: 8),
+                        child: Text(text, style: AppStyles.captionStyle.copyWith(fontSize: 10)),
                       );
                     },
                     reservedSize: 30,
@@ -123,13 +122,13 @@ class UserVsSystemBarChart extends StatelessWidget {
                     BarChartRodData(
                       toY: maxCount > 0 ? (userCount / maxCount) * 100 : 0,
                       color: userColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                     BarChartRodData(
                       toY: maxCount > 0 ? (systemCount / maxCount) * 100 : 0,
                       color: systemColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                   ],
@@ -140,13 +139,13 @@ class UserVsSystemBarChart extends StatelessWidget {
                     BarChartRodData(
                       toY: maxRam > 0 ? ((userRam / 1024) / maxRam) * 100 : 0,
                       color: userColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                     BarChartRodData(
                       toY: maxRam > 0 ? ((systemRam / 1024) / maxRam) * 100 : 0,
                       color: systemColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                   ],
@@ -157,13 +156,13 @@ class UserVsSystemBarChart extends StatelessWidget {
                     BarChartRodData(
                       toY: maxAvg > 0 ? ((userAvgRam / 1024) / maxAvg) * 100 : 0,
                       color: userColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                     BarChartRodData(
                       toY: maxAvg > 0 ? ((systemAvgRam / 1024) / maxAvg) * 100 : 0,
                       color: systemColor,
-                      width: 20.w,
+                      width: 20,
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                     ),
                   ],

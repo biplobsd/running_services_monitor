@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -81,12 +80,12 @@ class ProcessStateVsRamChart extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: 'Avg: ${FormatUtils.formatRam(item.avgRam)}\nApps: ${item.count}\n',
-                                style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.primary, fontSize: 12.sp),
+                                style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.primary, fontSize: 12),
                               ),
                               if (topAppsText.isNotEmpty)
                                 TextSpan(
                                   text: 'Top: $topAppsText',
-                                  style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.secondary, fontSize: 10.sp),
+                                  style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.secondary, fontSize: 10),
                                 ),
                             ],
                           );
@@ -101,7 +100,7 @@ class ProcessStateVsRamChart extends StatelessWidget {
                           getTitlesWidget: (value, meta) {
                             if (value.toInt() >= topData.length) return const SizedBox.shrink();
                             return Padding(
-                              padding: EdgeInsets.only(top: 8.h),
+                              padding: EdgeInsets.only(top: 8),
                               child: Text(topData[value.toInt()].state, style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold)),
                             );
                           },
@@ -110,12 +109,12 @@ class ProcessStateVsRamChart extends StatelessWidget {
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 40.w,
+                          reservedSize: 40,
                           getTitlesWidget: (value, meta) {
                             if (value == 0) return const SizedBox.shrink();
                             return Text(
                               FormatUtils.formatRam(value, decimalPlaces: 0).replaceAll(' MB', ''),
-                              style: AppStyles.captionStyle.copyWith(fontSize: 10.sp),
+                              style: AppStyles.captionStyle.copyWith(fontSize: 10),
                             );
                           },
                         ),
@@ -139,8 +138,8 @@ class ProcessStateVsRamChart extends StatelessWidget {
                           BarChartRodData(
                             toY: item.avgRam,
                             color: colors[idx % colors.length],
-                            width: 20.w,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(4.r)),
+                            width: 20,
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
                           ),
                         ],
                       );

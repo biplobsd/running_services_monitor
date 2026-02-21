@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -82,7 +81,7 @@ class RamTrendScatterChart extends StatelessWidget {
             return StatsChartCard(
               title: context.loc.statsRamTrendScatter,
               subtitle: '${context.loc.statsRamTrendScatterSubtitle} ($correlationText)',
-              height: 250.h,
+              height: 250,
               child: LineChart(
                 LineChartData(
                   gridData: FlGridData(
@@ -95,15 +94,15 @@ class RamTrendScatterChart extends StatelessWidget {
                   titlesData: FlTitlesData(
                     show: true,
                     leftTitles: AxisTitles(
-                      axisNameWidget: Text('RAM (MB)', style: AppStyles.captionStyle.copyWith(fontSize: 10.sp)),
+                      axisNameWidget: Text('RAM (MB)', style: AppStyles.captionStyle.copyWith(fontSize: 10)),
                       sideTitles: const SideTitles(showTitles: false),
                     ),
                     bottomTitles: AxisTitles(
-                      axisNameWidget: Text(context.loc.services, style: AppStyles.captionStyle.copyWith(fontSize: 10.sp)),
+                      axisNameWidget: Text(context.loc.services, style: AppStyles.captionStyle.copyWith(fontSize: 10)),
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 25,
-                        getTitlesWidget: (val, meta) => Text(val.toInt().toString(), style: AppStyles.smallStyle.copyWith(fontSize: 10.sp)),
+                        getTitlesWidget: (val, meta) => Text(val.toInt().toString(), style: AppStyles.smallStyle.copyWith(fontSize: 10)),
                       ),
                     ),
                     topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -142,7 +141,7 @@ class RamTrendScatterChart extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: '${context.loc.services}: ${spot.x.toInt()}\nRAM: ${(spot.y * 1024).formatRam()}',
-                                  style: AppStyles.smallStyle.copyWith(color: primary, fontSize: 12.sp),
+                                  style: AppStyles.smallStyle.copyWith(color: primary, fontSize: 12),
                                 ),
                               ],
                             );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 
 class CodeOutputBox extends StatelessWidget {
   final String text;
@@ -21,7 +20,7 @@ class CodeOutputBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveFontSize = fontSize ?? 12.sp;
+    final effectiveFontSize = fontSize ?? 12;
     final effectiveTextColor = textColor ?? Theme.of(context).colorScheme.onSurface;
     final effectiveBackgroundColor = backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerHighest;
 
@@ -33,10 +32,10 @@ class CodeOutputBox extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(horizontalScroll ? 12.w : 8.w),
+      padding: EdgeInsets.all(horizontalScroll ? 12 : 8),
       decoration: BoxDecoration(
         color: effectiveBackgroundColor,
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(8),
         border: hasBorder ? Border.all(color: Theme.of(context).colorScheme.outlineVariant) : null,
       ),
       child: horizontalScroll

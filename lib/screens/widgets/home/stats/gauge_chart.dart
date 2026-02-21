@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -28,9 +27,9 @@ class GaugeChart extends StatelessWidget {
           title: context.loc.statsGaugeChart,
           subtitle: context.loc.statsGaugeSubtitle,
           child: SizedBox(
-            height: 200.h,
+            height: 200,
             child: CustomPaint(
-              size: Size(double.infinity, 200.h),
+              size: Size(double.infinity, 200),
               painter: GaugePainter(
                 percentage: usagePercent,
                 primaryColor: primaryColor,

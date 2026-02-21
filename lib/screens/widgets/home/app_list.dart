@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -82,11 +81,11 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
                                     enabled: state.showSkeleton,
                                     child: Container(
                                       color: Theme.of(context).colorScheme.surface,
-                                      padding: EdgeInsets.only(bottom: 10.h),
+                                      padding: EdgeInsets.only(bottom: 10),
                                       child: RamBar(ramInfo: state.ramInfo, isLoading: state.isLoadingRam),
                                     ),
                                   ),
-                                  Divider(height: 1.h),
+                                  Divider(height: 1),
                                 ],
                               );
                             },

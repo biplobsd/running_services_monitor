@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -18,17 +17,17 @@ class ServiceRawOutputSection extends StatelessWidget {
 
     return ExpansionTile(
       tilePadding: AppStyles.paddingH4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.rSafe)),
-      collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.rSafe)),
-      leading: Icon(Icons.code_rounded, size: 20.w, color: colorScheme.primary),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      leading: Icon(Icons.code_rounded, size: 20, color: colorScheme.primary),
       title: Text(
         context.loc.rawOutput,
-        style: textTheme.titleSmall?.copyWith(fontSize: 14.sp, fontWeight: FontWeight.bold),
+        style: textTheme.titleSmall?.copyWith(fontSize: 14, fontWeight: FontWeight.bold),
       ),
       children: [
         CodeOutputBox(
           text: service.rawServiceRecord!,
-          fontSize: 11.sp,
+          fontSize: 11,
           textColor: const Color(0xFF4EC9B0),
           backgroundColor: Colors.black87,
           hasBorder: true,

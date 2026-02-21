@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:expressive_refresh/expressive_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/l10n/l10n_keys.dart';
@@ -110,7 +109,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                 child: CustomScrollView(
                   slivers: [
                     SliverPadding(
-                      padding: EdgeInsets.only(left: 15.0.w, right: 15.0.w, top: 24.0.w, bottom: 5.0.w),
+                      padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 24.0, bottom: 5.0),
                       sliver: SliverList(
                         delegate: SliverChildListDelegate([
                           AppHeader(appInfo: currentAppInfo, tabIndex: widget.tabIndex),
@@ -118,7 +117,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                           StateBadges(appInfo: currentAppInfo),
                           AppStyles.spacingH16,
                           const AppDetailsDescription(),
-                          SizedBox(height: 24.h),
+                          SizedBox(height: 24),
                           const Divider(),
                         ]),
                       ),
@@ -145,7 +144,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                           padding: AppStyles.listPadding,
                           sliver: SliverToBoxAdapter(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              padding: EdgeInsets.symmetric(vertical: 24),
                               child: Center(
                                 child: Text(
                                   loc.noServicesFound,
@@ -168,7 +167,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                           padding: AppStyles.listPadding,
                           sliver: SliverToBoxAdapter(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              padding: EdgeInsets.symmetric(vertical: 24),
                               child: Center(
                                 child: Text(
                                   loc.noProcessesFound,
@@ -191,7 +190,7 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                         final confirmed = await showDialog<bool>(
                           context: context,
                           builder: (dialogContext) => AlertDialog(
-                            title: Text(loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18.sp)),
+                            title: Text(loc.stopAllServicesConfirm, style: TextStyle(fontSize: 18)),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,17 +199,17 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
                                 AppStyles.spacingH8,
                                 Text(loc.stopServiceWarning, style: AppStyles.bodyStyle),
                                 if (currentAppInfo.isSystemApp ?? false) ...[
-                                  SizedBox(height: 12.h),
+                                  SizedBox(height: 12),
                                   Container(
-                                    padding: EdgeInsets.all(12.w),
+                                    padding: EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                       color: Colors.red[900]?.withValues(alpha: 0.3),
-                                      border: Border.all(color: Colors.red, width: 2.w),
-                                      borderRadius: BorderRadius.circular(8.rSafe),
+                                      border: Border.all(color: Colors.red, width: 2),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Text(
                                       loc.systemAppWarning,
-                                      style: TextStyle(color: Theme.of(context).colorScheme.error, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                      style: TextStyle(color: Theme.of(context).colorScheme.error, fontWeight: FontWeight.bold, fontSize: 13),
                                     ),
                                   ),
                                 ],

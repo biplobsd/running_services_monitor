@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/meminfo_bloc/meminfo_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -74,10 +73,10 @@ class _MemInfoCompareScreenState extends State<MemInfoCompareScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.compare_arrows_rounded, size: 64.sp, color: Theme.of(context).colorScheme.primary),
+              Icon(Icons.compare_arrows_rounded, size: 64, color: Theme.of(context).colorScheme.primary),
               AppStyles.spacingH16,
               Text(context.loc.selectAppToCompare, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.w500)),
-              SizedBox(height: 24.h),
+              SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: () {
                   MemInfoAppSelectSheet.show(context, allApps, (selectedPackage) {

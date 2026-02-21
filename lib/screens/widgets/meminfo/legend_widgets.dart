@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 
 class LegendDot extends StatelessWidget {
@@ -10,7 +9,7 @@ class LegendDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dotSize = size ?? 8.w;
+    final dotSize = size ?? 8;
     return Container(
       width: dotSize,
       height: dotSize,
@@ -33,7 +32,7 @@ class LegendLabel extends StatelessWidget {
       children: [
         LegendDot(color: color),
         AppStyles.spacing4,
-        Text(text, style: TextStyle(fontSize: fontSize ?? 11.sp)),
+        Text(text, style: TextStyle(fontSize: fontSize ?? 11)),
       ],
     );
   }

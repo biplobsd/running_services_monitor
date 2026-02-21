@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -24,7 +23,7 @@ class MemInfoCompareBarChart extends StatelessWidget {
       padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
@@ -82,14 +81,14 @@ class _LegendItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 12.w,
-          height: 12.w,
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3.rSafe)),
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
         ),
-        SizedBox(width: 6.w),
+        SizedBox(width: 6),
         Text(
           label,
-          style: TextStyle(fontSize: 11.sp),
+          style: TextStyle(fontSize: 11),
           overflow: TextOverflow.ellipsis,
         ),
       ],
@@ -111,7 +110,7 @@ class _MetricBarRow extends StatelessWidget {
     final compareWidth = maxValue > 0 ? (metric.compareValue / maxValue) : 0.0;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -138,8 +137,8 @@ class _MetricBarRow extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 8.h,
-                decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4.rSafe)),
+                height: 8,
+                decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4)),
               ),
               Row(
                 children: [
@@ -149,17 +148,17 @@ class _MetricBarRow extends StatelessWidget {
                         FractionallySizedBox(
                           widthFactor: math.min(1.0, compareWidth),
                           child: Container(
-                            height: 8.h,
-                            decoration: BoxDecoration(color: secondaryColor.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(4.rSafe)),
+                            height: 8,
+                            decoration: BoxDecoration(color: secondaryColor.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(4)),
                           ),
                         ),
                         FractionallySizedBox(
                           widthFactor: math.min(1.0, currentWidth),
                           child: Container(
-                            height: 8.h,
+                            height: 8,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(colors: [primaryColor, primaryColor.withValues(alpha: 0.7)]),
-                              borderRadius: BorderRadius.circular(4.rSafe),
+                              borderRadius: BorderRadius.circular(4),
                             ),
                           ),
                         ),

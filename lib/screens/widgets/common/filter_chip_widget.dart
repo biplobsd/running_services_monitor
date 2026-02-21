@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -28,10 +27,10 @@ class FilterChipWidget extends StatelessWidget {
         children: [
           Text(label.capitalize()),
           if (isSelected && sortAscending != null) ...[
-            SizedBox(width: 4.w),
+            SizedBox(width: 4),
             Icon(
               sortAscending! ? Icons.arrow_upward : Icons.arrow_downward,
-              size: 14.sp,
+              size: 14,
               color: color ?? Theme.of(context).colorScheme.primary,
             ),
           ],

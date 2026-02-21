@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -78,7 +77,7 @@ class _MemInfoAppSelectorState extends State<MemInfoAppSelector> {
           padding: AppStyles.paddingH12,
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(12.rSafe),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: colorScheme.outline.withValues(alpha: 0.3)),
           ),
           child: DropdownButtonHideUnderline(
@@ -91,8 +90,8 @@ class _MemInfoAppSelectorState extends State<MemInfoAppSelector> {
                   value: app.packageName,
                   child: Row(
                     children: [
-                      AppIcon(appInfo: app, size: 24.w),
-                      SizedBox(width: 8.w),
+                      AppIcon(appInfo: app, size: 24),
+                      SizedBox(width: 8),
                       Expanded(
                         child: BlocSelector<AppInfoBloc, AppInfoState, String?>(
                           bloc: getIt<AppInfoBloc>(),

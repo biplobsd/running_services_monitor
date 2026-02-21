@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 
 class StackedRamBar extends StatelessWidget {
@@ -14,8 +13,8 @@ class StackedRamBar extends StatelessWidget {
     final total = segments.fold<double>(0, (sum, s) => sum + s.value);
     if (total <= 0) return const SizedBox.shrink();
 
-    final barHeight = height ?? 14.h;
-    final radius = borderRadius ?? 6.r;
+    final barHeight = height ?? 14;
+    final radius = borderRadius ?? 6;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius),
@@ -35,7 +34,7 @@ class StackedRamBar extends StatelessWidget {
                     ? Center(
                         child: Text(
                           segment.label ?? '',
-                          style: TextStyle(fontSize: 9.sp, color: segment.labelColor ?? Colors.white, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 9, color: segment.labelColor ?? Colors.white, fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                       )
@@ -85,9 +84,9 @@ class RamProgressRow extends StatelessWidget {
         ),
         AppStyles.spacingH4,
         ClipRRect(
-          borderRadius: BorderRadius.circular(3.r),
+          borderRadius: BorderRadius.circular(3),
           child: SizedBox(
-            height: 6.h,
+            height: 6,
             child: Stack(
               children: [
                 Container(color: bgColor),

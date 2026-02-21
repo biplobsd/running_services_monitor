@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -58,14 +57,14 @@ class FunnelChart extends StatelessWidget {
               final widthFactor = maxCount > 0 ? (tier.$2 / maxCount).clamp(0.2, 1.0) : 0.2;
 
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.h),
+                padding: EdgeInsets.symmetric(vertical: 4),
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 60.w,
+                      width: 60,
                       child: Text(
                         tier.$1,
-                        style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
+                        style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12),
                       ),
                     ),
                     Expanded(
@@ -74,7 +73,7 @@ class FunnelChart extends StatelessWidget {
                         child: FractionallySizedBox(
                           widthFactor: widthFactor,
                           child: Container(
-                            height: 30.h - (index * 2),
+                            height: 30 - (index * 2),
                             decoration: BoxDecoration(
                               color: tier.$3,
                               borderRadius: const BorderRadius.horizontal(left: Radius.circular(4), right: Radius.circular(15)),
@@ -82,7 +81,7 @@ class FunnelChart extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               '${tier.$2}',
-                              style: AppStyles.bodyStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                              style: AppStyles.bodyStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                             ),
                           ),
                         ),

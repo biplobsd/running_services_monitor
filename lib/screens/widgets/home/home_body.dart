@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
@@ -98,7 +97,7 @@ class HomeBody extends StatelessWidget {
                       final animValue = animation.value;
                       final progress = (animValue - 2.0).clamp(0.0, 1.0);
 
-                      final defaultHeight = 52.h;
+                      final defaultHeight = 52;
                       final currentHeight = defaultHeight * (1.0 - progress);
                       final slideOffset = defaultHeight * progress;
                       final opacity = (1.0 - progress).clamp(0.0, 1.0);

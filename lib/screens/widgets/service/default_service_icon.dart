@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 
 class DefaultServiceIcon extends StatelessWidget {
@@ -14,7 +13,7 @@ class DefaultServiceIcon extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8.rSafe)),
+      decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8)),
       child: Icon(service.isSystemApp ? Icons.android : Icons.apps, color: colorScheme.onPrimaryContainer, size: size * 0.6),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -64,7 +63,7 @@ class ProcessVsRamLineChart extends StatelessWidget {
             return StatsChartCard(
               title: context.loc.statsProcessVsRamLine,
               subtitle: context.loc.statsProcessVsRamLineSubtitle,
-              height: 220.h,
+              height: 220,
               child: LineChart(
                 LineChartData(
                   gridData: FlGridData(
@@ -79,7 +78,7 @@ class ProcessVsRamLineChart extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,
-                        getTitlesWidget: (val, meta) => Text('${val.toInt()}M', style: AppStyles.smallStyle.copyWith(fontSize: 10.sp)),
+                        getTitlesWidget: (val, meta) => Text('${val.toInt()}M', style: AppStyles.smallStyle.copyWith(fontSize: 10)),
                       ),
                     ),
                     bottomTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -92,7 +91,7 @@ class ProcessVsRamLineChart extends StatelessWidget {
                           final processVal = val / processScale;
                           return Text(
                             processVal.toInt().toString(),
-                            style: AppStyles.smallStyle.copyWith(fontSize: 10.sp, color: secondary),
+                            style: AppStyles.smallStyle.copyWith(fontSize: 10, color: secondary),
                           );
                         },
                       ),

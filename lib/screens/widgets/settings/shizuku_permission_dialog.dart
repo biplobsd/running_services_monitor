@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -23,11 +22,11 @@ class ShizukuPermissionDialog extends StatelessWidget {
     return AlertDialog(
       title: Row(
         children: [
-          Icon(isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined, color: Colors.orange, size: 24.sp),
+          Icon(isSetup ? Icons.warning_amber_rounded : Icons.lock_outlined, color: Colors.orange, size: 24),
           AppStyles.spacing8,
           Text(
             isSetup ? loc.shizukuRequired : loc.permissionRequired,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp), // Consider AppStyles.headerStyle
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), // Consider AppStyles.headerStyle
           ),
         ],
       ),
@@ -65,12 +64,12 @@ class ShizukuPermissionDialog extends StatelessWidget {
         ),
         FilledButton.icon(
           onPressed: UrlLauncherHelper.openShizukuOrPlayStore,
-          icon: Icon(Icons.open_in_new, size: 18.sp),
+          icon: Icon(Icons.open_in_new, size: 18),
           label: Text(loc.openShizuku, style: AppStyles.bodyStyle),
         ),
         FilledButton.icon(
           onPressed: onRetry,
-          icon: Icon(Icons.refresh, size: 18.sp),
+          icon: Icon(Icons.refresh, size: 18),
           label: Text(loc.retry, style: AppStyles.bodyStyle),
         ),
       ],

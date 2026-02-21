@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -80,7 +79,7 @@ class ServicesVsProcessesScatterChart extends StatelessWidget {
                           getTitlesWidget: (value, meta) {
                             if (value % 2 != 0 && value < 10) return const SizedBox.shrink();
                             return Padding(
-                              padding: EdgeInsets.only(top: 4.h),
+                              padding: EdgeInsets.only(top: 4),
                               child: Text(value.toInt().toString(), style: AppStyles.captionStyle),
                             );
                           },
@@ -89,7 +88,7 @@ class ServicesVsProcessesScatterChart extends StatelessWidget {
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 30.w,
+                          reservedSize: 30,
                           getTitlesWidget: (value, meta) {
                             return Text(value.toInt().toString(), style: AppStyles.captionStyle);
                           },
@@ -125,7 +124,7 @@ class ServicesVsProcessesScatterChart extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: 'Processes: ${spot.x.toInt()}\nServices: ${spot.y.toInt()}',
-                                style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.primary, fontSize: 12.sp),
+                                style: AppStyles.smallStyle.copyWith(color: theme.colorScheme.primary, fontSize: 12),
                               ),
                             ],
                           );

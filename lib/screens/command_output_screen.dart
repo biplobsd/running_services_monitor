@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.dart';
 import 'package:running_services_monitor/bloc/command_output_bloc/command_output_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -74,7 +73,7 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                       },
                     ),
                     IconButton(
-                      icon: outputState.isRefreshing ? SizedBox(width: 24.sp, height: 24.sp, child: const LoadingIndicator()) : AppStyles.refreshIcon,
+                      icon: outputState.isRefreshing ? SizedBox(width: 24, height: 24, child: const LoadingIndicator()) : AppStyles.refreshIcon,
                       tooltip: context.loc.reExecute,
                       onPressed: outputState.isRefreshing ? null : () => bloc.add(const CommandOutputEvent.refresh()),
                     ),
@@ -103,10 +102,10 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                     SliverList(
                       delegate: SliverChildListDelegate([
                         Container(
-                          margin: EdgeInsets.all(16.w),
+                          margin: EdgeInsets.all(16),
                           width: double.infinity,
-                          padding: EdgeInsets.all(12.w),
-                          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8.r)),
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -119,10 +118,10 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                                   const Spacer(),
                                   if (outputState.autoRefreshInterval != null)
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).colorScheme.primaryContainer,
-                                        borderRadius: BorderRadius.circular(4.r),
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Text(
                                         _formatDuration(outputState.autoRefreshInterval!),
@@ -137,14 +136,14 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                               AppStyles.spacingH4,
                               SelectableText(
                                 entry.command,
-                                style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13.sp),
+                                style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13),
                               ),
                             ],
                           ),
                         ),
                         CodeOutputBox(
                           text: entry.output.isEmpty ? context.loc.noOutput : entry.output,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           textColor: const Color(0xFF4EC9B0),
                           backgroundColor: Colors.black,
                           horizontalScroll: true,

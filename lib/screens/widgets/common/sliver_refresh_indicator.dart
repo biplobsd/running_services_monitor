@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' hide RefreshIndicatorState;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/refresh_indicator_bloc/refresh_indicator_bloc.dart';
 import 'circular_progress.dart';
 
@@ -119,8 +118,8 @@ class SliverRefreshHeader extends StatelessWidget {
                   child: Center(
                     child: state.currentHeight > 20
                         ? SizedBox(
-                            width: 32.w,
-                            height: 32.w,
+                            width: 32,
+                            height: 32,
                             child: state.isRefreshing
                                 ? CircularProgress(activeColor: colorScheme.primary)
                                 : CircularProgress(value: state.progress, activeColor: colorScheme.primary),

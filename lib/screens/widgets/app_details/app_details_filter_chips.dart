@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -18,7 +17,7 @@ class AppDetailsFilterChips extends StatelessWidget {
     final processCount = appInfo.processes.length;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [

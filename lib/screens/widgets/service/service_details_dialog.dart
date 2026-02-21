@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'service_header.dart';
@@ -35,21 +34,21 @@ class ServiceDetailsSheet extends StatelessWidget {
       builder: (context, scrollController) => Container(
         decoration: BoxDecoration(
           color: colorScheme.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24.rSafe)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 12.h, bottom: 8.h),
-              width: 40.w,
-              height: 4.h,
-              decoration: BoxDecoration(color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2.rSafe)),
+              margin: EdgeInsets.only(top: 12, bottom: 8),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2)),
             ),
             ServiceHeader(service: service),
             Expanded(
               child: ListView(
                 controller: scrollController,
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 children: [
                   ServiceInfoSection(service: service),
                   AppStyles.spacingH16,

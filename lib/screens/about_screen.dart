@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/about_bloc/about_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/constants.dart';
@@ -33,7 +32,7 @@ class AboutScreen extends StatelessWidget {
                       return AboutHeader(version: version.isEmpty ? context.loc.loading : version);
                     },
                   ),
-                  SizedBox(height: 32.h),
+                  SizedBox(height: 32),
                   // AboutInfoTile(icon: Icons.person, title: context.loc.developer, subtitle: AppConstants.developerName),
                   AboutInfoTile(
                     icon: Icons.email,
@@ -57,21 +56,21 @@ class AboutScreen extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 10.h),
+                          SizedBox(height: 10),
                           Row(
                             children: [
                               Text(
                                 context.loc.contributors,
-                                style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                                style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                               AppStyles.spacing8,
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-                                decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(12.r)),
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(12)),
                                 child: Text(
                                   '${contributors.length}',
                                   style: AppStyles.captionStyle.copyWith(
-                                    fontSize: 12.sp,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context).colorScheme.onPrimaryContainer,
                                   ),
@@ -85,7 +84,7 @@ class AboutScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 24),
                   Center(
                     child: FilledButton.tonalIcon(
                       onPressed: () => UrlLauncherHelper.launchExternalUrl(AppConstants.buyMeCoffeeUrl),
@@ -93,7 +92,7 @@ class AboutScreen extends StatelessWidget {
                       label: Text(context.loc.buyMeCoffee, style: AppStyles.bodyStyle),
                     ),
                   ),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 5),
                   Center(
                     child: Text(context.loc.madeInBangladesh, style: AppStyles.bodyStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                   ),

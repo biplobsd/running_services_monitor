@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -45,7 +44,7 @@ class AppHeader extends StatelessWidget {
           children: [
             SelectionArea(child: Text(appInfo.totalRamInKb.formatRam(), style: textTheme.titleMedium)),
             if (appInfo.cachedMemoryKb > 0) ...[
-              AppStyles.spacingH4, // Was 2.h, using H4 for consistency or spacingH4
+              AppStyles.spacingH4, // Was 2, using H4 for consistency or spacingH4
               SelectionArea(
                 child: Text('Cached: ${appInfo.cachedMemoryKb.formatRam()}', style: AppStyles.captionStyle.copyWith(color: Colors.grey)),
               ),
@@ -56,7 +55,7 @@ class AppHeader extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.info_outline, size: 14.sp, color: colorScheme.primary),
+                  Icon(Icons.info_outline, size: 14, color: colorScheme.primary),
                   AppStyles.spacing4,
                   Text(context.loc.info, style: AppStyles.captionStyle.copyWith(color: colorScheme.primary)),
                 ],

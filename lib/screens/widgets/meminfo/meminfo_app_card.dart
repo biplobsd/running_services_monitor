@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/app_icon.dart';
@@ -18,15 +17,15 @@ class MemInfoAppCard extends StatelessWidget {
     final secondary = colorScheme.secondary;
 
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: secondaryContainer.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12.rSafe),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: secondary.withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
-          if (appInfo != null) AppIcon(appInfo: appInfo!, size: 40.w) else Icon(Icons.android, size: 40.w),
+          if (appInfo != null) AppIcon(appInfo: appInfo!, size: 40) else Icon(Icons.android, size: 40),
           AppStyles.spacingH8,
           if (appInfo != null)
             AppNameText(

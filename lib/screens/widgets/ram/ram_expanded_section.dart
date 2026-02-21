@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
@@ -23,12 +22,12 @@ class RamExpandedSection extends StatelessWidget {
     final freeColor = colorScheme.primaryContainer;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.0.w), // Consider adding to AppStyles if reused more
+      padding: EdgeInsets.symmetric(horizontal: 15.0), // Consider adding to AppStyles if reused more
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppStyles.spacingH12,
-          Divider(height: 1.h),
+          Divider(height: 1),
           AppStyles.spacingH16,
           Text(
             loc.usedBreakdown,
@@ -78,8 +77,8 @@ class RamExpandedSection extends StatelessWidget {
           ),
           AppStyles.spacingH8,
           Wrap(
-            spacing: 12.w,
-            runSpacing: 4.h,
+            spacing: 12,
+            runSpacing: 4,
             children: [
               LegendLabel(color: freeColor, text: '${loc.cachedPss}: ${ram.cachedPssKb.formatRam()}'),
               LegendLabel(color: freeColor.withValues(alpha: 0.7), text: '${loc.cachedKernel}: ${ram.cachedKernelKb.formatRam()}'),

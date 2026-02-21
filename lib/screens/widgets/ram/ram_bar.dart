@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/system_ram_info.dart';
@@ -88,7 +87,7 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
             child: InkWell(
               onTap: () => setState(() => isExpanded = !isExpanded),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                 child: Column(
                   children: [
                     Row(
@@ -98,11 +97,11 @@ class _RamBarState extends State<RamBar> with SingleTickerProviderStateMixin {
                         AnimatedRotation(
                           turns: isExpanded ? 0.5 : 0,
                           duration: const Duration(milliseconds: 200),
-                          child: Icon(Icons.expand_more, size: 20.sp),
+                          child: Icon(Icons.expand_more, size: 20),
                         ),
                       ],
                     ),
-                    AppStyles.spacingH16, // Was 15.h, 16.h is standard
+                    AppStyles.spacingH16, // Was 15, 16 is standard
                     widget.isLoading
                         ? Skeleton.shade(child: ConstrainedWavyProgress(value: previousRatio, animate: true))
                         : AnimatedBuilder(

@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/screens/widgets/meminfo/meminfo_chart_data.dart';
@@ -46,7 +45,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
       padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
@@ -65,15 +64,15 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
           _buildTotalComparison(context, totalPss, totalRss),
           AppStyles.spacingH16,
           Container(
-            decoration: BoxDecoration(color: colorScheme.surfaceContainerHigh, borderRadius: BorderRadius.circular(8.rSafe)),
+            decoration: BoxDecoration(color: colorScheme.surfaceContainerHigh, borderRadius: BorderRadius.circular(8)),
             child: Row(
               children: [
                 Expanded(
                   child: GestureDetector(
                     onTap: () => setState(() => showPss = true),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      decoration: BoxDecoration(color: showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8.rSafe)),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(color: showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8)),
                       child: Text(
                         'PSS',
                         textAlign: TextAlign.center,
@@ -86,8 +85,8 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                   child: GestureDetector(
                     onTap: () => setState(() => showPss = false),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      decoration: BoxDecoration(color: !showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8.rSafe)),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(color: !showPss ? primary : Colors.transparent, borderRadius: BorderRadius.circular(8)),
                       child: Text(
                         'RSS',
                         textAlign: TextAlign.center,
@@ -101,7 +100,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
           ),
           AppStyles.spacingH16,
           SizedBox(
-            height: 220.h,
+            height: 220,
             child: RadarChart(
               RadarChartData(
                 dataSets: [
@@ -129,7 +128,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                   return RadarChartTitle(text: metrics[index].label, angle: angle);
                 },
                 tickCount: 4,
-                ticksTextStyle: TextStyle(fontSize: 8.sp, color: Colors.grey),
+                ticksTextStyle: TextStyle(fontSize: 8, color: Colors.grey),
                 tickBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
                 gridBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.2)),
               ),
@@ -148,7 +147,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
     if (maxValue == 0) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 100.h,
+      height: 100,
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
@@ -158,7 +157,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
               getTooltipColor: (group) => Theme.of(context).colorScheme.surfaceContainerHighest,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 final label = groupIndex == 0 ? 'Total PSS' : 'Total RSS';
-                return BarTooltipItem('$label\n${rod.toY.formatRam()}', TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12.sp));
+                return BarTooltipItem('$label\n${rod.toY.formatRam()}', TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12));
               },
             ),
           ),
@@ -170,14 +169,14 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   return Padding(
-                    padding: EdgeInsets.only(top: 6.h),
+                    padding: EdgeInsets.only(top: 6),
                     child: Text(
                       value.toInt() == 0 ? 'Total PSS' : 'Total RSS',
-                      style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
                     ),
                   );
                 },
-                reservedSize: 24.h,
+                reservedSize: 24,
               ),
             ),
             leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -192,13 +191,13 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                 BarChartRodData(
                   toY: totalPss.currentValue,
                   color: Theme.of(context).colorScheme.primary,
-                  width: 18.w,
+                  width: 18,
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                 ),
                 BarChartRodData(
                   toY: totalPss.compareValue,
                   color: Theme.of(context).colorScheme.secondary,
-                  width: 18.w,
+                  width: 18,
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                 ),
               ],
@@ -209,13 +208,13 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                 BarChartRodData(
                   toY: totalRss.currentValue,
                   color: Theme.of(context).colorScheme.primary,
-                  width: 18.w,
+                  width: 18,
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                 ),
                 BarChartRodData(
                   toY: totalRss.compareValue,
                   color: Theme.of(context).colorScheme.secondary,
-                  width: 18.w,
+                  width: 18,
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                 ),
               ],
@@ -240,7 +239,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
         final isEqual = diff.abs() < 0.01;
 
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 4.h),
+          padding: EdgeInsets.symmetric(vertical: 4),
           child: Row(
             children: [
               Expanded(flex: 2, child: Text(metric.label, style: AppStyles.captionStyle)),
@@ -254,20 +253,20 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
               ),
               AppStyles.spacing8,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: isEqual
                       ? Colors.grey.withValues(alpha: 0.2)
                       : isLower
                       ? Colors.green.withValues(alpha: 0.2)
                       : Colors.red.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(6.rSafe),
+                  borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (!isEqual) Icon(isLower ? Icons.arrow_downward : Icons.arrow_upward, size: 10.sp, color: isLower ? Colors.green : Colors.red),
-                    SizedBox(width: 2.w),
+                    if (!isEqual) Icon(isLower ? Icons.arrow_downward : Icons.arrow_upward, size: 10, color: isLower ? Colors.green : Colors.red),
+                    SizedBox(width: 2),
                     Text(
                       isEqual ? '=' : '${diffPercent.toStringAsFixed(0)}%',
                       style: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: isEqual ? Colors.grey : (isLower ? Colors.green : Colors.red)),
@@ -304,11 +303,11 @@ class _LegendDot extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 10.w,
-          height: 10.w,
+          width: 10,
+          height: 10,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
-        SizedBox(width: 6.w),
+        SizedBox(width: 6),
         Text(label, style: AppStyles.captionStyle, overflow: TextOverflow.ellipsis),
       ],
     );

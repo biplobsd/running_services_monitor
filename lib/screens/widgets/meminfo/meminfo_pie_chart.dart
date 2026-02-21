@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -22,7 +21,7 @@ class MemInfoPieChart extends StatelessWidget {
       padding: AppStyles.sectionPadding,
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
       ),
       child: Column(
@@ -33,8 +32,8 @@ class MemInfoPieChart extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 120.w,
-                height: 120.w,
+                width: 120,
+                height: 120,
                 child: CustomPaint(
                   painter: _PieChartPainter(segments: segments, total: total.toDouble()),
                 ),
@@ -46,13 +45,13 @@ class MemInfoPieChart extends StatelessWidget {
                   children: segments.where((s) => s.value > 0).map((segment) {
                     final percentage = (segment.value / total * 100).toStringAsFixed(1);
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 6.h),
+                      padding: EdgeInsets.only(bottom: 6),
                       child: Row(
                         children: [
                           Container(
-                            width: 12.w,
-                            height: 12.w,
-                            decoration: BoxDecoration(color: segment.color, borderRadius: BorderRadius.circular(3.rSafe)),
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(color: segment.color, borderRadius: BorderRadius.circular(3)),
                           ),
                           AppStyles.spacing8,
                           Expanded(
@@ -74,7 +73,7 @@ class MemInfoPieChart extends StatelessWidget {
           Center(
             child: Text(
               'Total PSS: ${summary.totalPss.formatRam()}',
-              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: colorScheme.primary),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: colorScheme.primary),
             ),
           ),
         ],

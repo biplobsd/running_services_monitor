@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -38,7 +37,7 @@ class PolarChart extends StatelessWidget {
         return StatsChartCard(
           title: context.loc.statsPolarChart,
           subtitle: context.loc.statsPolarSubtitle,
-          height: 280.h,
+          height: 280,
           child: RadarChart(
             RadarChartData(
               dataSets: [
@@ -54,7 +53,7 @@ class PolarChart extends StatelessWidget {
               borderData: FlBorderData(show: false),
               radarBorderData: BorderSide(color: dividerColor.withValues(alpha: 0.3)),
               titlePositionPercentageOffset: 0.2,
-              titleTextStyle: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12.sp),
+              titleTextStyle: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.w500, fontSize: 12),
               getTitle: (index, angle) {
                 return RadarChartTitle(text: '${data[index].$1}\n(${data[index].$2})', angle: angle);
               },

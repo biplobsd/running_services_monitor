@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.dart';
 import 'package:running_services_monitor/bloc/useful_commands_bloc/useful_commands_bloc.dart';
@@ -123,37 +122,37 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
               return Container(
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16.rSafe)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 12.h),
-                      width: 40.w,
-                      height: 4.h,
-                      decoration: BoxDecoration(color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2.rSafe)),
+                      margin: EdgeInsets.symmetric(vertical: 12),
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2)),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(loc.usefulCommands, style: AppStyles.titleStyle.copyWith(fontSize: 18.sp)),
+                          Text(loc.usefulCommands, style: AppStyles.titleStyle.copyWith(fontSize: 18)),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (state.hasHiddenDefaults)
                                 IconButton(
-                                  icon: Icon(Icons.restore, size: 24.sp),
+                                  icon: Icon(Icons.restore, size: 24),
                                   tooltip: loc.resetDefaults,
                                   onPressed: () => getIt<UsefulCommandsBloc>().add(const UsefulCommandsEvent.resetDefaults()),
                                 ),
                               IconButton(
-                                icon: Icon(showAddForm ? Icons.close : Icons.add, size: 24.sp),
+                                icon: Icon(showAddForm ? Icons.close : Icons.add, size: 24),
                                 onPressed: () => setState(() => showAddForm = !showAddForm),
                               ),
                               IconButton(
-                                icon: Icon(Icons.close, size: 24.sp),
+                                icon: Icon(Icons.close, size: 24),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                             ],
@@ -165,7 +164,7 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
                     Expanded(
                       child: ListView(
                         controller: scrollController,
-                        padding: EdgeInsets.all(16.w),
+                        padding: EdgeInsets.all(16),
                         children: [
                           if (showAddForm) ...[_buildAddCommandForm(context), AppStyles.spacingH16],
                           if (userCommands.isNotEmpty) ...[
@@ -193,7 +192,7 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
   Widget _buildSectionHeader(BuildContext context, String title) {
     final colorScheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: EdgeInsets.only(bottom: 8.h),
+      padding: EdgeInsets.only(bottom: 8),
       child: Text(
         title,
         style: AppStyles.captionStyle.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
@@ -219,24 +218,24 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
     ];
 
     return ExpansionTile(
-      title: Text(context.loc.placeholders, style: AppStyles.bodyStyle.copyWith(fontSize: 14.sp)),
+      title: Text(context.loc.placeholders, style: AppStyles.bodyStyle.copyWith(fontSize: 14)),
       tilePadding: EdgeInsets.zero,
-      childrenPadding: EdgeInsets.only(bottom: 8.h),
+      childrenPadding: EdgeInsets.only(bottom: 8),
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(12.w),
-          decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: placeholders.map((entry) {
               return Padding(
-                padding: EdgeInsets.only(bottom: 4.h),
+                padding: EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                      decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(4.rSafe)),
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(4)),
                       child: Text(
                         entry.key,
                         style: AppStyles.smallStyle.copyWith(fontFamily: 'monospace', fontWeight: FontWeight.w600, color: colorScheme.onPrimaryContainer),
@@ -246,7 +245,7 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
                     Expanded(
                       child: Text(
                         entry.value,
-                        style: AppStyles.smallStyle.copyWith(fontSize: 11.sp),
+                        style: AppStyles.smallStyle.copyWith(fontSize: 11),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -265,17 +264,17 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
     final colorScheme = theme.colorScheme;
 
     return Container(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(8.rSafe),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(color: colorScheme.primary.withValues(alpha: 0.5)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.loc.addCommand, style: AppStyles.titleStyle.copyWith(fontSize: 14.sp)),
-          SizedBox(height: 12.h),
+          Text(context.loc.addCommand, style: AppStyles.titleStyle.copyWith(fontSize: 14)),
+          SizedBox(height: 12),
           TextField(
             controller: titleController,
             decoration: InputDecoration(labelText: context.loc.commandTitle, isDense: true, border: const OutlineInputBorder()),
@@ -290,9 +289,9 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
             controller: commandController,
             decoration: InputDecoration(labelText: context.loc.command, isDense: true, border: const OutlineInputBorder(), hintText: 'dumpsys meminfo %p'),
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
           _buildPlaceholderReference(context),
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -312,11 +311,11 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
     final isLoading = loadingCommandId == command.id;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 8.h),
-      decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+      margin: EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-        title: Text(command.title, style: AppStyles.bodyStyle.copyWith(fontSize: 14.sp)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        title: Text(command.title, style: AppStyles.bodyStyle.copyWith(fontSize: 14)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -332,18 +331,18 @@ class _UsefulCommandsBottomSheetState extends State<UsefulCommandsBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              icon: Icon(command.isCustom ? Icons.delete_outline : Icons.visibility_off_outlined, size: 20.sp, color: colorScheme.error),
+              icon: Icon(command.isCustom ? Icons.delete_outline : Icons.visibility_off_outlined, size: 20, color: colorScheme.error),
               onPressed: () => _deleteCommand(command),
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
+              constraints: BoxConstraints(minWidth: 32, minHeight: 32),
             ),
             IconButton(
               icon: isLoading
-                  ? SizedBox(width: 20.sp, height: 20.sp, child: const CircularProgressIndicator(strokeWidth: 2))
-                  : Icon(Icons.play_arrow, size: 24.sp, color: colorScheme.primary),
+                  ? SizedBox(width: 20, height: 20, child: const CircularProgressIndicator(strokeWidth: 2))
+                  : Icon(Icons.play_arrow, size: 24, color: colorScheme.primary),
               onPressed: loadingCommandId != null ? null : () => _executeCommand(command),
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(minWidth: 40.w, minHeight: 40.h),
+              constraints: BoxConstraints(minWidth: 40, minHeight: 40),
             ),
           ],
         ),

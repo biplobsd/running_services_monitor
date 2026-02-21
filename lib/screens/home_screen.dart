@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
@@ -70,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _showShizukuSetupDialog() {
+  void _showShizukaSetupDialog() {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -184,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               builder: (context, data) {
                 if (!data.shizukuReady) return const SizedBox.shrink();
                 return IconButton(
-                  icon: data.isLoading ? SizedBox(width: 30.w, height: 30.h, child: const LoadingIndicator()) : AppStyles.refreshIcon,
+                  icon: data.isLoading ? SizedBox(width: 30, height: 30, child: const LoadingIndicator()) : AppStyles.refreshIcon,
                   onPressed: data.isLoading ? null : () => homeBloc.add(const HomeEvent.loadData()),
                   tooltip: context.loc.refresh,
                 );
@@ -210,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 state.maybeWhen(
                   failure: (value, message) {
                     if (message == L10nKeys.shizukuNotRunning) {
-                      _showShizukuSetupDialog();
+                      _showShizukaSetupDialog();
                     } else if (message == L10nKeys.permissionDeniedShizuku || message == L10nKeys.failedToInitialize) {
                       _showPermissionDialog();
                     }

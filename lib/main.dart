@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -22,19 +22,6 @@ void main() async {
     );
 
     configureDependencies();
-
-    setPaddingSizes(SizeValues.custom(xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48));
-    setMarginSizes(SizeValues.custom(xs: 2, sm: 4, md: 8, lg: 12, xl: 16, xxl: 24));
-    setRadiusSizes(SizeValues.custom(xs: 2, sm: 4, md: 8, lg: 12, xl: 16, xxl: 24));
-    setSpacingSizes(SizeValues.custom(xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24));
-    setTextSizes(TextSizeValues.custom(s14: 15, s16: 17, s18: 20, s24: 26));
-
-    setDefaultPadding(16);
-    setDefaultMargin(8);
-    setDefaultRadius(12);
-    setDefaultSpacing(8);
-    setDefaultTextSize(14);
-
     runApp(const MyApp());
   } catch (_) {}
 }
@@ -126,17 +113,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
               ),
               themeMode: themeMode,
-              builder: (context, child) {
-                final orientation = MediaQuery.of(context).orientation;
-                return ScaleKitBuilder(
-                  autoScalePortrait: true,
-                  key: ValueKey(orientation),
-                  designWidth: 375,
-                  designHeight: 812,
-                  designType: DeviceType.mobile,
-                  child: child!,
-                );
-              },
             );
           },
         );

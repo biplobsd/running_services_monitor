@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
@@ -23,20 +22,20 @@ class ServiceProcessSection extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16.rSafe),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(14.w),
+            padding: EdgeInsets.all(14),
             child: Row(
               children: [
                 Container(
                   padding: AppStyles.padding8,
-                  decoration: BoxDecoration(color: colorScheme.tertiary.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(10.rSafe)),
-                  child: Icon(Icons.account_tree_rounded, size: 18.w, color: colorScheme.tertiary),
+                  decoration: BoxDecoration(color: colorScheme.tertiary.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(10)),
+                  child: Icon(Icons.account_tree_rounded, size: 18, color: colorScheme.tertiary),
                 ),
                 AppStyles.spacing10,
                 Text(context.loc.process, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
@@ -45,10 +44,10 @@ class ServiceProcessSection extends StatelessWidget {
           ),
           Divider(height: 1, color: colorScheme.outlineVariant.withValues(alpha: 0.2)),
           Padding(
-            padding: EdgeInsets.all(14.w),
+            padding: EdgeInsets.all(14),
             child: Wrap(
-              spacing: 12.w,
-              runSpacing: 8.h,
+              spacing: 12,
+              runSpacing: 8,
               children: [
                 if (service.pid != null)
                   ProcessInfoChip(label: context.loc.pid, value: service.pid.toString(), icon: Icons.tag_rounded, color: colorScheme.primary),
@@ -67,31 +66,31 @@ class ServiceProcessSection extends StatelessWidget {
           if (service.appProcessRecord != null) ...[
             Divider(height: 1, color: colorScheme.outlineVariant.withValues(alpha: 0.2)),
             Padding(
-              padding: EdgeInsets.all(14.w),
+              padding: EdgeInsets.all(14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.code_rounded, size: 14.w, color: colorScheme.tertiary),
+                      Icon(Icons.code_rounded, size: 14, color: colorScheme.tertiary),
                       AppStyles
-                          .spacing4, // 6.w in original, replacing with spacing4 (4.w) or spacing8. 6.w is fine, using SizedBox(width: 6.w) via AppStyles.spacing4 is slightly less but consistent. Using spacing8 (8.w) is clearer. I'll use spacing4 (close to 6).
-                      // Or just use AppStyles.spacing4 + spacing4? No. I'll use Sized(6.w) if needed or stick to 8 (spacing8). I'll use spacing8.
+                          .spacing4, // 6 in original, replacing with spacing4 (4) or spacing8. 6 is fine, using SizedBox(width: 6) via AppStyles.spacing4 is slightly less but consistent. Using spacing8 (8) is clearer. I'll use spacing4 (close to 6).
+                      // Or just use AppStyles.spacing4 + spacing4? No. I'll use Sized(6) if needed or stick to 8 (spacing8). I'll use spacing8.
                       // Wait, I'll use AppStyles.spacing8.
                       Text(
                         context.loc.processRecord,
-                        style: textTheme.bodySmall?.copyWith(fontSize: 11.sp, fontWeight: FontWeight.w500),
+                        style: textTheme.bodySmall?.copyWith(fontSize: 11, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 6),
                   Container(
                     width: double.infinity,
                     padding: AppStyles.padding10,
-                    decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+                    decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                     child: SelectableText(
                       service.appProcessRecord!,
-                      style: TextStyle(fontSize: 11.sp, fontFamily: 'monospace', color: colorScheme.onSurface),
+                      style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: colorScheme.onSurface),
                     ),
                   ),
                 ],

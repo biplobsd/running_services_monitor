@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
@@ -45,7 +44,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
 
             return StatsChartCard(
               title: context.loc.statsTopRamConsumers,
-              height: 300.h,
+              height: 300,
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceAround,
@@ -60,7 +59,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: rod.toY.formatRam(),
-                              style: AppStyles.captionStyle.copyWith(color: primary, fontWeight: FontWeight.w500, fontSize: 12.sp),
+                              style: AppStyles.captionStyle.copyWith(color: primary, fontWeight: FontWeight.w500, fontSize: 12),
                             ),
                           ],
                         );
@@ -75,7 +74,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                         getTitlesWidget: (value, meta) {
                           if (value.toInt() >= 0 && value.toInt() < topApps.length) {
                             return Padding(
-                              padding: EdgeInsets.only(top: 8.h),
+                              padding: EdgeInsets.only(top: 8),
                               child: RotatedBox(
                                 quarterTurns: 1,
                                 child: Text(
@@ -88,13 +87,13 @@ class TopRamConsumersBarChart extends StatelessWidget {
                           }
                           return const SizedBox.shrink();
                         },
-                        reservedSize: 80.h,
+                        reservedSize: 80,
                       ),
                     ),
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 50.w,
+                        reservedSize: 50,
                         getTitlesWidget: (value, meta) {
                           if (value == 0) return const SizedBox.shrink();
                           return Text(value.formatRam(decimalPlaces: 1), style: AppStyles.smallStyle.copyWith(color: Colors.grey));
@@ -114,7 +113,7 @@ class TopRamConsumersBarChart extends StatelessWidget {
                         BarChartRodData(
                           toY: app.totalRamInKb,
                           gradient: LinearGradient(colors: [primary, tertiary], begin: Alignment.bottomCenter, end: Alignment.topCenter),
-                          width: 18.w,
+                          width: 18,
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
                           backDrawRodData: BackgroundBarChartRodData(
                             show: true,

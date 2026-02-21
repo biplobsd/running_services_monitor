@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/command_log_bloc/command_log_bloc.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
@@ -72,12 +71,12 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
   Widget _buildCommandButton(String command, String displayCommand, String tooltip) {
     final isLoading = loadingCommand == command;
     return IconButton(
-      icon: isLoading ? SizedBox(width: 16.sp, height: 16.sp, child: const CircularProgressIndicator(strokeWidth: 2)) : Icon(Icons.play_arrow, size: 16.sp),
+      icon: isLoading ? SizedBox(width: 16, height: 16, child: const CircularProgressIndicator(strokeWidth: 2)) : Icon(Icons.play_arrow, size: 16),
       onPressed: loadingCommand != null ? null : () => _executeCommand(command),
       tooltip: tooltip,
       padding: EdgeInsets.zero,
       style: ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-      constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
+      constraints: BoxConstraints(minWidth: 32, minHeight: 32),
     );
   }
 
@@ -123,15 +122,15 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
               return Container(
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surface,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16.rSafe)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 12.h),
-                      width: 40.w,
-                      height: 4.h,
-                      decoration: BoxDecoration(color: onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2.rSafe)),
+                      margin: EdgeInsets.symmetric(vertical: 12),
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(color: onSurfaceVariant.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(2)),
                     ),
                     Padding(
                       padding: AppStyles.paddingH16, // Use AppStyles
@@ -159,7 +158,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                               children: [
                                 Container(
                                   padding: AppStyles.padding12, // Use AppStyles
-                                  decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8.rSafe)),
+                                  decoration: BoxDecoration(color: colorScheme.primaryContainer, borderRadius: BorderRadius.circular(8)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -175,10 +174,10 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                 if (appInfo.ramSources.isEmpty)
                                   Container(
                                     padding: AppStyles.padding12,
-                                    decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+                                    decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.info_outline, size: 20.sp, color: onSurfaceVariant),
+                                        Icon(Icons.info_outline, size: 20, color: onSurfaceVariant),
                                         AppStyles.spacing8,
                                         Expanded(
                                           child: Text(loc.noRamDataAvailable, style: AppStyles.captionStyle.copyWith(color: onSurfaceVariant)),
@@ -191,17 +190,17 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                   AppStyles.spacingH8,
                                   ...appInfo.ramSources.map(
                                     (source) => Container(
-                                      margin: EdgeInsets.only(bottom: 8.h),
+                                      margin: EdgeInsets.only(bottom: 8),
                                       padding: AppStyles.padding10,
-                                      decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+                                      decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                                                decoration: BoxDecoration(color: colorScheme.secondaryContainer, borderRadius: BorderRadius.circular(4.rSafe)),
+                                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                decoration: BoxDecoration(color: colorScheme.secondaryContainer, borderRadius: BorderRadius.circular(4)),
                                                 child: Text(
                                                   _getSourceLabel(source.source),
                                                   style: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.w500, color: colorScheme.onSecondaryContainer),
@@ -227,7 +226,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                             padding: AppStyles.padding8,
                                             decoration: BoxDecoration(
                                               color: theme.colorScheme.surface,
-                                              borderRadius: BorderRadius.circular(4.rSafe),
+                                              borderRadius: BorderRadius.circular(4),
                                               border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
                                             ),
                                             child: SelectableText(
@@ -246,7 +245,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                 Container(
                                   width: double.infinity,
                                   padding: AppStyles.padding10,
-                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -260,7 +259,7 @@ class _RamInfoBottomSheetState extends State<RamInfoBottomSheet> {
                                 Container(
                                   width: double.infinity,
                                   padding: AppStyles.padding10,
-                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8.rSafe)),
+                                  decoration: BoxDecoration(color: surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
                                   child: Row(
                                     children: [
                                       Expanded(

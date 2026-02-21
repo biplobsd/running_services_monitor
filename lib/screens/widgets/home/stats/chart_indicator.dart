@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 
 class ChartIndicator extends StatelessWidget {
@@ -13,7 +12,7 @@ class ChartIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: isSelected ? color.withValues(alpha: 0.2) : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
@@ -23,14 +22,14 @@ class ChartIndicator extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 14.sp,
-            height: 14.sp,
+            width: 14,
+            height: 14,
             decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           ),
           AppStyles.spacing8,
           Text(
             text,
-            style: TextStyle(fontSize: 13.sp, fontWeight: isSelected ? FontWeight.bold : FontWeight.w500),
+            style: TextStyle(fontSize: 13, fontWeight: isSelected ? FontWeight.bold : FontWeight.w500),
           ),
         ],
       ),

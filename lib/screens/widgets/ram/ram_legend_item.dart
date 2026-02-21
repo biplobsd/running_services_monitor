@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -17,19 +16,19 @@ class RamLegendItem extends StatelessWidget {
         if (color != null) ...[
           Skeleton.shade(
             child: Container(
-              width: 16.w,
-              height: 16.h,
-              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4.rSafe)),
+              width: 16,
+              height: 16,
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
             ),
           ),
           AppStyles.spacing12,
         ],
         Text(
           label,
-          style: const TextStyle().copyWith(fontSize: 14.sp),
-        ), // or use a predefined style and override fontSize if needed, 14.sp is close to bodyStyle (14.sp)
+          style: const TextStyle().copyWith(fontSize: 14),
+        ), // or use a predefined style and override fontSize if needed, 14 is close to bodyStyle (14)
         const Spacer(),
-        Text(value, style: const TextStyle().copyWith(fontSize: 14.sp)),
+        Text(value, style: const TextStyle().copyWith(fontSize: 14)),
       ],
     );
   }

@@ -51,37 +51,40 @@ class _StatsTabState extends State<StatsTab> with AutomaticKeepAliveClientMixin 
             await Future.delayed(const Duration(milliseconds: 100));
             await homeBloc.stream.first;
           },
-          child: CustomScrollView(
-            controller: scrollProvider.scrollControllers[widget.tabIndex],
-            slivers: [
-              const SliverRefreshHeader(),
-              SliverPadding(
-                padding: AppStyles.sectionPadding,
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-                    const ServicesVsRamBubbleChart(),
-                    AppStyles.spacingH24,
-                    const ProcessVsRamLineChart(),
-                    AppStyles.spacingH24,
-                    const ServicesVsProcessesScatterChart(),
-                    AppStyles.spacingH24,
-                    const ProcessStateVsRamChart(),
-                    AppStyles.spacingH24,
-                    const FunnelChart(),
-                    AppStyles.spacingH24,
-                    const WaterfallChart(),
-                    AppStyles.spacingH24,
-                    const GaugeChart(),
-                    AppStyles.spacingH24,
-                    const RamDistributionPieChart(),
-                    AppStyles.spacingH24,
-                    const PolarChart(),
-                    AppStyles.spacingH24,
-                    const TopRamConsumersBarChart(),
-                  ]),
+          child: SafeArea(
+            top: false,
+            child: CustomScrollView(
+              controller: scrollProvider.scrollControllers[widget.tabIndex],
+              slivers: [
+                const SliverRefreshHeader(),
+                SliverPadding(
+                  padding: AppStyles.sectionPadding,
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      const ServicesVsRamBubbleChart(),
+                      AppStyles.spacingH24,
+                      const ProcessVsRamLineChart(),
+                      AppStyles.spacingH24,
+                      const ServicesVsProcessesScatterChart(),
+                      AppStyles.spacingH24,
+                      const ProcessStateVsRamChart(),
+                      AppStyles.spacingH24,
+                      const FunnelChart(),
+                      AppStyles.spacingH24,
+                      const WaterfallChart(),
+                      AppStyles.spacingH24,
+                      const GaugeChart(),
+                      AppStyles.spacingH24,
+                      const RamDistributionPieChart(),
+                      AppStyles.spacingH24,
+                      const PolarChart(),
+                      AppStyles.spacingH24,
+                      const TopRamConsumersBarChart(),
+                    ]),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_kit/flutter_scale_kit.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 
@@ -17,7 +16,7 @@ class MemInfoErrorView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48.sp, color: Theme.of(context).colorScheme.error),
+            Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
             AppStyles.spacingH16,
             Text(context.loc.error, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
             AppStyles.spacingH8,
