@@ -92,7 +92,9 @@ abstract class L10nKeys {
   static const madeInBangladesh = 'madeInBangladesh';
   static const memoryCategories = 'memoryCategories';
   static const memoryComparison = 'memoryComparison';
+  static const memoryDistribution = 'memoryDistribution';
   static const memoryInfo = 'memoryInfo';
+  static const memoryProfileComparison = 'memoryProfileComparison';
   static const memoryThresholds = 'memoryThresholds';
   static const modeNotAvailable = 'modeNotAvailable';
   static const myCommands = 'myCommands';
@@ -127,6 +129,7 @@ abstract class L10nKeys {
   static const pid = 'pid';
   static const placeholders = 'placeholders';
   static const playCommand = 'playCommand';
+  static const privateOther = 'privateOther';
   static const process = 'process';
   static const processAnd = 'processAnd';
   static const processRecord = 'processRecord';
@@ -184,6 +187,7 @@ abstract class L10nKeys {
   static const shizukuRequiredMessage = 'shizukuRequiredMessage';
   static const showCoreApps = 'showCoreApps';
   static const sourceCode = 'sourceCode';
+  static const stack = 'stack';
   static const startRequested = 'startRequested';
   static const stats = 'stats';
   static const statsActive = 'statsActive';
@@ -273,6 +277,7 @@ abstract class L10nKeys {
   static const totalRss = 'totalRss';
   static const type = 'type';
   static const uid = 'uid';
+  static const unknown = 'unknown';
   static const used = 'used';
   static const usedBreakdown = 'usedBreakdown';
   static const usedPss = 'usedPss';
@@ -381,7 +386,9 @@ extension L10nResolver on AppLocalizations {
       'madeInBangladesh' => madeInBangladesh,
       'memoryCategories' => memoryCategories,
       'memoryComparison' => memoryComparison,
+      'memoryDistribution' => memoryDistribution,
       'memoryInfo' => memoryInfo,
+      'memoryProfileComparison' => memoryProfileComparison,
       'memoryThresholds' => memoryThresholds,
       'modeNotAvailable' => modeNotAvailable,
       'myCommands' => myCommands,
@@ -416,6 +423,7 @@ extension L10nResolver on AppLocalizations {
       'pid' => pid,
       'placeholders' => placeholders,
       'playCommand' => playCommand,
+      'privateOther' => privateOther,
       'process' => process,
       'processAnd' => processAnd,
       'processRecord' => processRecord,
@@ -473,6 +481,7 @@ extension L10nResolver on AppLocalizations {
       'shizukuRequiredMessage' => shizukuRequiredMessage,
       'showCoreApps' => showCoreApps,
       'sourceCode' => sourceCode,
+      'stack' => stack,
       'startRequested' => startRequested,
       'stats' => stats,
       'statsActive' => statsActive,
@@ -562,6 +571,7 @@ extension L10nResolver on AppLocalizations {
       'totalRss' => totalRss,
       'type' => type,
       'uid' => uid,
+      'unknown' => unknown,
       'used' => used,
       'usedBreakdown' => usedBreakdown,
       'usedPss' => usedPss,
