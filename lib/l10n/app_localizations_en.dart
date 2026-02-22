@@ -969,4 +969,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetDefaults => 'Reset Defaults';
+
+  @override
+  String get memoryDistribution => 'Memory Distribution';
+
+  @override
+  String get memoryProfileComparison => 'Memory Profile Comparison';
+
+  @override
+  String get stack => 'Stack';
+
+  @override
+  String get privateOther => 'Private Other';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String totalPssLabel(String size) {
+    return 'Total PSS: $size';
+  }
 }

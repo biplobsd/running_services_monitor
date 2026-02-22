@@ -24,5 +24,7 @@ class AppConstants {
     Lang(Locale('zh'), '简体中文'),
     Lang(Locale('ru'), 'Русский'),
     Lang(Locale('ja'), '日本語'),
+    Lang(Locale('hi'), 'हिन्दी'),
+    Lang(Locale('pt'), 'Português'),
   ];
 }

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'meminfo_chart_data.dart';
@@ -12,7 +13,7 @@ class MemInfoPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final segments = MemInfoChartData.buildSegments(summary);
+    final segments = MemInfoChartData.buildSegments(summary, context.loc);
     final segmentsTotal = MemInfoChartData.getSegmentsTotal(segments);
     final double total = segmentsTotal > 0 ? segmentsTotal.toDouble() : 1.0;
     final colorScheme = Theme.of(context).colorScheme;
@@ -27,7 +28,7 @@ class MemInfoPieChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Memory Distribution', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          Text(context.loc.memoryDistribution, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
           AppStyles.spacingH16,
           Row(
             children: [
@@ -72,7 +73,7 @@ class MemInfoPieChart extends StatelessWidget {
           AppStyles.spacingH12,
           Center(
             child: Text(
-              'Total PSS: ${summary.totalPss.formatRam()}',
+              context.loc.totalPssLabel(summary.totalPss.formatRam()),
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: colorScheme.primary),
             ),
           ),

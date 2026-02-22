@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
 import 'meminfo_chart_data.dart';
@@ -35,7 +36,7 @@ class MemInfoComparePieCharts extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Memory Distribution', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          Text(context.loc.memoryDistribution, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
           AppStyles.spacingH16,
           Row(
             children: [
@@ -59,7 +60,7 @@ class MemInfoComparePieCharts extends StatelessWidget {
     return Wrap(
       spacing: 12,
       runSpacing: 6,
-      children: MemInfoChartData.legendItems
+      children: MemInfoChartData.getLegendItems(context.loc)
           .map(
             (item) => Row(
               mainAxisSize: MainAxisSize.min,
@@ -88,7 +89,7 @@ class _PieChartColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final segments = MemInfoChartData.buildSegments(summary);
+    final segments = MemInfoChartData.buildSegments(summary, context.loc);
     final total = MemInfoChartData.getSegmentsTotal(segments);
 
     return Column(

@@ -294,5 +294,18 @@
   "statsProcessStateRamSubtitle": "按状态分组的平均 RAM 使用量",
   "myCommands": "我的命令",
   "defaultCommands": "默认命令",
-  "resetDefaults": "重置默认"
+  "resetDefaults": "重置默认",
+  "memoryDistribution": "内存分布",
+  "memoryProfileComparison": "内存画像对比",
+  "stack": "栈",
+  "privateOther": "私有其他",
+  "unknown": "未知",
+  "totalPssLabel": "总计 PSS: {size}",
+  "@totalPssLabel": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
 }

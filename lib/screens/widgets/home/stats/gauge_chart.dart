@@ -26,16 +26,14 @@ class GaugeChart extends StatelessWidget {
         return StatsChartCard(
           title: context.loc.statsGaugeChart,
           subtitle: context.loc.statsGaugeSubtitle,
-          child: SizedBox(
-            height: 200,
-            child: CustomPaint(
-              size: Size(double.infinity, 200),
-              painter: GaugePainter(
-                percentage: usagePercent,
-                primaryColor: primaryColor,
-                backgroundColor: backgroundColor,
-                textStyle: AppStyles.headlineStyle.copyWith(color: onSurface, fontSize: 32, fontWeight: FontWeight.bold),
-              ),
+          height: 180,
+          child: CustomPaint(
+            size: Size(double.infinity, 200),
+            painter: GaugePainter(
+              percentage: usagePercent,
+              primaryColor: primaryColor,
+              backgroundColor: backgroundColor,
+              textStyle: AppStyles.headlineStyle.copyWith(color: onSurface, fontSize: 32, fontWeight: FontWeight.bold),
             ),
           ),
         );

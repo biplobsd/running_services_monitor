@@ -50,6 +50,7 @@ class FunnelChart extends StatelessWidget {
         return StatsChartCard(
           title: context.loc.statsFunnelChart,
           subtitle: context.loc.statsFunnelSubtitle,
+          height: 180,
           child: Column(
             children: tiers.asMap().entries.map((entry) {
               final index = entry.key;

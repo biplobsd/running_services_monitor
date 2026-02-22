@@ -66,85 +66,88 @@ class _MemInfoCompareContentState extends State<MemInfoCompareContent> {
           });
         }
 
-        return CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: AppStyles.sectionPadding,
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: showCurrentAppSelector,
-                          child: MemInfoAppCard(appInfo: currentApp),
+        return SafeArea(
+          top: false,
+          child: CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: AppStyles.sectionPadding,
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: showCurrentAppSelector,
+                            child: MemInfoAppCard(appInfo: currentApp),
+                          ),
                         ),
-                      ),
-                      AppStyles.spacing8,
-                      Icon(Icons.compare_arrows, color: colorScheme.primary),
-                      AppStyles.spacing8,
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: showCompareAppSelector,
-                          child: MemInfoAppCard(appInfo: selectedApp),
+                        AppStyles.spacing8,
+                        Icon(Icons.compare_arrows, color: colorScheme.primary),
+                        AppStyles.spacing8,
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: showCompareAppSelector,
+                            child: MemInfoAppCard(appInfo: selectedApp),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  AppStyles.spacingH16,
-                  FilledButton.tonalIcon(
-                    onPressed: () => setState(() => showRawOutput = !showRawOutput),
-                    icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18),
-                    label: Text(showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput, style: AppStyles.subtitleStyle),
-                  ),
-                  if (showRawOutput) ...[
-                    AppStyles.spacingH12,
-                    Text(
-                      '${context.loc.current}:',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                      ],
                     ),
-                    AppStyles.spacingH8,
-                    CodeOutputBox(
-                      text: widget.currentData.rawOutput.isEmpty ? context.loc.noOutput : widget.currentData.rawOutput,
-                      fontSize: 9,
-                      textColor: const Color(0xFF4EC9B0),
-                      backgroundColor: Colors.black,
-                      horizontalScroll: true,
-                      hasBorder: true,
+                    AppStyles.spacingH16,
+                    FilledButton.tonalIcon(
+                      onPressed: () => setState(() => showRawOutput = !showRawOutput),
+                      icon: Icon(showRawOutput ? Icons.visibility_off : Icons.code, size: 18),
+                      label: Text(showRawOutput ? context.loc.hideRawOutput : context.loc.viewRawOutput, style: AppStyles.subtitleStyle),
                     ),
-                    if (widget.comparisonData != null) ...[
+                    if (showRawOutput) ...[
                       AppStyles.spacingH12,
                       Text(
-                        '${context.loc.compareWith}:',
+                        '${context.loc.current}:',
                         style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                       ),
                       AppStyles.spacingH8,
                       CodeOutputBox(
-                        text: widget.comparisonData!.rawOutput.isEmpty ? context.loc.noOutput : widget.comparisonData!.rawOutput,
+                        text: widget.currentData.rawOutput.isEmpty ? context.loc.noOutput : widget.currentData.rawOutput,
                         fontSize: 9,
                         textColor: const Color(0xFF4EC9B0),
                         backgroundColor: Colors.black,
                         horizontalScroll: true,
                         hasBorder: true,
                       ),
+                      if (widget.comparisonData != null) ...[
+                        AppStyles.spacingH12,
+                        Text(
+                          '${context.loc.compareWith}:',
+                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                        AppStyles.spacingH8,
+                        CodeOutputBox(
+                          text: widget.comparisonData!.rawOutput.isEmpty ? context.loc.noOutput : widget.comparisonData!.rawOutput,
+                          fontSize: 9,
+                          textColor: const Color(0xFF4EC9B0),
+                          backgroundColor: Colors.black,
+                          horizontalScroll: true,
+                          hasBorder: true,
+                        ),
+                      ],
                     ],
-                  ],
-                  AppStyles.spacingH24,
-                  if (widget.isLoadingComparison)
-                    Center(child: LoadingIndicator())
-                  else if (widget.comparisonData != null)
-                    MemInfoComparisonView(
-                      currentData: widget.currentData,
-                      comparisonData: widget.comparisonData!,
-                      otherApps: otherAppsForCompare,
-                      packageName: widget.packageName,
-                      onCurrentAppTap: showCurrentAppSelector,
-                      onCompareAppTap: showCompareAppSelector,
-                    ),
-                ]),
+                    AppStyles.spacingH24,
+                    if (widget.isLoadingComparison)
+                      Center(child: LoadingIndicator())
+                    else if (widget.comparisonData != null)
+                      MemInfoComparisonView(
+                        currentData: widget.currentData,
+                        comparisonData: widget.comparisonData!,
+                        otherApps: otherAppsForCompare,
+                        packageName: widget.packageName,
+                        onCurrentAppTap: showCurrentAppSelector,
+                        onCompareAppTap: showCompareAppSelector,
+                      ),
+                  ]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

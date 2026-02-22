@@ -294,5 +294,18 @@
   "statsProcessStateRamSubtitle": "স্টেট অনুযায়ী গড় র‍্যাম ব্যবহার",
   "myCommands": "আমার কমান্ড",
   "defaultCommands": "ডিফল্ট কমান্ড",
-  "resetDefaults": "ডিফল্ট রিসেট করুন"
+  "resetDefaults": "ডিফল্ট রিসেট করুন",
+  "memoryDistribution": "মেমরি বিতরণ",
+  "memoryProfileComparison": "মেমরি প্রোফাইল তুলনা",
+  "stack": "স্ট্যাক",
+  "privateOther": "ব্যক্তিগত অন্যান্য",
+  "unknown": "অজানা",
+  "totalPssLabel": "মোট PSS: {size}",
+  "@totalPssLabel": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
 }

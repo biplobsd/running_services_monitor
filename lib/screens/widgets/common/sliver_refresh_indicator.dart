@@ -107,7 +107,6 @@ class SliverRefreshHeader extends StatelessWidget {
             child: AnimatedContainer(
               duration: state.isDragging ? Duration.zero : const Duration(milliseconds: 200),
               height: state.currentHeight,
-              color: colorScheme.surface,
               child: AnimatedSlide(
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeOutCubic,

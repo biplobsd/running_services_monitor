@@ -48,7 +48,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     final homeBloc = getIt<HomeBloc>();
     final hasData = homeBloc.state.value.allApps.isNotEmpty;
     homeBloc.add(HomeEvent.initializeShizuku(silent: hasData, notify: hasData));
-    // getIt<AppInfoBloc>().add(const AppInfoEvent.loadAllApps());
   }
 
   @override

@@ -368,5 +368,18 @@
   "statsProcessStateRamSubtitle": "Среднее использование ОЗУ по состоянию процесса",
   "myCommands": "Мои команды",
   "defaultCommands": "Команды по умолчанию",
-  "resetDefaults": "Сбросить по умолчанию"
+  "resetDefaults": "Сбросить по умолчанию",
+  "memoryDistribution": "Распределение памяти",
+  "memoryProfileComparison": "Сравнение профилей памяти",
+  "stack": "Стек",
+  "privateOther": "Личное другое",
+  "unknown": "Неизвестно",
+  "totalPssLabel": "Всего PSS: {size}",
+  "@totalPssLabel": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
 }

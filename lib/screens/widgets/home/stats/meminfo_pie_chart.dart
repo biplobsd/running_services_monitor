@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/screens/widgets/home/stats/stats_chart_card.dart';
 import 'package:running_services_monitor/screens/widgets/meminfo/meminfo_chart_data.dart';
@@ -13,13 +14,14 @@ class MemInfoPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final segments = MemInfoChartData.buildSegments(summary);
+    final segments = MemInfoChartData.buildSegments(summary, context.loc);
     final segmentsTotal = MemInfoChartData.getSegmentsTotal(segments);
 
     if (segmentsTotal == 0) return const SizedBox.shrink();
 
     return StatsChartCard(
-      title: 'Memory Distribution',
+      title: context.loc.memoryDistribution,
+      height: 170,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -79,7 +81,7 @@ class MemInfoPieChart extends StatelessWidget {
           SizedBox(height: 12),
           Center(
             child: Text(
-              'Total PSS: ${summary.totalPss.formatRam()}',
+              context.loc.totalPssLabel(summary.totalPss.formatRam()),
               style: AppStyles.bodyStyle.copyWith(fontSize: 13, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.primary),
             ),
           ),

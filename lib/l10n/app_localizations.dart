@@ -7,7 +7,9 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_bn.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_hi.dart';
 import 'app_localizations_ja.dart';
+import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
 import 'app_localizations_zh.dart';
 
@@ -99,7 +101,9 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('bn'),
     Locale('en'),
+    Locale('hi'),
     Locale('ja'),
+    Locale('pt'),
     Locale('ru'),
     Locale('zh'),
   ];
@@ -1867,6 +1871,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset Defaults'**
   String get resetDefaults;
+
+  /// No description provided for @memoryDistribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Distribution'**
+  String get memoryDistribution;
+
+  /// No description provided for @memoryProfileComparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory Profile Comparison'**
+  String get memoryProfileComparison;
+
+  /// No description provided for @stack.
+  ///
+  /// In en, this message translates to:
+  /// **'Stack'**
+  String get stack;
+
+  /// No description provided for @privateOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Private Other'**
+  String get privateOther;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// No description provided for @totalPssLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total PSS: {size}'**
+  String totalPssLabel(String size);
 }
 
 class _AppLocalizationsDelegate
@@ -1879,8 +1919,15 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['bn', 'en', 'ja', 'ru', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'bn',
+    'en',
+    'hi',
+    'ja',
+    'pt',
+    'ru',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1893,8 +1940,12 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsBn();
     case 'en':
       return AppLocalizationsEn();
+    case 'hi':
+      return AppLocalizationsHi();
     case 'ja':
       return AppLocalizationsJa();
+    case 'pt':
+      return AppLocalizationsPt();
     case 'ru':
       return AppLocalizationsRu();
     case 'zh':

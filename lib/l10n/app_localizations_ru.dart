@@ -986,4 +986,24 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get resetDefaults => 'Сбросить по умолчанию';
+
+  @override
+  String get memoryDistribution => 'Распределение памяти';
+
+  @override
+  String get memoryProfileComparison => 'Сравнение профилей памяти';
+
+  @override
+  String get stack => 'Стек';
+
+  @override
+  String get privateOther => 'Личное другое';
+
+  @override
+  String get unknown => 'Неизвестно';
+
+  @override
+  String totalPssLabel(String size) {
+    return 'Всего PSS: $size';
+  }
 }

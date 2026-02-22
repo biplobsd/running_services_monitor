@@ -371,5 +371,18 @@
   "statsProcessStateRamSubtitle": "Average RAM usage per process state",
   "myCommands": "My Commands",
   "defaultCommands": "Default Commands",
-  "resetDefaults": "Reset Defaults"
+  "resetDefaults": "Reset Defaults",
+  "memoryDistribution": "Memory Distribution",
+  "memoryProfileComparison": "Memory Profile Comparison",
+  "stack": "Stack",
+  "privateOther": "Private Other",
+  "unknown": "Unknown",
+  "totalPssLabel": "Total PSS: {size}",
+  "@totalPssLabel": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
 }

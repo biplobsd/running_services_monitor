@@ -8,15 +8,7 @@ class CodeOutputBox extends StatelessWidget {
   final bool horizontalScroll;
   final bool hasBorder;
 
-  const CodeOutputBox({
-    super.key,
-    required this.text,
-    this.fontSize,
-    this.textColor,
-    this.backgroundColor,
-    this.horizontalScroll = false,
-    this.hasBorder = false,
-  });
+  const CodeOutputBox({super.key, required this.text, this.fontSize, this.textColor, this.backgroundColor, this.horizontalScroll = false, this.hasBorder = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +24,12 @@ class CodeOutputBox extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(horizontalScroll ? 12 : 8),
       decoration: BoxDecoration(
         color: effectiveBackgroundColor,
         borderRadius: BorderRadius.circular(8),
         border: hasBorder ? Border.all(color: Theme.of(context).colorScheme.outlineVariant) : null,
       ),
-      child: horizontalScroll
-          ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: selectableText)
-          : selectableText,
+      child: horizontalScroll ? SingleChildScrollView(padding: EdgeInsets.all(horizontalScroll ? 12 : 8), scrollDirection: Axis.horizontal, child: selectableText) : selectableText,
     );
   }
 }

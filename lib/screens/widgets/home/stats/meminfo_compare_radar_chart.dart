@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
+import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 import 'package:running_services_monitor/screens/widgets/meminfo/meminfo_chart_data.dart';
 import 'package:running_services_monitor/utils/format_utils.dart';
@@ -23,11 +24,11 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
   @override
   Widget build(BuildContext context) {
     final metrics = showPss
-        ? MemInfoChartData.buildPssMetrics(widget.currentData.appSummary, widget.comparisonData.appSummary)
-        : MemInfoChartData.buildRssMetrics(widget.currentData.appSummary, widget.comparisonData.appSummary);
+        ? MemInfoChartData.buildPssMetrics(widget.currentData.appSummary, widget.comparisonData.appSummary, context.loc)
+        : MemInfoChartData.buildRssMetrics(widget.currentData.appSummary, widget.comparisonData.appSummary, context.loc);
 
-    final totalPss = MemInfoChartData.getTotalPss(widget.currentData.appSummary, widget.comparisonData.appSummary);
-    final totalRss = MemInfoChartData.getTotalRss(widget.currentData.appSummary, widget.comparisonData.appSummary);
+    final totalPss = MemInfoChartData.getTotalPss(widget.currentData.appSummary, widget.comparisonData.appSummary, context.loc);
+    final totalRss = MemInfoChartData.getTotalRss(widget.currentData.appSummary, widget.comparisonData.appSummary, context.loc);
 
     final maxValue = metrics.expand((m) => [m.currentValue, m.compareValue]).reduce((a, b) => a > b ? a : b);
 
@@ -51,7 +52,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Memory Profile Comparison', style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
+          Text(context.loc.memoryProfileComparison, style: AppStyles.titleStyle.copyWith(fontWeight: FontWeight.bold)),
           AppStyles.spacingH8,
           Row(
             children: [
@@ -156,7 +157,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
             touchTooltipData: BarTouchTooltipData(
               getTooltipColor: (group) => Theme.of(context).colorScheme.surfaceContainerHighest,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                final label = groupIndex == 0 ? 'Total PSS' : 'Total RSS';
+                final label = groupIndex == 0 ? context.loc.totalPss : context.loc.totalRss;
                 return BarTooltipItem('$label\n${rod.toY.formatRam()}', TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12));
               },
             ),
@@ -171,7 +172,7 @@ class _MemInfoCompareRadarChartState extends State<MemInfoCompareRadarChart> {
                   return Padding(
                     padding: EdgeInsets.only(top: 6),
                     child: Text(
-                      value.toInt() == 0 ? 'Total PSS' : 'Total RSS',
+                      value.toInt() == 0 ? context.loc.totalPss : context.loc.totalRss,
                       style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
                     ),
                   );

@@ -33,6 +33,7 @@ class WaterfallChart extends StatelessWidget {
         return StatsChartCard(
           title: context.loc.statsWaterfallChart,
           subtitle: context.loc.statsWaterfallSubtitle,
+          height: 170,
           child: Column(
             children: items.asMap().entries.map((entry) {
               final item = entry.value;

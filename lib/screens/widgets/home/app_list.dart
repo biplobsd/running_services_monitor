@@ -58,45 +58,48 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
                   builder: (context, isSearching) => EmptyListState(isSearching: isSearching),
                 );
               }
-              return CustomScrollView(
-                controller: scrollProvider.scrollControllers[widget.tabIndex],
-                slivers: [
-                  const SliverRefreshHeader(),
-                  SliverToBoxAdapter(
-                    child: widget.tabIndex != 0
-                        ? const SizedBox.shrink()
-                        : BlocSelector<HomeBloc, HomeState, ({SystemRamInfo ramInfo, bool showSkeleton, bool isLoadingRam})>(
-                            selector: (state) {
-                              final rawRamInfo = state.value.systemRamInfo;
-                              final showSkeleton = state.value.isLoadingRam && rawRamInfo.totalRamKb <= 0;
-                              final ramInfo = rawRamInfo.totalRamKb > 0
-                                  ? rawRamInfo
-                                  : const SystemRamInfo(totalRamKb: 8000000, usedRamKb: 4000000, freeRamKb: 4000000);
-                              return (ramInfo: ramInfo, showSkeleton: showSkeleton, isLoadingRam: state.value.isLoadingRam);
-                            },
-                            builder: (context, state) {
-                              return Column(
-                                children: [
-                                  Skeletonizer(
-                                    enabled: state.showSkeleton,
-                                    child: Container(
-                                      color: Theme.of(context).colorScheme.surface,
-                                      padding: EdgeInsets.only(bottom: 10),
-                                      child: RamBar(ramInfo: state.ramInfo, isLoading: state.isLoadingRam),
+              return SafeArea(
+                top: false,
+                child: CustomScrollView(
+                  controller: scrollProvider.scrollControllers[widget.tabIndex],
+                  slivers: [
+                    const SliverRefreshHeader(),
+                    SliverToBoxAdapter(
+                      child: widget.tabIndex != 0
+                          ? const SizedBox.shrink()
+                          : BlocSelector<HomeBloc, HomeState, ({SystemRamInfo ramInfo, bool showSkeleton, bool isLoadingRam})>(
+                              selector: (state) {
+                                final rawRamInfo = state.value.systemRamInfo;
+                                final showSkeleton = state.value.isLoadingRam && rawRamInfo.totalRamKb <= 0;
+                                final ramInfo = rawRamInfo.totalRamKb > 0
+                                    ? rawRamInfo
+                                    : const SystemRamInfo(totalRamKb: 8000000, usedRamKb: 4000000, freeRamKb: 4000000);
+                                return (ramInfo: ramInfo, showSkeleton: showSkeleton, isLoadingRam: state.value.isLoadingRam);
+                              },
+                              builder: (context, state) {
+                                return Column(
+                                  children: [
+                                    Skeletonizer(
+                                      enabled: state.showSkeleton,
+                                      child: Container(
+                                        color: Theme.of(context).colorScheme.surface,
+                                        padding: EdgeInsets.only(bottom: 10),
+                                        child: RamBar(ramInfo: state.ramInfo, isLoading: state.isLoadingRam),
+                                      ),
                                     ),
-                                  ),
-                                  Divider(height: 1),
-                                ],
-                              );
-                            },
-                          ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return AppListItem(key: ValueKey(filteredApps[index].packageName), appInfo: filteredApps[index], tabIndex: widget.tabIndex);
-                    }, childCount: filteredApps.length),
-                  ),
-                ],
+                                    Divider(height: 1),
+                                  ],
+                                );
+                              },
+                            ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return AppListItem(key: ValueKey(filteredApps[index].packageName), appInfo: filteredApps[index], tabIndex: widget.tabIndex);
+                      }, childCount: filteredApps.length),
+                    ),
+                  ],
+                ),
               );
             },
           );

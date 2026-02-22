@@ -935,4 +935,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get resetDefaults => 'デフォルトに戻す';
+
+  @override
+  String get memoryDistribution => 'メモリ分布';
+
+  @override
+  String get memoryProfileComparison => 'メモリプロファイルの比較';
+
+  @override
+  String get stack => 'スタック';
+
+  @override
+  String get privateOther => 'プライベートその他';
+
+  @override
+  String get unknown => '不明';
+
+  @override
+  String totalPssLabel(String size) {
+    return '合計PSS: $size';
+  }
 }

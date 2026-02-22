@@ -977,4 +977,24 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get resetDefaults => 'ডিফল্ট রিসেট করুন';
+
+  @override
+  String get memoryDistribution => 'মেমরি বিতরণ';
+
+  @override
+  String get memoryProfileComparison => 'মেমরি প্রোফাইল তুলনা';
+
+  @override
+  String get stack => 'স্ট্যাক';
+
+  @override
+  String get privateOther => 'ব্যক্তিগত অন্যান্য';
+
+  @override
+  String get unknown => 'অজানা';
+
+  @override
+  String totalPssLabel(String size) {
+    return 'মোট PSS: $size';
+  }
 }

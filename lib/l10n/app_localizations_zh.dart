@@ -914,4 +914,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get resetDefaults => '重置默认';
+
+  @override
+  String get memoryDistribution => '内存分布';
+
+  @override
+  String get memoryProfileComparison => '内存画像对比';
+
+  @override
+  String get stack => '栈';
+
+  @override
+  String get privateOther => '私有其他';
+
+  @override
+  String get unknown => '未知';
+
+  @override
+  String totalPssLabel(String size) {
+    return '总计 PSS: $size';
+  }
 }

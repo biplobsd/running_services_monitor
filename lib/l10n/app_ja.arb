@@ -368,5 +368,18 @@
   "statsProcessStateRamSubtitle": "プロセス状態別の平均RAM使用量",
   "myCommands": "マイコマンド",
   "defaultCommands": "デフォルトコマンド",
-  "resetDefaults": "デフォルトに戻す"
+  "resetDefaults": "デフォルトに戻す",
+  "memoryDistribution": "メモリ分布",
+  "memoryProfileComparison": "メモリプロファイルの比較",
+  "stack": "スタック",
+  "privateOther": "プライベートその他",
+  "unknown": "不明",
+  "totalPssLabel": "合計PSS: {size}",
+  "@totalPssLabel": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
 }
