@@ -415,10 +415,28 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         }
         val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
                 .newProcess(arrayOf("sh", "-c", command), null, null)
-        val output = FileInputStream(process.inputStream.fileDescriptor).bufferedReader().readText()
-        val errorOutput = FileInputStream(process.errorStream.fileDescriptor).bufferedReader().readText()
+        val output = StringBuilder()
+        val errorOutput = StringBuilder()
+        val stdoutThread = Thread {
+            try {
+                FileInputStream(process.inputStream.fileDescriptor)
+                        .bufferedReader()
+                        .use { output.append(it.readText()) }
+            } catch (_: Exception) {}
+        }
+        val stderrThread = Thread {
+            try {
+                FileInputStream(process.errorStream.fileDescriptor)
+                        .bufferedReader()
+                        .use { errorOutput.append(it.readText()) }
+            } catch (_: Exception) {}
+        }
+        stdoutThread.start()
+        stderrThread.start()
+        stdoutThread.join()
+        stderrThread.join()
         val exitCode = process.waitFor()
-        return ShellResult(exitCode, output + errorOutput)
+        return ShellResult(exitCode, output.toString() + errorOutput.toString())
     }
 
     fun checkRootAvailable(): Boolean {
@@ -471,8 +489,16 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         }
         val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
                 .newProcess(arrayOf("sh", "-c", command), null, null)
-        FileInputStream(process.inputStream.fileDescriptor).forEachLineTo(mainHandler, sink)
-        FileInputStream(process.errorStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+        val stderrThread = Thread {
+            try {
+                FileInputStream(process.errorStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+            } catch (_: Exception) {}
+        }
+        stderrThread.start()
+        try {
+            FileInputStream(process.inputStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+        } catch (_: Exception) {}
+        stderrThread.join()
         process.waitFor()
     }
 }
