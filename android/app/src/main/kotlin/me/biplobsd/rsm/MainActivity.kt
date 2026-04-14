@@ -228,7 +228,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
 
             apps = when (mode) {
                 "shizuku" -> {
-                    if (!bindShellService()) throw Exception("Failed to bind Shizuku service")
+                    if (!Shizuku.pingBinder()) throw Exception("Shizuku is not running")
                     val shellApps = ShellExecutor.getInstalledPackages { cmd -> executeShizukuCommand(cmd) }
                     shellApps.map { Pair(it.packageName, it.isSystemApp) }
                 }
@@ -239,7 +239,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 }
                 else -> {
                     when {
-                        bindShellService() -> {
+                        Shizuku.pingBinder() -> {
                             val shellApps = ShellExecutor.getInstalledPackages { cmd -> executeShizukuCommand(cmd) }
                             shellApps.map { Pair(it.packageName, it.isSystemApp) }
                         }
@@ -309,7 +309,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
 
                 when (effectiveMode) {
                     "shizuku" -> {
-                        if (bindShellService()) {
+                        if (Shizuku.pingBinder()) {
                             val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeShizukuCommand(cmd) }
                             if (app != null) {
                                 isSystemApp = app.isSystemApp
@@ -325,7 +325,7 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                         }
                     }
                     else -> {
-                        if (bindShellService()) {
+                        if (Shizuku.pingBinder()) {
                             val app = ShellExecutor.getPackageInfo(packageName) { cmd -> executeShizukuCommand(cmd) }
                             if (app != null) {
                                 isSystemApp = app.isSystemApp
@@ -407,9 +407,15 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             }
 
     fun executeShizukuCommand(command: String): ShellResult {
-        if (!bindShellService()) throw Exception("Failed to bind shell service")
-        return shellService?.executeCommand(command)
-                ?: throw Exception("Shell service is not available")
+        if (bindShellService()) {
+            return shellService?.executeCommand(command)
+                    ?: throw Exception("Shell service is not available")
+        }
+        val process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
+        val output = process.inputStream.bufferedReader().readText()
+        val errorOutput = process.errorStream.bufferedReader().readText()
+        val exitCode = process.waitFor()
+        return ShellResult(exitCode, output + errorOutput)
     }
 
     fun checkRootAvailable(): Boolean {
@@ -453,10 +459,16 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     }
 
     fun executeShizukuCommandWithStream(command: String, sink: PigeonEventSink<String>) {
-        if (!bindShellService()) throw Exception("Failed to bind shell service")
-        val pfd =
-                shellService?.executeCommandWithFd(command)
-                        ?: throw Exception("Shell service is not available")
-        ParcelFileDescriptor.AutoCloseInputStream(pfd).forEachLineTo(mainHandler, sink)
+        if (bindShellService()) {
+            val pfd =
+                    shellService?.executeCommandWithFd(command)
+                            ?: throw Exception("Shell service is not available")
+            ParcelFileDescriptor.AutoCloseInputStream(pfd).forEachLineTo(mainHandler, sink)
+            return
+        }
+        val process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
+        process.inputStream.forEachLineTo(mainHandler, sink)
+        process.errorStream.forEachLineTo(mainHandler, sink)
+        process.waitFor()
     }
 }
