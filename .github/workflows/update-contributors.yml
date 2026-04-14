@@ -38,20 +38,35 @@ jobs:
           python3 << 'EOF'
           import json
           import subprocess
+          import os
           
+          # Load existing data to preserve historical names and PRs
+          contributors_file = 'assets/contributors.json'
+          existing_data = []
+          if os.path.exists(contributors_file):
+              try:
+                  with open(contributors_file, 'r') as f:
+                      existing_data = json.load(f)
+              except Exception as e:
+                  print(f"Error loading existing contributors: {e}")
+          
+          existing_map = {c['login']: c for c in existing_data}
+          
+          # Load raw data from GitHub API
           with open('contributors_raw.json', 'r') as f:
               contributors_data = json.load(f)
           
           with open('prs_raw.json', 'r') as f:
-              prs_data = json.load(f)
+              prs_raw_data = json.load(f)
           
-          pr_by_user = {}
-          for pr in prs_data:
+          # Group new PRs by user
+          new_pr_by_user = {}
+          for pr in prs_raw_data:
               if pr.get('merged_at') and pr.get('user'):
                   username = pr['user']['login']
-                  if username not in pr_by_user:
-                      pr_by_user[username] = []
-                  pr_by_user[username].append({
+                  if username not in new_pr_by_user:
+                      new_pr_by_user[username] = []
+                  new_pr_by_user[username].append({
                       'number': pr['number'],
                       'title': pr['title']
                   })
@@ -63,31 +78,54 @@ jobs:
                       capture_output=True, text=True, timeout=10
                   )
                   name = result.stdout.strip()
-                  return name if name and name != 'null' else None
+                  return name if name and name != 'null' and name != '' else None
               except:
                   return None
           
-          result = []
+          # Merge data
+          updated_map = existing_map.copy()
+          
           for contributor in contributors_data:
               if contributor.get('type') == 'Bot':
                   continue
               
               username = contributor['login']
-              name = get_user_name(username)
+              new_contributions = contributor['contributions']
               
-              result.append({
+              # Get existing entry or initialize new
+              entry = updated_map.get(username, {
                   'login': username,
-                  'name': name,
-                  'contributions': contributor['contributions'],
-                  'pullRequests': pr_by_user.get(username, [])
+                  'name': None,
+                  'contributions': 0,
+                  'pullRequests': []
               })
+              
+              # Update contributions count
+              entry['contributions'] = new_contributions
+              
+              # Update name if missing or null
+              if not entry.get('name') or entry['name'] == 'null':
+                  fetched_name = get_user_name(username)
+                  if fetched_name:
+                      entry['name'] = fetched_name
+              
+              # Merge PRs ensuring uniqueness by number
+              existing_prs = {pr['number']: pr for pr in entry.get('pullRequests', [])}
+              if username in new_pr_by_user:
+                  for pr in new_pr_by_user[username]:
+                      existing_prs[pr['number']] = pr
+              
+              entry['pullRequests'] = sorted(existing_prs.values(), key=lambda x: x['number'], reverse=True)
+              updated_map[username] = entry
           
+          # Convert back to list and sort by contributions
+          result = list(updated_map.values())
           result.sort(key=lambda x: x['contributions'], reverse=True)
           
-          with open('assets/contributors.json', 'w') as f:
+          with open(contributors_file, 'w') as f:
               json.dump(result, f, indent=2)
           
-          print(f"Generated contributors.json with {len(result)} contributors")
+          print(f"Updated contributors.json with {len(result)} contributors")
           EOF
 
       - name: 🧹 Cleanup
