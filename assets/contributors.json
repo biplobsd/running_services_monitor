@@ -2,7 +2,7 @@
   {
     "login": "biplobsd",
     "name": "Biplob Sutradhar",
-    "contributions": 157,
+    "contributions": 182,
     "pullRequests": [
       {
         "number": 13,
@@ -15,25 +15,6 @@
       {
         "number": 1,
         "title": "Bloc"
-      }
-    ]
-  },
-  {
-    "login": "FriesI23",
-    "name": "Fries_I23",
-    "contributions": 6,
-    "pullRequests": [
-      {
-        "number": 12,
-        "title": "feat: support follow system theme in theme toggle"
-      },
-      {
-        "number": 6,
-        "title": "Add Andoird app language support"
-      },
-      {
-        "number": 5,
-        "title": "Add Chinese translation"
       }
     ]
   }
