@@ -9,6 +9,7 @@ import android.os.Looper
 import android.os.ParcelFileDescriptor
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import java.io.FileInputStream
 import java.io.InputStream
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -19,6 +20,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import moe.shizuku.server.IShizukuService
 import rikka.shizuku.Shizuku
 
 fun InputStream.forEachLineTo(handler: Handler, sink: PigeonEventSink<String>) {
@@ -411,9 +413,10 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             return shellService?.executeCommand(command)
                     ?: throw Exception("Shell service is not available")
         }
-        val process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
-        val output = process.inputStream.bufferedReader().readText()
-        val errorOutput = process.errorStream.bufferedReader().readText()
+        val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
+                .newProcess(arrayOf("sh", "-c", command), null, null)
+        val output = FileInputStream(process.inputStream.fileDescriptor).bufferedReader().readText()
+        val errorOutput = FileInputStream(process.errorStream.fileDescriptor).bufferedReader().readText()
         val exitCode = process.waitFor()
         return ShellResult(exitCode, output + errorOutput)
     }
@@ -466,9 +469,10 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
             ParcelFileDescriptor.AutoCloseInputStream(pfd).forEachLineTo(mainHandler, sink)
             return
         }
-        val process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
-        process.inputStream.forEachLineTo(mainHandler, sink)
-        process.errorStream.forEachLineTo(mainHandler, sink)
+        val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
+                .newProcess(arrayOf("sh", "-c", command), null, null)
+        FileInputStream(process.inputStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+        FileInputStream(process.errorStream.fileDescriptor).forEachLineTo(mainHandler, sink)
         process.waitFor()
     }
 }
