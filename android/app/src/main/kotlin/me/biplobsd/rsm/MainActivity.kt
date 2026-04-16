@@ -9,7 +9,6 @@ import android.os.Looper
 import android.os.ParcelFileDescriptor
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import java.io.FileInputStream
 import java.io.InputStream
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -419,23 +418,23 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         val errorOutput = StringBuilder()
         val stdoutThread = Thread {
             try {
-                FileInputStream(process.inputStream.fileDescriptor)
-                        .bufferedReader()
-                        .use { output.append(it.readText()) }
+                process.inputStream.bufferedReader().forEachLine { line ->
+                    output.appendLine(line)
+                }
             } catch (_: Exception) {}
         }
         val stderrThread = Thread {
             try {
-                FileInputStream(process.errorStream.fileDescriptor)
-                        .bufferedReader()
-                        .use { errorOutput.append(it.readText()) }
+                process.errorStream.bufferedReader().forEachLine { line ->
+                    errorOutput.appendLine(line)
+                }
             } catch (_: Exception) {}
         }
         stdoutThread.start()
         stderrThread.start()
-        stdoutThread.join()
-        stderrThread.join()
         val exitCode = process.waitFor()
+        stdoutThread.join(5000)
+        stderrThread.join(5000)
         return ShellResult(exitCode, output.toString() + errorOutput.toString())
     }
 
@@ -491,14 +490,14 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 .newProcess(arrayOf("sh", "-c", command), null, null)
         val stderrThread = Thread {
             try {
-                FileInputStream(process.errorStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+                process.errorStream.forEachLineTo(mainHandler, sink)
             } catch (_: Exception) {}
         }
         stderrThread.start()
         try {
-            FileInputStream(process.inputStream.fileDescriptor).forEachLineTo(mainHandler, sink)
+            process.inputStream.forEachLineTo(mainHandler, sink)
         } catch (_: Exception) {}
-        stderrThread.join()
-        process.waitFor()
+        val exitCode = process.waitFor()
+        stderrThread.join(5000)
     }
 }
