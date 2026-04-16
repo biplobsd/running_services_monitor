@@ -20,6 +20,7 @@ import 'widgets/home/search_field.dart';
 import 'widgets/common/loading_indicator.dart';
 import 'widgets/home/app_count_tab.dart';
 import 'widgets/common/auto_refresh_timer_button.dart';
+import 'widgets/home/home_confetti_overlay.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -240,7 +241,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               homeUiBloc.add(HomeUiEvent.scrollDirectionChanged(direction));
               return false;
             },
-            child: HomeBody(tabController: _tabController!),
+            child: Stack(
+              children: [
+                HomeBody(tabController: _tabController!),
+                const HomeConfettiOverlay(),
+              ],
+            ),
           ),
         ),
       ),

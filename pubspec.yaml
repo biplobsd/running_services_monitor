@@ -11,38 +11,39 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
   freezed_annotation: ^3.1.0
   json_annotation: ^4.11.0
   bloc: ^9.2.0
   injectable: ^2.7.1+4
   get_it: ^9.2.1
   flutter_bloc: ^9.1.1
-  hydrated_bloc: ^10.1.1
+  hydrated_bloc: ^11.0.0
   path_provider: ^2.1.5
   url_launcher: ^6.3.2
   android_intent_plus: ^6.0.0
-  go_router: ^17.1.0
+  go_router: ^17.2.1
   intl: ^0.20.2
   collection: ^1.19.1
   expressive_refresh: ^0.1.2
   material_new_shapes: ^1.0.0
   skeletonizer: ^2.1.3
-  fl_chart: ^1.1.1
+  fl_chart: ^1.2.0
   uuid: ^4.5.3
   rxdart: ^0.28.0
+  flutter_confetti: ^0.5.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.11.1
-  build: ^4.0.4
+  build_runner: ^2.13.1
+  build: ^4.0.5
   freezed: ^3.2.5
-  json_serializable: ^6.13.0
-  bloc_lint: ^0.3.6
-  injectable_generator: ^2.12.0
-  pigeon: ^26.1.7
+  json_serializable: ^6.13.1
+  bloc_lint: ^0.4.1
+  injectable_generator: ^2.12.1
+  pigeon: ^26.3.4
 
 flutter:
   uses-material-design: true

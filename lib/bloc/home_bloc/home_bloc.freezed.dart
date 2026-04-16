@@ -55,7 +55,7 @@ extension HomeEventPatterns on HomeEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _InitializeShizuku value)?  initializeShizuku,TResult Function( _LoadData value)?  loadData,TResult Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult Function( _ToggleSearch value)?  toggleSearch,TResult Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult Function( _RemoveApp value)?  removeApp,TResult Function( _RemoveService value)?  removeService,TResult Function( _RemoveByPid value)?  removeByPid,TResult Function( _SetProcessFilter value)?  setProcessFilter,TResult Function( _ToggleSortOrder value)?  toggleSortOrder,TResult Function( _UpdateRamInfo value)?  updateRamInfo,TResult Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _InitializeShizuku value)?  initializeShizuku,TResult Function( _LoadData value)?  loadData,TResult Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult Function( _ToggleSearch value)?  toggleSearch,TResult Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult Function( _RemoveApp value)?  removeApp,TResult Function( _RemoveService value)?  removeService,TResult Function( _RemoveByPid value)?  removeByPid,TResult Function( _SetProcessFilter value)?  setProcessFilter,TResult Function( _ToggleSortOrder value)?  toggleSortOrder,TResult Function( _UpdateRamInfo value)?  updateRamInfo,TResult Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,TResult Function( _MarkConfettiShown value)?  markConfettiShown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
@@ -71,7 +71,8 @@ return removeByPid(_that);case _SetProcessFilter() when setProcessFilter != null
 return setProcessFilter(_that);case _ToggleSortOrder() when toggleSortOrder != null:
 return toggleSortOrder(_that);case _UpdateRamInfo() when updateRamInfo != null:
 return updateRamInfo(_that);case _ToggleShowCoreApps() when toggleShowCoreApps != null:
-return toggleShowCoreApps(_that);case _:
+return toggleShowCoreApps(_that);case _MarkConfettiShown() when markConfettiShown != null:
+return markConfettiShown(_that);case _:
   return orElse();
 
 }
@@ -89,7 +90,7 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _InitializeShizuku value)  initializeShizuku,required TResult Function( _LoadData value)  loadData,required TResult Function( _ToggleAutoUpdate value)  toggleAutoUpdate,required TResult Function( _SetAutoUpdateInterval value)  setAutoUpdateInterval,required TResult Function( _ToggleSearch value)  toggleSearch,required TResult Function( _UpdateSearchQuery value)  updateSearchQuery,required TResult Function( _RemoveApp value)  removeApp,required TResult Function( _RemoveService value)  removeService,required TResult Function( _RemoveByPid value)  removeByPid,required TResult Function( _SetProcessFilter value)  setProcessFilter,required TResult Function( _ToggleSortOrder value)  toggleSortOrder,required TResult Function( _UpdateRamInfo value)  updateRamInfo,required TResult Function( _ToggleShowCoreApps value)  toggleShowCoreApps,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _InitializeShizuku value)  initializeShizuku,required TResult Function( _LoadData value)  loadData,required TResult Function( _ToggleAutoUpdate value)  toggleAutoUpdate,required TResult Function( _SetAutoUpdateInterval value)  setAutoUpdateInterval,required TResult Function( _ToggleSearch value)  toggleSearch,required TResult Function( _UpdateSearchQuery value)  updateSearchQuery,required TResult Function( _RemoveApp value)  removeApp,required TResult Function( _RemoveService value)  removeService,required TResult Function( _RemoveByPid value)  removeByPid,required TResult Function( _SetProcessFilter value)  setProcessFilter,required TResult Function( _ToggleSortOrder value)  toggleSortOrder,required TResult Function( _UpdateRamInfo value)  updateRamInfo,required TResult Function( _ToggleShowCoreApps value)  toggleShowCoreApps,required TResult Function( _MarkConfettiShown value)  markConfettiShown,}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku():
@@ -105,7 +106,8 @@ return removeByPid(_that);case _SetProcessFilter():
 return setProcessFilter(_that);case _ToggleSortOrder():
 return toggleSortOrder(_that);case _UpdateRamInfo():
 return updateRamInfo(_that);case _ToggleShowCoreApps():
-return toggleShowCoreApps(_that);case _:
+return toggleShowCoreApps(_that);case _MarkConfettiShown():
+return markConfettiShown(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -122,7 +124,7 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _InitializeShizuku value)?  initializeShizuku,TResult? Function( _LoadData value)?  loadData,TResult? Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult? Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult? Function( _ToggleSearch value)?  toggleSearch,TResult? Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult? Function( _RemoveApp value)?  removeApp,TResult? Function( _RemoveService value)?  removeService,TResult? Function( _RemoveByPid value)?  removeByPid,TResult? Function( _SetProcessFilter value)?  setProcessFilter,TResult? Function( _ToggleSortOrder value)?  toggleSortOrder,TResult? Function( _UpdateRamInfo value)?  updateRamInfo,TResult? Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _InitializeShizuku value)?  initializeShizuku,TResult? Function( _LoadData value)?  loadData,TResult? Function( _ToggleAutoUpdate value)?  toggleAutoUpdate,TResult? Function( _SetAutoUpdateInterval value)?  setAutoUpdateInterval,TResult? Function( _ToggleSearch value)?  toggleSearch,TResult? Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult? Function( _RemoveApp value)?  removeApp,TResult? Function( _RemoveService value)?  removeService,TResult? Function( _RemoveByPid value)?  removeByPid,TResult? Function( _SetProcessFilter value)?  setProcessFilter,TResult? Function( _ToggleSortOrder value)?  toggleSortOrder,TResult? Function( _UpdateRamInfo value)?  updateRamInfo,TResult? Function( _ToggleShowCoreApps value)?  toggleShowCoreApps,TResult? Function( _MarkConfettiShown value)?  markConfettiShown,}){
 final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
@@ -138,7 +140,8 @@ return removeByPid(_that);case _SetProcessFilter() when setProcessFilter != null
 return setProcessFilter(_that);case _ToggleSortOrder() when toggleSortOrder != null:
 return toggleSortOrder(_that);case _UpdateRamInfo() when updateRamInfo != null:
 return updateRamInfo(_that);case _ToggleShowCoreApps() when toggleShowCoreApps != null:
-return toggleShowCoreApps(_that);case _:
+return toggleShowCoreApps(_that);case _MarkConfettiShown() when markConfettiShown != null:
+return markConfettiShown(_that);case _:
   return null;
 
 }
@@ -155,7 +158,7 @@ return toggleShowCoreApps(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool silent,  bool notify)?  initializeShizuku,TResult Function( bool silent,  bool notify)?  loadData,TResult Function()?  toggleAutoUpdate,TResult Function( Duration? interval)?  setAutoUpdateInterval,TResult Function()?  toggleSearch,TResult Function( String query)?  updateSearchQuery,TResult Function( String packageName)?  removeApp,TResult Function( String packageName,  String serviceName)?  removeService,TResult Function( String packageName,  int pid)?  removeByPid,TResult Function( ProcessStateFilter filter)?  setProcessFilter,TResult Function()?  toggleSortOrder,TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult Function()?  toggleShowCoreApps,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( bool silent,  bool notify)?  initializeShizuku,TResult Function( bool silent,  bool notify)?  loadData,TResult Function()?  toggleAutoUpdate,TResult Function( Duration? interval)?  setAutoUpdateInterval,TResult Function()?  toggleSearch,TResult Function( String query)?  updateSearchQuery,TResult Function( String packageName)?  removeApp,TResult Function( String packageName,  String serviceName)?  removeService,TResult Function( String packageName,  int pid)?  removeByPid,TResult Function( ProcessStateFilter filter)?  setProcessFilter,TResult Function()?  toggleSortOrder,TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult Function()?  toggleShowCoreApps,TResult Function()?  markConfettiShown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that.silent,_that.notify);case _LoadData() when loadData != null:
@@ -170,7 +173,8 @@ return removeByPid(_that.packageName,_that.pid);case _SetProcessFilter() when se
 return setProcessFilter(_that.filter);case _ToggleSortOrder() when toggleSortOrder != null:
 return toggleSortOrder();case _UpdateRamInfo() when updateRamInfo != null:
 return updateRamInfo(_that.apps,_that.systemRamInfoFuture,_that.notify);case _ToggleShowCoreApps() when toggleShowCoreApps != null:
-return toggleShowCoreApps();case _:
+return toggleShowCoreApps();case _MarkConfettiShown() when markConfettiShown != null:
+return markConfettiShown();case _:
   return orElse();
 
 }
@@ -188,7 +192,7 @@ return toggleShowCoreApps();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool silent,  bool notify)  initializeShizuku,required TResult Function( bool silent,  bool notify)  loadData,required TResult Function()  toggleAutoUpdate,required TResult Function( Duration? interval)  setAutoUpdateInterval,required TResult Function()  toggleSearch,required TResult Function( String query)  updateSearchQuery,required TResult Function( String packageName)  removeApp,required TResult Function( String packageName,  String serviceName)  removeService,required TResult Function( String packageName,  int pid)  removeByPid,required TResult Function( ProcessStateFilter filter)  setProcessFilter,required TResult Function()  toggleSortOrder,required TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)  updateRamInfo,required TResult Function()  toggleShowCoreApps,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( bool silent,  bool notify)  initializeShizuku,required TResult Function( bool silent,  bool notify)  loadData,required TResult Function()  toggleAutoUpdate,required TResult Function( Duration? interval)  setAutoUpdateInterval,required TResult Function()  toggleSearch,required TResult Function( String query)  updateSearchQuery,required TResult Function( String packageName)  removeApp,required TResult Function( String packageName,  String serviceName)  removeService,required TResult Function( String packageName,  int pid)  removeByPid,required TResult Function( ProcessStateFilter filter)  setProcessFilter,required TResult Function()  toggleSortOrder,required TResult Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)  updateRamInfo,required TResult Function()  toggleShowCoreApps,required TResult Function()  markConfettiShown,}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku():
 return initializeShizuku(_that.silent,_that.notify);case _LoadData():
@@ -203,7 +207,8 @@ return removeByPid(_that.packageName,_that.pid);case _SetProcessFilter():
 return setProcessFilter(_that.filter);case _ToggleSortOrder():
 return toggleSortOrder();case _UpdateRamInfo():
 return updateRamInfo(_that.apps,_that.systemRamInfoFuture,_that.notify);case _ToggleShowCoreApps():
-return toggleShowCoreApps();case _:
+return toggleShowCoreApps();case _MarkConfettiShown():
+return markConfettiShown();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -220,7 +225,7 @@ return toggleShowCoreApps();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool silent,  bool notify)?  initializeShizuku,TResult? Function( bool silent,  bool notify)?  loadData,TResult? Function()?  toggleAutoUpdate,TResult? Function( Duration? interval)?  setAutoUpdateInterval,TResult? Function()?  toggleSearch,TResult? Function( String query)?  updateSearchQuery,TResult? Function( String packageName)?  removeApp,TResult? Function( String packageName,  String serviceName)?  removeService,TResult? Function( String packageName,  int pid)?  removeByPid,TResult? Function( ProcessStateFilter filter)?  setProcessFilter,TResult? Function()?  toggleSortOrder,TResult? Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult? Function()?  toggleShowCoreApps,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( bool silent,  bool notify)?  initializeShizuku,TResult? Function( bool silent,  bool notify)?  loadData,TResult? Function()?  toggleAutoUpdate,TResult? Function( Duration? interval)?  setAutoUpdateInterval,TResult? Function()?  toggleSearch,TResult? Function( String query)?  updateSearchQuery,TResult? Function( String packageName)?  removeApp,TResult? Function( String packageName,  String serviceName)?  removeService,TResult? Function( String packageName,  int pid)?  removeByPid,TResult? Function( ProcessStateFilter filter)?  setProcessFilter,TResult? Function()?  toggleSortOrder,TResult? Function( List<AppProcessInfo> apps,  Future<SystemRamInfo?> systemRamInfoFuture,  bool notify)?  updateRamInfo,TResult? Function()?  toggleShowCoreApps,TResult? Function()?  markConfettiShown,}) {final _that = this;
 switch (_that) {
 case _InitializeShizuku() when initializeShizuku != null:
 return initializeShizuku(_that.silent,_that.notify);case _LoadData() when loadData != null:
@@ -235,7 +240,8 @@ return removeByPid(_that.packageName,_that.pid);case _SetProcessFilter() when se
 return setProcessFilter(_that.filter);case _ToggleSortOrder() when toggleSortOrder != null:
 return toggleSortOrder();case _UpdateRamInfo() when updateRamInfo != null:
 return updateRamInfo(_that.apps,_that.systemRamInfoFuture,_that.notify);case _ToggleShowCoreApps() when toggleShowCoreApps != null:
-return toggleShowCoreApps();case _:
+return toggleShowCoreApps();case _MarkConfettiShown() when markConfettiShown != null:
+return markConfettiShown();case _:
   return null;
 
 }
@@ -975,6 +981,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'HomeEvent.toggleShowCoreApps()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _MarkConfettiShown implements HomeEvent {
+  const _MarkConfettiShown();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MarkConfettiShown);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeEvent.markConfettiShown()';
 }
 
 

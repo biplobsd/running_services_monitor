@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_bn.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_ja.dart';
 import 'app_localizations_pt.dart';
@@ -101,6 +102,7 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('bn'),
     Locale('en'),
+    Locale('es'),
     Locale('hi'),
     Locale('ja'),
     Locale('pt'),
@@ -1922,6 +1924,7 @@ class _AppLocalizationsDelegate
   bool isSupported(Locale locale) => <String>[
     'bn',
     'en',
+    'es',
     'hi',
     'ja',
     'pt',
@@ -1940,6 +1943,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsBn();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
     case 'hi':
       return AppLocalizationsHi();
     case 'ja':

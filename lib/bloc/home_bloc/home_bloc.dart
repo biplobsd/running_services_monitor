@@ -36,6 +36,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_ToggleSortOrder>(_onToggleSortOrder);
     on<_UpdateRamInfo>(_onUpdateRamInfo);
     on<_ToggleShowCoreApps>(_onToggleShowCoreApps);
+    on<_MarkConfettiShown>(_onMarkConfettiShown);
   }
 
   @override
@@ -67,7 +68,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
       final isRunning = await _shizukuService.isShizukuRunning();
       if (!isRunning) {
-        emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.shizukuNotRunning));
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.shizukuNotRunning));
         return;
       }
 
@@ -75,14 +76,14 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       if (!hasPermission) {
         final granted = await _shizukuService.requestPermission();
         if (!granted) {
-          emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.permissionDeniedShizuku));
+          emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.permissionDeniedShizuku));
           return;
         }
       }
 
       final initialized = await _shizukuService.initialize();
       if (!initialized) {
-        emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.failedToInitialize));
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.failedToInitialize));
         return;
       }
 
@@ -91,7 +92,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       add(HomeEvent.loadData(silent: event.silent, notify: event.notify));
     } catch (e, s) {
       logError(e, s);
-      emit(HomeState.failure(state.value.copyWith(shizukuReady: false), L10nKeys.errorInitializingShizuku));
+      emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.errorInitializingShizuku));
     }
   }
 
@@ -310,6 +311,10 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     final newValue = !state.value.showCoreApps;
     emit(HomeState.success(state.value.copyWith(showCoreApps: newValue, allApps: [])));
     add(const HomeEvent.loadData());
+  }
+
+  Future<void> _onMarkConfettiShown(_MarkConfettiShown event, Emitter<HomeState> emit) async {
+    emit(HomeState.success(state.value.copyWith(confettiShown: true)));
   }
 
   @override

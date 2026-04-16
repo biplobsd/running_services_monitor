@@ -16,4 +16,5 @@ class HomeEvent with _$HomeEvent {
   const factory HomeEvent.updateRamInfo(List<AppProcessInfo> apps, Future<SystemRamInfo?> systemRamInfoFuture, bool notify) =
       _UpdateRamInfo;
   const factory HomeEvent.toggleShowCoreApps() = _ToggleShowCoreApps;
+  const factory HomeEvent.markConfettiShown() = _MarkConfettiShown;
 }
