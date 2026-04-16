@@ -997,4 +997,36 @@ class AppLocalizationsBn extends AppLocalizations {
   String totalPssLabel(String size) {
     return 'মোট PSS: $size';
   }
+
+  @override
+  String get tipsAndSupport => 'সাপোর্ট';
+
+  @override
+  String get tipsRateTitle => 'রেট দিন';
+
+  @override
+  String get tipsRateDescription => '৫-স্টার রিভিউ দিন এবং আপনার মতামত জানান।';
+
+  @override
+  String get tipsRateAction => 'প্লে স্টোর খুলুন';
+
+  @override
+  String get tipsCoffeeTitle => 'বাই মি আ কফি';
+
+  @override
+  String get tipsCoffeeDescription =>
+      'অ্যাপটি নিয়মিত আপডেট রাখতে আমাকে উৎসাহিত করুন।';
+
+  @override
+  String get tipsCoffeeAction => 'বাই মি আ কফি';
+
+  @override
+  String get tipsContributeTitle => 'অবদান রাখুন';
+
+  @override
+  String get tipsContributeDescription =>
+      'অ্যাপটি উন্নত করতে সাহায্য করুন বা অনুবাদে সহায়তা করুন।';
+
+  @override
+  String get tipsContributeAction => 'গিটহাবে দেখুন';
 }

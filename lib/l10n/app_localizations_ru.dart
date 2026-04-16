@@ -1006,4 +1006,37 @@ class AppLocalizationsRu extends AppLocalizations {
   String totalPssLabel(String size) {
     return 'Всего PSS: $size';
   }
+
+  @override
+  String get tipsAndSupport => 'Поддержка';
+
+  @override
+  String get tipsRateTitle => 'Оцените нас';
+
+  @override
+  String get tipsRateDescription =>
+      'Поставьте 5 звезд и поделитесь своим отзывом.';
+
+  @override
+  String get tipsRateAction => 'Открыть Play Store';
+
+  @override
+  String get tipsCoffeeTitle => 'Купите мне кофе';
+
+  @override
+  String get tipsCoffeeDescription =>
+      'Мотивируйте меня продолжать обновлять приложение.';
+
+  @override
+  String get tipsCoffeeAction => 'Купить кофе';
+
+  @override
+  String get tipsContributeTitle => 'Внести вклад';
+
+  @override
+  String get tipsContributeDescription =>
+      'Помогите с переводом или внесите вклад в улучшение приложения.';
+
+  @override
+  String get tipsContributeAction => 'Посмотреть на GitHub';
 }

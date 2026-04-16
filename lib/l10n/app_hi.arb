@@ -379,5 +379,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "सपोर्ट",
+  "tipsRateTitle": "हमें रेट करें",
+  "tipsRateDescription": "5-स्टार रिव्यू दें और अपनी प्रतिक्रिया साझा करें।",
+  "tipsRateAction": "प्ले स्टोर खोलें",
+  "tipsCoffeeTitle": "बाय मी अ कॉफ़ी",
+  "tipsCoffeeDescription": "ऐप को अपडेट रखने के लिए मुझे प्रोत्साहित करें।",
+  "tipsCoffeeAction": "बाय मी अ कॉफ़ी",
+  "tipsContributeTitle": "योगदान दें",
+  "tipsContributeDescription": "ऐप को बेहतर बनाने में मदद करें या अनुवाद में सहायता करें।",
+  "tipsContributeAction": "गिटहब पर देखें"
 }

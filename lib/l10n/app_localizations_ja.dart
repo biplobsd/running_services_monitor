@@ -955,4 +955,34 @@ class AppLocalizationsJa extends AppLocalizations {
   String totalPssLabel(String size) {
     return '合計PSS: $size';
   }
+
+  @override
+  String get tipsAndSupport => 'サポート';
+
+  @override
+  String get tipsRateTitle => '評価する';
+
+  @override
+  String get tipsRateDescription => '5つ星評価とフィードバックをお願いします。';
+
+  @override
+  String get tipsRateAction => 'Play ストアを開く';
+
+  @override
+  String get tipsCoffeeTitle => 'コーヒーを奢る';
+
+  @override
+  String get tipsCoffeeDescription => 'アプリの更新を続けるためのモチベーションになります。';
+
+  @override
+  String get tipsCoffeeAction => 'コーヒーを奢る';
+
+  @override
+  String get tipsContributeTitle => '貢献する';
+
+  @override
+  String get tipsContributeDescription => 'アプリの改善や翻訳に協力してください。';
+
+  @override
+  String get tipsContributeAction => 'GitHub で見る';
 }

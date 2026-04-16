@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeStateModel {
 
-@JsonKey(includeFromJson: false, includeToJson: false) bool get shizukuReady; List<AppProcessInfo> get allApps; SystemRamInfo get systemRamInfo;@JsonKey(includeFromJson: false, includeToJson: false) bool get isAutoUpdateEnabled;@JsonKey(includeFromJson: false, includeToJson: false) Duration? get autoUpdateInterval;@JsonKey(includeFromJson: false, includeToJson: false) bool get isLoadingRam;@JsonKey(includeFromJson: false, includeToJson: false) bool get isSearching;@JsonKey(includeFromJson: false, includeToJson: false) String get searchQuery;@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter get selectedProcessFilter;@JsonKey(includeFromJson: false, includeToJson: false) bool get sortAscending; bool get showCoreApps; bool get confettiShown;
+@JsonKey(includeFromJson: false, includeToJson: false) bool get shizukuReady; List<AppProcessInfo> get allApps; SystemRamInfo get systemRamInfo;@JsonKey(includeFromJson: false, includeToJson: false) bool get isAutoUpdateEnabled;@JsonKey(includeFromJson: false, includeToJson: false) Duration? get autoUpdateInterval;@JsonKey(includeFromJson: false, includeToJson: false) bool get isLoadingRam;@JsonKey(includeFromJson: false, includeToJson: false) bool get isSearching;@JsonKey(includeFromJson: false, includeToJson: false) String get searchQuery;@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter get selectedProcessFilter;@JsonKey(includeFromJson: false, includeToJson: false) bool get sortAscending; bool get showCoreApps; bool get confettiShown; int get refreshCount; String? get tipsLastShownDate;
 /// Create a copy of HomeStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $HomeStateModelCopyWith<HomeStateModel> get copyWith => _$HomeStateModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeStateModel&&(identical(other.shizukuReady, shizukuReady) || other.shizukuReady == shizukuReady)&&const DeepCollectionEquality().equals(other.allApps, allApps)&&(identical(other.systemRamInfo, systemRamInfo) || other.systemRamInfo == systemRamInfo)&&(identical(other.isAutoUpdateEnabled, isAutoUpdateEnabled) || other.isAutoUpdateEnabled == isAutoUpdateEnabled)&&(identical(other.autoUpdateInterval, autoUpdateInterval) || other.autoUpdateInterval == autoUpdateInterval)&&(identical(other.isLoadingRam, isLoadingRam) || other.isLoadingRam == isLoadingRam)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedProcessFilter, selectedProcessFilter) || other.selectedProcessFilter == selectedProcessFilter)&&(identical(other.sortAscending, sortAscending) || other.sortAscending == sortAscending)&&(identical(other.showCoreApps, showCoreApps) || other.showCoreApps == showCoreApps)&&(identical(other.confettiShown, confettiShown) || other.confettiShown == confettiShown));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeStateModel&&(identical(other.shizukuReady, shizukuReady) || other.shizukuReady == shizukuReady)&&const DeepCollectionEquality().equals(other.allApps, allApps)&&(identical(other.systemRamInfo, systemRamInfo) || other.systemRamInfo == systemRamInfo)&&(identical(other.isAutoUpdateEnabled, isAutoUpdateEnabled) || other.isAutoUpdateEnabled == isAutoUpdateEnabled)&&(identical(other.autoUpdateInterval, autoUpdateInterval) || other.autoUpdateInterval == autoUpdateInterval)&&(identical(other.isLoadingRam, isLoadingRam) || other.isLoadingRam == isLoadingRam)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedProcessFilter, selectedProcessFilter) || other.selectedProcessFilter == selectedProcessFilter)&&(identical(other.sortAscending, sortAscending) || other.sortAscending == sortAscending)&&(identical(other.showCoreApps, showCoreApps) || other.showCoreApps == showCoreApps)&&(identical(other.confettiShown, confettiShown) || other.confettiShown == confettiShown)&&(identical(other.refreshCount, refreshCount) || other.refreshCount == refreshCount)&&(identical(other.tipsLastShownDate, tipsLastShownDate) || other.tipsLastShownDate == tipsLastShownDate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,shizukuReady,const DeepCollectionEquality().hash(allApps),systemRamInfo,isAutoUpdateEnabled,autoUpdateInterval,isLoadingRam,isSearching,searchQuery,selectedProcessFilter,sortAscending,showCoreApps,confettiShown);
+int get hashCode => Object.hash(runtimeType,shizukuReady,const DeepCollectionEquality().hash(allApps),systemRamInfo,isAutoUpdateEnabled,autoUpdateInterval,isLoadingRam,isSearching,searchQuery,selectedProcessFilter,sortAscending,showCoreApps,confettiShown,refreshCount,tipsLastShownDate);
 
 @override
 String toString() {
-  return 'HomeStateModel(shizukuReady: $shizukuReady, allApps: $allApps, systemRamInfo: $systemRamInfo, isAutoUpdateEnabled: $isAutoUpdateEnabled, autoUpdateInterval: $autoUpdateInterval, isLoadingRam: $isLoadingRam, isSearching: $isSearching, searchQuery: $searchQuery, selectedProcessFilter: $selectedProcessFilter, sortAscending: $sortAscending, showCoreApps: $showCoreApps, confettiShown: $confettiShown)';
+  return 'HomeStateModel(shizukuReady: $shizukuReady, allApps: $allApps, systemRamInfo: $systemRamInfo, isAutoUpdateEnabled: $isAutoUpdateEnabled, autoUpdateInterval: $autoUpdateInterval, isLoadingRam: $isLoadingRam, isSearching: $isSearching, searchQuery: $searchQuery, selectedProcessFilter: $selectedProcessFilter, sortAscending: $sortAscending, showCoreApps: $showCoreApps, confettiShown: $confettiShown, refreshCount: $refreshCount, tipsLastShownDate: $tipsLastShownDate)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $HomeStateModelCopyWith<$Res>  {
   factory $HomeStateModelCopyWith(HomeStateModel value, $Res Function(HomeStateModel) _then) = _$HomeStateModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) bool shizukuReady, List<AppProcessInfo> allApps, SystemRamInfo systemRamInfo,@JsonKey(includeFromJson: false, includeToJson: false) bool isAutoUpdateEnabled,@JsonKey(includeFromJson: false, includeToJson: false) Duration? autoUpdateInterval,@JsonKey(includeFromJson: false, includeToJson: false) bool isLoadingRam,@JsonKey(includeFromJson: false, includeToJson: false) bool isSearching,@JsonKey(includeFromJson: false, includeToJson: false) String searchQuery,@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter selectedProcessFilter,@JsonKey(includeFromJson: false, includeToJson: false) bool sortAscending, bool showCoreApps, bool confettiShown
+@JsonKey(includeFromJson: false, includeToJson: false) bool shizukuReady, List<AppProcessInfo> allApps, SystemRamInfo systemRamInfo,@JsonKey(includeFromJson: false, includeToJson: false) bool isAutoUpdateEnabled,@JsonKey(includeFromJson: false, includeToJson: false) Duration? autoUpdateInterval,@JsonKey(includeFromJson: false, includeToJson: false) bool isLoadingRam,@JsonKey(includeFromJson: false, includeToJson: false) bool isSearching,@JsonKey(includeFromJson: false, includeToJson: false) String searchQuery,@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter selectedProcessFilter,@JsonKey(includeFromJson: false, includeToJson: false) bool sortAscending, bool showCoreApps, bool confettiShown, int refreshCount, String? tipsLastShownDate
 });
 
 
@@ -65,7 +65,7 @@ class _$HomeStateModelCopyWithImpl<$Res>
 
 /// Create a copy of HomeStateModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? shizukuReady = null,Object? allApps = null,Object? systemRamInfo = null,Object? isAutoUpdateEnabled = null,Object? autoUpdateInterval = freezed,Object? isLoadingRam = null,Object? isSearching = null,Object? searchQuery = null,Object? selectedProcessFilter = null,Object? sortAscending = null,Object? showCoreApps = null,Object? confettiShown = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? shizukuReady = null,Object? allApps = null,Object? systemRamInfo = null,Object? isAutoUpdateEnabled = null,Object? autoUpdateInterval = freezed,Object? isLoadingRam = null,Object? isSearching = null,Object? searchQuery = null,Object? selectedProcessFilter = null,Object? sortAscending = null,Object? showCoreApps = null,Object? confettiShown = null,Object? refreshCount = null,Object? tipsLastShownDate = freezed,}) {
   return _then(_self.copyWith(
 shizukuReady: null == shizukuReady ? _self.shizukuReady : shizukuReady // ignore: cast_nullable_to_non_nullable
 as bool,allApps: null == allApps ? _self.allApps : allApps // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,9 @@ as String,selectedProcessFilter: null == selectedProcessFilter ? _self.selectedP
 as ProcessStateFilter,sortAscending: null == sortAscending ? _self.sortAscending : sortAscending // ignore: cast_nullable_to_non_nullable
 as bool,showCoreApps: null == showCoreApps ? _self.showCoreApps : showCoreApps // ignore: cast_nullable_to_non_nullable
 as bool,confettiShown: null == confettiShown ? _self.confettiShown : confettiShown // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,refreshCount: null == refreshCount ? _self.refreshCount : refreshCount // ignore: cast_nullable_to_non_nullable
+as int,tipsLastShownDate: freezed == tipsLastShownDate ? _self.tipsLastShownDate : tipsLastShownDate // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of HomeStateModel
@@ -173,10 +175,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown,  int refreshCount,  String? tipsLastShownDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeStateModel() when $default != null:
-return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown);case _:
+return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown,_that.refreshCount,_that.tipsLastShownDate);case _:
   return orElse();
 
 }
@@ -194,10 +196,10 @@ return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAut
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown,  int refreshCount,  String? tipsLastShownDate)  $default,) {final _that = this;
 switch (_that) {
 case _HomeStateModel():
-return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown);case _:
+return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown,_that.refreshCount,_that.tipsLastShownDate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -214,10 +216,10 @@ return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAut
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(includeFromJson: false, includeToJson: false)  bool shizukuReady,  List<AppProcessInfo> allApps,  SystemRamInfo systemRamInfo, @JsonKey(includeFromJson: false, includeToJson: false)  bool isAutoUpdateEnabled, @JsonKey(includeFromJson: false, includeToJson: false)  Duration? autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false)  bool isLoadingRam, @JsonKey(includeFromJson: false, includeToJson: false)  bool isSearching, @JsonKey(includeFromJson: false, includeToJson: false)  String searchQuery, @JsonKey(includeFromJson: false, includeToJson: false)  ProcessStateFilter selectedProcessFilter, @JsonKey(includeFromJson: false, includeToJson: false)  bool sortAscending,  bool showCoreApps,  bool confettiShown,  int refreshCount,  String? tipsLastShownDate)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeStateModel() when $default != null:
-return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown);case _:
+return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAutoUpdateEnabled,_that.autoUpdateInterval,_that.isLoadingRam,_that.isSearching,_that.searchQuery,_that.selectedProcessFilter,_that.sortAscending,_that.showCoreApps,_that.confettiShown,_that.refreshCount,_that.tipsLastShownDate);case _:
   return null;
 
 }
@@ -229,7 +231,7 @@ return $default(_that.shizukuReady,_that.allApps,_that.systemRamInfo,_that.isAut
 @JsonSerializable()
 
 class _HomeStateModel implements HomeStateModel {
-  const _HomeStateModel({@JsonKey(includeFromJson: false, includeToJson: false) this.shizukuReady = false, final  List<AppProcessInfo> allApps = const [], this.systemRamInfo = const SystemRamInfo(), @JsonKey(includeFromJson: false, includeToJson: false) this.isAutoUpdateEnabled = false, @JsonKey(includeFromJson: false, includeToJson: false) this.autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false) this.isLoadingRam = false, @JsonKey(includeFromJson: false, includeToJson: false) this.isSearching = false, @JsonKey(includeFromJson: false, includeToJson: false) this.searchQuery = '', @JsonKey(includeFromJson: false, includeToJson: false) this.selectedProcessFilter = ProcessStateFilter.all, @JsonKey(includeFromJson: false, includeToJson: false) this.sortAscending = false, this.showCoreApps = false, this.confettiShown = false}): _allApps = allApps;
+  const _HomeStateModel({@JsonKey(includeFromJson: false, includeToJson: false) this.shizukuReady = false, final  List<AppProcessInfo> allApps = const [], this.systemRamInfo = const SystemRamInfo(), @JsonKey(includeFromJson: false, includeToJson: false) this.isAutoUpdateEnabled = false, @JsonKey(includeFromJson: false, includeToJson: false) this.autoUpdateInterval, @JsonKey(includeFromJson: false, includeToJson: false) this.isLoadingRam = false, @JsonKey(includeFromJson: false, includeToJson: false) this.isSearching = false, @JsonKey(includeFromJson: false, includeToJson: false) this.searchQuery = '', @JsonKey(includeFromJson: false, includeToJson: false) this.selectedProcessFilter = ProcessStateFilter.all, @JsonKey(includeFromJson: false, includeToJson: false) this.sortAscending = false, this.showCoreApps = false, this.confettiShown = false, this.refreshCount = 0, this.tipsLastShownDate}): _allApps = allApps;
   factory _HomeStateModel.fromJson(Map<String, dynamic> json) => _$HomeStateModelFromJson(json);
 
 @override@JsonKey(includeFromJson: false, includeToJson: false) final  bool shizukuReady;
@@ -250,6 +252,8 @@ class _HomeStateModel implements HomeStateModel {
 @override@JsonKey(includeFromJson: false, includeToJson: false) final  bool sortAscending;
 @override@JsonKey() final  bool showCoreApps;
 @override@JsonKey() final  bool confettiShown;
+@override@JsonKey() final  int refreshCount;
+@override final  String? tipsLastShownDate;
 
 /// Create a copy of HomeStateModel
 /// with the given fields replaced by the non-null parameter values.
@@ -264,16 +268,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeStateModel&&(identical(other.shizukuReady, shizukuReady) || other.shizukuReady == shizukuReady)&&const DeepCollectionEquality().equals(other._allApps, _allApps)&&(identical(other.systemRamInfo, systemRamInfo) || other.systemRamInfo == systemRamInfo)&&(identical(other.isAutoUpdateEnabled, isAutoUpdateEnabled) || other.isAutoUpdateEnabled == isAutoUpdateEnabled)&&(identical(other.autoUpdateInterval, autoUpdateInterval) || other.autoUpdateInterval == autoUpdateInterval)&&(identical(other.isLoadingRam, isLoadingRam) || other.isLoadingRam == isLoadingRam)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedProcessFilter, selectedProcessFilter) || other.selectedProcessFilter == selectedProcessFilter)&&(identical(other.sortAscending, sortAscending) || other.sortAscending == sortAscending)&&(identical(other.showCoreApps, showCoreApps) || other.showCoreApps == showCoreApps)&&(identical(other.confettiShown, confettiShown) || other.confettiShown == confettiShown));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeStateModel&&(identical(other.shizukuReady, shizukuReady) || other.shizukuReady == shizukuReady)&&const DeepCollectionEquality().equals(other._allApps, _allApps)&&(identical(other.systemRamInfo, systemRamInfo) || other.systemRamInfo == systemRamInfo)&&(identical(other.isAutoUpdateEnabled, isAutoUpdateEnabled) || other.isAutoUpdateEnabled == isAutoUpdateEnabled)&&(identical(other.autoUpdateInterval, autoUpdateInterval) || other.autoUpdateInterval == autoUpdateInterval)&&(identical(other.isLoadingRam, isLoadingRam) || other.isLoadingRam == isLoadingRam)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.selectedProcessFilter, selectedProcessFilter) || other.selectedProcessFilter == selectedProcessFilter)&&(identical(other.sortAscending, sortAscending) || other.sortAscending == sortAscending)&&(identical(other.showCoreApps, showCoreApps) || other.showCoreApps == showCoreApps)&&(identical(other.confettiShown, confettiShown) || other.confettiShown == confettiShown)&&(identical(other.refreshCount, refreshCount) || other.refreshCount == refreshCount)&&(identical(other.tipsLastShownDate, tipsLastShownDate) || other.tipsLastShownDate == tipsLastShownDate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,shizukuReady,const DeepCollectionEquality().hash(_allApps),systemRamInfo,isAutoUpdateEnabled,autoUpdateInterval,isLoadingRam,isSearching,searchQuery,selectedProcessFilter,sortAscending,showCoreApps,confettiShown);
+int get hashCode => Object.hash(runtimeType,shizukuReady,const DeepCollectionEquality().hash(_allApps),systemRamInfo,isAutoUpdateEnabled,autoUpdateInterval,isLoadingRam,isSearching,searchQuery,selectedProcessFilter,sortAscending,showCoreApps,confettiShown,refreshCount,tipsLastShownDate);
 
 @override
 String toString() {
-  return 'HomeStateModel(shizukuReady: $shizukuReady, allApps: $allApps, systemRamInfo: $systemRamInfo, isAutoUpdateEnabled: $isAutoUpdateEnabled, autoUpdateInterval: $autoUpdateInterval, isLoadingRam: $isLoadingRam, isSearching: $isSearching, searchQuery: $searchQuery, selectedProcessFilter: $selectedProcessFilter, sortAscending: $sortAscending, showCoreApps: $showCoreApps, confettiShown: $confettiShown)';
+  return 'HomeStateModel(shizukuReady: $shizukuReady, allApps: $allApps, systemRamInfo: $systemRamInfo, isAutoUpdateEnabled: $isAutoUpdateEnabled, autoUpdateInterval: $autoUpdateInterval, isLoadingRam: $isLoadingRam, isSearching: $isSearching, searchQuery: $searchQuery, selectedProcessFilter: $selectedProcessFilter, sortAscending: $sortAscending, showCoreApps: $showCoreApps, confettiShown: $confettiShown, refreshCount: $refreshCount, tipsLastShownDate: $tipsLastShownDate)';
 }
 
 
@@ -284,7 +288,7 @@ abstract mixin class _$HomeStateModelCopyWith<$Res> implements $HomeStateModelCo
   factory _$HomeStateModelCopyWith(_HomeStateModel value, $Res Function(_HomeStateModel) _then) = __$HomeStateModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) bool shizukuReady, List<AppProcessInfo> allApps, SystemRamInfo systemRamInfo,@JsonKey(includeFromJson: false, includeToJson: false) bool isAutoUpdateEnabled,@JsonKey(includeFromJson: false, includeToJson: false) Duration? autoUpdateInterval,@JsonKey(includeFromJson: false, includeToJson: false) bool isLoadingRam,@JsonKey(includeFromJson: false, includeToJson: false) bool isSearching,@JsonKey(includeFromJson: false, includeToJson: false) String searchQuery,@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter selectedProcessFilter,@JsonKey(includeFromJson: false, includeToJson: false) bool sortAscending, bool showCoreApps, bool confettiShown
+@JsonKey(includeFromJson: false, includeToJson: false) bool shizukuReady, List<AppProcessInfo> allApps, SystemRamInfo systemRamInfo,@JsonKey(includeFromJson: false, includeToJson: false) bool isAutoUpdateEnabled,@JsonKey(includeFromJson: false, includeToJson: false) Duration? autoUpdateInterval,@JsonKey(includeFromJson: false, includeToJson: false) bool isLoadingRam,@JsonKey(includeFromJson: false, includeToJson: false) bool isSearching,@JsonKey(includeFromJson: false, includeToJson: false) String searchQuery,@JsonKey(includeFromJson: false, includeToJson: false) ProcessStateFilter selectedProcessFilter,@JsonKey(includeFromJson: false, includeToJson: false) bool sortAscending, bool showCoreApps, bool confettiShown, int refreshCount, String? tipsLastShownDate
 });
 
 
@@ -301,7 +305,7 @@ class __$HomeStateModelCopyWithImpl<$Res>
 
 /// Create a copy of HomeStateModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? shizukuReady = null,Object? allApps = null,Object? systemRamInfo = null,Object? isAutoUpdateEnabled = null,Object? autoUpdateInterval = freezed,Object? isLoadingRam = null,Object? isSearching = null,Object? searchQuery = null,Object? selectedProcessFilter = null,Object? sortAscending = null,Object? showCoreApps = null,Object? confettiShown = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? shizukuReady = null,Object? allApps = null,Object? systemRamInfo = null,Object? isAutoUpdateEnabled = null,Object? autoUpdateInterval = freezed,Object? isLoadingRam = null,Object? isSearching = null,Object? searchQuery = null,Object? selectedProcessFilter = null,Object? sortAscending = null,Object? showCoreApps = null,Object? confettiShown = null,Object? refreshCount = null,Object? tipsLastShownDate = freezed,}) {
   return _then(_HomeStateModel(
 shizukuReady: null == shizukuReady ? _self.shizukuReady : shizukuReady // ignore: cast_nullable_to_non_nullable
 as bool,allApps: null == allApps ? _self._allApps : allApps // ignore: cast_nullable_to_non_nullable
@@ -315,7 +319,9 @@ as String,selectedProcessFilter: null == selectedProcessFilter ? _self.selectedP
 as ProcessStateFilter,sortAscending: null == sortAscending ? _self.sortAscending : sortAscending // ignore: cast_nullable_to_non_nullable
 as bool,showCoreApps: null == showCoreApps ? _self.showCoreApps : showCoreApps // ignore: cast_nullable_to_non_nullable
 as bool,confettiShown: null == confettiShown ? _self.confettiShown : confettiShown // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,refreshCount: null == refreshCount ? _self.refreshCount : refreshCount // ignore: cast_nullable_to_non_nullable
+as int,tipsLastShownDate: freezed == tipsLastShownDate ? _self.tipsLastShownDate : tipsLastShownDate // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

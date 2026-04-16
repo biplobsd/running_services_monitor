@@ -381,5 +381,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "Поддержка",
+  "tipsRateTitle": "Оцените нас",
+  "tipsRateDescription": "Поставьте 5 звезд и поделитесь своим отзывом.",
+  "tipsRateAction": "Открыть Play Store",
+  "tipsCoffeeTitle": "Купите мне кофе",
+  "tipsCoffeeDescription": "Мотивируйте меня продолжать обновлять приложение.",
+  "tipsCoffeeAction": "Купить кофе",
+  "tipsContributeTitle": "Внести вклад",
+  "tipsContributeDescription": "Помогите с переводом или внесите вклад в улучшение приложения.",
+  "tipsContributeAction": "Посмотреть на GitHub"
 }

@@ -307,5 +307,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "支持",
+  "tipsRateTitle": "评分",
+  "tipsRateDescription": "给予五星好评并分享您的反馈。",
+  "tipsRateAction": "打开 Play 商店",
+  "tipsCoffeeTitle": "请我喝杯咖啡",
+  "tipsCoffeeDescription": "激励我保持应用更新。",
+  "tipsCoffeeAction": "请我喝杯咖啡",
+  "tipsContributeTitle": "贡献",
+  "tipsContributeDescription": "帮助翻译或贡献代码以改进应用。",
+  "tipsContributeAction": "在 GitHub 上查看"
 }

@@ -384,5 +384,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "Support",
+  "tipsRateTitle": "Rate Us",
+  "tipsRateDescription": "Give a 5-star review & share your feedback.",
+  "tipsRateAction": "Open Play Store",
+  "tipsCoffeeTitle": "Buy Me a Coffee",
+  "tipsCoffeeDescription": "Motivate me to keep this app updated.",
+  "tipsCoffeeAction": "Buy Me a Coffee",
+  "tipsContributeTitle": "Contribute",
+  "tipsContributeDescription": "Help translate or contribute to improve the app.",
+  "tipsContributeAction": "View on GitHub"
 }

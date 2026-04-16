@@ -21,6 +21,7 @@ import 'widgets/common/loading_indicator.dart';
 import 'widgets/home/app_count_tab.dart';
 import 'widgets/common/auto_refresh_timer_button.dart';
 import 'widgets/home/home_confetti_overlay.dart';
+import 'widgets/home/slider_tips_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -228,6 +229,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               listener: (context, state) {
                 final mode = getIt<WorkingModeBloc>().state.value.currentMode?.name;
                 getIt<AppInfoBloc>().add(AppInfoEvent.loadAllApps(mode: mode));
+              },
+            ),
+            BlocListener<HomeBloc, HomeState>(
+              listenWhen: (previous, current) => previous.value.refreshCount != current.value.refreshCount && current.value.refreshCount >= 5,
+              listener: (context, state) {
+                homeBloc.add(const HomeEvent.markTipsShown());
+                showDialog(
+                  context: context,
+                  builder: (dialogContext) => SliderTipsDialog(
+                    onDismiss: () => Navigator.of(dialogContext).pop(),
+                  ),
+                );
               },
             ),
           ],

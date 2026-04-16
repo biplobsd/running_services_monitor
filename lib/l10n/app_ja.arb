@@ -381,5 +381,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "サポート",
+  "tipsRateTitle": "評価する",
+  "tipsRateDescription": "5つ星評価とフィードバックをお願いします。",
+  "tipsRateAction": "Play ストアを開く",
+  "tipsCoffeeTitle": "コーヒーを奢る",
+  "tipsCoffeeDescription": "アプリの更新を続けるためのモチベーションになります。",
+  "tipsCoffeeAction": "コーヒーを奢る",
+  "tipsContributeTitle": "貢献する",
+  "tipsContributeDescription": "アプリの改善や翻訳に協力してください。",
+  "tipsContributeAction": "GitHub で見る"
 }

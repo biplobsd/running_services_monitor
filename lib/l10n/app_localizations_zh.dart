@@ -934,4 +934,34 @@ class AppLocalizationsZh extends AppLocalizations {
   String totalPssLabel(String size) {
     return '总计 PSS: $size';
   }
+
+  @override
+  String get tipsAndSupport => '支持';
+
+  @override
+  String get tipsRateTitle => '评分';
+
+  @override
+  String get tipsRateDescription => '给予五星好评并分享您的反馈。';
+
+  @override
+  String get tipsRateAction => '打开 Play 商店';
+
+  @override
+  String get tipsCoffeeTitle => '请我喝杯咖啡';
+
+  @override
+  String get tipsCoffeeDescription => '激励我保持应用更新。';
+
+  @override
+  String get tipsCoffeeAction => '请我喝杯咖啡';
+
+  @override
+  String get tipsContributeTitle => '贡献';
+
+  @override
+  String get tipsContributeDescription => '帮助翻译或贡献代码以改进应用。';
+
+  @override
+  String get tipsContributeAction => '在 GitHub 上查看';
 }

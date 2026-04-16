@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:running_services_monitor/core/utils/log_helper.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -37,6 +38,8 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_UpdateRamInfo>(_onUpdateRamInfo);
     on<_ToggleShowCoreApps>(_onToggleShowCoreApps);
     on<_MarkConfettiShown>(_onMarkConfettiShown);
+    on<_IncrementRefreshCount>(_onIncrementRefreshCount);
+    on<_MarkTipsShown>(_onMarkTipsShown);
   }
 
   @override
@@ -141,6 +144,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
           event.notify ? L10nKeys.refreshedSuccessfully : null,
         ),
       );
+      add(const HomeEvent.incrementRefreshCount());
     } catch (e, s) {
       logError(e, s);
       emit(HomeState.failure(state.value.copyWith(isLoadingRam: false), L10nKeys.errorLoadingData));
@@ -315,6 +319,18 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
   Future<void> _onMarkConfettiShown(_MarkConfettiShown event, Emitter<HomeState> emit) async {
     emit(HomeState.success(state.value.copyWith(confettiShown: true)));
+  }
+
+  Future<void> _onIncrementRefreshCount(_IncrementRefreshCount event, Emitter<HomeState> emit) async {
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final alreadyShownToday = state.value.tipsLastShownDate == today;
+    if (alreadyShownToday) return;
+    emit(HomeState.success(state.value.copyWith(refreshCount: state.value.refreshCount + 1)));
+  }
+
+  Future<void> _onMarkTipsShown(_MarkTipsShown event, Emitter<HomeState> emit) async {
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    emit(HomeState.success(state.value.copyWith(tipsLastShownDate: today, refreshCount: 0)));
   }
 
   @override

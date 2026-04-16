@@ -307,5 +307,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "সাপোর্ট",
+  "tipsRateTitle": "রেট দিন",
+  "tipsRateDescription": "৫-স্টার রিভিউ দিন এবং আপনার মতামত জানান।",
+  "tipsRateAction": "প্লে স্টোর খুলুন",
+  "tipsCoffeeTitle": "বাই মি আ কফি",
+  "tipsCoffeeDescription": "অ্যাপটি নিয়মিত আপডেট রাখতে আমাকে উৎসাহিত করুন।",
+  "tipsCoffeeAction": "বাই মি আ কফি",
+  "tipsContributeTitle": "অবদান রাখুন",
+  "tipsContributeDescription": "অ্যাপটি উন্নত করতে সাহায্য করুন বা অনুবাদে সহায়তা করুন।",
+  "tipsContributeAction": "গিটহাবে দেখুন"
 }

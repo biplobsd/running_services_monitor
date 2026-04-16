@@ -17,4 +17,6 @@ class HomeEvent with _$HomeEvent {
       _UpdateRamInfo;
   const factory HomeEvent.toggleShowCoreApps() = _ToggleShowCoreApps;
   const factory HomeEvent.markConfettiShown() = _MarkConfettiShown;
+  const factory HomeEvent.incrementRefreshCount() = _IncrementRefreshCount;
+  const factory HomeEvent.markTipsShown() = _MarkTipsShown;
 }

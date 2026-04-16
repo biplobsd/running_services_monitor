@@ -379,5 +379,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "tipsAndSupport": "Suporte",
+  "tipsRateTitle": "Avalie-nos",
+  "tipsRateDescription": "Dê uma avaliação de 5 estrelas e compartilhe seu feedback.",
+  "tipsRateAction": "Abrir Play Store",
+  "tipsCoffeeTitle": "Pague-me um café",
+  "tipsCoffeeDescription": "Motive-me a manter este aplicativo atualizado.",
+  "tipsCoffeeAction": "Pague-me um café",
+  "tipsContributeTitle": "Contribuir",
+  "tipsContributeDescription": "Ajude a traduzir ou contribua para melhorar o aplicativo.",
+  "tipsContributeAction": "Ver no GitHub"
 }

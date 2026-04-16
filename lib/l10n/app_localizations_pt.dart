@@ -998,4 +998,37 @@ class AppLocalizationsPt extends AppLocalizations {
   String totalPssLabel(String size) {
     return 'PSS Total: $size';
   }
+
+  @override
+  String get tipsAndSupport => 'Suporte';
+
+  @override
+  String get tipsRateTitle => 'Avalie-nos';
+
+  @override
+  String get tipsRateDescription =>
+      'Dê uma avaliação de 5 estrelas e compartilhe seu feedback.';
+
+  @override
+  String get tipsRateAction => 'Abrir Play Store';
+
+  @override
+  String get tipsCoffeeTitle => 'Pague-me um café';
+
+  @override
+  String get tipsCoffeeDescription =>
+      'Motive-me a manter este aplicativo atualizado.';
+
+  @override
+  String get tipsCoffeeAction => 'Pague-me um café';
+
+  @override
+  String get tipsContributeTitle => 'Contribuir';
+
+  @override
+  String get tipsContributeDescription =>
+      'Ajude a traduzir ou contribua para melhorar o aplicativo.';
+
+  @override
+  String get tipsContributeAction => 'Ver no GitHub';
 }

@@ -24,6 +24,8 @@ abstract class HomeStateModel with _$HomeStateModel {
     @JsonKey(includeFromJson: false, includeToJson: false) @Default(false) bool sortAscending,
     @Default(false) bool showCoreApps,
     @Default(false) bool confettiShown,
+    @Default(0) int refreshCount,
+    String? tipsLastShownDate,
   }) = _HomeStateModel;
 
   factory HomeStateModel.fromJson(Map<String, dynamic> json) => _$HomeStateModelFromJson(json);

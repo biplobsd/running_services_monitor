@@ -1909,6 +1909,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total PSS: {size}'**
   String totalPssLabel(String size);
+
+  /// No description provided for @tipsAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get tipsAndSupport;
+
+  /// No description provided for @tipsRateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Us'**
+  String get tipsRateTitle;
+
+  /// No description provided for @tipsRateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Give a 5-star review & share your feedback.'**
+  String get tipsRateDescription;
+
+  /// No description provided for @tipsRateAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Play Store'**
+  String get tipsRateAction;
+
+  /// No description provided for @tipsCoffeeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy Me a Coffee'**
+  String get tipsCoffeeTitle;
+
+  /// No description provided for @tipsCoffeeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Motivate me to keep this app updated.'**
+  String get tipsCoffeeDescription;
+
+  /// No description provided for @tipsCoffeeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy Me a Coffee'**
+  String get tipsCoffeeAction;
+
+  /// No description provided for @tipsContributeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute'**
+  String get tipsContributeTitle;
+
+  /// No description provided for @tipsContributeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Help translate or contribute to improve the app.'**
+  String get tipsContributeDescription;
+
+  /// No description provided for @tipsContributeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'View on GitHub'**
+  String get tipsContributeAction;
 }
 
 class _AppLocalizationsDelegate
