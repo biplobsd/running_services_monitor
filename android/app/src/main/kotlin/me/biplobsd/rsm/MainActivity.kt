@@ -414,18 +414,20 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         }
         val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
                 .newProcess(arrayOf("sh", "-c", command), null, null)
+        val stdoutStream = ParcelFileDescriptor.AutoCloseInputStream(process.inputStream)
+        val stderrStream = ParcelFileDescriptor.AutoCloseInputStream(process.errorStream)
         val output = StringBuilder()
         val errorOutput = StringBuilder()
         val stdoutThread = Thread {
             try {
-                process.inputStream.bufferedReader().forEachLine { line ->
+                stdoutStream.bufferedReader().forEachLine { line ->
                     output.appendLine(line)
                 }
             } catch (_: Exception) {}
         }
         val stderrThread = Thread {
             try {
-                process.errorStream.bufferedReader().forEachLine { line ->
+                stderrStream.bufferedReader().forEachLine { line ->
                     errorOutput.appendLine(line)
                 }
             } catch (_: Exception) {}
@@ -488,14 +490,16 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
         }
         val process = IShizukuService.Stub.asInterface(Shizuku.getBinder())
                 .newProcess(arrayOf("sh", "-c", command), null, null)
+        val stdoutStream = ParcelFileDescriptor.AutoCloseInputStream(process.inputStream)
+        val stderrStream = ParcelFileDescriptor.AutoCloseInputStream(process.errorStream)
         val stderrThread = Thread {
             try {
-                process.errorStream.forEachLineTo(mainHandler, sink)
+                stderrStream.forEachLineTo(mainHandler, sink)
             } catch (_: Exception) {}
         }
         stderrThread.start()
         try {
-            process.inputStream.forEachLineTo(mainHandler, sink)
+            stdoutStream.forEachLineTo(mainHandler, sink)
         } catch (_: Exception) {}
         val exitCode = process.waitFor()
         stderrThread.join(5000)
