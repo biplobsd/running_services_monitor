@@ -28,5 +28,6 @@ class AppConstants {
     Lang(Locale('hi'), 'हिन्दी'),
     Lang(Locale('pt'), 'Português'),
     Lang(Locale('es'), 'Español'),
+    Lang(Locale('it'), 'Italiano'),
   ];
 }
