@@ -36,7 +36,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get search => 'Cari';
 
   @override
-  String get autoUpdate => 'Pembaruan Otomatis (3d)';
+  String get autoUpdate => 'Pembaruan Otomatis (3s)';
 
   @override
   String get refresh => 'Segarkan';
