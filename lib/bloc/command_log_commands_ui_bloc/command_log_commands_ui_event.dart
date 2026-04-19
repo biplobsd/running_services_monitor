@@ -5,4 +5,5 @@ sealed class CommandLogCommandsUiEvent with _$CommandLogCommandsUiEvent {
   const factory CommandLogCommandsUiEvent.toggleAddForm() = _ToggleAddForm;
   const factory CommandLogCommandsUiEvent.hideAddForm() = _HideAddForm;
   const factory CommandLogCommandsUiEvent.setLoadingCommand(String? commandId) = _SetLoadingCommand;
+  const factory CommandLogCommandsUiEvent.setEditingCommand(String? commandId) = _SetEditingCommand;
 }

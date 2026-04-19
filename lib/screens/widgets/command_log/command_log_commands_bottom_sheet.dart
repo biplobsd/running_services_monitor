@@ -11,6 +11,7 @@ import 'package:running_services_monitor/models/useful_command.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_add_command_form.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_command_tile.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_commands_header.dart';
+import 'package:running_services_monitor/screens/widgets/command_log/command_log_edit_command_form.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_section_header.dart';
 
 class CommandLogCommandsBottomSheet extends StatefulWidget {
@@ -91,14 +92,22 @@ class _CommandLogCommandsBottomSheetState extends State<CommandLogCommandsBottom
                     children: [
                       const CommandLogCommandsHeader(),
                       Expanded(
-                        child: BlocSelector<CommandLogCommandsUiBloc, CommandLogCommandsUiState, bool>(
-                          selector: (state) => state.showAddForm,
-                          builder: (context, showAddForm) {
+                        child: BlocSelector<CommandLogCommandsUiBloc, CommandLogCommandsUiState, (bool, String?)>(
+                          selector: (state) => (state.showAddForm, state.editingCommandId),
+                          builder: (context, uiData) {
+                            final (showAddForm, editingCommandId) = uiData;
+                            final editingCommand = editingCommandId != null
+                                ? userCommands.where((c) => c.id == editingCommandId).firstOrNull
+                                : null;
+
                             return ListView(
                               controller: scrollController,
                               padding: EdgeInsets.all(16),
                               children: [
-                                if (showAddForm) ...[
+                                if (editingCommand != null) ...[
+                                  CommandLogEditCommandForm(command: editingCommand),
+                                  AppStyles.spacingH16,
+                                ] else if (showAddForm) ...[
                                   CommandLogAddCommandForm(
                                     titleController: titleController,
                                     descriptionController: descriptionController,

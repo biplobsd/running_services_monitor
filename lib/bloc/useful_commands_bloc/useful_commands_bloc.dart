@@ -27,6 +27,7 @@ class UsefulCommandsBloc extends HydratedBloc<UsefulCommandsEvent, UsefulCommand
   UsefulCommandsBloc() : super(const UsefulCommandsState()) {
     on<_Started>(_onStarted);
     on<_AddCommand>(_onAddCommand);
+    on<_UpdateCommand>(_onUpdateCommand);
     on<_RemoveCommand>(_onRemoveCommand);
     on<_HideDefaultCommand>(_onHideDefaultCommand);
     on<_ResetDefaults>(_onResetDefaults);
@@ -37,6 +38,14 @@ class UsefulCommandsBloc extends HydratedBloc<UsefulCommandsEvent, UsefulCommand
   void _onAddCommand(_AddCommand event, Emitter<UsefulCommandsState> emit) {
     final newCommand = UsefulCommand(id: const Uuid().v4(), title: event.title, description: event.description, command: event.command, isCustom: true);
     emit(state.copyWith(userCommands: [...state.userCommands, newCommand]));
+  }
+
+  void _onUpdateCommand(_UpdateCommand event, Emitter<UsefulCommandsState> emit) {
+    final updated = state.userCommands.map((c) {
+      if (c.id != event.id) return c;
+      return c.copyWith(title: event.title, description: event.description, command: event.command);
+    }).toList();
+    emit(state.copyWith(userCommands: updated));
   }
 
   void _onRemoveCommand(_RemoveCommand event, Emitter<UsefulCommandsState> emit) {

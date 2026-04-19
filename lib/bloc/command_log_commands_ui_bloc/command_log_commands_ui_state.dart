@@ -5,6 +5,7 @@ class CommandLogCommandsUiState with _$CommandLogCommandsUiState {
   const factory CommandLogCommandsUiState({
     @Default(false) bool showAddForm,
     String? loadingCommandId,
+    String? editingCommandId,
   }) = _CommandLogCommandsUiState;
 
   const CommandLogCommandsUiState._();
@@ -14,4 +15,7 @@ class CommandLogCommandsUiState with _$CommandLogCommandsUiState {
 
   @override
   String? get loadingCommandId => mapOrNull((value) => value.loadingCommandId);
+
+  @override
+  String? get editingCommandId => mapOrNull((value) => value.editingCommandId);
 }

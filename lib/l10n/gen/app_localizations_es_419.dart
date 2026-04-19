@@ -1069,4 +1069,7 @@ class AppLocalizationsEs419 extends AppLocalizations {
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
+
+  @override
+  String get editCommand => 'Edit Command';
 }

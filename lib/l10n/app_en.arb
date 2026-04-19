@@ -405,5 +405,6 @@
   "placeholderCachedMemoryKb": "Cached memory in KB",
   "placeholderServicesCount": "Services count",
   "placeholderProcessCount": "Process count",
-  "commandHintExample": "dumpsys meminfo com.example.app"
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Edit Command"
 }

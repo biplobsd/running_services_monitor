@@ -2057,6 +2057,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'dumpsys meminfo com.example.app'**
   String get commandHintExample;
+
+  /// No description provided for @editCommand.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Command'**
+  String get editCommand;
 }
 
 class _AppLocalizationsDelegate

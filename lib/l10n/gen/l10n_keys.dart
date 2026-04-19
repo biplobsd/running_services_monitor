@@ -66,6 +66,7 @@ abstract class L10nKeys {
   static const errorInitializingShizuku = 'errorInitializingShizuku';
   static const errorLoadingData = 'errorLoadingData';
   static const executeCommand = 'executeCommand';
+  static const editCommand = 'editCommand';
   static const executedAt = 'executedAt';
   static const exitApp = 'exitApp';
   static const failedToInitialize = 'failedToInitialize';

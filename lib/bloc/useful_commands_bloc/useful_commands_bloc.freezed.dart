@@ -55,12 +55,13 @@ extension UsefulCommandsEventPatterns on UsefulCommandsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _AddCommand value)?  addCommand,TResult Function( _RemoveCommand value)?  removeCommand,TResult Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult Function( _ResetDefaults value)?  resetDefaults,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _AddCommand value)?  addCommand,TResult Function( _UpdateCommand value)?  updateCommand,TResult Function( _RemoveCommand value)?  removeCommand,TResult Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult Function( _ResetDefaults value)?  resetDefaults,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _AddCommand() when addCommand != null:
-return addCommand(_that);case _RemoveCommand() when removeCommand != null:
+return addCommand(_that);case _UpdateCommand() when updateCommand != null:
+return updateCommand(_that);case _RemoveCommand() when removeCommand != null:
 return removeCommand(_that);case _HideDefaultCommand() when hideDefaultCommand != null:
 return hideDefaultCommand(_that);case _ResetDefaults() when resetDefaults != null:
 return resetDefaults(_that);case _:
@@ -81,12 +82,13 @@ return resetDefaults(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _AddCommand value)  addCommand,required TResult Function( _RemoveCommand value)  removeCommand,required TResult Function( _HideDefaultCommand value)  hideDefaultCommand,required TResult Function( _ResetDefaults value)  resetDefaults,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _AddCommand value)  addCommand,required TResult Function( _UpdateCommand value)  updateCommand,required TResult Function( _RemoveCommand value)  removeCommand,required TResult Function( _HideDefaultCommand value)  hideDefaultCommand,required TResult Function( _ResetDefaults value)  resetDefaults,}){
 final _that = this;
 switch (_that) {
 case _Started():
 return started(_that);case _AddCommand():
-return addCommand(_that);case _RemoveCommand():
+return addCommand(_that);case _UpdateCommand():
+return updateCommand(_that);case _RemoveCommand():
 return removeCommand(_that);case _HideDefaultCommand():
 return hideDefaultCommand(_that);case _ResetDefaults():
 return resetDefaults(_that);}
@@ -103,12 +105,13 @@ return resetDefaults(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _AddCommand value)?  addCommand,TResult? Function( _RemoveCommand value)?  removeCommand,TResult? Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult? Function( _ResetDefaults value)?  resetDefaults,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _AddCommand value)?  addCommand,TResult? Function( _UpdateCommand value)?  updateCommand,TResult? Function( _RemoveCommand value)?  removeCommand,TResult? Function( _HideDefaultCommand value)?  hideDefaultCommand,TResult? Function( _ResetDefaults value)?  resetDefaults,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _AddCommand() when addCommand != null:
-return addCommand(_that);case _RemoveCommand() when removeCommand != null:
+return addCommand(_that);case _UpdateCommand() when updateCommand != null:
+return updateCommand(_that);case _RemoveCommand() when removeCommand != null:
 return removeCommand(_that);case _HideDefaultCommand() when hideDefaultCommand != null:
 return hideDefaultCommand(_that);case _ResetDefaults() when resetDefaults != null:
 return resetDefaults(_that);case _:
@@ -128,11 +131,12 @@ return resetDefaults(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String title,  String description,  String command)?  addCommand,TResult Function( String id)?  removeCommand,TResult Function( String id)?  hideDefaultCommand,TResult Function()?  resetDefaults,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String title,  String description,  String command)?  addCommand,TResult Function( String id,  String title,  String description,  String command)?  updateCommand,TResult Function( String id)?  removeCommand,TResult Function( String id)?  hideDefaultCommand,TResult Function()?  resetDefaults,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _AddCommand() when addCommand != null:
-return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
+return addCommand(_that.title,_that.description,_that.command);case _UpdateCommand() when updateCommand != null:
+return updateCommand(_that.id,_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
 return removeCommand(_that.id);case _HideDefaultCommand() when hideDefaultCommand != null:
 return hideDefaultCommand(_that.id);case _ResetDefaults() when resetDefaults != null:
 return resetDefaults();case _:
@@ -153,11 +157,12 @@ return resetDefaults();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String title,  String description,  String command)  addCommand,required TResult Function( String id)  removeCommand,required TResult Function( String id)  hideDefaultCommand,required TResult Function()  resetDefaults,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String title,  String description,  String command)  addCommand,required TResult Function( String id,  String title,  String description,  String command)  updateCommand,required TResult Function( String id)  removeCommand,required TResult Function( String id)  hideDefaultCommand,required TResult Function()  resetDefaults,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _AddCommand():
-return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand():
+return addCommand(_that.title,_that.description,_that.command);case _UpdateCommand():
+return updateCommand(_that.id,_that.title,_that.description,_that.command);case _RemoveCommand():
 return removeCommand(_that.id);case _HideDefaultCommand():
 return hideDefaultCommand(_that.id);case _ResetDefaults():
 return resetDefaults();}
@@ -174,11 +179,12 @@ return resetDefaults();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String title,  String description,  String command)?  addCommand,TResult? Function( String id)?  removeCommand,TResult? Function( String id)?  hideDefaultCommand,TResult? Function()?  resetDefaults,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String title,  String description,  String command)?  addCommand,TResult? Function( String id,  String title,  String description,  String command)?  updateCommand,TResult? Function( String id)?  removeCommand,TResult? Function( String id)?  hideDefaultCommand,TResult? Function()?  resetDefaults,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _AddCommand() when addCommand != null:
-return addCommand(_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
+return addCommand(_that.title,_that.description,_that.command);case _UpdateCommand() when updateCommand != null:
+return updateCommand(_that.id,_that.title,_that.description,_that.command);case _RemoveCommand() when removeCommand != null:
 return removeCommand(_that.id);case _HideDefaultCommand() when hideDefaultCommand != null:
 return hideDefaultCommand(_that.id);case _ResetDefaults() when resetDefaults != null:
 return resetDefaults();case _:
@@ -282,6 +288,78 @@ class __$AddCommandCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? description = null,Object? command = null,}) {
   return _then(_AddCommand(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _UpdateCommand implements UsefulCommandsEvent {
+  const _UpdateCommand({required this.id, required this.title, required this.description, required this.command});
+  
+
+ final  String id;
+ final  String title;
+ final  String description;
+ final  String command;
+
+/// Create a copy of UsefulCommandsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateCommandCopyWith<_UpdateCommand> get copyWith => __$UpdateCommandCopyWithImpl<_UpdateCommand>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateCommand&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.command, command) || other.command == command));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,title,description,command);
+
+@override
+String toString() {
+  return 'UsefulCommandsEvent.updateCommand(id: $id, title: $title, description: $description, command: $command)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateCommandCopyWith<$Res> implements $UsefulCommandsEventCopyWith<$Res> {
+  factory _$UpdateCommandCopyWith(_UpdateCommand value, $Res Function(_UpdateCommand) _then) = __$UpdateCommandCopyWithImpl;
+@useResult
+$Res call({
+ String id, String title, String description, String command
+});
+
+
+
+
+}
+/// @nodoc
+class __$UpdateCommandCopyWithImpl<$Res>
+    implements _$UpdateCommandCopyWith<$Res> {
+  __$UpdateCommandCopyWithImpl(this._self, this._then);
+
+  final _UpdateCommand _self;
+  final $Res Function(_UpdateCommand) _then;
+
+/// Create a copy of UsefulCommandsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? command = null,}) {
+  return _then(_UpdateCommand(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
 as String,

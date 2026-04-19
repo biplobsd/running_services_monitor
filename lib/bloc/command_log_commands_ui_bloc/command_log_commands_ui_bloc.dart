@@ -10,6 +10,7 @@ class CommandLogCommandsUiBloc extends Bloc<CommandLogCommandsUiEvent, CommandLo
     on<_ToggleAddForm>(_onToggleAddForm);
     on<_HideAddForm>(_onHideAddForm);
     on<_SetLoadingCommand>(_onSetLoadingCommand);
+    on<_SetEditingCommand>(_onSetEditingCommand);
   }
 
   void _onToggleAddForm(_ToggleAddForm event, Emitter<CommandLogCommandsUiState> emit) {
@@ -22,5 +23,9 @@ class CommandLogCommandsUiBloc extends Bloc<CommandLogCommandsUiEvent, CommandLo
 
   void _onSetLoadingCommand(_SetLoadingCommand event, Emitter<CommandLogCommandsUiState> emit) {
     emit(state.copyWith(loadingCommandId: event.commandId));
+  }
+
+  void _onSetEditingCommand(_SetEditingCommand event, Emitter<CommandLogCommandsUiState> emit) {
+    emit(state.copyWith(editingCommandId: event.commandId));
   }
 }

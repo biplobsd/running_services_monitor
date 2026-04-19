@@ -58,6 +58,13 @@ class CommandLogCommandTile extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (command.isCustom)
+                  IconButton(
+                    icon: Icon(Icons.edit_outlined, size: 20, color: colorScheme.onSurfaceVariant),
+                    onPressed: () => context.read<CommandLogCommandsUiBloc>().add(CommandLogCommandsUiEvent.setEditingCommand(command.id)),
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(minWidth: 32, minHeight: 32),
+                  ),
                 IconButton(
                   icon: Icon(
                     command.isCustom ? Icons.delete_outline : Icons.visibility_off_outlined,
