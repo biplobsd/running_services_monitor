@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:running_services_monitor/core/extensions.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'loading_indicator.dart';
 
 class LoadingState extends StatelessWidget {

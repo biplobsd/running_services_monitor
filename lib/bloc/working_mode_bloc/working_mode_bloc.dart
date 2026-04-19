@@ -2,7 +2,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:running_services_monitor/core/utils/log_helper.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/models/working_mode.dart';
 import 'package:running_services_monitor/models/working_mode_state_model.dart';
 import 'package:running_services_monitor/services/shizuku_service.dart';

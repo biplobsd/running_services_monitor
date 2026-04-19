@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:running_services_monitor/core/utils/log_helper.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/process_state_filter.dart';
 import 'package:running_services_monitor/models/service_info.dart';

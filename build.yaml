@@ -12,6 +12,6 @@ builders:
     builder_factories: ["l10nKeysBuilder"]
     build_extensions:
       "lib/l10n/app_en.arb":
-        - "lib/l10n/l10n_keys.dart"
+        - "lib/l10n/gen/l10n_keys.dart"
     auto_apply: root_package
     build_to: source

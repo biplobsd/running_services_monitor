@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/l10n/gen/app_localizations.dart';
 import 'package:running_services_monitor/models/meminfo_data.dart';
 
 class MemorySegment {

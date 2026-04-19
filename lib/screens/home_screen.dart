@@ -8,7 +8,7 @@ import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/home_ui_bloc/home_ui_bloc.dart';
 import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_bloc.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'widgets/settings/shizuku_permission_dialog.dart';
 import 'widgets/home/home_body.dart';

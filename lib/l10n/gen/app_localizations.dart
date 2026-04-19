@@ -7,14 +7,22 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
 import 'app_localizations_bn.dart';
+import 'app_localizations_de.dart';
+import 'app_localizations_de_AT.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
-import 'app_localizations_id.dart';
+import 'app_localizations_es_419.dart';
+import 'app_localizations_fr_CA.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_hu.dart';
+import 'app_localizations_id.dart';
 import 'app_localizations_it.dart';
 import 'app_localizations_ja.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_th.dart';
+import 'app_localizations_tr.dart';
+import 'app_localizations_vi.dart';
 import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -105,14 +113,22 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
     Locale('bn'),
+    Locale('de'),
+    Locale('de', 'AT'),
     Locale('en'),
     Locale('es'),
-    Locale('id'),
+    Locale('es', '419'),
+    Locale('fr', 'CA'),
     Locale('hi'),
+    Locale('hu'),
+    Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('pt'),
     Locale('ru'),
+    Locale('th'),
+    Locale('tr'),
+    Locale('vi'),
     Locale('zh'),
   ];
 
@@ -1990,13 +2006,20 @@ class _AppLocalizationsDelegate
   bool isSupported(Locale locale) => <String>[
     'ar',
     'bn',
+    'de',
     'en',
     'es',
-    'id',
+    'fr',
     'hi',
+    'hu',
+    'id',
+    'it',
     'ja',
     'pt',
     'ru',
+    'th',
+    'tr',
+    'vi',
     'zh',
   ].contains(locale.languageCode);
 
@@ -2005,6 +2028,25 @@ class _AppLocalizationsDelegate
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when both language and country codes are specified.
+  switch (locale.languageCode) {
+    case 'de':
+      switch (locale.countryCode) {
+        case 'AT': return AppLocalizationsDeAt();
+      }
+      return AppLocalizationsDe();
+    case 'es':
+      switch (locale.countryCode) {
+        case '419': return AppLocalizationsEs419();
+      }
+      return AppLocalizationsEs();
+    case 'fr':
+      switch (locale.countryCode) {
+        case 'CA': return AppLocalizationsFrCa();
+      }
+      return AppLocalizationsFrCa();
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'ar':
@@ -2013,12 +2055,12 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsBn();
     case 'en':
       return AppLocalizationsEn();
-    case 'es':
-      return AppLocalizationsEs();
-    case 'id':
-      return AppLocalizationsId();
     case 'hi':
       return AppLocalizationsHi();
+    case 'hu':
+      return AppLocalizationsHu();
+    case 'id':
+      return AppLocalizationsId();
     case 'it':
       return AppLocalizationsIt();
     case 'ja':
@@ -2027,6 +2069,12 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsPt();
     case 'ru':
       return AppLocalizationsRu();
+    case 'th':
+      return AppLocalizationsTh();
+    case 'tr':
+      return AppLocalizationsTr();
+    case 'vi':
+      return AppLocalizationsVi();
     case 'zh':
       return AppLocalizationsZh();
   }

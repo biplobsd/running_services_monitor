@@ -5,7 +5,7 @@ import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/utils/helper.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/models/home_state_model.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
 import 'package:running_services_monitor/models/service_info.dart';

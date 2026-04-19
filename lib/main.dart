@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/bloc/home_bloc/home_bloc.dart';
 import 'package:running_services_monitor/bloc/working_mode_bloc/working_mode_bloc.dart';
-import 'l10n/app_localizations.dart';
+import 'l10n/gen/app_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/dependency_injection/dependency_injection.dart';

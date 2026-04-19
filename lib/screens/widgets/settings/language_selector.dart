@@ -4,7 +4,7 @@ import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});

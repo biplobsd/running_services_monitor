@@ -7,7 +7,7 @@ Builder l10nKeysBuilder(BuilderOptions options) => L10nKeysBuilder();
 class L10nKeysBuilder implements Builder {
   @override
   final buildExtensions = const {
-    'lib/l10n/app_en.arb': ['lib/l10n/l10n_keys.dart'],
+    'lib/l10n/app_en.arb': ['lib/l10n/gen/l10n_keys.dart'],
   };
 
   @override
@@ -66,7 +66,7 @@ class L10nKeysBuilder implements Builder {
     buffer.writeln('  }');
     buffer.writeln('}');
 
-    final outputId = AssetId(inputId.package, 'lib/l10n/l10n_keys.dart');
+    final outputId = AssetId(inputId.package, 'lib/l10n/gen/l10n_keys.dart');
     await buildStep.writeAsString(outputId, buffer.toString());
   }
 

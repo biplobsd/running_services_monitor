@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/extensions.dart';
-import 'package:running_services_monitor/l10n/l10n_keys.dart';
+import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import 'package:running_services_monitor/utils/snackbar_helper.dart';
 import 'widgets/app_details/app_header.dart';
