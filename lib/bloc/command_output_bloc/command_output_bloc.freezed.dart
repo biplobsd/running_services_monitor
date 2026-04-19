@@ -478,6 +478,8 @@ String toString() {
 
 
 /// @nodoc
+
+
 class _ToggleSearch implements CommandOutputEvent {
   const _ToggleSearch();
   
@@ -508,6 +510,8 @@ String toString() {
 
 
 /// @nodoc
+
+
 class _UpdateSearchQuery implements CommandOutputEvent {
   const _UpdateSearchQuery(this.query, this.text);
   
@@ -574,6 +578,8 @@ as String,
 }
 
 /// @nodoc
+
+
 class _NextMatch implements CommandOutputEvent {
   const _NextMatch();
   
@@ -604,6 +610,8 @@ String toString() {
 
 
 /// @nodoc
+
+
 class _PreviousMatch implements CommandOutputEvent {
   const _PreviousMatch();
   
@@ -841,6 +849,7 @@ class _CommandOutputState implements CommandOutputState {
  final  List<int> _searchMatches;
 @override@JsonKey() List<int> get searchMatches {
   if (_searchMatches is EqualUnmodifiableListView) return _searchMatches;
+  // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_searchMatches);
 }
 
@@ -901,7 +910,7 @@ as String,autoRefreshInterval: freezed == autoRefreshInterval ? _self.autoRefres
 as Duration?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
 as bool,isSearchVisible: null == isSearchVisible ? _self.isSearchVisible : isSearchVisible // ignore: cast_nullable_to_non_nullable
 as bool,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
-as String,searchMatches: null == searchMatches ? _self.searchMatches : searchMatches // ignore: cast_nullable_to_non_nullable
+as String,searchMatches: null == searchMatches ? _self._searchMatches : searchMatches // ignore: cast_nullable_to_non_nullable
 as List<int>,currentMatchIndex: null == currentMatchIndex ? _self.currentMatchIndex : currentMatchIndex // ignore: cast_nullable_to_non_nullable
 as int,
   ));

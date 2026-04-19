@@ -27,7 +27,7 @@ class CommandOutputSearchBar extends StatelessWidget {
     }
     final matchLabel = matchCount == 0 ? context.loc.noMatches : context.loc.matchCount(currentMatchIndex + 1, matchCount);
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
       child: Row(

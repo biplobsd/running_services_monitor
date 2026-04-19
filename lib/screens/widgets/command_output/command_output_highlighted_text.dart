@@ -9,32 +9,34 @@ class CommandOutputHighlightedText extends StatefulWidget {
   final Color textColor;
   final Color backgroundColor;
   final ScrollController scrollController;
+  final double scrollTopPadding;
+  final double scrollLeftPadding;
 
-  const CommandOutputHighlightedText({
-    super.key,
-    required this.text,
-    required this.searchQuery,
-    required this.searchMatches,
-    required this.currentMatchIndex,
-    required this.fontSize,
-    required this.textColor,
-    required this.backgroundColor,
-    required this.scrollController,
-  });
+  const CommandOutputHighlightedText({super.key, required this.text, required this.searchQuery, required this.searchMatches, required this.currentMatchIndex, required this.fontSize, required this.textColor, required this.backgroundColor, required this.scrollController, this.scrollTopPadding = 32, this.scrollLeftPadding = 24});
 
   @override
   State<CommandOutputHighlightedText> createState() => CommandOutputHighlightedTextState();
 }
 
 class CommandOutputHighlightedTextState extends State<CommandOutputHighlightedText> {
+  final ScrollController horizontalScrollController = ScrollController();
+
+  @override
+  void dispose() {
+    horizontalScrollController.dispose();
+    super.dispose();
+  }
+
   @override
   void didUpdateWidget(covariant CommandOutputHighlightedText oldWidget) {
     super.didUpdateWidget(oldWidget);
     final didChangeIndex = oldWidget.currentMatchIndex != widget.currentMatchIndex;
     final didChangeQuery = oldWidget.searchQuery != widget.searchQuery;
-    if (didChangeIndex || didChangeQuery) {
+    final didChangeMatches = oldWidget.searchMatches.length != widget.searchMatches.length;
+    final didChangeText = oldWidget.text != widget.text;
+    if (didChangeIndex || didChangeQuery || didChangeMatches || didChangeText) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToCurrentMatch();
+        scrollToCurrentMatch(context);
       });
     }
   }
@@ -51,6 +53,7 @@ class CommandOutputHighlightedTextState extends State<CommandOutputHighlightedTe
         border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: SingleChildScrollView(
+        controller: horizontalScrollController,
         scrollDirection: Axis.horizontal,
         child: RichText(
           text: TextSpan(
@@ -79,11 +82,7 @@ class CommandOutputHighlightedTextState extends State<CommandOutputHighlightedTe
       spans.add(
         TextSpan(
           text: widget.text.substring(matchStart, matchEnd),
-          style: TextStyle(
-            backgroundColor: isCurrent ? Colors.orangeAccent : Colors.yellowAccent,
-            color: Colors.black,
-            fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w600,
-          ),
+          style: TextStyle(backgroundColor: isCurrent ? Colors.orangeAccent : Colors.yellowAccent, color: Colors.black, fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w600),
         ),
       );
       currentPosition = matchEnd;
@@ -94,7 +93,7 @@ class CommandOutputHighlightedTextState extends State<CommandOutputHighlightedTe
     return spans;
   }
 
-  void scrollToCurrentMatch() {
+  void scrollToCurrentMatch(BuildContext context) {
     if (!widget.scrollController.hasClients) {
       return;
     }
@@ -104,8 +103,27 @@ class CommandOutputHighlightedTextState extends State<CommandOutputHighlightedTe
     final matchStart = widget.searchMatches[widget.currentMatchIndex];
     final textBeforeMatch = widget.text.substring(0, matchStart);
     final lineCountBefore = '\n'.allMatches(textBeforeMatch).length;
-    final targetOffset = lineCountBefore * widget.fontSize * 1.5 + 180;
+    final lineOffset = lineCountBefore * widget.fontSize * 1.5;
+    final headerHeight = 100.0;
+    final targetOffset = lineOffset + headerHeight - widget.scrollTopPadding;
     final clampedOffset = targetOffset.clamp(0, widget.scrollController.position.maxScrollExtent);
     widget.scrollController.animateTo(clampedOffset.toDouble(), duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+
+    if (!horizontalScrollController.hasClients) {
+      return;
+    }
+    final lineStart = widget.text.lastIndexOf('\n', matchStart) + 1;
+    final textBeforeMatchInLine = widget.text.substring(lineStart, matchStart);
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: textBeforeMatchInLine,
+        style: TextStyle(fontSize: widget.fontSize, fontFamily: 'monospace', height: 1.5),
+      ),
+      textDirection: Directionality.of(context),
+      maxLines: 1,
+    )..layout();
+    final horizontalTargetOffset = textPainter.width - widget.scrollLeftPadding;
+    final horizontalClampedOffset = horizontalTargetOffset.clamp(0, horizontalScrollController.position.maxScrollExtent);
+    horizontalScrollController.animateTo(horizontalClampedOffset.toDouble(), duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 }

@@ -544,23 +544,22 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get commandOutput => 'コマンド出力';
 
-
   @override
-  String get searchOutput => 'Search in output...';
+  String get searchOutput => '出力内を検索...';
 
   @override
   String matchCount(int current, int total) {
-    return '$current of $total';
+    return '$total 件中 $current 件目';
   }
 
   @override
-  String get noMatches => 'No matches';
+  String get noMatches => '一致なし';
 
   @override
-  String get nextMatch => 'Next match';
+  String get nextMatch => '次へ';
 
   @override
-  String get previousMatch => 'Previous match';
+  String get previousMatch => '前へ';
 
   @override
   String get noCommandLogs => 'まだコマンドが実行されていません';
@@ -1006,38 +1005,38 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'プレースホルダーはここでは自動入力されません。コマンドに手動で値を入力してください (例: %p = パッケージ名、%pid = プロセス ID)。';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'パッケージ名 (例: com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'プロセス ID';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'すべての PID (カンマ区切り)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => '合計 RAM (フォーマット済み)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => '合計 RAM (KB)';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'プロセス状態';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'キャッシュメモリ (KB)';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'サービス数';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'プロセス数';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'コマンドを編集';
 }

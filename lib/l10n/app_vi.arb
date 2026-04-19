@@ -394,5 +394,22 @@
   "tipsCoffeeAction": "Mua cho tôi cà phê",
   "tipsContributeTitle": "Đóng góp",
   "tipsContributeDescription": "Giúp dịch hoặc đóng góp để cải thiện ứng dụng.",
-  "tipsContributeAction": "Xem trên GitHub"
+  "tipsContributeAction": "Xem trên GitHub",
+  "placeholdersNoAutoFill": "Các trình giữ chỗ sẽ không được tự động điền ở đây. Nhập các giá trị theo cách thủ công trong lệnh (ví dụ: %p = tên gói, %pid = id tiến trình).",
+  "placeholderPackageName": "Tên gói (ví dụ: com.example.app)",
+  "placeholderProcessId": "ID tiến trình",
+  "placeholderAllPids": "Tất cả PID (cách nhau bởi dấu phẩy)",
+  "placeholderTotalRamFormatted": "Tổng RAM (đã định dạng)",
+  "placeholderTotalRamKb": "Tổng RAM tính bằng KB",
+  "placeholderProcessState": "Trạng thái tiến trình",
+  "placeholderCachedMemoryKb": "Bộ nhớ đệm tính bằng KB",
+  "placeholderServicesCount": "Số lượng dịch vụ",
+  "placeholderProcessCount": "Số lượng tiến trình",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Chỉnh sửa lệnh",
+  "searchOutput": "Tìm kiếm trong kết quả...",
+  "matchCount": "{current} trên {total}",
+  "noMatches": "Không có kết quả",
+  "nextMatch": "Kết quả tiếp theo",
+  "previousMatch": "Kết quả trước đó"
 }

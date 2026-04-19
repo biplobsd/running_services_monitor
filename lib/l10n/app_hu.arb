@@ -401,5 +401,22 @@
   "tipsCoffeeAction": "Vegyél nekem egy kávét",
   "tipsContributeTitle": "Közreműködés",
   "tipsContributeDescription": "Segítsen a fordításban vagy járuljon hozzá az alkalmazás fejlesztéséhez.",
-  "tipsContributeAction": "Megtekintés a GitHubon"
+  "tipsContributeAction": "Megtekintés a GitHubon",
+  "placeholdersNoAutoFill": "A helyőrzők itt nem kerülnek automatikus kitöltésre. Adja meg az értékeket manuálisan a parancsban (pl. %p = csomagnév, %pid = folyamat ID).",
+  "placeholderPackageName": "Csomagnév (pl. com.example.app)",
+  "placeholderProcessId": "Folyamat ID",
+  "placeholderAllPids": "Összes PID (vesszővel elválasztva)",
+  "placeholderTotalRamFormatted": "Teljes RAM (formázott)",
+  "placeholderTotalRamKb": "Teljes RAM KB-ban",
+  "placeholderProcessState": "Folyamat állapota",
+  "placeholderCachedMemoryKb": "Gyorsítótárazott memória KB-ban",
+  "placeholderServicesCount": "Szolgáltatások száma",
+  "placeholderProcessCount": "Folyamatok száma",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Parancs szerkesztése",
+  "searchOutput": "Keresés a kimenetben...",
+  "matchCount": "{total} / {current}",
+  "noMatches": "Nincs találat",
+  "nextMatch": "Következő találat",
+  "previousMatch": "Előző találat"
 }

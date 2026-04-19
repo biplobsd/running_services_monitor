@@ -12,8 +12,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get appTitle => 'มอนิเตอร์บริการที่กำลังทำงาน';
 
   @override
-  String get enjoyingApp =>
-      'ชอบแอปนี้ไหม? ลองซื้อกาแฟให้ฉันสักถ้วย!';
+  String get enjoyingApp => 'ชอบแอปนี้ไหม? ลองซื้อกาแฟให้ฉันสักถ้วย!';
 
   @override
   String get donate => 'บริจาค';
@@ -99,8 +98,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get step3 => 'สำหรับ Android 11+: ใช้การดีบักไร้สาย';
 
   @override
-  String get step4 =>
-      'สำหรับ Android 10 และต่ำกว่า: เชื่อมต่อกับ PC ผ่าน ADB';
+  String get step4 => 'สำหรับ Android 10 และต่ำกว่า: เชื่อมต่อกับ PC ผ่าน ADB';
 
   @override
   String get step5 => 'กลับมาที่แอปนี้และลองใหม่';
@@ -193,8 +191,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get permissionStep1 => 'เปิดแอป Shizuku';
 
   @override
-  String get permissionStep2 =>
-      'ไปที่ \'แอปที่ได้รับอนุญาต\' หรือ \'สิทธิ์\'';
+  String get permissionStep2 => 'ไปที่ \'แอปที่ได้รับอนุญาต\' หรือ \'สิทธิ์\'';
 
   @override
   String get permissionStep3 =>
@@ -408,12 +405,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get checkingPermissions => 'กำลังตรวจสอบสิทธิ์...';
 
   @override
-  String get shizukuNotRunning =>
-      'Shizuku ไม่ได้ทำงาน โปรดเริ่มแอป Shizuku';
+  String get shizukuNotRunning => 'Shizuku ไม่ได้ทำงาน โปรดเริ่มแอป Shizuku';
 
   @override
-  String get permissionDeniedShizuku =>
-      'ปฏิเสธสิทธิ์ โปรดให้สิทธิ์ Shizuku';
+  String get permissionDeniedShizuku => 'ปฏิเสธสิทธิ์ โปรดให้สิทธิ์ Shizuku';
 
   @override
   String get failedToInitialize => 'เริ่มต้นล้มเหลว โปรดให้สิทธิ์';
@@ -477,12 +472,10 @@ class AppLocalizationsTh extends AppLocalizations {
       'มองเห็น - แอปมีกิจกรรมที่มองเห็นแต่ไม่ใช่ส่วนหน้า';
 
   @override
-  String get processStatePrev =>
-      'ก่อนหน้า - แอปส่วนหน้าที่ใช้ก่อนหน้า';
+  String get processStatePrev => 'ก่อนหน้า - แอปส่วนหน้าที่ใช้ก่อนหน้า';
 
   @override
-  String get processStatePrcp =>
-      'รับรู้ได้ - แอปกำลังทำสิ่งที่ผู้ใช้รับรู้';
+  String get processStatePrcp => 'รับรู้ได้ - แอปกำลังทำสิ่งที่ผู้ใช้รับรู้';
 
   @override
   String get processStateSvcb => 'บริการ B - แอปมีบริการที่ผูกพัน';
@@ -500,12 +493,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get processStatePers => 'ถาวร - กระบวนการระบบถาวร';
 
   @override
-  String get processStateCchEmpty =>
-      'แคชว่าง - กระบวนการแคชที่ไม่มีกิจกรรม';
+  String get processStateCchEmpty => 'แคชว่าง - กระบวนการแคชที่ไม่มีกิจกรรม';
 
   @override
-  String get processStateCchAct =>
-      'กิจกรรมแคช - กระบวนการแคชที่มีกิจกรรม';
+  String get processStateCchAct => 'กิจกรรมแคช - กระบวนการแคชที่มีกิจกรรม';
 
   @override
   String get processStateCchClient =>
@@ -519,23 +510,19 @@ class AppLocalizationsTh extends AppLocalizations {
       'บริการส่วนหน้าที่ผูกพัน - ผูกพันกับบริการส่วนหน้า';
 
   @override
-  String get processStateRcvr =>
-      'ตัวรับ - แอปกำลังรัน broadcast receiver';
+  String get processStateRcvr => 'ตัวรับ - แอปกำลังรัน broadcast receiver';
 
   @override
-  String get processStateTop =>
-      'บนสุด - แอปอยู่บนสุดของ activity stack';
+  String get processStateTop => 'บนสุด - แอปอยู่บนสุดของ activity stack';
 
   @override
   String get processStateBtop => 'ผูกพันบนสุด - ผูกพันกับแอปบนสุด';
 
   @override
-  String get processStateImpf =>
-      'ส่วนหน้าสำคัญ - กระบวนการส่วนหน้าสำคัญ';
+  String get processStateImpf => 'ส่วนหน้าสำคัญ - กระบวนการส่วนหน้าสำคัญ';
 
   @override
-  String get processStateImpb =>
-      'พื้นหลังสำคัญ - กระบวนการพื้นหลังสำคัญ';
+  String get processStateImpb => 'พื้นหลังสำคัญ - กระบวนการพื้นหลังสำคัญ';
 
   @override
   String processStateUnknown(String state) {
@@ -572,23 +559,22 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get commandOutput => 'ผลลัพธ์คำสั่ง';
 
-
   @override
-  String get searchOutput => 'Search in output...';
+  String get searchOutput => 'ค้นหาในเอาต์พุต...';
 
   @override
   String matchCount(int current, int total) {
-    return '$current of $total';
+    return '$current จาก $total';
   }
 
   @override
-  String get noMatches => 'No matches';
+  String get noMatches => 'ไม่มีรายการที่ตรงกัน';
 
   @override
-  String get nextMatch => 'Next match';
+  String get nextMatch => 'ถัดไป';
 
   @override
-  String get previousMatch => 'Previous match';
+  String get previousMatch => 'ก่อนหน้า';
 
   @override
   String get noCommandLogs => 'ยังไม่มีคำสั่งที่รัน';
@@ -799,8 +785,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statsRamDistributionScatter => 'การกระจาย RAM แบบ Scatter';
 
   @override
-  String get statsRamDistributionScatterSubtitle =>
-      'Y: RAM, X: ดัชนีแอป';
+  String get statsRamDistributionScatterSubtitle => 'Y: RAM, X: ดัชนีแอป';
 
   @override
   String get statsTopRamConsumers => 'แอปใช้ RAM สูงสุด';
@@ -816,23 +801,19 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statsRamHistogram => 'ฮิสโตแกรมความถี่ RAM';
 
   @override
-  String get statsRamHistogramSubtitle =>
-      'จำนวนแอปตามขนาดหน่วยความจำ';
+  String get statsRamHistogramSubtitle => 'จำนวนแอปตามขนาดหน่วยความจำ';
 
   @override
   String get statsMemoryHeatmap => 'แผนที่ความร้อนหน่วยความจำ';
 
   @override
-  String get statsMemoryHeatmapSubtitle =>
-      'แอปทั้งหมดเรียงตามความเข้มข้น RAM';
+  String get statsMemoryHeatmapSubtitle => 'แอปทั้งหมดเรียงตามความเข้มข้น RAM';
 
   @override
-  String get statsTopAppsRelativeImpact =>
-      'ผลกระทบสัมพัทธ์ของแอปอันดับต้น';
+  String get statsTopAppsRelativeImpact => 'ผลกระทบสัมพัทธ์ของแอปอันดับต้น';
 
   @override
-  String get statsGanttSubtitle =>
-      'การแสดงภาพแบบ Gantt ของส่วน RAM';
+  String get statsGanttSubtitle => 'การแสดงภาพแบบ Gantt ของส่วน RAM';
 
   @override
   String get statsStackedAreaChart => 'การวิเคราะห์ RAM ตามเวลา';
@@ -862,8 +843,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statsWaterfallChart => 'น้ำตกการจัดสรร RAM';
 
   @override
-  String get statsWaterfallSubtitle =>
-      'การแจกแจงจากทั้งหมดถึงส่วนประกอบ';
+  String get statsWaterfallSubtitle => 'การแจกแจงจากทั้งหมดถึงส่วนประกอบ';
 
   @override
   String get statsGaugeChart => 'มาตรวัดการใช้ RAM';
@@ -927,8 +907,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get core => 'แกนหลัก';
 
   @override
-  String get coreAppInfoLimited =>
-      'ข้อมูลจำกัดสำหรับกระบวนการระบบ';
+  String get coreAppInfoLimited => 'ข้อมูลจำกัดสำหรับกระบวนการระบบ';
 
   @override
   String get showCoreApps => 'แสดงแอปแกนหลัก';
@@ -972,8 +951,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get statsRamTrendScatter => 'การวิเคราะห์แนวโน้ม RAM';
 
   @override
-  String get statsRamTrendScatterSubtitle =>
-      'บริการ vs RAM พร้อมเส้นแนวโน้ม';
+  String get statsRamTrendScatterSubtitle => 'บริการ vs RAM พร้อมเส้นแนวโน้ม';
 
   @override
   String get statsServicesVsProcesses => 'บริการ vs กระบวนการ';
@@ -1052,38 +1030,38 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'ตัวแทนสถานที่จะไม่ถูกเติมโดยอัตโนมัติที่นี่ ป้อนค่าด้วยตนเองในคำสั่ง (เช่น %p = ชื่อแพ็กเกจ, %pid = ไอดีกระบวนการ)';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'ชื่อแพ็กเกจ (เช่น com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ไอดีกระบวนการ';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'PIDs ทั้งหมด (แยกด้วยจุลภาค)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'RAM ทั้งหมด (จัดรูปแบบ)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'RAM ทั้งหมดใน KB';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'สถานะกระบวนการ';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'หน่วยความจำแคชใน KB';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'จำนวนบริการ';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'จำนวนกระบวนการ';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'แก้ไขคำสั่ง';
 }

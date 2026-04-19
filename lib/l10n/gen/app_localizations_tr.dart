@@ -90,7 +90,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get setupSteps => 'Kurulum Adımları:';
 
   @override
-  String get step1 => 'Play Store veya GitHub\'dan Shizuku uygulamasını yükleyin';
+  String get step1 =>
+      'Play Store veya GitHub\'dan Shizuku uygulamasını yükleyin';
 
   @override
   String get step2 => 'Shizuku\'yu açın ve servisi başlatın';
@@ -194,7 +195,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get permissionStep1 => 'Shizuku uygulamasını açın';
 
   @override
-  String get permissionStep2 => '\'Yetkili Uygulamalar\' veya \'İzinler\'e gidin';
+  String get permissionStep2 =>
+      '\'Yetkili Uygulamalar\' veya \'İzinler\'e gidin';
 
   @override
   String get permissionStep3 =>
@@ -470,8 +472,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get processStateTitle => 'İşlem Durumu';
 
   @override
-  String get processStateFg =>
-      'Ön Plan - Uygulama şu anda ön planda';
+  String get processStateFg => 'Ön Plan - Uygulama şu anda ön planda';
 
   @override
   String get processStateVis =>
@@ -486,12 +487,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Algılanabilir - Uygulama kullanıcının farkında olduğu bir şey yapıyor';
 
   @override
-  String get processStateSvcb =>
-      'Servis B - Uygulamanın bağlı bir servisi var';
+  String get processStateSvcb => 'Servis B - Uygulamanın bağlı bir servisi var';
 
   @override
-  String get processStateHome =>
-      'Ana Ekran - Ana Ekran/Başlatıcı uygulaması';
+  String get processStateHome => 'Ana Ekran - Ana Ekran/Başlatıcı uygulaması';
 
   @override
   String get processStateHvy => 'Ağır - Ağır uygulama işlemi';
@@ -516,8 +515,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Önbelleğe Alınmış İstemci - Servis istemcisi olarak önbelleğe alınmış işlem';
 
   @override
-  String get processStateCch =>
-      'Önbellekte - İşlem bellekte önbelleğe alındı';
+  String get processStateCch => 'Önbellekte - İşlem bellekte önbelleğe alındı';
 
   @override
   String get processStateBfgs =>
@@ -528,19 +526,16 @@ class AppLocalizationsTr extends AppLocalizations {
       'Alıcı - Uygulama bir yayın alıcısı çalıştırıyor';
 
   @override
-  String get processStateTop =>
-      'Üstte - Uygulama etkinlik yığınının üstünde';
+  String get processStateTop => 'Üstte - Uygulama etkinlik yığınının üstünde';
 
   @override
   String get processStateBtop => 'Üste Bağlı - Üst uygulamaya bağlı';
 
   @override
-  String get processStateImpf =>
-      'Önemli Ön Plan - Önemli ön plan işlemi';
+  String get processStateImpf => 'Önemli Ön Plan - Önemli ön plan işlemi';
 
   @override
-  String get processStateImpb =>
-      'Önemli Arka Plan - Önemli arka plan işlemi';
+  String get processStateImpb => 'Önemli Arka Plan - Önemli arka plan işlemi';
 
   @override
   String processStateUnknown(String state) {
@@ -577,23 +572,22 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get commandOutput => 'Komut Çıktısı';
 
-
   @override
-  String get searchOutput => 'Search in output...';
+  String get searchOutput => 'Çıktıda ara...';
 
   @override
   String matchCount(int current, int total) {
-    return '$current of $total';
+    return '$current / $total';
   }
 
   @override
-  String get noMatches => 'No matches';
+  String get noMatches => 'Eşleşme yok';
 
   @override
-  String get nextMatch => 'Next match';
+  String get nextMatch => 'Sonraki eşleşme';
 
   @override
-  String get previousMatch => 'Previous match';
+  String get previousMatch => 'Önceki eşleşme';
 
   @override
   String get noCommandLogs => 'Henüz komut çalıştırılmadı';
@@ -832,12 +826,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Tüm Uygulamalar RAM Yoğunluğuna Göre Sıralandı';
 
   @override
-  String get statsTopAppsRelativeImpact =>
-      'En İyi Uygulamaların Göreli Etkisi';
+  String get statsTopAppsRelativeImpact => 'En İyi Uygulamaların Göreli Etkisi';
 
   @override
-  String get statsGanttSubtitle =>
-      'RAM Payının Gantt Tarzı Görselleştirmesi';
+  String get statsGanttSubtitle => 'RAM Payının Gantt Tarzı Görselleştirmesi';
 
   @override
   String get statsStackedAreaChart => 'Zaman İçinde RAM Dökümü';
@@ -933,8 +925,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get core => 'Çekirdek';
 
   @override
-  String get coreAppInfoLimited =>
-      'Sistem işlemleri için sınırlı bilgi mevcut';
+  String get coreAppInfoLimited => 'Sistem işlemleri için sınırlı bilgi mevcut';
 
   @override
   String get showCoreApps => 'Çekirdek Uygulamaları Göster';
@@ -964,8 +955,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statsProcessVsRamLine => 'İşlem ve RAM Korelasyonu';
 
   @override
-  String get statsProcessVsRamLineSubtitle =>
-      'Mavi: RAM, Kesik: İşlem Sayısı';
+  String get statsProcessVsRamLineSubtitle => 'Mavi: RAM, Kesik: İşlem Sayısı';
 
   @override
   String get statsUserVsSystemBar => 'Kullanıcı ve Sistem Karşılaştırması';
@@ -1059,38 +1049,39 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Yer tutucular burada otomatik olarak doldurulmayacaktır. Değerleri komuta manuel olarak girin (örneğin, %p = paket adı, %pid = işlem kimliği).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Paket adı (örneğin, com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'İşlem Kimliği';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Tüm PID\'ler (virgülle ayrılmış)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'Toplam RAM (biçimlendirilmiş)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'KB cinsinden toplam RAM';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'İşlem durumu';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb =>
+      'KB cinsinden önbelleğe alınmış bellek';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Hizmet sayısı';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'İşlem sayısı';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Komutu Düzenle';
 }

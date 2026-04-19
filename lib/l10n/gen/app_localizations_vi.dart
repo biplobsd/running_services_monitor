@@ -99,8 +99,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get step3 => 'Dành cho Android 11+: Sử dụng Gỡ lỗi không dây';
 
   @override
-  String get step4 =>
-      'Dành cho Android 10 trở xuống: Kết nối với PC qua ADB';
+  String get step4 => 'Dành cho Android 10 trở xuống: Kết nối với PC qua ADB';
 
   @override
   String get step5 => 'Quay lại ứng dụng này và thử lại';
@@ -158,8 +157,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get stopServiceConfirm => 'Dừng dịch vụ này?';
 
   @override
-  String get stopAllServicesConfirm =>
-      'Dừng tất cả dịch vụ của ứng dụng này?';
+  String get stopAllServicesConfirm => 'Dừng tất cả dịch vụ của ứng dụng này?';
 
   @override
   String get stopServiceWarning =>
@@ -470,8 +468,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get processStateTitle => 'Trạng thái tiến trình';
 
   @override
-  String get processStateFg =>
-      'Tiền cảnh - Ứng dụng hiện đang ở tiền cảnh';
+  String get processStateFg => 'Tiền cảnh - Ứng dụng hiện đang ở tiền cảnh';
 
   @override
   String get processStateVis =>
@@ -486,12 +483,10 @@ class AppLocalizationsVi extends AppLocalizations {
       'Nhận thức được - Ứng dụng đang làm gì đó mà người dùng biết';
 
   @override
-  String get processStateSvcb =>
-      'Dịch vụ B - Ứng dụng có dịch vụ đã ràng buộc';
+  String get processStateSvcb => 'Dịch vụ B - Ứng dụng có dịch vụ đã ràng buộc';
 
   @override
-  String get processStateHome =>
-      'Màn hình chính - Ứng dụng Home/Launcher';
+  String get processStateHome => 'Màn hình chính - Ứng dụng Home/Launcher';
 
   @override
   String get processStateHvy => 'Nặng - Tiến trình ứng dụng nặng';
@@ -528,8 +523,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bộ nhận - Ứng dụng đang chạy broadcast receiver';
 
   @override
-  String get processStateTop =>
-      'Trên cùng - Ứng dụng ở đầu ngăn xếp hoạt động';
+  String get processStateTop => 'Trên cùng - Ứng dụng ở đầu ngăn xếp hoạt động';
 
   @override
   String get processStateBtop =>
@@ -540,8 +534,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Tiền cảnh quan trọng - Tiến trình tiền cảnh quan trọng';
 
   @override
-  String get processStateImpb =>
-      'Nền quan trọng - Tiến trình nền quan trọng';
+  String get processStateImpb => 'Nền quan trọng - Tiến trình nền quan trọng';
 
   @override
   String processStateUnknown(String state) {
@@ -578,23 +571,22 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get commandOutput => 'Đầu ra lệnh';
 
-
   @override
-  String get searchOutput => 'Search in output...';
+  String get searchOutput => 'Tìm kiếm trong kết quả...';
 
   @override
   String matchCount(int current, int total) {
-    return '$current of $total';
+    return '$current trên $total';
   }
 
   @override
-  String get noMatches => 'No matches';
+  String get noMatches => 'Không có kết quả';
 
   @override
-  String get nextMatch => 'Next match';
+  String get nextMatch => 'Kết quả tiếp theo';
 
   @override
-  String get previousMatch => 'Previous match';
+  String get previousMatch => 'Kết quả trước đó';
 
   @override
   String get noCommandLogs => 'Chưa có lệnh nào được thực thi';
@@ -770,8 +762,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statsZram => 'ZRAM';
 
   @override
-  String get statsUserVsSystemRam =>
-      'RAM: Ứng dụng người dùng vs hệ thống';
+  String get statsUserVsSystemRam => 'RAM: Ứng dụng người dùng vs hệ thống';
 
   @override
   String get statsAppStateDistribution => 'Phân phối trạng thái ứng dụng';
@@ -791,8 +782,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get statsSystemVsUserAnalysis =>
-      'Phân tích hệ thống vs người dùng';
+  String get statsSystemVsUserAnalysis => 'Phân tích hệ thống vs người dùng';
 
   @override
   String get statsAppCount => 'Số ứng dụng';
@@ -824,8 +814,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statsRamHistogram => 'Biểu đồ tần suất RAM';
 
   @override
-  String get statsRamHistogramSubtitle =>
-      'Số ứng dụng theo kích thước bộ nhớ';
+  String get statsRamHistogramSubtitle => 'Số ứng dụng theo kích thước bộ nhớ';
 
   @override
   String get statsMemoryHeatmap => 'Bản đồ nhiệt bộ nhớ';
@@ -839,22 +828,19 @@ class AppLocalizationsVi extends AppLocalizations {
       'Tác động tương đối của ứng dụng hàng đầu';
 
   @override
-  String get statsGanttSubtitle =>
-      'Trực quan hóa phần RAM theo kiểu Gantt';
+  String get statsGanttSubtitle => 'Trực quan hóa phần RAM theo kiểu Gantt';
 
   @override
   String get statsStackedAreaChart => 'Phân tích RAM theo thời gian';
 
   @override
-  String get statsStackedAreaSubtitle =>
-      'RAM người dùng, hệ thống và kernel';
+  String get statsStackedAreaSubtitle => 'RAM người dùng, hệ thống và kernel';
 
   @override
   String get statsPolarChart => 'Phân phối trạng thái tiến trình';
 
   @override
-  String get statsPolarSubtitle =>
-      'Xem trạng thái ứng dụng theo dạng cực';
+  String get statsPolarSubtitle => 'Xem trạng thái ứng dụng theo dạng cực';
 
   @override
   String get statsTreemap => 'Bản đồ cây phân phối RAM';
@@ -866,22 +852,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statsFunnelChart => 'Mức sử dụng RAM';
 
   @override
-  String get statsFunnelSubtitle =>
-      'Ứng dụng nhóm theo kích thước bộ nhớ';
+  String get statsFunnelSubtitle => 'Ứng dụng nhóm theo kích thước bộ nhớ';
 
   @override
   String get statsWaterfallChart => 'Thác nước phân bổ RAM';
 
   @override
-  String get statsWaterfallSubtitle =>
-      'Phân tích từ tổng đến các thành phần';
+  String get statsWaterfallSubtitle => 'Phân tích từ tổng đến các thành phần';
 
   @override
   String get statsGaugeChart => 'Đồng hồ sử dụng RAM';
 
   @override
-  String get statsGaugeSubtitle =>
-      'Mức sử dụng bộ nhớ hệ thống tổng thể';
+  String get statsGaugeSubtitle => 'Mức sử dụng bộ nhớ hệ thống tổng thể';
 
   @override
   String get statsTiny => 'Rất nhỏ';
@@ -917,8 +900,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statsFree => 'Trống';
 
   @override
-  String get statsUserVsSystemPie =>
-      'RAM: Ứng dụng người dùng vs hệ thống';
+  String get statsUserVsSystemPie => 'RAM: Ứng dụng người dùng vs hệ thống';
 
   @override
   String get statsUserVsSystemSubtitle =>
@@ -928,8 +910,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get statsProcessStateBar => 'Phân phối trạng thái ứng dụng';
 
   @override
-  String get statsProcessStateSubtitle =>
-      'Ứng dụng hoạt động, nền và cache';
+  String get statsProcessStateSubtitle => 'Ứng dụng hoạt động, nền và cache';
 
   @override
   String get statsScatterChart => 'Phân tán phân phối RAM';
@@ -941,8 +922,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get core => 'Lõi';
 
   @override
-  String get coreAppInfoLimited =>
-      'Thông tin hạn chế cho tiến trình hệ thống';
+  String get coreAppInfoLimited => 'Thông tin hạn chế cho tiến trình hệ thống';
 
   @override
   String get showCoreApps => 'Hiển thị ứng dụng lõi';
@@ -1039,8 +1019,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tipsRateTitle => 'Đánh giá chúng tôi';
 
   @override
-  String get tipsRateDescription =>
-      'Cho 5 sao và chia sẻ phản hồi của bạn.';
+  String get tipsRateDescription => 'Cho 5 sao và chia sẻ phản hồi của bạn.';
 
   @override
   String get tipsRateAction => 'Mở Play Store';
@@ -1067,38 +1046,38 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Các trình giữ chỗ sẽ không được tự động điền ở đây. Nhập các giá trị theo cách thủ công trong lệnh (ví dụ: %p = tên gói, %pid = id tiến trình).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Tên gói (ví dụ: com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ID tiến trình';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Tất cả PID (cách nhau bởi dấu phẩy)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'Tổng RAM (đã định dạng)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'Tổng RAM tính bằng KB';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'Trạng thái tiến trình';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Bộ nhớ đệm tính bằng KB';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Số lượng dịch vụ';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Số lượng tiến trình';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Chỉnh sửa lệnh';
 }

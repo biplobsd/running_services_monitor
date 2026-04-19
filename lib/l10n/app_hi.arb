@@ -389,5 +389,22 @@
   "tipsCoffeeAction": "बाय मी अ कॉफ़ी",
   "tipsContributeTitle": "योगदान दें",
   "tipsContributeDescription": "ऐप को बेहतर बनाने में मदद करें या अनुवाद में सहायता करें।",
-  "tipsContributeAction": "गिटहब पर देखें"
+  "tipsContributeAction": "गिटहब पर देखें",
+  "placeholdersNoAutoFill": "प्लेसहोल्डर यहाँ स्वचालित रूप से नहीं भरे जाएंगे। कमांड में मैन्युअल रूप से मान दर्ज करें (जैसे, %p = पैकेज का नाम, %pid = प्रोसेस आईडी)।",
+  "placeholderPackageName": "पैकेज का नाम (जैसे, com.example.app)",
+  "placeholderProcessId": "प्रोसेस आईडी",
+  "placeholderAllPids": "सभी पीआईडी (कोमा से अलग)",
+  "placeholderTotalRamFormatted": "कुल रैम (फॉर्मेटेड)",
+  "placeholderTotalRamKb": "कुल रैम KB में",
+  "placeholderProcessState": "प्रोसेस स्थिति",
+  "placeholderCachedMemoryKb": "कैश की गई मेमोरी KB में",
+  "placeholderServicesCount": "सेवाओं की संख्या",
+  "placeholderProcessCount": "प्रोसेस की संख्या",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "कमांड संपादित करें",
+  "searchOutput": "आउटपुट में खोजें...",
+  "matchCount": "कुल {total} में से {current}",
+  "noMatches": "कोई परिणाम नहीं मिला",
+  "nextMatch": "अगला परिणाम",
+  "previousMatch": "पिछला परिणाम"
 }

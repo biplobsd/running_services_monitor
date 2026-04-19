@@ -389,5 +389,22 @@
   "tipsCoffeeAction": "Pague-me um café",
   "tipsContributeTitle": "Contribuir",
   "tipsContributeDescription": "Ajude a traduzir ou contribua para melhorar o aplicativo.",
-  "tipsContributeAction": "Ver no GitHub"
+  "tipsContributeAction": "Ver no GitHub",
+  "placeholdersNoAutoFill": "Os marcadores de posição não serão preenchidos automaticamente aqui. Insira os valores manualmente no comando (ex: %p = nome do pacote, %pid = id do processo).",
+  "placeholderPackageName": "Nome do pacote (ex: com.example.app)",
+  "placeholderProcessId": "ID do processo",
+  "placeholderAllPids": "Todos os PIDs (separados por vírgula)",
+  "placeholderTotalRamFormatted": "RAM total (formatada)",
+  "placeholderTotalRamKb": "RAM total em KB",
+  "placeholderProcessState": "Estado do processo",
+  "placeholderCachedMemoryKb": "Memória cache em KB",
+  "placeholderServicesCount": "Contagem de serviços",
+  "placeholderProcessCount": "Contagem de processos",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Editar Comando",
+  "searchOutput": "Pesquisar na saída...",
+  "matchCount": "{current} de {total}",
+  "noMatches": "Nenhuma correspondência",
+  "nextMatch": "Próxima correspondência",
+  "previousMatch": "Correspondência anterior"
 }

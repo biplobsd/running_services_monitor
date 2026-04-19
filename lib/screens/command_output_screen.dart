@@ -46,7 +46,8 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: BlocBuilder<CommandOutputBloc, CommandOutputState>(
+      child: BlocSelector<CommandOutputBloc, CommandOutputState, ({String currentEntryId, Duration? autoRefreshInterval, bool isSearchVisible, bool isRefreshing})>(
+        selector: (state) => (currentEntryId: state.currentEntryId, autoRefreshInterval: state.autoRefreshInterval, isSearchVisible: state.isSearchVisible, isRefreshing: state.isRefreshing),
         builder: (context, outputState) {
           return BlocSelector<CommandLogBloc, CommandLogState, CommandLogEntry?>(
             bloc: getIt<CommandLogBloc>(),
@@ -95,7 +96,6 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.share),
-                      tooltip: 'Share',
                       onPressed: () async {
                         final text = '${context.loc.command}:\n${entry.command}\n\n${context.loc.rawOutput}:\n${entry.output}';
                         await AndroidSettingsHelper.shareText(text);
@@ -106,102 +106,66 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                       tooltip: context.loc.copy,
                       onPressed: () {
                         Clipboard.setData(ClipboardData(text: entry.output));
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(context.loc.copiedToClipboard), duration: const Duration(seconds: 2)));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.loc.copiedToClipboard), duration: const Duration(seconds: 2)));
                       },
                     ),
                   ],
-                ),
-                body: Column(
-                  children: [
-                    BlocSelector<CommandOutputBloc, CommandOutputState, bool>(
-                      selector: (state) => state.isSearchVisible,
-                      builder: (context, isSearchVisible) {
-                        if (!isSearchVisible) {
-                          return const SizedBox.shrink();
-                        }
-                        return BlocSelector<CommandOutputBloc, CommandOutputState, (String, int, int)>(
-                          selector: (state) => (state.searchQuery, state.searchMatches.length, state.currentMatchIndex),
-                          builder: (context, searchState) {
-                            final outputText = entry.output.isEmpty ? context.loc.noOutput : entry.output;
-                            return CommandOutputSearchBar(
-                              searchQuery: searchState.$1,
-                              matchCount: searchState.$2,
-                              currentMatchIndex: searchState.$3,
-                              bloc: bloc,
-                              textController: searchController,
-                              outputText: outputText,
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    Expanded(
-                      child: CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          SliverList(
-                            delegate: SliverChildListDelegate([
-                              Container(
-                                margin: EdgeInsets.all(16),
-                                width: double.infinity,
-                                padding: EdgeInsets.all(12),
-                                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          context.loc.command,
-                                          style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-                                        ),
-                                        const Spacer(),
-                                        if (outputState.autoRefreshInterval != null)
-                                          Container(
-                                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context).colorScheme.primaryContainer,
-                                              borderRadius: BorderRadius.circular(4),
-                                            ),
-                                            child: Text(
-                                              _formatDuration(outputState.autoRefreshInterval!),
-                                              style: AppStyles.smallStyle.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    AppStyles.spacingH4,
-                                    SelectableText(
-                                      entry.command,
-                                      style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              BlocSelector<CommandOutputBloc, CommandOutputState, (String, List<int>, int)>(
-                                selector: (state) => (state.searchQuery, state.searchMatches, state.currentMatchIndex),
-                                builder: (context, searchState) {
-                                  return CommandOutputHighlightedText(
-                                    text: entry.output.isEmpty ? context.loc.noOutput : entry.output,
-                                    searchQuery: searchState.$1,
-                                    searchMatches: searchState.$2,
-                                    currentMatchIndex: searchState.$3,
-                                    fontSize: 12,
-                                    textColor: const Color(0xFF4EC9B0),
-                                    backgroundColor: Colors.black,
-                                    scrollController: scrollController,
-                                  );
-                                },
-                              ),
-                            ]),
+                  bottom: (outputState.isSearchVisible)
+                      ? PreferredSize(
+                          preferredSize: const Size.fromHeight(76),
+                          child: BlocSelector<CommandOutputBloc, CommandOutputState, (String, int, int)>(
+                            selector: (state) => (state.searchQuery, state.searchMatches.length, state.currentMatchIndex),
+                            builder: (context, searchState) {
+                              final outputText = entry.output.isEmpty ? context.loc.noOutput : entry.output;
+                              return CommandOutputSearchBar(searchQuery: searchState.$1, matchCount: searchState.$2, currentMatchIndex: searchState.$3, bloc: bloc, textController: searchController, outputText: outputText);
+                            },
                           ),
-                        ],
-                      ),
+                        )
+                      : null,
+                ),
+                body: CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          width: double.infinity,
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    context.loc.command,
+                                    style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                                  ),
+                                  const Spacer(),
+                                  if (outputState.autoRefreshInterval != null)
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(4)),
+                                      child: Text(
+                                        _formatDuration(outputState.autoRefreshInterval!),
+                                        style: AppStyles.smallStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              AppStyles.spacingH4,
+                              SelectableText(entry.command, style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13)),
+                            ],
+                          ),
+                        ),
+                        BlocSelector<CommandOutputBloc, CommandOutputState, (String, List<int>, int)>(
+                          selector: (state) => (state.searchQuery, state.searchMatches, state.currentMatchIndex),
+                          builder: (context, searchState) {
+                            return CommandOutputHighlightedText(text: entry.output.isEmpty ? context.loc.noOutput : entry.output, searchQuery: searchState.$1, searchMatches: searchState.$2, currentMatchIndex: searchState.$3, fontSize: 12, textColor: const Color(0xFF4EC9B0), backgroundColor: Colors.black, scrollController: scrollController);
+                          },
+                        ),
+                      ]),
                     ),
                   ],
                 ),

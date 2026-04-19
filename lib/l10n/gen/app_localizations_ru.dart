@@ -577,23 +577,22 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get commandOutput => 'Вывод команды';
 
-
   @override
-  String get searchOutput => 'Search in output...';
+  String get searchOutput => 'Поиск в выводе...';
 
   @override
   String matchCount(int current, int total) {
-    return '$current of $total';
+    return '$current из $total';
   }
 
   @override
-  String get noMatches => 'No matches';
+  String get noMatches => 'Нет совпадений';
 
   @override
-  String get nextMatch => 'Next match';
+  String get nextMatch => 'Следующее совпадение';
 
   @override
-  String get previousMatch => 'Previous match';
+  String get previousMatch => 'Предыдущее совпадение';
 
   @override
   String get noCommandLogs => 'Команды ещё не выполнялись';
@@ -1060,38 +1059,39 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Заполнители здесь не будут заполнены автоматически. Введите значения вручную в команде (например, %p = имя пакета, %pid = id процесса).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Имя пакета (например, com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ID процесса';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Все PID (через запятую)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted =>
+      'Общий объем ОЗУ (отформатировано)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'Общий объем ОЗУ в КБ';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'Состояние процесса';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Кэшированная память в КБ';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Количество служб';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Количество процессов';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Редактировать команду';
 }
