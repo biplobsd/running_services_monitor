@@ -8,20 +8,21 @@ class CommandLogPlaceholderInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final loc = context.loc;
     final placeholders = [
-      MapEntry('%p', 'Package name (e.g., com.example.app)'),
-      MapEntry('%pid', 'Process ID'),
-      MapEntry('%pids', 'All PIDs (comma-separated)'),
-      MapEntry('%ram', 'Total RAM (formatted)'),
-      MapEntry('%ramKb', 'Total RAM in KB'),
-      MapEntry('%state', 'Process state'),
-      MapEntry('%cached', 'Cached memory in KB'),
-      MapEntry('%svcCount', 'Services count'),
-      MapEntry('%procCount', 'Process count'),
+      MapEntry('%p', loc.placeholderPackageName),
+      MapEntry('%pid', loc.placeholderProcessId),
+      MapEntry('%pids', loc.placeholderAllPids),
+      MapEntry('%ram', loc.placeholderTotalRamFormatted),
+      MapEntry('%ramKb', loc.placeholderTotalRamKb),
+      MapEntry('%state', loc.placeholderProcessState),
+      MapEntry('%cached', loc.placeholderCachedMemoryKb),
+      MapEntry('%svcCount', loc.placeholderServicesCount),
+      MapEntry('%procCount', loc.placeholderProcessCount),
     ];
 
     return ExpansionTile(
-      title: Text(context.loc.placeholders, style: AppStyles.bodyStyle.copyWith(fontSize: 14)),
+      title: Text(loc.placeholders, style: AppStyles.bodyStyle.copyWith(fontSize: 14)),
       tilePadding: EdgeInsets.zero,
       childrenPadding: EdgeInsets.only(bottom: 8),
       children: [
@@ -36,7 +37,7 @@ class CommandLogPlaceholderInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                context.loc.placeholdersNoAutoFill,
+                loc.placeholdersNoAutoFill,
                 style: AppStyles.smallStyle.copyWith(
                   color: colorScheme.onSurfaceVariant,
                   fontStyle: FontStyle.italic,

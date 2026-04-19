@@ -21,7 +21,7 @@ class CommandLogCommandTile extends StatelessWidget {
   }
 
   void _executeCommand(BuildContext context) {
-    context.read<CommandLogCommandsUiBloc>().add(CommandLogCommandsUiSetLoadingCommand(command.id));
+    context.read<CommandLogCommandsUiBloc>().add(CommandLogCommandsUiEvent.setLoadingCommand(command.id));
     getIt<CommandLogBloc>().add(CommandLogEvent.executeCommand(command.command));
   }
 

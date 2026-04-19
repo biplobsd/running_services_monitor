@@ -1,21 +1,11 @@
 part of 'command_log_commands_ui_bloc.dart';
 
-class CommandLogCommandsUiState {
-  final bool showAddForm;
-  final String? loadingCommandId;
+@freezed
+class CommandLogCommandsUiState with _$CommandLogCommandsUiState {
+  const factory CommandLogCommandsUiState({
+    @Default(false) bool showAddForm,
+    String? loadingCommandId,
+  }) = _CommandLogCommandsUiState;
 
-  const CommandLogCommandsUiState({
-    this.showAddForm = false,
-    this.loadingCommandId,
-  });
-
-  CommandLogCommandsUiState copyWith({
-    bool? showAddForm,
-    String? Function()? loadingCommandId,
-  }) {
-    return CommandLogCommandsUiState(
-      showAddForm: showAddForm ?? this.showAddForm,
-      loadingCommandId: loadingCommandId != null ? loadingCommandId() : this.loadingCommandId,
-    );
-  }
+  const CommandLogCommandsUiState._();
 }

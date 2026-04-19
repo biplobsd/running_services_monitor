@@ -51,7 +51,7 @@ class CommandLogCommandsHeader extends StatelessWidget {
                     builder: (context, showAddForm) {
                       return IconButton(
                         icon: Icon(showAddForm ? Icons.close : Icons.add, size: 24),
-                        onPressed: () => context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiToggleAddForm()),
+                        onPressed: () => context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiEvent.toggleAddForm()),
                       );
                     },
                   ),

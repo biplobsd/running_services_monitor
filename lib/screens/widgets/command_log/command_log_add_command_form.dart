@@ -31,7 +31,7 @@ class CommandLogAddCommandForm extends StatelessWidget {
     titleController.clear();
     descriptionController.clear();
     commandController.clear();
-    context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiHideAddForm());
+    context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiEvent.hideAddForm());
   }
 
   @override
@@ -74,7 +74,7 @@ class CommandLogAddCommandForm extends StatelessWidget {
               labelText: context.loc.command,
               isDense: true,
               border: const OutlineInputBorder(),
-              hintText: 'dumpsys meminfo com.example.app',
+              hintText: context.loc.commandHintExample,
             ),
           ),
           SizedBox(height: 12),
@@ -84,7 +84,7 @@ class CommandLogAddCommandForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () => context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiHideAddForm()),
+                onPressed: () => context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiEvent.hideAddForm()),
                 child: Text(context.loc.cancel),
               ),
               AppStyles.spacing8,

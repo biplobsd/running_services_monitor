@@ -1,24 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'command_log_commands_ui_event.dart';
 part 'command_log_commands_ui_state.dart';
+part 'command_log_commands_ui_bloc.freezed.dart';
 
 class CommandLogCommandsUiBloc extends Bloc<CommandLogCommandsUiEvent, CommandLogCommandsUiState> {
   CommandLogCommandsUiBloc() : super(const CommandLogCommandsUiState()) {
-    on<CommandLogCommandsUiToggleAddForm>(_onToggleAddForm);
-    on<CommandLogCommandsUiHideAddForm>(_onHideAddForm);
-    on<CommandLogCommandsUiSetLoadingCommand>(_onSetLoadingCommand);
+    on<_ToggleAddForm>(_onToggleAddForm);
+    on<_HideAddForm>(_onHideAddForm);
+    on<_SetLoadingCommand>(_onSetLoadingCommand);
   }
 
-  void _onToggleAddForm(CommandLogCommandsUiToggleAddForm event, Emitter<CommandLogCommandsUiState> emit) {
+  void _onToggleAddForm(_ToggleAddForm event, Emitter<CommandLogCommandsUiState> emit) {
     emit(state.copyWith(showAddForm: !state.showAddForm));
   }
 
-  void _onHideAddForm(CommandLogCommandsUiHideAddForm event, Emitter<CommandLogCommandsUiState> emit) {
+  void _onHideAddForm(_HideAddForm event, Emitter<CommandLogCommandsUiState> emit) {
     emit(state.copyWith(showAddForm: false));
   }
 
-  void _onSetLoadingCommand(CommandLogCommandsUiSetLoadingCommand event, Emitter<CommandLogCommandsUiState> emit) {
-    emit(state.copyWith(loadingCommandId: () => event.commandId));
+  void _onSetLoadingCommand(_SetLoadingCommand event, Emitter<CommandLogCommandsUiState> emit) {
+    emit(state.copyWith(loadingCommandId: event.commandId));
   }
 }

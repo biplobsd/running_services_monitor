@@ -1997,6 +1997,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).'**
   String get placeholdersNoAutoFill;
+
+  /// No description provided for @placeholderPackageName.
+  ///
+  /// In en, this message translates to:
+  /// **'Package name (e.g., com.example.app)'**
+  String get placeholderPackageName;
+
+  /// No description provided for @placeholderProcessId.
+  ///
+  /// In en, this message translates to:
+  /// **'Process ID'**
+  String get placeholderProcessId;
+
+  /// No description provided for @placeholderAllPids.
+  ///
+  /// In en, this message translates to:
+  /// **'All PIDs (comma-separated)'**
+  String get placeholderAllPids;
+
+  /// No description provided for @placeholderTotalRamFormatted.
+  ///
+  /// In en, this message translates to:
+  /// **'Total RAM (formatted)'**
+  String get placeholderTotalRamFormatted;
+
+  /// No description provided for @placeholderTotalRamKb.
+  ///
+  /// In en, this message translates to:
+  /// **'Total RAM in KB'**
+  String get placeholderTotalRamKb;
+
+  /// No description provided for @placeholderProcessState.
+  ///
+  /// In en, this message translates to:
+  /// **'Process state'**
+  String get placeholderProcessState;
+
+  /// No description provided for @placeholderCachedMemoryKb.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached memory in KB'**
+  String get placeholderCachedMemoryKb;
+
+  /// No description provided for @placeholderServicesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Services count'**
+  String get placeholderServicesCount;
+
+  /// No description provided for @placeholderProcessCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Process count'**
+  String get placeholderProcessCount;
+
+  /// No description provided for @commandHintExample.
+  ///
+  /// In en, this message translates to:
+  /// **'dumpsys meminfo com.example.app'**
+  String get commandHintExample;
 }
 
 class _AppLocalizationsDelegate

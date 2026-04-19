@@ -7,6 +7,7 @@ import 'package:running_services_monitor/bloc/useful_commands_bloc/useful_comman
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
+import 'package:running_services_monitor/models/useful_command.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_add_command_form.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_command_tile.dart';
 import 'package:running_services_monitor/screens/widgets/command_log/command_log_commands_header.dart';
@@ -52,7 +53,7 @@ class _CommandLogCommandsBottomSheetState extends State<CommandLogCommandsBottom
             success: (value) {
               final uiBloc = context.read<CommandLogCommandsUiBloc>();
               if (uiBloc.state.loadingCommandId != null) {
-                uiBloc.add(const CommandLogCommandsUiSetLoadingCommand(null));
+                uiBloc.add(const CommandLogCommandsUiEvent.setLoadingCommand(null));
                 if (value.selectedEntryId != null) {
                   context.push('/command-output', extra: value.selectedEntryId);
                 }
@@ -61,19 +62,19 @@ class _CommandLogCommandsBottomSheetState extends State<CommandLogCommandsBottom
             error: (_) {
               final uiBloc = context.read<CommandLogCommandsUiBloc>();
               if (uiBloc.state.loadingCommandId != null) {
-                uiBloc.add(const CommandLogCommandsUiSetLoadingCommand(null));
+                uiBloc.add(const CommandLogCommandsUiEvent.setLoadingCommand(null));
               }
             },
           );
         },
-        child: BlocSelector<UsefulCommandsBloc, UsefulCommandsState, UsefulCommandsState>(
+        child: BlocSelector<UsefulCommandsBloc, UsefulCommandsState, (List<UsefulCommand>, List<UsefulCommand>)>(
           bloc: getIt<UsefulCommandsBloc>(),
-          selector: (state) => state,
-          builder: (context, commandsState) {
-            final userCommands = commandsState.userCommands;
-            final defaultCommands = UsefulCommandsBloc.defaultCommands
-                .where((c) => !commandsState.hiddenDefaultCommandIds.contains(c.id))
-                .toList();
+          selector: (state) => (
+            state.userCommands,
+            UsefulCommandsBloc.defaultCommands.where((c) => !state.hiddenDefaultCommandIds.contains(c.id)).toList(),
+          ),
+          builder: (context, commandsData) {
+            final (userCommands, defaultCommands) = commandsData;
 
             return DraggableScrollableSheet(
               initialChildSize: 0.7,
