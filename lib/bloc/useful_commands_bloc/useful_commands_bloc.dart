@@ -12,21 +12,22 @@ part 'useful_commands_bloc.g.dart';
 @lazySingleton
 class UsefulCommandsBloc extends HydratedBloc<UsefulCommandsEvent, UsefulCommandsState> {
   static List<UsefulCommand> get defaultCommands => [
-    UsefulCommand(id: 'memory_info', title: 'Memory Info', description: 'Detailed memory usage', command: 'dumpsys meminfo %p'),
-    UsefulCommand(id: 'running_services', title: 'Running Services', description: 'Active services for the app', command: 'dumpsys activity services %p'),
-    UsefulCommand(id: 'process_info', title: 'Process Info', description: 'Process details and activity', command: 'dumpsys activity processes %p'),
-    UsefulCommand(id: 'package_info', title: 'Package Info', description: 'Package manifest and permissions', command: 'pm dump %p'),
-    UsefulCommand(id: 'battery_stats', title: 'Battery Stats', description: 'Battery usage statistics', command: 'dumpsys batterystats %p'),
-    UsefulCommand(id: 'cpu_info', title: 'CPU Info', description: 'CPU usage for the app', command: 'dumpsys cpuinfo | grep %p'),
-    UsefulCommand(id: 'network_stats', title: 'Network Stats', description: 'Network usage details', command: 'dumpsys netstats detail | grep %p'),
-    UsefulCommand(id: 'procstats', title: 'Procstats', description: 'Process statistics over time', command: 'dumpsys procstats %p'),
-    UsefulCommand(id: 'app_ops', title: 'App Ops', description: 'App operations and permissions usage', command: 'appops get %p'),
-    UsefulCommand(id: 'activity_stack', title: 'Activity Stack', description: 'Activity stack and history', command: 'dumpsys activity activities | grep %p'),
+    UsefulCommand(id: 'memory_info', title: 'Memory Info', description: 'Total memory usage overview', command: 'dumpsys meminfo'),
+    UsefulCommand(id: 'running_services', title: 'Running Services', description: 'All active services', command: 'dumpsys activity services'),
+    UsefulCommand(id: 'process_info', title: 'Process Info', description: 'All running processes', command: 'dumpsys activity processes'),
+    UsefulCommand(id: 'package_info', title: 'Package List', description: 'List all installed packages', command: 'pm list packages'),
+    UsefulCommand(id: 'battery_stats', title: 'Battery Stats', description: 'Battery usage statistics', command: 'dumpsys batterystats'),
+    UsefulCommand(id: 'cpu_info', title: 'CPU Info', description: 'CPU usage for all processes', command: 'dumpsys cpuinfo'),
+    UsefulCommand(id: 'network_stats', title: 'Network Stats', description: 'Network usage details', command: 'dumpsys netstats detail'),
+    UsefulCommand(id: 'procstats', title: 'Procstats', description: 'Process statistics over time', command: 'dumpsys procstats'),
+    UsefulCommand(id: 'app_ops', title: 'App Ops', description: 'App operations and permissions usage', command: 'dumpsys appops'),
+    UsefulCommand(id: 'activity_stack', title: 'Activity Stack', description: 'Activity stack and history', command: 'dumpsys activity activities'),
   ];
 
   UsefulCommandsBloc() : super(const UsefulCommandsState()) {
     on<_Started>(_onStarted);
     on<_AddCommand>(_onAddCommand);
+    on<_UpdateCommand>(_onUpdateCommand);
     on<_RemoveCommand>(_onRemoveCommand);
     on<_HideDefaultCommand>(_onHideDefaultCommand);
     on<_ResetDefaults>(_onResetDefaults);
@@ -37,6 +38,14 @@ class UsefulCommandsBloc extends HydratedBloc<UsefulCommandsEvent, UsefulCommand
   void _onAddCommand(_AddCommand event, Emitter<UsefulCommandsState> emit) {
     final newCommand = UsefulCommand(id: const Uuid().v4(), title: event.title, description: event.description, command: event.command, isCustom: true);
     emit(state.copyWith(userCommands: [...state.userCommands, newCommand]));
+  }
+
+  void _onUpdateCommand(_UpdateCommand event, Emitter<UsefulCommandsState> emit) {
+    final updated = state.userCommands.map((c) {
+      if (c.id != event.id) return c;
+      return c.copyWith(title: event.title, description: event.description, command: event.command);
+    }).toList();
+    emit(state.copyWith(userCommands: updated));
   }
 
   void _onRemoveCommand(_RemoveCommand event, Emitter<UsefulCommandsState> emit) {

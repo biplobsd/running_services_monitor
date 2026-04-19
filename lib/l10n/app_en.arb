@@ -394,5 +394,17 @@
   "tipsCoffeeAction": "Buy Me a Coffee",
   "tipsContributeTitle": "Contribute",
   "tipsContributeDescription": "Help translate or contribute to improve the app.",
-  "tipsContributeAction": "View on GitHub"
+  "tipsContributeAction": "View on GitHub",
+  "placeholdersNoAutoFill": "Placeholders won't be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).",
+  "placeholderPackageName": "Package name (e.g., com.example.app)",
+  "placeholderProcessId": "Process ID",
+  "placeholderAllPids": "All PIDs (comma-separated)",
+  "placeholderTotalRamFormatted": "Total RAM (formatted)",
+  "placeholderTotalRamKb": "Total RAM in KB",
+  "placeholderProcessState": "Process state",
+  "placeholderCachedMemoryKb": "Cached memory in KB",
+  "placeholderServicesCount": "Services count",
+  "placeholderProcessCount": "Process count",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Edit Command"
 }

@@ -7,6 +7,7 @@ import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/command_log_entry.dart';
+import 'package:running_services_monitor/screens/widgets/command_log/command_log_commands_bottom_sheet.dart';
 
 class CommandLogScreen extends StatelessWidget {
   const CommandLogScreen({super.key});
@@ -19,6 +20,11 @@ class CommandLogScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(context.loc.commandLogs, style: AppStyles.headlineStyle),
           actions: [
+            IconButton(
+              icon: AppStyles.playIcon,
+              tooltip: context.loc.commands,
+              onPressed: () => CommandLogCommandsBottomSheet.show(context),
+            ),
             BlocSelector<CommandLogBloc, CommandLogState, bool>(
               selector: (state) => state.value.isNotEmpty,
               builder: (context, hasEntries) {

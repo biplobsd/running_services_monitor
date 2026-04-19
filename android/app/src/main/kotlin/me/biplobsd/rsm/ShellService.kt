@@ -25,8 +25,17 @@ class ShellService : IShellService.Stub() {
                     try {
                         ParcelFileDescriptor.AutoCloseOutputStream(writeFd).use { output ->
                             val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", command))
-                            process.inputStream.pipeTo(output)
+                            val stderrThread = Thread {
+                                try {
+                                    process.errorStream.copyTo(output)
+                                } catch (_: Exception) {}
+                            }
+                            stderrThread.start()
+                            try {
+                                process.inputStream.copyTo(output)
+                            } catch (_: Exception) {}
                             process.waitFor()
+                            stderrThread.join(5000)
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

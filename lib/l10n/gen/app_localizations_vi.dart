@@ -1046,4 +1046,41 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get tipsContributeAction => 'Xem trên GitHub';
+
+  @override
+  String get placeholdersNoAutoFill =>
+      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+
+  @override
+  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+
+  @override
+  String get placeholderProcessId => 'Process ID';
+
+  @override
+  String get placeholderAllPids => 'All PIDs (comma-separated)';
+
+  @override
+  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+
+  @override
+  String get placeholderTotalRamKb => 'Total RAM in KB';
+
+  @override
+  String get placeholderProcessState => 'Process state';
+
+  @override
+  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+
+  @override
+  String get placeholderServicesCount => 'Services count';
+
+  @override
+  String get placeholderProcessCount => 'Process count';
+
+  @override
+  String get commandHintExample => 'dumpsys meminfo com.example.app';
+
+  @override
+  String get editCommand => 'Edit Command';
 }
