@@ -4,7 +4,7 @@ import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for Hungarian ('hu').
+/// The translations for Hungarian (`hu`).
 class AppLocalizationsHu extends AppLocalizations {
   AppLocalizationsHu([String locale = 'hu']) : super(locale);
 
@@ -89,7 +89,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get setupSteps => 'Beállítási lépések:';
 
   @override
-  String get step1 => 'Telepítse a Shizuku alkalmazást a Play Áruházból vagy a GitHubról';
+  String get step1 =>
+      'Telepítse a Shizuku alkalmazást a Play Áruházból vagy a GitHubról';
 
   @override
   String get step2 => 'Nyissa meg a Shizuku-t és indítsa el a szolgáltatást';
@@ -98,7 +99,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get step3 => 'Android 11+: Használjon vezeték nélküli hibakeresést';
 
   @override
-  String get step4 => 'Android 10 és régebbi: Csatlakozzon PC-hez ADB-n keresztül';
+  String get step4 =>
+      'Android 10 és régebbi: Csatlakozzon PC-hez ADB-n keresztül';
 
   @override
   String get step5 => 'Térjen vissza ehhez az alkalmazáshoz és próbálja újra';
@@ -108,7 +110,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get quickStartSteps =>
-      '1. Fejlesztői beállítások engedélyezése\n2. Vezeték nélküli hibakeresés engedélyezése\n3. Nyissa meg a Shizuku-t és koppintson a "Párosítás"-ra\n4. Kövesse a képernyőn megjelenő utasításokat';
+      '1. Fejlesztői beállítások engedélyezése\n2. Vezeték nélküli hibakeresés engedélyezése\n3. Nyissa meg a Shizuku-t és koppintson a \"Párosítás\"-ra\n4. Kövesse a képernyőn megjelenő utasításokat';
 
   @override
   String get exitApp => 'Kilépés';
@@ -156,7 +158,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get stopServiceConfirm => 'Leállítja ezt a szolgáltatást?';
 
   @override
-  String get stopAllServicesConfirm => 'Leállítja az alkalmazás összes szolgáltatását?';
+  String get stopAllServicesConfirm =>
+      'Leállítja az alkalmazás összes szolgáltatását?';
 
   @override
   String get stopServiceWarning =>
@@ -191,11 +194,12 @@ class AppLocalizationsHu extends AppLocalizations {
   String get permissionStep1 => 'Nyissa meg a Shizuku alkalmazást';
 
   @override
-  String get permissionStep2 => "Lépjen az 'Engedélyezett alkalmazások' vagy 'Engedélyek' menübe";
+  String get permissionStep2 =>
+      'Lépjen az \'Engedélyezett alkalmazások\' vagy \'Engedélyek\' menübe';
 
   @override
   String get permissionStep3 =>
-      "Keresse meg a 'Futó Szolgáltatások Figyelő'-t és adja meg az engedélyt";
+      'Keresse meg a \'Futó Szolgáltatások Figyelő\'-t és adja meg az engedélyt';
 
   @override
   String get permissionNote =>
@@ -372,19 +376,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String service_process_string(int serviceCount, int processCount) {
-    String _temp0 = intl.Intl.pluralLogic(
-      processCount,
-      locale: localeName,
-      other: '$processCount folyamat',
-      one: '1 folyamat',
-    );
-    String _temp1 = intl.Intl.pluralLogic(
-      serviceCount,
-      locale: localeName,
-      other: '$serviceCount szolgáltatás',
-      one: '1 szolgáltatás',
-    );
-    return '$_temp0 és $_temp1';
+    return '$processCount folyamat és $serviceCount szolgáltatás';
   }
 
   @override
@@ -483,7 +475,8 @@ class AppLocalizationsHu extends AppLocalizations {
       'Érzékelhető - Az alkalmazás olyat csinál, amiről a felhasználó tud';
 
   @override
-  String get processStateSvcb => 'B szolgáltatás - Az alkalmazásnak van kötött szolgáltatása';
+  String get processStateSvcb =>
+      'B szolgáltatás - Az alkalmazásnak van kötött szolgáltatása';
 
   @override
   String get processStateHome => 'Kezdőlap - Kezdőlap/Indítóalkalmazás';
@@ -569,6 +562,23 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get commandOutput => 'Parancs kimenete';
+
+  @override
+  String get searchOutput => 'Keresés a kimenetben...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$total / $current';
+  }
+
+  @override
+  String get noMatches => 'Nincs találat';
+
+  @override
+  String get nextMatch => 'Következő találat';
+
+  @override
+  String get previousMatch => 'Előző találat';
 
   @override
   String get noCommandLogs => 'Még nem futottak parancsok';
@@ -778,13 +788,15 @@ class AppLocalizationsHu extends AppLocalizations {
   String get statsRamDistributionScatter => 'RAM-elosztás szórása';
 
   @override
-  String get statsRamDistributionScatterSubtitle => 'Y: RAM, X: Alkalmazásindex';
+  String get statsRamDistributionScatterSubtitle =>
+      'Y: RAM, X: Alkalmazásindex';
 
   @override
   String get statsTopRamConsumers => 'Legtöbb RAM-ot használó alkalmazások';
 
   @override
-  String get statsServicesVsRamCorrelation => 'Szolgáltatások és RAM-korreláció';
+  String get statsServicesVsRamCorrelation =>
+      'Szolgáltatások és RAM-korreláció';
 
   @override
   String get statsServicesVsRamSubtitle =>
@@ -794,7 +806,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get statsRamHistogram => 'RAM-frekvenciaoszlogram';
 
   @override
-  String get statsRamHistogramSubtitle => 'Alkalmazások száma memóriaméret szerint';
+  String get statsRamHistogramSubtitle =>
+      'Alkalmazások száma memóriaméret szerint';
 
   @override
   String get statsMemoryHeatmap => 'Memória hőtérkép';
@@ -804,7 +817,8 @@ class AppLocalizationsHu extends AppLocalizations {
       'Összes alkalmazás RAM-intenzitás szerint rendezve';
 
   @override
-  String get statsTopAppsRelativeImpact => 'Legjobb alkalmazások relatív hatása';
+  String get statsTopAppsRelativeImpact =>
+      'Legjobb alkalmazások relatív hatása';
 
   @override
   String get statsGanttSubtitle => 'Gantt-stílusú RAM-arány vizualizáció';
@@ -813,7 +827,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get statsStackedAreaChart => 'RAM-részletezés idővel';
 
   @override
-  String get statsStackedAreaSubtitle => 'Felhasználói, rendszer- és kernel RAM';
+  String get statsStackedAreaSubtitle =>
+      'Felhasználói, rendszer- és kernel RAM';
 
   @override
   String get statsPolarChart => 'Folyamatállapot-eloszlás';
@@ -831,7 +846,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get statsFunnelChart => 'RAM-használati szintek';
 
   @override
-  String get statsFunnelSubtitle => 'Alkalmazások memóriaméret szerint csoportosítva';
+  String get statsFunnelSubtitle =>
+      'Alkalmazások memóriaméret szerint csoportosítva';
 
   @override
   String get statsWaterfallChart => 'RAM-allokációs vízesés';
@@ -947,7 +963,8 @@ class AppLocalizationsHu extends AppLocalizations {
   String get statsRamTrendScatter => 'RAM trendelemzés';
 
   @override
-  String get statsRamTrendScatterSubtitle => 'Szolgáltatások és RAM trendvonallal';
+  String get statsRamTrendScatterSubtitle =>
+      'Szolgáltatások és RAM trendvonallal';
 
   @override
   String get statsServicesVsProcesses => 'Szolgáltatások és folyamatok';
@@ -1027,38 +1044,38 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'A helyőrzők itt nem kerülnek automatikus kitöltésre. Adja meg az értékeket manuálisan a parancsban (pl. %p = csomagnév, %pid = folyamat ID).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Csomagnév (pl. com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'Folyamat ID';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Összes PID (vesszővel elválasztva)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'Teljes RAM (formázott)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'Teljes RAM KB-ban';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'Folyamat állapota';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Gyorsítótárazott memória KB-ban';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Szolgáltatások száma';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Folyamatok száma';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Parancs szerkesztése';
 }

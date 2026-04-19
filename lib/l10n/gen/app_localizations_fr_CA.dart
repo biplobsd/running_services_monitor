@@ -571,6 +571,24 @@ class AppLocalizationsFrCa extends AppLocalizations {
   @override
   String get commandOutput => 'Sortie de commande';
 
+
+  @override
+  String get searchOutput => 'Rechercher dans la sortie...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current sur $total';
+  }
+
+  @override
+  String get noMatches => 'Aucune correspondance';
+
+  @override
+  String get nextMatch => 'Correspondance suivante';
+
+  @override
+  String get previousMatch => 'Correspondance précédente';
+
   @override
   String get noCommandLogs => "Aucune commande exécutée pour l'instant";
 
@@ -1028,38 +1046,38 @@ class AppLocalizationsFrCa extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Les espaces réservés ne seront pas remplis automatiquement ici. Saisissez les valeurs manuellement dans la commande (par ex. %p = nom du paquet, %pid = identifiant du processus).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Nom du paquet (par ex. com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ID du processus';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Tous les PID (séparés par des virgules)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'RAM totale (formatée)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'RAM totale en Ko';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'État du processus';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Mémoire cache en Ko';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Nombre de services';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Nombre de processus';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Modifier la commande';
 }

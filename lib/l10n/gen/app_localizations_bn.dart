@@ -574,6 +574,23 @@ class AppLocalizationsBn extends AppLocalizations {
   String get commandOutput => 'কমান্ড আউটপুট';
 
   @override
+  String get searchOutput => 'আউটপুটে খুঁজুন...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$total এর মধ্যে $current';
+  }
+
+  @override
+  String get noMatches => 'কোনো মিল পাওয়া যায়নি';
+
+  @override
+  String get nextMatch => 'পরবর্তী মিল';
+
+  @override
+  String get previousMatch => 'পূর্ববর্তী মিল';
+
+  @override
   String get noCommandLogs => 'এখনো কোনো কমান্ড কার্যকর হয়নি';
 
   @override
@@ -1032,38 +1049,38 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'এখানে প্লেসহোল্ডারগুলো স্বয়ংক্রিয়ভাবে পূরণ হবে না। কমান্ডে ম্যানুয়ালি মান লিখুন (যেমন, %p = প্যাকেজের নাম, %pid = প্রসেস আইডি)।';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'প্যাকেজের নাম (যেমন, com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'প্রসেস আইডি';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'সব পিআইডি (কমা দিয়ে আলাদা)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'মোট র‍্যাম (ফরম্যাট করা)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'কেবিতে মোট র‍্যাম';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'প্রসেস স্টেট';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'কেবিতে ক্যাশ করা মেমরি';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'সার্ভিস সংখ্যা';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'প্রসেস সংখ্যা';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'কমান্ড এডিট করুন';
 }

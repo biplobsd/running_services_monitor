@@ -389,5 +389,22 @@
   "tipsCoffeeAction": "اشترِ لي قهوة",
   "tipsContributeTitle": "المساهمة",
   "tipsContributeDescription": "ساعد في الترجمة أو ساهم في تحسين التطبيق.",
-  "tipsContributeAction": "عرض على GitHub"
+  "tipsContributeAction": "عرض على GitHub",
+  "placeholdersNoAutoFill": "لن يتم ملء العناصر النائبة تلقائيًا هنا. أدخل القيم يدويًا في الأمر (على سبيل المثال، %p = اسم الحزمة، %pid = معرف العملية).",
+  "placeholderPackageName": "اسم الحزمة (على سبيل المثال، com.example.app)",
+  "placeholderProcessId": "معرف العملية",
+  "placeholderAllPids": "جميع معرفات العمليات (مفصولة بفاصلة)",
+  "placeholderTotalRamFormatted": "إجمالي الرام (منسق)",
+  "placeholderTotalRamKb": "إجمالي الرام بالكيلوبايت",
+  "placeholderProcessState": "حالة العملية",
+  "placeholderCachedMemoryKb": "الذاكرة المخبأة بالكيلوبايت",
+  "placeholderServicesCount": "عدد الخدمات",
+  "placeholderProcessCount": "عدد العمليات",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "تعديل الأمر",
+  "searchOutput": "بحث في المخرجات...",
+  "matchCount": "{current} من {total}",
+  "noMatches": "لا توجد تطابقات",
+  "nextMatch": "التطابق التالي",
+  "previousMatch": "التطابق السابق"
 }

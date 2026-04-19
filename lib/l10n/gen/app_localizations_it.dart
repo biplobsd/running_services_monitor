@@ -12,8 +12,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get appTitle => 'Monitor Servizi in Esecuzione';
 
   @override
-  String get enjoyingApp =>
-      'Ti piace l\'app? Considera di offrirmi un caffè!';
+  String get enjoyingApp => 'Ti piace l\'app? Considera di offrirmi un caffè!';
 
   @override
   String get donate => 'Dona';
@@ -109,7 +108,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get quickStartSteps =>
-      '1. Abilita le Opzioni sviluppatore\n2. Abilita il debug wireless\n3. Apri Shizuku e tocca "Associa"\n4. Segui le istruzioni sullo schermo';
+      '1. Abilita le Opzioni sviluppatore\n2. Abilita il debug wireless\n3. Apri Shizuku e tocca \"Associa\"\n4. Segui le istruzioni sullo schermo';
 
   @override
   String get exitApp => 'Esci dall\'app';
@@ -433,8 +432,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get errorLoadingData => 'Errore nel caricamento dei dati';
 
   @override
-  String get failedToStopAllServices =>
-      'Impossibile fermare tutti i servizi';
+  String get failedToStopAllServices => 'Impossibile fermare tutti i servizi';
 
   @override
   String failedToStopServiceName(String serviceName) {
@@ -489,8 +487,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Percepibile - L\'app sta facendo qualcosa di cui l\'utente è consapevole';
 
   @override
-  String get processStateSvcb =>
-      'Servizio B - L\'app ha un servizio collegato';
+  String get processStateSvcb => 'Servizio B - L\'app ha un servizio collegato';
 
   @override
   String get processStateHome => 'Home - App Home/Launcher';
@@ -573,13 +570,31 @@ class AppLocalizationsIt extends AppLocalizations {
   String get modeNotAvailable => 'Questa modalità non è disponibile';
 
   @override
-  String get noModeAvailable => 'Nessuna modalità di autorizzazione disponibile';
+  String get noModeAvailable =>
+      'Nessuna modalità di autorizzazione disponibile';
 
   @override
   String get commandLogs => 'Log comandi';
 
   @override
   String get commandOutput => 'Output comando';
+
+  @override
+  String get searchOutput => 'Cerca nell\'output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current di $total';
+  }
+
+  @override
+  String get noMatches => 'Nessuna corrispondenza';
+
+  @override
+  String get nextMatch => 'Corrispondenza successiva';
+
+  @override
+  String get previousMatch => 'Corrispondenza precedente';
 
   @override
   String get noCommandLogs => 'Nessun comando eseguito ancora';
@@ -821,8 +836,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Impatto relativo delle app principali';
 
   @override
-  String get statsGanttSubtitle =>
-      'Visualizzazione Gantt della quota RAM';
+  String get statsGanttSubtitle => 'Visualizzazione Gantt della quota RAM';
 
   @override
   String get statsStackedAreaChart => 'Evoluzione RAM nel tempo';
@@ -858,8 +872,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get statsGaugeChart => 'Indicatore utilizzo RAM';
 
   @override
-  String get statsGaugeSubtitle =>
-      'Utilizzo memoria di sistema complessivo';
+  String get statsGaugeSubtitle => 'Utilizzo memoria di sistema complessivo';
 
   @override
   String get statsTiny => 'Minuscolo';
@@ -1044,38 +1057,38 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'I segnaposto non verranno compilati automaticamente qui. Inserisci i valori manualmente nel comando (es. %p = nome pacchetto, %pid = id processo).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Nome pacchetto (es. com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ID Processo';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Tutti i PID (separati da virgola)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'RAM totale (formattata)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'RAM totale in KB';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'Stato del processo';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Memoria cache in KB';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Conteggio servizi';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Conteggio processi';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Modifica comando';
 }

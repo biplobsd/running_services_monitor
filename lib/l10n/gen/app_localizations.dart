@@ -8,11 +8,9 @@ import 'package:intl/intl.dart' as intl;
 import 'app_localizations_ar.dart';
 import 'app_localizations_bn.dart';
 import 'app_localizations_de.dart';
-import 'app_localizations_de_AT.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
-import 'app_localizations_es_419.dart';
-import 'app_localizations_fr_CA.dart';
+import 'app_localizations_fr.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_hu.dart';
 import 'app_localizations_id.dart';
@@ -35,7 +33,7 @@ import 'app_localizations_zh.dart';
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/app_localizations.dart';
+/// import 'gen/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -118,6 +116,7 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('es'),
     Locale('es', '419'),
+    Locale('fr'),
     Locale('fr', 'CA'),
     Locale('hi'),
     Locale('hu'),
@@ -1122,6 +1121,36 @@ abstract class AppLocalizations {
   /// **'Command Output'**
   String get commandOutput;
 
+  /// No description provided for @searchOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in output...'**
+  String get searchOutput;
+
+  /// No description provided for @matchCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String matchCount(int current, int total);
+
+  /// No description provided for @noMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches'**
+  String get noMatches;
+
+  /// No description provided for @nextMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Next match'**
+  String get nextMatch;
+
+  /// No description provided for @previousMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous match'**
+  String get previousMatch;
+
   /// No description provided for @noCommandLogs.
   ///
   /// In en, this message translates to:
@@ -2100,23 +2129,32 @@ class _AppLocalizationsDelegate
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-  // Lookup logic when both language and country codes are specified.
+  // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
     case 'de':
-      switch (locale.countryCode) {
-        case 'AT': return AppLocalizationsDeAt();
+      {
+        switch (locale.countryCode) {
+          case 'AT':
+            return AppLocalizationsDeAt();
+        }
+        break;
       }
-      return AppLocalizationsDe();
     case 'es':
-      switch (locale.countryCode) {
-        case '419': return AppLocalizationsEs419();
+      {
+        switch (locale.countryCode) {
+          case '419':
+            return AppLocalizationsEs419();
+        }
+        break;
       }
-      return AppLocalizationsEs();
     case 'fr':
-      switch (locale.countryCode) {
-        case 'CA': return AppLocalizationsFrCa();
+      {
+        switch (locale.countryCode) {
+          case 'CA':
+            return AppLocalizationsFrCa();
+        }
+        break;
       }
-      return AppLocalizationsFrCa();
   }
 
   // Lookup logic when only language code is specified.
@@ -2125,8 +2163,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsAr();
     case 'bn':
       return AppLocalizationsBn();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
     case 'hi':
       return AppLocalizationsHi();
     case 'hu':

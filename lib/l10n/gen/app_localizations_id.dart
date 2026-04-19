@@ -98,8 +98,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get step3 => 'Untuk Android 11+: Gunakan Debugging Nirkabel';
 
   @override
-  String get step4 =>
-      'Untuk Android 10 ke bawah: Hubungkan ke PC via ADB';
+  String get step4 => 'Untuk Android 10 ke bawah: Hubungkan ke PC via ADB';
 
   @override
   String get step5 => 'Kembali ke aplikasi ini dan coba lagi';
@@ -109,7 +108,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quickStartSteps =>
-      '1. Aktifkan Opsi Pengembang\n2. Aktifkan Debugging Nirkabel\n3. Buka Shizuku dan ketuk "Pasangkan"\n4. Ikuti instruksi di layar';
+      '1. Aktifkan Opsi Pengembang\n2. Aktifkan Debugging Nirkabel\n3. Buka Shizuku dan ketuk \"Pasangkan\"\n4. Ikuti instruksi di layar';
 
   @override
   String get exitApp => 'Keluar dari Aplikasi';
@@ -579,6 +578,23 @@ class AppLocalizationsId extends AppLocalizations {
   String get commandOutput => 'Output Perintah';
 
   @override
+  String get searchOutput => 'Cari di output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current dari $total';
+  }
+
+  @override
+  String get noMatches => 'Tidak ada kecocokan';
+
+  @override
+  String get nextMatch => 'Kecocokan berikutnya';
+
+  @override
+  String get previousMatch => 'Kecocokan sebelumnya';
+
+  @override
   String get noCommandLogs => 'Belum ada perintah yang dijalankan';
 
   @override
@@ -818,8 +834,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get statsTopAppsRelativeImpact => 'Dampak Relatif Aplikasi Teratas';
 
   @override
-  String get statsGanttSubtitle =>
-      'Visualisasi gaya Gantt dari Bagian RAM';
+  String get statsGanttSubtitle => 'Visualisasi gaya Gantt dari Bagian RAM';
 
   @override
   String get statsStackedAreaChart => 'Rincian RAM Dari Waktu ke Waktu';
@@ -916,8 +931,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get core => 'Inti';
 
   @override
-  String get coreAppInfoLimited =>
-      'Info terbatas tersedia untuk proses sistem';
+  String get coreAppInfoLimited => 'Info terbatas tersedia untuk proses sistem';
 
   @override
   String get showCoreApps => 'Tampilkan Aplikasi Inti';
@@ -961,8 +975,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get statsRamTrendScatter => 'Analisis Tren RAM';
 
   @override
-  String get statsRamTrendScatterSubtitle =>
-      'Layanan vs RAM dengan Garis Tren';
+  String get statsRamTrendScatterSubtitle => 'Layanan vs RAM dengan Garis Tren';
 
   @override
   String get statsServicesVsProcesses => 'Layanan vs Proses';
@@ -1042,38 +1055,38 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Placeholder tidak akan terisi otomatis di sini. Masukkan nilai secara manual dalam perintah (misalnya, %p = nama paket, %pid = id proses).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => 'Nama paket (misalnya, com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'ID Proses';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'Semua PID (dipisahkan koma)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'Total RAM (diformat)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'Total RAM dalam KB';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'Status proses';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'Memori cache dalam KB';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'Jumlah layanan';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'Jumlah proses';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'Edit Perintah';
 }

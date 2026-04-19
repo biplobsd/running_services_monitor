@@ -394,5 +394,22 @@
   "tipsCoffeeAction": "Bana Kahve Ismarla",
   "tipsContributeTitle": "Katkıda Bulun",
   "tipsContributeDescription": "Uygulamayı geliştirmeye yardımcı olmak için çeviri yapın veya katkıda bulunun.",
-  "tipsContributeAction": "GitHub'da Görüntüle"
+  "tipsContributeAction": "GitHub'da Görüntüle",
+  "placeholdersNoAutoFill": "Yer tutucular burada otomatik olarak doldurulmayacaktır. Değerleri komuta manuel olarak girin (örneğin, %p = paket adı, %pid = işlem kimliği).",
+  "placeholderPackageName": "Paket adı (örneğin, com.example.app)",
+  "placeholderProcessId": "İşlem Kimliği",
+  "placeholderAllPids": "Tüm PID'ler (virgülle ayrılmış)",
+  "placeholderTotalRamFormatted": "Toplam RAM (biçimlendirilmiş)",
+  "placeholderTotalRamKb": "KB cinsinden toplam RAM",
+  "placeholderProcessState": "İşlem durumu",
+  "placeholderCachedMemoryKb": "KB cinsinden önbelleğe alınmış bellek",
+  "placeholderServicesCount": "Hizmet sayısı",
+  "placeholderProcessCount": "İşlem sayısı",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Komutu Düzenle",
+  "searchOutput": "Çıktıda ara...",
+  "matchCount": "{current} / {total}",
+  "noMatches": "Eşleşme yok",
+  "nextMatch": "Sonraki eşleşme",
+  "previousMatch": "Önceki eşleşme"
 }

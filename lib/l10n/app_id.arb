@@ -389,5 +389,22 @@
   "tipsCoffeeAction": "Belikan Saya Kopi",
   "tipsContributeTitle": "Berkontribusi",
   "tipsContributeDescription": "Bantu terjemahkan atau berkontribusi untuk meningkatkan aplikasi.",
-  "tipsContributeAction": "Lihat di GitHub"
+  "tipsContributeAction": "Lihat di GitHub",
+  "placeholdersNoAutoFill": "Placeholder tidak akan terisi otomatis di sini. Masukkan nilai secara manual dalam perintah (misalnya, %p = nama paket, %pid = id proses).",
+  "placeholderPackageName": "Nama paket (misalnya, com.example.app)",
+  "placeholderProcessId": "ID Proses",
+  "placeholderAllPids": "Semua PID (dipisahkan koma)",
+  "placeholderTotalRamFormatted": "Total RAM (diformat)",
+  "placeholderTotalRamKb": "Total RAM dalam KB",
+  "placeholderProcessState": "Status proses",
+  "placeholderCachedMemoryKb": "Memori cache dalam KB",
+  "placeholderServicesCount": "Jumlah layanan",
+  "placeholderProcessCount": "Jumlah proses",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Edit Perintah",
+  "searchOutput": "Cari di output...",
+  "matchCount": "{current} dari {total}",
+  "noMatches": "Tidak ada kecocokan",
+  "nextMatch": "Kecocokan berikutnya",
+  "previousMatch": "Kecocokan sebelumnya"
 }

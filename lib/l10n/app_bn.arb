@@ -317,5 +317,22 @@
   "tipsCoffeeAction": "বাই মি আ কফি",
   "tipsContributeTitle": "অবদান রাখুন",
   "tipsContributeDescription": "অ্যাপটি উন্নত করতে সাহায্য করুন বা অনুবাদে সহায়তা করুন।",
-  "tipsContributeAction": "গিটহাবে দেখুন"
-}
+  "tipsContributeAction": "গিটহাবে দেখুন",
+  "placeholdersNoAutoFill": "এখানে প্লেসহোল্ডারগুলো স্বয়ংক্রিয়ভাবে পূরণ হবে না। কমান্ডে ম্যানুয়ালি মান লিখুন (যেমন, %p = প্যাকেজের নাম, %pid = প্রসেস আইডি)।",
+  "placeholderPackageName": "প্যাকেজের নাম (যেমন, com.example.app)",
+  "placeholderProcessId": "প্রসেস আইডি",
+  "placeholderAllPids": "সব পিআইডি (কমা দিয়ে আলাদা)",
+  "placeholderTotalRamFormatted": "মোট র‍্যাম (ফরম্যাট করা)",
+  "placeholderTotalRamKb": "কেবিতে মোট র‍্যাম",
+  "placeholderProcessState": "প্রসেস স্টেট",
+  "placeholderCachedMemoryKb": "কেবিতে ক্যাশ করা মেমরি",
+  "placeholderServicesCount": "সার্ভিস সংখ্যা",
+  "placeholderProcessCount": "প্রসেস সংখ্যা",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "কমান্ড এডিট করুন",
+  "searchOutput": "আউটপুটে খুঁজুন...",
+  "matchCount": "{total} এর মধ্যে {current}",
+  "noMatches": "কোনো মিল পাওয়া যায়নি",
+  "nextMatch": "পরবর্তী মিল",
+  "previousMatch": "পূর্ববর্তী মিল"
+}

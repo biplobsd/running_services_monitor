@@ -12,8 +12,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appTitle => 'مراقب الخدمات قيد التشغيل';
 
   @override
-  String get enjoyingApp =>
-      'هل تستمتع بالتطبيق؟ فكر في شراء قهوة لي!';
+  String get enjoyingApp => 'هل تستمتع بالتطبيق؟ فكر في شراء قهوة لي!';
 
   @override
   String get donate => 'تبرع';
@@ -99,8 +98,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get step3 => 'لأجهزة Android 11+: استخدم التصحيح اللاسلكي';
 
   @override
-  String get step4 =>
-      'لأجهزة Android 10 وما دون: اتصل بالحاسوب عبر ADB';
+  String get step4 => 'لأجهزة Android 10 وما دون: اتصل بالحاسوب عبر ADB';
 
   @override
   String get step5 => 'عد إلى هذا التطبيق وأعد المحاولة';
@@ -110,7 +108,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quickStartSteps =>
-      '1. فعّل خيارات المطور\n2. فعّل التصحيح اللاسلكي\n3. افتح Shizuku واضغط "إقران"\n4. اتبع التعليمات على الشاشة';
+      '1. فعّل خيارات المطور\n2. فعّل التصحيح اللاسلكي\n3. افتح Shizuku واضغط \"إقران\"\n4. اتبع التعليمات على الشاشة';
 
   @override
   String get exitApp => 'إغلاق التطبيق';
@@ -158,8 +156,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get stopServiceConfirm => 'هل تريد إيقاف هذه الخدمة؟';
 
   @override
-  String get stopAllServicesConfirm =>
-      'هل تريد إيقاف جميع خدمات هذا التطبيق؟';
+  String get stopAllServicesConfirm => 'هل تريد إيقاف جميع خدمات هذا التطبيق؟';
 
   @override
   String get stopServiceWarning =>
@@ -202,8 +199,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'ابحث عن \'Running Services Monitor\' ومنح الإذن';
 
   @override
-  String get permissionNote =>
-      'تأكد من أن خدمة Shizuku تعمل قبل منح الإذن.';
+  String get permissionNote => 'تأكد من أن خدمة Shizuku تعمل قبل منح الإذن.';
 
   @override
   String get openShizuku => 'فتح Shizuku';
@@ -357,12 +353,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      zero: 'لا توجد خدمات',
-      one: 'خدمة واحدة',
-      two: 'خدمتان',
-      few: '$count خدمات',
-      many: '$count خدمة',
       other: '$count خدمة',
+      many: '$count خدمة',
+      few: '$count خدمات',
+      two: 'خدمتان',
+      one: 'خدمة واحدة',
+      zero: 'لا توجد خدمات',
     );
     return '$_temp0';
   }
@@ -372,12 +368,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      zero: 'لا توجد عمليات',
-      one: 'عملية واحدة',
-      two: 'عمليتان',
-      few: '$count عمليات',
-      many: '$count عملية',
       other: '$count عملية',
+      many: '$count عملية',
+      few: '$count عمليات',
+      two: 'عمليتان',
+      one: 'عملية واحدة',
+      zero: 'لا توجد عمليات',
     );
     return '$_temp0';
   }
@@ -387,22 +383,22 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       processCount,
       locale: localeName,
-      zero: 'لا توجد عمليات',
-      one: 'عملية واحدة',
-      two: 'عمليتان',
-      few: '$processCount عمليات',
-      many: '$processCount عملية',
       other: '$processCount عملية',
+      many: '$processCount عملية',
+      few: '$processCount عمليات',
+      two: 'عمليتان',
+      one: 'عملية واحدة',
+      zero: 'لا توجد عمليات',
     );
     String _temp1 = intl.Intl.pluralLogic(
       serviceCount,
       locale: localeName,
-      zero: 'لا توجد خدمات',
-      one: 'خدمة واحدة',
-      two: 'خدمتان',
-      few: '$serviceCount خدمات',
-      many: '$serviceCount خدمة',
       other: '$serviceCount خدمة',
+      many: '$serviceCount خدمة',
+      few: '$serviceCount خدمات',
+      two: 'خدمتان',
+      one: 'خدمة واحدة',
+      zero: 'لا توجد خدمات',
     );
     return '$_temp0 و$_temp1';
   }
@@ -425,12 +421,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get checkingPermissions => 'جار التحقق من الأذونات...';
 
   @override
-  String get shizukuNotRunning =>
-      'Shizuku لا يعمل. يرجى تشغيل تطبيق Shizuku.';
+  String get shizukuNotRunning => 'Shizuku لا يعمل. يرجى تشغيل تطبيق Shizuku.';
 
   @override
-  String get permissionDeniedShizuku =>
-      'تم رفض الإذن. يرجى منح إذن Shizuku.';
+  String get permissionDeniedShizuku => 'تم رفض الإذن. يرجى منح إذن Shizuku.';
 
   @override
   String get failedToInitialize => 'فشل في التهيئة. يرجى منح الإذن.';
@@ -494,27 +488,22 @@ class AppLocalizationsAr extends AppLocalizations {
       'مرئي - التطبيق لديه نشاط مرئي لكن ليس في المقدمة';
 
   @override
-  String get processStatePrev =>
-      'السابق - تطبيق المقدمة المستخدم سابقاً';
+  String get processStatePrev => 'السابق - تطبيق المقدمة المستخدم سابقاً';
 
   @override
-  String get processStatePrcp =>
-      'محسوس - التطبيق يقوم بشيء يدركه المستخدم';
+  String get processStatePrcp => 'محسوس - التطبيق يقوم بشيء يدركه المستخدم';
 
   @override
-  String get processStateSvcb =>
-      'خدمة ب - التطبيق لديه خدمة مرتبطة';
+  String get processStateSvcb => 'خدمة ب - التطبيق لديه خدمة مرتبطة';
 
   @override
-  String get processStateHome =>
-      'الرئيسية - تطبيق الشاشة الرئيسية/المشغل';
+  String get processStateHome => 'الرئيسية - تطبيق الشاشة الرئيسية/المشغل';
 
   @override
   String get processStateHvy => 'ثقيل - عملية تطبيق ثقيلة';
 
   @override
-  String get processStatePsvc =>
-      'خدمة مستمرة - التطبيق لديه خدمة مستمرة';
+  String get processStatePsvc => 'خدمة مستمرة - التطبيق لديه خدمة مستمرة';
 
   @override
   String get processStatePers => 'مستمر - عملية نظام مستمرة';
@@ -524,39 +513,31 @@ class AppLocalizationsAr extends AppLocalizations {
       'ذاكرة مؤقتة فارغة - عملية مخزنة بدون أنشطة';
 
   @override
-  String get processStateCchAct =>
-      'نشاط مخزن - عملية مخزنة مع أنشطة';
+  String get processStateCchAct => 'نشاط مخزن - عملية مخزنة مع أنشطة';
 
   @override
-  String get processStateCchClient =>
-      'عميل مخزن - عملية مخزنة كعميل خدمة';
+  String get processStateCchClient => 'عميل مخزن - عملية مخزنة كعميل خدمة';
 
   @override
   String get processStateCch => 'مخزن - العملية مخزنة في الذاكرة';
 
   @override
-  String get processStateBfgs =>
-      'خدمة مقدمة مرتبطة - مرتبطة بخدمة في المقدمة';
+  String get processStateBfgs => 'خدمة مقدمة مرتبطة - مرتبطة بخدمة في المقدمة';
 
   @override
-  String get processStateRcvr =>
-      'مستقبل - التطبيق يشغّل مستقبل broadcast';
+  String get processStateRcvr => 'مستقبل - التطبيق يشغّل مستقبل broadcast';
 
   @override
-  String get processStateTop =>
-      'القمة - التطبيق في قمة مجموعة الأنشطة';
+  String get processStateTop => 'القمة - التطبيق في قمة مجموعة الأنشطة';
 
   @override
-  String get processStateBtop =>
-      'قمة مرتبطة - مرتبط بتطبيق في القمة';
+  String get processStateBtop => 'قمة مرتبطة - مرتبط بتطبيق في القمة';
 
   @override
-  String get processStateImpf =>
-      'مقدمة مهمة - عملية مقدمة مهمة';
+  String get processStateImpf => 'مقدمة مهمة - عملية مقدمة مهمة';
 
   @override
-  String get processStateImpb =>
-      'خلفية مهمة - عملية خلفية مهمة';
+  String get processStateImpb => 'خلفية مهمة - عملية خلفية مهمة';
 
   @override
   String processStateUnknown(String state) {
@@ -592,6 +573,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commandOutput => 'مخرجات الأمر';
+
+  @override
+  String get searchOutput => 'بحث في المخرجات...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current من $total';
+  }
+
+  @override
+  String get noMatches => 'لا توجد تطابقات';
+
+  @override
+  String get nextMatch => 'التطابق التالي';
+
+  @override
+  String get previousMatch => 'التطابق السابق';
 
   @override
   String get noCommandLogs => 'لم يتم تنفيذ أي أوامر بعد';
@@ -802,8 +800,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsRamDistributionScatter => 'مخطط انتشار توزيع RAM';
 
   @override
-  String get statsRamDistributionScatterSubtitle =>
-      'Y: RAM، X: فهرس التطبيق';
+  String get statsRamDistributionScatterSubtitle => 'Y: RAM، X: فهرس التطبيق';
 
   @override
   String get statsTopRamConsumers => 'أعلى مستهلكي RAM';
@@ -819,23 +816,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsRamHistogram => 'مدرج تكراري لتردد RAM';
 
   @override
-  String get statsRamHistogramSubtitle =>
-      'عدد التطبيقات حسب حجم الذاكرة';
+  String get statsRamHistogramSubtitle => 'عدد التطبيقات حسب حجم الذاكرة';
 
   @override
   String get statsMemoryHeatmap => 'خريطة حرارية للذاكرة';
 
   @override
-  String get statsMemoryHeatmapSubtitle =>
-      'جميع التطبيقات مرتبة حسب كثافة RAM';
+  String get statsMemoryHeatmapSubtitle => 'جميع التطبيقات مرتبة حسب كثافة RAM';
 
   @override
-  String get statsTopAppsRelativeImpact =>
-      'التأثير النسبي للتطبيقات الأعلى';
+  String get statsTopAppsRelativeImpact => 'التأثير النسبي للتطبيقات الأعلى';
 
   @override
-  String get statsGanttSubtitle =>
-      'تصور على طراز Gantt لحصة RAM';
+  String get statsGanttSubtitle => 'تصور على طراز Gantt لحصة RAM';
 
   @override
   String get statsStackedAreaChart => 'تفصيل RAM عبر الزمن';
@@ -859,15 +852,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsFunnelChart => 'مستويات استخدام RAM';
 
   @override
-  String get statsFunnelSubtitle =>
-      'التطبيقات مجمعة حسب حجم الذاكرة';
+  String get statsFunnelSubtitle => 'التطبيقات مجمعة حسب حجم الذاكرة';
 
   @override
   String get statsWaterfallChart => 'شلال تخصيص RAM';
 
   @override
-  String get statsWaterfallSubtitle =>
-      'التفصيل من الإجمالي إلى المكونات';
+  String get statsWaterfallSubtitle => 'التفصيل من الإجمالي إلى المكونات';
 
   @override
   String get statsGaugeChart => 'مقياس استخدام RAM';
@@ -919,8 +910,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsProcessStateBar => 'توزيع حالة التطبيقات';
 
   @override
-  String get statsProcessStateSubtitle =>
-      'التطبيقات النشطة والخلفية والمخزنة';
+  String get statsProcessStateSubtitle => 'التطبيقات النشطة والخلفية والمخزنة';
 
   @override
   String get statsScatterChart => 'مخطط انتشار توزيع RAM';
@@ -932,8 +922,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get core => 'النواة';
 
   @override
-  String get coreAppInfoLimited =>
-      'معلومات محدودة متاحة لعمليات النظام';
+  String get coreAppInfoLimited => 'معلومات محدودة متاحة لعمليات النظام';
 
   @override
   String get showCoreApps => 'إظهار تطبيقات النواة';
@@ -963,8 +952,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsProcessVsRamLine => 'ارتباط العمليات مقابل RAM';
 
   @override
-  String get statsProcessVsRamLineSubtitle =>
-      'أزرق: RAM، متقطع: عدد العمليات';
+  String get statsProcessVsRamLineSubtitle => 'أزرق: RAM، متقطع: عدد العمليات';
 
   @override
   String get statsUserVsSystemBar => 'مقارنة المستخدم مقابل النظام';
@@ -977,8 +965,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsRamTrendScatter => 'تحليل اتجاه RAM';
 
   @override
-  String get statsRamTrendScatterSubtitle =>
-      'الخدمات مقابل RAM مع خط الاتجاه';
+  String get statsRamTrendScatterSubtitle => 'الخدمات مقابل RAM مع خط الاتجاه';
 
   @override
   String get statsServicesVsProcesses => 'الخدمات مقابل العمليات';
@@ -991,8 +978,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statsProcessStateRam => 'RAM حسب حالة العملية';
 
   @override
-  String get statsProcessStateRamSubtitle =>
-      'متوسط استخدام RAM لكل حالة عملية';
+  String get statsProcessStateRamSubtitle => 'متوسط استخدام RAM لكل حالة عملية';
 
   @override
   String get myCommands => 'أوامري';
@@ -1030,8 +1016,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tipsRateTitle => 'قيّمنا';
 
   @override
-  String get tipsRateDescription =>
-      'أعطنا مراجعة 5 نجوم وشارك تعليقاتك.';
+  String get tipsRateDescription => 'أعطنا مراجعة 5 نجوم وشارك تعليقاتك.';
 
   @override
   String get tipsRateAction => 'فتح Play Store';
@@ -1040,8 +1025,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tipsCoffeeTitle => 'اشترِ لي قهوة';
 
   @override
-  String get tipsCoffeeDescription =>
-      'حفّزني للحفاظ على تحديث هذا التطبيق.';
+  String get tipsCoffeeDescription => 'حفّزني للحفاظ على تحديث هذا التطبيق.';
 
   @override
   String get tipsCoffeeAction => 'اشترِ لي قهوة';
@@ -1058,38 +1042,39 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'لن يتم ملء العناصر النائبة تلقائيًا هنا. أدخل القيم يدويًا في الأمر (على سبيل المثال، %p = اسم الحزمة، %pid = معرف العملية).';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName =>
+      'اسم الحزمة (على سبيل المثال، com.example.app)';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => 'معرف العملية';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => 'جميع معرفات العمليات (مفصولة بفاصلة)';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => 'إجمالي الرام (منسق)';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => 'إجمالي الرام بالكيلوبايت';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => 'حالة العملية';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => 'الذاكرة المخبأة بالكيلوبايت';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => 'عدد الخدمات';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => 'عدد العمليات';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => 'تعديل الأمر';
 }

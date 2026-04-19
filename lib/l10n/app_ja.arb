@@ -391,5 +391,22 @@
   "tipsCoffeeAction": "コーヒーを奢る",
   "tipsContributeTitle": "貢献する",
   "tipsContributeDescription": "アプリの改善や翻訳に協力してください。",
-  "tipsContributeAction": "GitHub で見る"
+  "tipsContributeAction": "GitHub で見る",
+  "placeholdersNoAutoFill": "プレースホルダーはここでは自動入力されません。コマンドに手動で値を入力してください (例: %p = パッケージ名、%pid = プロセス ID)。",
+  "placeholderPackageName": "パッケージ名 (例: com.example.app)",
+  "placeholderProcessId": "プロセス ID",
+  "placeholderAllPids": "すべての PID (カンマ区切り)",
+  "placeholderTotalRamFormatted": "合計 RAM (フォーマット済み)",
+  "placeholderTotalRamKb": "合計 RAM (KB)",
+  "placeholderProcessState": "プロセス状態",
+  "placeholderCachedMemoryKb": "キャッシュメモリ (KB)",
+  "placeholderServicesCount": "サービス数",
+  "placeholderProcessCount": "プロセス数",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "コマンドを編集",
+  "searchOutput": "出力内を検索...",
+  "matchCount": "{total} 件中 {current} 件目",
+  "noMatches": "一致なし",
+  "nextMatch": "次へ",
+  "previousMatch": "前へ"
 }

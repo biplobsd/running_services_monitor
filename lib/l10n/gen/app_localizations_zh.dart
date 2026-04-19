@@ -525,6 +525,23 @@ class AppLocalizationsZh extends AppLocalizations {
   String get commandOutput => '命令输出';
 
   @override
+  String get searchOutput => '在输出中搜索...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '第 $current 个，共 $total 个';
+  }
+
+  @override
+  String get noMatches => '无匹配项';
+
+  @override
+  String get nextMatch => '下一个匹配项';
+
+  @override
+  String get previousMatch => '上一个匹配项';
+
+  @override
   String get noCommandLogs => '尚未执行任何命令';
 
   @override
@@ -967,38 +984,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      '此处不会自动填充占位符。请在命令中手动输入值（例如，%p = 包名，%pid = 进程 ID）。';
 
   @override
-  String get placeholderPackageName => 'Package name (e.g., com.example.app)';
+  String get placeholderPackageName => '包名（例如 com.example.app）';
 
   @override
-  String get placeholderProcessId => 'Process ID';
+  String get placeholderProcessId => '进程 ID';
 
   @override
-  String get placeholderAllPids => 'All PIDs (comma-separated)';
+  String get placeholderAllPids => '所有 PID（逗号分隔）';
 
   @override
-  String get placeholderTotalRamFormatted => 'Total RAM (formatted)';
+  String get placeholderTotalRamFormatted => '总内存（已格式化）';
 
   @override
-  String get placeholderTotalRamKb => 'Total RAM in KB';
+  String get placeholderTotalRamKb => '总内存 (KB)';
 
   @override
-  String get placeholderProcessState => 'Process state';
+  String get placeholderProcessState => '进程状态';
 
   @override
-  String get placeholderCachedMemoryKb => 'Cached memory in KB';
+  String get placeholderCachedMemoryKb => '缓存内存 (KB)';
 
   @override
-  String get placeholderServicesCount => 'Services count';
+  String get placeholderServicesCount => '服务数量';
 
   @override
-  String get placeholderProcessCount => 'Process count';
+  String get placeholderProcessCount => '进程数量';
 
   @override
   String get commandHintExample => 'dumpsys meminfo com.example.app';
 
   @override
-  String get editCommand => 'Edit Command';
+  String get editCommand => '编辑命令';
 }

@@ -24,6 +24,19 @@ class UsefulCommandsBloc extends HydratedBloc<UsefulCommandsEvent, UsefulCommand
     UsefulCommand(id: 'activity_stack', title: 'Activity Stack', description: 'Activity stack and history', command: 'dumpsys activity activities'),
   ];
 
+  static List<UsefulCommand> get defaultPackageCommands => [
+    UsefulCommand(id: 'memory_info', title: 'Memory Info', description: 'Detailed memory usage', command: 'dumpsys meminfo %p'),
+    UsefulCommand(id: 'running_services', title: 'Running Services', description: 'Active services for the app', command: 'dumpsys activity services %p'),
+    UsefulCommand(id: 'process_info', title: 'Process Info', description: 'Process details and activity', command: 'dumpsys activity processes %p'),
+    UsefulCommand(id: 'package_info', title: 'Package Info', description: 'Package manifest and permissions', command: 'pm dump %p'),
+    UsefulCommand(id: 'battery_stats', title: 'Battery Stats', description: 'Battery usage statistics', command: 'dumpsys batterystats %p'),
+    UsefulCommand(id: 'cpu_info', title: 'CPU Info', description: 'CPU usage for the app', command: 'dumpsys cpuinfo | grep %p'),
+    UsefulCommand(id: 'network_stats', title: 'Network Stats', description: 'Network usage details', command: 'dumpsys netstats detail | grep %p'),
+    UsefulCommand(id: 'procstats', title: 'Procstats', description: 'Process statistics over time', command: 'dumpsys procstats %p'),
+    UsefulCommand(id: 'app_ops', title: 'App Ops', description: 'App operations and permissions usage', command: 'appops get %p'),
+    UsefulCommand(id: 'activity_stack', title: 'Activity Stack', description: 'Activity stack and history', command: 'dumpsys activity activities | grep %p'),
+  ];
+
   UsefulCommandsBloc() : super(const UsefulCommandsState()) {
     on<_Started>(_onStarted);
     on<_AddCommand>(_onAddCommand);

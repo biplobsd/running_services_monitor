@@ -391,5 +391,22 @@
   "tipsCoffeeAction": "Купить кофе",
   "tipsContributeTitle": "Внести вклад",
   "tipsContributeDescription": "Помогите с переводом или внесите вклад в улучшение приложения.",
-  "tipsContributeAction": "Посмотреть на GitHub"
+  "tipsContributeAction": "Посмотреть на GitHub",
+  "placeholdersNoAutoFill": "Заполнители здесь не будут заполнены автоматически. Введите значения вручную в команде (например, %p = имя пакета, %pid = id процесса).",
+  "placeholderPackageName": "Имя пакета (например, com.example.app)",
+  "placeholderProcessId": "ID процесса",
+  "placeholderAllPids": "Все PID (через запятую)",
+  "placeholderTotalRamFormatted": "Общий объем ОЗУ (отформатировано)",
+  "placeholderTotalRamKb": "Общий объем ОЗУ в КБ",
+  "placeholderProcessState": "Состояние процесса",
+  "placeholderCachedMemoryKb": "Кэшированная память в КБ",
+  "placeholderServicesCount": "Количество служб",
+  "placeholderProcessCount": "Количество процессов",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "Редактировать команду",
+  "searchOutput": "Поиск в выводе...",
+  "matchCount": "{current} из {total}",
+  "noMatches": "Нет совпадений",
+  "nextMatch": "Следующее совпадение",
+  "previousMatch": "Предыдущее совпадение"
 }

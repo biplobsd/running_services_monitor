@@ -17,6 +17,7 @@ mixin _$CommandLogCommandsUiEvent {
 
 
 
+
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is CommandLogCommandsUiEvent);
@@ -42,6 +43,18 @@ $CommandLogCommandsUiEventCopyWith(CommandLogCommandsUiEvent _, $Res Function(Co
 
 /// Adds pattern-matching-related methods to [CommandLogCommandsUiEvent].
 extension CommandLogCommandsUiEventPatterns on CommandLogCommandsUiEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToggleAddForm value)?  toggleAddForm,TResult Function( _HideAddForm value)?  hideAddForm,TResult Function( _SetLoadingCommand value)?  setLoadingCommand,TResult Function( _SetEditingCommand value)?  setEditingCommand,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -54,6 +67,18 @@ return setEditingCommand(_that);case _:
 
 }
 }
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
 @optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToggleAddForm value)  toggleAddForm,required TResult Function( _HideAddForm value)  hideAddForm,required TResult Function( _SetLoadingCommand value)  setLoadingCommand,required TResult Function( _SetEditingCommand value)  setEditingCommand,}){
 final _that = this;
@@ -62,11 +87,19 @@ case _ToggleAddForm():
 return toggleAddForm(_that);case _HideAddForm():
 return hideAddForm(_that);case _SetLoadingCommand():
 return setLoadingCommand(_that);case _SetEditingCommand():
-return setEditingCommand(_that);case _:
-  throw StateError('Unexpected subclass');
-
+return setEditingCommand(_that);}
 }
-}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToggleAddForm value)?  toggleAddForm,TResult? Function( _HideAddForm value)?  hideAddForm,TResult? Function( _SetLoadingCommand value)?  setLoadingCommand,TResult? Function( _SetEditingCommand value)?  setEditingCommand,}){
 final _that = this;
@@ -80,6 +113,17 @@ return setEditingCommand(_that);case _:
 
 }
 }
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  toggleAddForm,TResult Function()?  hideAddForm,TResult Function( String? commandId)?  setLoadingCommand,TResult Function( String? commandId)?  setEditingCommand,required TResult orElse(),}) {final _that = this;
 switch (_that) {
@@ -92,6 +136,18 @@ return setEditingCommand(_that.commandId);case _:
 
 }
 }
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  toggleAddForm,required TResult Function()  hideAddForm,required TResult Function( String? commandId)  setLoadingCommand,required TResult Function( String? commandId)  setEditingCommand,}) {final _that = this;
 switch (_that) {
@@ -99,11 +155,19 @@ case _ToggleAddForm():
 return toggleAddForm();case _HideAddForm():
 return hideAddForm();case _SetLoadingCommand():
 return setLoadingCommand(_that.commandId);case _SetEditingCommand():
-return setEditingCommand(_that.commandId);case _:
-  throw StateError('Unexpected subclass');
-
+return setEditingCommand(_that.commandId);}
 }
-}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  toggleAddForm,TResult? Function()?  hideAddForm,TResult? Function( String? commandId)?  setLoadingCommand,TResult? Function( String? commandId)?  setEditingCommand,}) {final _that = this;
 switch (_that) {
@@ -125,6 +189,8 @@ return setEditingCommand(_that.commandId);case _:
 class _ToggleAddForm implements CommandLogCommandsUiEvent {
   const _ToggleAddForm();
   
+
+
 
 
 
@@ -155,6 +221,8 @@ String toString() {
 class _HideAddForm implements CommandLogCommandsUiEvent {
   const _HideAddForm();
   
+
+
 
 
 
@@ -245,9 +313,6 @@ as String?,
 
 }
 
-
-
-
 /// @nodoc
 
 
@@ -314,9 +379,6 @@ as String?,
 
 }
 
-
-
-
 /// @nodoc
 mixin _$CommandLogCommandsUiState {
 
@@ -382,6 +444,18 @@ as String?,
 
 /// Adds pattern-matching-related methods to [CommandLogCommandsUiState].
 extension CommandLogCommandsUiStatePatterns on CommandLogCommandsUiState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
 @optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CommandLogCommandsUiState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
@@ -391,6 +465,18 @@ return $default(_that);case _:
 
 }
 }
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
 @optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CommandLogCommandsUiState value)  $default,){
 final _that = this;
@@ -401,6 +487,17 @@ return $default(_that);case _:
 
 }
 }
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CommandLogCommandsUiState value)?  $default,){
 final _that = this;
@@ -411,6 +508,17 @@ return $default(_that);case _:
 
 }
 }
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool showAddForm,  String? loadingCommandId,  String? editingCommandId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
@@ -420,6 +528,18 @@ return $default(_that.showAddForm,_that.loadingCommandId,_that.editingCommandId)
 
 }
 }
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool showAddForm,  String? loadingCommandId,  String? editingCommandId)  $default,) {final _that = this;
 switch (_that) {
@@ -429,6 +549,17 @@ return $default(_that.showAddForm,_that.loadingCommandId,_that.editingCommandId)
 
 }
 }
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool showAddForm,  String? loadingCommandId,  String? editingCommandId)?  $default,) {final _that = this;
 switch (_that) {

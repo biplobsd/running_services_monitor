@@ -55,7 +55,7 @@ extension CommandOutputEventPatterns on CommandOutputEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _Refresh value)?  refresh,TResult Function( _SetAutoRefreshInterval value)?  setAutoRefreshInterval,TResult Function( _UpdateEntry value)?  updateEntry,TResult Function( _StopRefreshing value)?  stopRefreshing,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _Refresh value)?  refresh,TResult Function( _SetAutoRefreshInterval value)?  setAutoRefreshInterval,TResult Function( _UpdateEntry value)?  updateEntry,TResult Function( _StopRefreshing value)?  stopRefreshing,TResult Function( _ToggleSearch value)?  toggleSearch,TResult Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult Function( _NextMatch value)?  nextMatch,TResult Function( _PreviousMatch value)?  previousMatch,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
@@ -63,7 +63,11 @@ return started(_that);case _Refresh() when refresh != null:
 return refresh(_that);case _SetAutoRefreshInterval() when setAutoRefreshInterval != null:
 return setAutoRefreshInterval(_that);case _UpdateEntry() when updateEntry != null:
 return updateEntry(_that);case _StopRefreshing() when stopRefreshing != null:
-return stopRefreshing(_that);case _:
+return stopRefreshing(_that);case _ToggleSearch() when toggleSearch != null:
+return toggleSearch(_that);case _UpdateSearchQuery() when updateSearchQuery != null:
+return updateSearchQuery(_that);case _NextMatch() when nextMatch != null:
+return nextMatch(_that);case _PreviousMatch() when previousMatch != null:
+return previousMatch(_that);case _:
   return orElse();
 
 }
@@ -81,7 +85,7 @@ return stopRefreshing(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _Refresh value)  refresh,required TResult Function( _SetAutoRefreshInterval value)  setAutoRefreshInterval,required TResult Function( _UpdateEntry value)  updateEntry,required TResult Function( _StopRefreshing value)  stopRefreshing,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _Refresh value)  refresh,required TResult Function( _SetAutoRefreshInterval value)  setAutoRefreshInterval,required TResult Function( _UpdateEntry value)  updateEntry,required TResult Function( _StopRefreshing value)  stopRefreshing,required TResult Function( _ToggleSearch value)  toggleSearch,required TResult Function( _UpdateSearchQuery value)  updateSearchQuery,required TResult Function( _NextMatch value)  nextMatch,required TResult Function( _PreviousMatch value)  previousMatch,}){
 final _that = this;
 switch (_that) {
 case _Started():
@@ -89,7 +93,11 @@ return started(_that);case _Refresh():
 return refresh(_that);case _SetAutoRefreshInterval():
 return setAutoRefreshInterval(_that);case _UpdateEntry():
 return updateEntry(_that);case _StopRefreshing():
-return stopRefreshing(_that);}
+return stopRefreshing(_that);case _ToggleSearch():
+return toggleSearch(_that);case _UpdateSearchQuery():
+return updateSearchQuery(_that);case _NextMatch():
+return nextMatch(_that);case _PreviousMatch():
+return previousMatch(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -103,7 +111,7 @@ return stopRefreshing(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _Refresh value)?  refresh,TResult? Function( _SetAutoRefreshInterval value)?  setAutoRefreshInterval,TResult? Function( _UpdateEntry value)?  updateEntry,TResult? Function( _StopRefreshing value)?  stopRefreshing,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _Refresh value)?  refresh,TResult? Function( _SetAutoRefreshInterval value)?  setAutoRefreshInterval,TResult? Function( _UpdateEntry value)?  updateEntry,TResult? Function( _StopRefreshing value)?  stopRefreshing,TResult? Function( _ToggleSearch value)?  toggleSearch,TResult? Function( _UpdateSearchQuery value)?  updateSearchQuery,TResult? Function( _NextMatch value)?  nextMatch,TResult? Function( _PreviousMatch value)?  previousMatch,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
@@ -111,7 +119,11 @@ return started(_that);case _Refresh() when refresh != null:
 return refresh(_that);case _SetAutoRefreshInterval() when setAutoRefreshInterval != null:
 return setAutoRefreshInterval(_that);case _UpdateEntry() when updateEntry != null:
 return updateEntry(_that);case _StopRefreshing() when stopRefreshing != null:
-return stopRefreshing(_that);case _:
+return stopRefreshing(_that);case _ToggleSearch() when toggleSearch != null:
+return toggleSearch(_that);case _UpdateSearchQuery() when updateSearchQuery != null:
+return updateSearchQuery(_that);case _NextMatch() when nextMatch != null:
+return nextMatch(_that);case _PreviousMatch() when previousMatch != null:
+return previousMatch(_that);case _:
   return null;
 
 }
@@ -128,14 +140,18 @@ return stopRefreshing(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String entryId,  String command)?  started,TResult Function()?  refresh,TResult Function( Duration? interval)?  setAutoRefreshInterval,TResult Function( String entryId)?  updateEntry,TResult Function()?  stopRefreshing,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String entryId,  String command)?  started,TResult Function()?  refresh,TResult Function( Duration? interval)?  setAutoRefreshInterval,TResult Function( String entryId)?  updateEntry,TResult Function()?  stopRefreshing,TResult Function()?  toggleSearch,TResult Function( String query,  String text)?  updateSearchQuery,TResult Function()?  nextMatch,TResult Function()?  previousMatch,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that.entryId,_that.command);case _Refresh() when refresh != null:
 return refresh();case _SetAutoRefreshInterval() when setAutoRefreshInterval != null:
 return setAutoRefreshInterval(_that.interval);case _UpdateEntry() when updateEntry != null:
 return updateEntry(_that.entryId);case _StopRefreshing() when stopRefreshing != null:
-return stopRefreshing();case _:
+return stopRefreshing();case _ToggleSearch() when toggleSearch != null:
+return toggleSearch();case _UpdateSearchQuery() when updateSearchQuery != null:
+return updateSearchQuery(_that.query,_that.text);case _NextMatch() when nextMatch != null:
+return nextMatch();case _PreviousMatch() when previousMatch != null:
+return previousMatch();case _:
   return orElse();
 
 }
@@ -153,14 +169,18 @@ return stopRefreshing();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String entryId,  String command)  started,required TResult Function()  refresh,required TResult Function( Duration? interval)  setAutoRefreshInterval,required TResult Function( String entryId)  updateEntry,required TResult Function()  stopRefreshing,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String entryId,  String command)  started,required TResult Function()  refresh,required TResult Function( Duration? interval)  setAutoRefreshInterval,required TResult Function( String entryId)  updateEntry,required TResult Function()  stopRefreshing,required TResult Function()  toggleSearch,required TResult Function( String query,  String text)  updateSearchQuery,required TResult Function()  nextMatch,required TResult Function()  previousMatch,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started(_that.entryId,_that.command);case _Refresh():
 return refresh();case _SetAutoRefreshInterval():
 return setAutoRefreshInterval(_that.interval);case _UpdateEntry():
 return updateEntry(_that.entryId);case _StopRefreshing():
-return stopRefreshing();}
+return stopRefreshing();case _ToggleSearch():
+return toggleSearch();case _UpdateSearchQuery():
+return updateSearchQuery(_that.query,_that.text);case _NextMatch():
+return nextMatch();case _PreviousMatch():
+return previousMatch();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,14 +194,18 @@ return stopRefreshing();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String entryId,  String command)?  started,TResult? Function()?  refresh,TResult? Function( Duration? interval)?  setAutoRefreshInterval,TResult? Function( String entryId)?  updateEntry,TResult? Function()?  stopRefreshing,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String entryId,  String command)?  started,TResult? Function()?  refresh,TResult? Function( Duration? interval)?  setAutoRefreshInterval,TResult? Function( String entryId)?  updateEntry,TResult? Function()?  stopRefreshing,TResult? Function()?  toggleSearch,TResult? Function( String query,  String text)?  updateSearchQuery,TResult? Function()?  nextMatch,TResult? Function()?  previousMatch,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that.entryId,_that.command);case _Refresh() when refresh != null:
 return refresh();case _SetAutoRefreshInterval() when setAutoRefreshInterval != null:
 return setAutoRefreshInterval(_that.interval);case _UpdateEntry() when updateEntry != null:
 return updateEntry(_that.entryId);case _StopRefreshing() when stopRefreshing != null:
-return stopRefreshing();case _:
+return stopRefreshing();case _ToggleSearch() when toggleSearch != null:
+return toggleSearch();case _UpdateSearchQuery() when updateSearchQuery != null:
+return updateSearchQuery(_that.query,_that.text);case _NextMatch() when nextMatch != null:
+return nextMatch();case _PreviousMatch() when previousMatch != null:
+return previousMatch();case _:
   return null;
 
 }
@@ -454,9 +478,173 @@ String toString() {
 
 
 /// @nodoc
+
+
+class _ToggleSearch implements CommandOutputEvent {
+  const _ToggleSearch();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ToggleSearch);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CommandOutputEvent.toggleSearch()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _UpdateSearchQuery implements CommandOutputEvent {
+  const _UpdateSearchQuery(this.query, this.text);
+  
+
+ final  String query;
+ final  String text;
+
+/// Create a copy of CommandOutputEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateSearchQueryCopyWith<_UpdateSearchQuery> get copyWith => __$UpdateSearchQueryCopyWithImpl<_UpdateSearchQuery>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateSearchQuery&&(identical(other.query, query) || other.query == query)&&(identical(other.text, text) || other.text == text));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,query,text);
+
+@override
+String toString() {
+  return 'CommandOutputEvent.updateSearchQuery(query: $query, text: $text)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateSearchQueryCopyWith<$Res> implements $CommandOutputEventCopyWith<$Res> {
+  factory _$UpdateSearchQueryCopyWith(_UpdateSearchQuery value, $Res Function(_UpdateSearchQuery) _then) = __$UpdateSearchQueryCopyWithImpl;
+@useResult
+$Res call({
+ String query, String text
+});
+
+
+
+
+}
+/// @nodoc
+class __$UpdateSearchQueryCopyWithImpl<$Res>
+    implements _$UpdateSearchQueryCopyWith<$Res> {
+  __$UpdateSearchQueryCopyWithImpl(this._self, this._then);
+
+  final _UpdateSearchQuery _self;
+  final $Res Function(_UpdateSearchQuery) _then;
+
+/// Create a copy of CommandOutputEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? query = null,Object? text = null,}) {
+  return _then(_UpdateSearchQuery(
+null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _NextMatch implements CommandOutputEvent {
+  const _NextMatch();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NextMatch);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CommandOutputEvent.nextMatch()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _PreviousMatch implements CommandOutputEvent {
+  const _PreviousMatch();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PreviousMatch);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CommandOutputEvent.previousMatch()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
 mixin _$CommandOutputState {
 
- String get currentEntryId; String get command; Duration? get autoRefreshInterval; bool get isRefreshing;
+ String get currentEntryId; String get command; Duration? get autoRefreshInterval; bool get isRefreshing; bool get isSearchVisible; String get searchQuery; List<int> get searchMatches; int get currentMatchIndex;
 /// Create a copy of CommandOutputState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -467,16 +655,16 @@ $CommandOutputStateCopyWith<CommandOutputState> get copyWith => _$CommandOutputS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CommandOutputState&&(identical(other.currentEntryId, currentEntryId) || other.currentEntryId == currentEntryId)&&(identical(other.command, command) || other.command == command)&&(identical(other.autoRefreshInterval, autoRefreshInterval) || other.autoRefreshInterval == autoRefreshInterval)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CommandOutputState&&(identical(other.currentEntryId, currentEntryId) || other.currentEntryId == currentEntryId)&&(identical(other.command, command) || other.command == command)&&(identical(other.autoRefreshInterval, autoRefreshInterval) || other.autoRefreshInterval == autoRefreshInterval)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isSearchVisible, isSearchVisible) || other.isSearchVisible == isSearchVisible)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&const DeepCollectionEquality().equals(other.searchMatches, searchMatches)&&(identical(other.currentMatchIndex, currentMatchIndex) || other.currentMatchIndex == currentMatchIndex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentEntryId,command,autoRefreshInterval,isRefreshing);
+int get hashCode => Object.hash(runtimeType,currentEntryId,command,autoRefreshInterval,isRefreshing,isSearchVisible,searchQuery,const DeepCollectionEquality().hash(searchMatches),currentMatchIndex);
 
 @override
 String toString() {
-  return 'CommandOutputState(currentEntryId: $currentEntryId, command: $command, autoRefreshInterval: $autoRefreshInterval, isRefreshing: $isRefreshing)';
+  return 'CommandOutputState(currentEntryId: $currentEntryId, command: $command, autoRefreshInterval: $autoRefreshInterval, isRefreshing: $isRefreshing, isSearchVisible: $isSearchVisible, searchQuery: $searchQuery, searchMatches: $searchMatches, currentMatchIndex: $currentMatchIndex)';
 }
 
 
@@ -487,7 +675,7 @@ abstract mixin class $CommandOutputStateCopyWith<$Res>  {
   factory $CommandOutputStateCopyWith(CommandOutputState value, $Res Function(CommandOutputState) _then) = _$CommandOutputStateCopyWithImpl;
 @useResult
 $Res call({
- String currentEntryId, String command, Duration? autoRefreshInterval, bool isRefreshing
+ String currentEntryId, String command, Duration? autoRefreshInterval, bool isRefreshing, bool isSearchVisible, String searchQuery, List<int> searchMatches, int currentMatchIndex
 });
 
 
@@ -504,13 +692,17 @@ class _$CommandOutputStateCopyWithImpl<$Res>
 
 /// Create a copy of CommandOutputState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentEntryId = null,Object? command = null,Object? autoRefreshInterval = freezed,Object? isRefreshing = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currentEntryId = null,Object? command = null,Object? autoRefreshInterval = freezed,Object? isRefreshing = null,Object? isSearchVisible = null,Object? searchQuery = null,Object? searchMatches = null,Object? currentMatchIndex = null,}) {
   return _then(_self.copyWith(
 currentEntryId: null == currentEntryId ? _self.currentEntryId : currentEntryId // ignore: cast_nullable_to_non_nullable
 as String,command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
 as String,autoRefreshInterval: freezed == autoRefreshInterval ? _self.autoRefreshInterval : autoRefreshInterval // ignore: cast_nullable_to_non_nullable
 as Duration?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,isSearchVisible: null == isSearchVisible ? _self.isSearchVisible : isSearchVisible // ignore: cast_nullable_to_non_nullable
+as bool,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,searchMatches: null == searchMatches ? _self.searchMatches : searchMatches // ignore: cast_nullable_to_non_nullable
+as List<int>,currentMatchIndex: null == currentMatchIndex ? _self.currentMatchIndex : currentMatchIndex // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -592,10 +784,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing,  bool isSearchVisible,  String searchQuery,  List<int> searchMatches,  int currentMatchIndex)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CommandOutputState() when $default != null:
-return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing);case _:
+return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing,_that.isSearchVisible,_that.searchQuery,_that.searchMatches,_that.currentMatchIndex);case _:
   return orElse();
 
 }
@@ -613,10 +805,10 @@ return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing,  bool isSearchVisible,  String searchQuery,  List<int> searchMatches,  int currentMatchIndex)  $default,) {final _that = this;
 switch (_that) {
 case _CommandOutputState():
-return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing);}
+return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing,_that.isSearchVisible,_that.searchQuery,_that.searchMatches,_that.currentMatchIndex);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -630,10 +822,10 @@ return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String currentEntryId,  String command,  Duration? autoRefreshInterval,  bool isRefreshing,  bool isSearchVisible,  String searchQuery,  List<int> searchMatches,  int currentMatchIndex)?  $default,) {final _that = this;
 switch (_that) {
 case _CommandOutputState() when $default != null:
-return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing);case _:
+return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_that.isRefreshing,_that.isSearchVisible,_that.searchQuery,_that.searchMatches,_that.currentMatchIndex);case _:
   return null;
 
 }
@@ -645,13 +837,23 @@ return $default(_that.currentEntryId,_that.command,_that.autoRefreshInterval,_th
 
 
 class _CommandOutputState implements CommandOutputState {
-  const _CommandOutputState({required this.currentEntryId, required this.command, this.autoRefreshInterval, this.isRefreshing = false});
+  const _CommandOutputState({required this.currentEntryId, required this.command, this.autoRefreshInterval, this.isRefreshing = false, this.isSearchVisible = false, this.searchQuery = '', final  List<int> searchMatches = const <int>[], this.currentMatchIndex = -1}): _searchMatches = searchMatches;
   
 
 @override final  String currentEntryId;
 @override final  String command;
 @override final  Duration? autoRefreshInterval;
 @override@JsonKey() final  bool isRefreshing;
+@override@JsonKey() final  bool isSearchVisible;
+@override@JsonKey() final  String searchQuery;
+ final  List<int> _searchMatches;
+@override@JsonKey() List<int> get searchMatches {
+  if (_searchMatches is EqualUnmodifiableListView) return _searchMatches;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_searchMatches);
+}
+
+@override@JsonKey() final  int currentMatchIndex;
 
 /// Create a copy of CommandOutputState
 /// with the given fields replaced by the non-null parameter values.
@@ -663,16 +865,16 @@ _$CommandOutputStateCopyWith<_CommandOutputState> get copyWith => __$CommandOutp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CommandOutputState&&(identical(other.currentEntryId, currentEntryId) || other.currentEntryId == currentEntryId)&&(identical(other.command, command) || other.command == command)&&(identical(other.autoRefreshInterval, autoRefreshInterval) || other.autoRefreshInterval == autoRefreshInterval)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CommandOutputState&&(identical(other.currentEntryId, currentEntryId) || other.currentEntryId == currentEntryId)&&(identical(other.command, command) || other.command == command)&&(identical(other.autoRefreshInterval, autoRefreshInterval) || other.autoRefreshInterval == autoRefreshInterval)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isSearchVisible, isSearchVisible) || other.isSearchVisible == isSearchVisible)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&const DeepCollectionEquality().equals(other._searchMatches, _searchMatches)&&(identical(other.currentMatchIndex, currentMatchIndex) || other.currentMatchIndex == currentMatchIndex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentEntryId,command,autoRefreshInterval,isRefreshing);
+int get hashCode => Object.hash(runtimeType,currentEntryId,command,autoRefreshInterval,isRefreshing,isSearchVisible,searchQuery,const DeepCollectionEquality().hash(_searchMatches),currentMatchIndex);
 
 @override
 String toString() {
-  return 'CommandOutputState(currentEntryId: $currentEntryId, command: $command, autoRefreshInterval: $autoRefreshInterval, isRefreshing: $isRefreshing)';
+  return 'CommandOutputState(currentEntryId: $currentEntryId, command: $command, autoRefreshInterval: $autoRefreshInterval, isRefreshing: $isRefreshing, isSearchVisible: $isSearchVisible, searchQuery: $searchQuery, searchMatches: $searchMatches, currentMatchIndex: $currentMatchIndex)';
 }
 
 
@@ -683,7 +885,7 @@ abstract mixin class _$CommandOutputStateCopyWith<$Res> implements $CommandOutpu
   factory _$CommandOutputStateCopyWith(_CommandOutputState value, $Res Function(_CommandOutputState) _then) = __$CommandOutputStateCopyWithImpl;
 @override @useResult
 $Res call({
- String currentEntryId, String command, Duration? autoRefreshInterval, bool isRefreshing
+ String currentEntryId, String command, Duration? autoRefreshInterval, bool isRefreshing, bool isSearchVisible, String searchQuery, List<int> searchMatches, int currentMatchIndex
 });
 
 
@@ -700,13 +902,17 @@ class __$CommandOutputStateCopyWithImpl<$Res>
 
 /// Create a copy of CommandOutputState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentEntryId = null,Object? command = null,Object? autoRefreshInterval = freezed,Object? isRefreshing = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currentEntryId = null,Object? command = null,Object? autoRefreshInterval = freezed,Object? isRefreshing = null,Object? isSearchVisible = null,Object? searchQuery = null,Object? searchMatches = null,Object? currentMatchIndex = null,}) {
   return _then(_CommandOutputState(
 currentEntryId: null == currentEntryId ? _self.currentEntryId : currentEntryId // ignore: cast_nullable_to_non_nullable
 as String,command: null == command ? _self.command : command // ignore: cast_nullable_to_non_nullable
 as String,autoRefreshInterval: freezed == autoRefreshInterval ? _self.autoRefreshInterval : autoRefreshInterval // ignore: cast_nullable_to_non_nullable
 as Duration?,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,isSearchVisible: null == isSearchVisible ? _self.isSearchVisible : isSearchVisible // ignore: cast_nullable_to_non_nullable
+as bool,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,searchMatches: null == searchMatches ? _self._searchMatches : searchMatches // ignore: cast_nullable_to_non_nullable
+as List<int>,currentMatchIndex: null == currentMatchIndex ? _self.currentMatchIndex : currentMatchIndex // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

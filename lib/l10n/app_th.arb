@@ -394,5 +394,22 @@
   "tipsCoffeeAction": "ซื้อกาแฟให้ฉัน",
   "tipsContributeTitle": "มีส่วนร่วม",
   "tipsContributeDescription": "ช่วยแปลหรือมีส่วนร่วมเพื่อปรับปรุงแอป",
-  "tipsContributeAction": "ดูบน GitHub"
+  "tipsContributeAction": "ดูบน GitHub",
+  "placeholdersNoAutoFill": "ตัวแทนสถานที่จะไม่ถูกเติมโดยอัตโนมัติที่นี่ ป้อนค่าด้วยตนเองในคำสั่ง (เช่น %p = ชื่อแพ็กเกจ, %pid = ไอดีกระบวนการ)",
+  "placeholderPackageName": "ชื่อแพ็กเกจ (เช่น com.example.app)",
+  "placeholderProcessId": "ไอดีกระบวนการ",
+  "placeholderAllPids": "PIDs ทั้งหมด (แยกด้วยจุลภาค)",
+  "placeholderTotalRamFormatted": "RAM ทั้งหมด (จัดรูปแบบ)",
+  "placeholderTotalRamKb": "RAM ทั้งหมดใน KB",
+  "placeholderProcessState": "สถานะกระบวนการ",
+  "placeholderCachedMemoryKb": "หน่วยความจำแคชใน KB",
+  "placeholderServicesCount": "จำนวนบริการ",
+  "placeholderProcessCount": "จำนวนกระบวนการ",
+  "commandHintExample": "dumpsys meminfo com.example.app",
+  "editCommand": "แก้ไขคำสั่ง",
+  "searchOutput": "ค้นหาในเอาต์พุต...",
+  "matchCount": "{current} จาก {total}",
+  "noMatches": "ไม่มีรายการที่ตรงกัน",
+  "nextMatch": "ถัดไป",
+  "previousMatch": "ก่อนหน้า"
 }
