@@ -49,8 +49,9 @@ class CommandLogCommandsHeader extends StatelessWidget {
                   BlocSelector<CommandLogCommandsUiBloc, CommandLogCommandsUiState, bool>(
                     selector: (state) => state.showAddForm,
                     builder: (context, showAddForm) {
+                      if (showAddForm) return const SizedBox.shrink();
                       return IconButton(
-                        icon: Icon(showAddForm ? Icons.close : Icons.add, size: 24),
+                        icon: const Icon(Icons.add, size: 24),
                         onPressed: () => context.read<CommandLogCommandsUiBloc>().add(const CommandLogCommandsUiEvent.toggleAddForm()),
                       );
                     },
