@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - dev
+  pull_request:
+    branches:
+      - main
+      - dev
 
 jobs:
   build-android:
@@ -39,11 +43,13 @@ jobs:
           dart run build_runner build --delete-conflicting-outputs
 
       - name: 🔐 Decode Keystore
+        if: github.event_name != 'pull_request'
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE }}
         run: echo "$KEYSTORE_BASE64" | base64 --decode > ${{ github.workspace }}/keystore.jks
 
       - name: 📝 Update key.properties
+        if: github.event_name != 'pull_request'
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
@@ -55,9 +61,15 @@ jobs:
         shell: bash
 
       - name: 🏗️ Build APK
-        run: flutter build apk --target-platform android-arm64 --obfuscate --split-debug-info=build/app/outputs/symbols
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            flutter build apk --debug --target-platform android-arm64
+          else
+            flutter build apk --target-platform android-arm64 --obfuscate --split-debug-info=build/app/outputs/symbols
+          fi
 
       - name: 📤 Upload APK Artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: app-arm64-release
