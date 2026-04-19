@@ -1031,4 +1031,8 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tipsContributeAction => 'Ver no GitHub';
+
+  @override
+  String get placeholdersNoAutoFill =>
+      'Placeholders won't be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
 }

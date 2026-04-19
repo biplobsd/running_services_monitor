@@ -394,5 +394,6 @@
   "tipsCoffeeAction": "Buy Me a Coffee",
   "tipsContributeTitle": "Contribute",
   "tipsContributeDescription": "Help translate or contribute to improve the app.",
-  "tipsContributeAction": "View on GitHub"
+  "tipsContributeAction": "View on GitHub",
+  "placeholdersNoAutoFill": "Placeholders won't be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id)."
 }

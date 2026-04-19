@@ -1991,6 +1991,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View on GitHub'**
   String get tipsContributeAction;
+
+  /// No description provided for @placeholdersNoAutoFill.
+  ///
+  /// In en, this message translates to:
+  /// **'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).'**
+  String get placeholdersNoAutoFill;
 }
 
 class _AppLocalizationsDelegate

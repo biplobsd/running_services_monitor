@@ -271,6 +271,7 @@ abstract class L10nKeys {
   static const systemApp = 'systemApp';
   static const systemAppWarning = 'systemAppWarning';
   static const systemApps = 'systemApps';
+  static const placeholdersNoAutoFill = 'placeholdersNoAutoFill';
   static const tipsAndSupport = 'tipsAndSupport';
   static const tipsCoffeeAction = 'tipsCoffeeAction';
   static const tipsCoffeeDescription = 'tipsCoffeeDescription';
@@ -432,6 +433,7 @@ extension L10nResolver on AppLocalizations {
       'permissionSteps' => permissionSteps,
       'pid' => pid,
       'placeholders' => placeholders,
+      'placeholdersNoAutoFill' => placeholdersNoAutoFill,
       'playCommand' => playCommand,
       'privateOther' => privateOther,
       'process' => process,
