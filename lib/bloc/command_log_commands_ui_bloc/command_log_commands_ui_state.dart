@@ -8,4 +8,10 @@ class CommandLogCommandsUiState with _$CommandLogCommandsUiState {
   }) = _CommandLogCommandsUiState;
 
   const CommandLogCommandsUiState._();
+
+  @override
+  bool get showAddForm => mapOrNull((value) => value.showAddForm) ?? false;
+
+  @override
+  String? get loadingCommandId => mapOrNull((value) => value.loadingCommandId);
 }
