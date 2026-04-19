@@ -42,6 +42,11 @@ abstract class L10nKeys {
   static const commandDescription = 'commandDescription';
   static const commandLogs = 'commandLogs';
   static const commandOutput = 'commandOutput';
+  static const searchOutput = 'searchOutput';
+  static const matchCount = 'matchCount';
+  static const noMatches = 'noMatches';
+  static const nextMatch = 'nextMatch';
+  static const previousMatch = 'previousMatch';
   static const commandTitle = 'commandTitle';
   static const commands = 'commands';
   static const compareWith = 'compareWith';
@@ -358,6 +363,11 @@ extension L10nResolver on AppLocalizations {
       'commandDescription' => commandDescription,
       'commandLogs' => commandLogs,
       'commandOutput' => commandOutput,
+      'searchOutput' => searchOutput,
+      'matchCount' => matchCount(0, 0),
+      'noMatches' => noMatches,
+      'nextMatch' => nextMatch,
+      'previousMatch' => previousMatch,
       'commandTitle' => commandTitle,
       'commands' => commands,
       'compareWith' => compareWith,

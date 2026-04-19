@@ -9,8 +9,9 @@ import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/command_log_entry.dart';
 import 'package:running_services_monitor/core/utils/android_settings_helper.dart';
 import 'package:running_services_monitor/screens/widgets/common/auto_refresh_timer_button.dart';
-import 'package:running_services_monitor/screens/widgets/common/code_output_box.dart';
 import 'package:running_services_monitor/screens/widgets/common/loading_indicator.dart';
+import 'package:running_services_monitor/screens/widgets/command_output/command_output_highlighted_text.dart';
+import 'package:running_services_monitor/screens/widgets/command_output/command_output_search_bar.dart';
 
 class CommandOutputScreen extends StatefulWidget {
   final String entryId;
@@ -23,6 +24,8 @@ class CommandOutputScreen extends StatefulWidget {
 
 class _CommandOutputScreenState extends State<CommandOutputScreen> {
   late CommandOutputBloc bloc;
+  final TextEditingController searchController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -33,6 +36,8 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
 
   @override
   void dispose() {
+    searchController.dispose();
+    scrollController.dispose();
     bloc.close();
     super.dispose();
   }
@@ -73,6 +78,17 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                       },
                     ),
                     IconButton(
+                      icon: const Icon(Icons.search),
+                      tooltip: context.loc.search,
+                      onPressed: () {
+                        final shouldShowSearch = !outputState.isSearchVisible;
+                        if (!shouldShowSearch) {
+                          searchController.clear();
+                        }
+                        bloc.add(const CommandOutputEvent.toggleSearch());
+                      },
+                    ),
+                    IconButton(
                       icon: outputState.isRefreshing ? SizedBox(width: 24, height: 24, child: const LoadingIndicator()) : AppStyles.refreshIcon,
                       tooltip: context.loc.reExecute,
                       onPressed: outputState.isRefreshing ? null : () => bloc.add(const CommandOutputEvent.refresh()),
@@ -97,59 +113,95 @@ class _CommandOutputScreenState extends State<CommandOutputScreen> {
                     ),
                   ],
                 ),
-                body: CustomScrollView(
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        Container(
-                          margin: EdgeInsets.all(16),
-                          width: double.infinity,
-                          padding: EdgeInsets.all(12),
-                          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    context.loc.command,
-                                    style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-                                  ),
-                                  const Spacer(),
-                                  if (outputState.autoRefreshInterval != null)
-                                    Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.primaryContainer,
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        _formatDuration(outputState.autoRefreshInterval!),
-                                        style: AppStyles.smallStyle.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                body: Column(
+                  children: [
+                    BlocSelector<CommandOutputBloc, CommandOutputState, bool>(
+                      selector: (state) => state.isSearchVisible,
+                      builder: (context, isSearchVisible) {
+                        if (!isSearchVisible) {
+                          return const SizedBox.shrink();
+                        }
+                        return BlocSelector<CommandOutputBloc, CommandOutputState, (String, int, int)>(
+                          selector: (state) => (state.searchQuery, state.searchMatches.length, state.currentMatchIndex),
+                          builder: (context, searchState) {
+                            final outputText = entry.output.isEmpty ? context.loc.noOutput : entry.output;
+                            return CommandOutputSearchBar(
+                              searchQuery: searchState.$1,
+                              matchCount: searchState.$2,
+                              currentMatchIndex: searchState.$3,
+                              bloc: bloc,
+                              textController: searchController,
+                              outputText: outputText,
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    Expanded(
+                      child: CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          SliverList(
+                            delegate: SliverChildListDelegate([
+                              Container(
+                                margin: EdgeInsets.all(16),
+                                width: double.infinity,
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(8)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          context.loc.command,
+                                          style: AppStyles.captionStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                                         ),
-                                      ),
+                                        const Spacer(),
+                                        if (outputState.autoRefreshInterval != null)
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context).colorScheme.primaryContainer,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              _formatDuration(outputState.autoRefreshInterval!),
+                                              style: AppStyles.smallStyle.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
                                     ),
-                                ],
+                                    AppStyles.spacingH4,
+                                    SelectableText(
+                                      entry.command,
+                                      style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              AppStyles.spacingH4,
-                              SelectableText(
-                                entry.command,
-                                style: AppStyles.bodyStyle.copyWith(fontFamily: 'monospace', fontSize: 13),
+                              BlocSelector<CommandOutputBloc, CommandOutputState, (String, List<int>, int)>(
+                                selector: (state) => (state.searchQuery, state.searchMatches, state.currentMatchIndex),
+                                builder: (context, searchState) {
+                                  return CommandOutputHighlightedText(
+                                    text: entry.output.isEmpty ? context.loc.noOutput : entry.output,
+                                    searchQuery: searchState.$1,
+                                    searchMatches: searchState.$2,
+                                    currentMatchIndex: searchState.$3,
+                                    fontSize: 12,
+                                    textColor: const Color(0xFF4EC9B0),
+                                    backgroundColor: Colors.black,
+                                    scrollController: scrollController,
+                                  );
+                                },
                               ),
-                            ],
+                            ]),
                           ),
-                        ),
-                        CodeOutputBox(
-                          text: entry.output.isEmpty ? context.loc.noOutput : entry.output,
-                          fontSize: 12,
-                          textColor: const Color(0xFF4EC9B0),
-                          backgroundColor: Colors.black,
-                          horizontalScroll: true,
-                          hasBorder: true,
-                        ),
-                      ]),
+                        ],
+                      ),
                     ),
                   ],
                 ),

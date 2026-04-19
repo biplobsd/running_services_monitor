@@ -229,6 +229,21 @@
   "noModeAvailable": "No permission mode available",
   "commandLogs": "Command Logs",
   "commandOutput": "Command Output",
+  "searchOutput": "Search in output...",
+  "matchCount": "{current} of {total}",
+  "@matchCount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "noMatches": "No matches",
+  "nextMatch": "Next match",
+  "previousMatch": "Previous match",
   "noCommandLogs": "No commands executed yet",
   "clearLogs": "Clear Logs",
   "clearLogsConfirm": "Are you sure you want to clear all command logs?",

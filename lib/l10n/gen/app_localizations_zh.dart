@@ -524,6 +524,24 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get commandOutput => '命令输出';
 
+
+  @override
+  String get searchOutput => 'Search in output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get noMatches => 'No matches';
+
+  @override
+  String get nextMatch => 'Next match';
+
+  @override
+  String get previousMatch => 'Previous match';
+
   @override
   String get noCommandLogs => '尚未执行任何命令';
 

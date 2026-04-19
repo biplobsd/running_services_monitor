@@ -572,6 +572,24 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get commandOutput => 'ผลลัพธ์คำสั่ง';
 
+
+  @override
+  String get searchOutput => 'Search in output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get noMatches => 'No matches';
+
+  @override
+  String get nextMatch => 'Next match';
+
+  @override
+  String get previousMatch => 'Previous match';
+
   @override
   String get noCommandLogs => 'ยังไม่มีคำสั่งที่รัน';
 

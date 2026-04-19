@@ -577,6 +577,24 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get commandOutput => 'Komut Çıktısı';
 
+
+  @override
+  String get searchOutput => 'Search in output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get noMatches => 'No matches';
+
+  @override
+  String get nextMatch => 'Next match';
+
+  @override
+  String get previousMatch => 'Previous match';
+
   @override
   String get noCommandLogs => 'Henüz komut çalıştırılmadı';
 

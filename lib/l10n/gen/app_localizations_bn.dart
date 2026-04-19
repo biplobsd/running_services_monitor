@@ -573,6 +573,24 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get commandOutput => 'কমান্ড আউটপুট';
 
+
+  @override
+  String get searchOutput => 'Search in output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get noMatches => 'No matches';
+
+  @override
+  String get nextMatch => 'Next match';
+
+  @override
+  String get previousMatch => 'Previous match';
+
   @override
   String get noCommandLogs => 'এখনো কোনো কমান্ড কার্যকর হয়নি';
 

@@ -1122,6 +1122,36 @@ abstract class AppLocalizations {
   /// **'Command Output'**
   String get commandOutput;
 
+  /// No description provided for @searchOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in output...'**
+  String get searchOutput;
+
+  /// No description provided for @matchCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String matchCount(int current, int total);
+
+  /// No description provided for @noMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches'**
+  String get noMatches;
+
+  /// No description provided for @nextMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Next match'**
+  String get nextMatch;
+
+  /// No description provided for @previousMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous match'**
+  String get previousMatch;
+
   /// No description provided for @noCommandLogs.
   ///
   /// In en, this message translates to:

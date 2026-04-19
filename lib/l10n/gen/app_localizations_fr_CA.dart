@@ -571,6 +571,24 @@ class AppLocalizationsFrCa extends AppLocalizations {
   @override
   String get commandOutput => 'Sortie de commande';
 
+
+  @override
+  String get searchOutput => 'Search in output...';
+
+  @override
+  String matchCount(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
+  String get noMatches => 'No matches';
+
+  @override
+  String get nextMatch => 'Next match';
+
+  @override
+  String get previousMatch => 'Previous match';
+
   @override
   String get noCommandLogs => "Aucune commande exécutée pour l'instant";
 
