@@ -22,3 +22,6 @@ trigger: always_on
     - `lib/l10n/gen/app_localizations_en.dart` (English implementation)
     - All other `lib/l10n/gen/app_localizations_*.dart` locale files
     - `lib/l10n/gen/l10n_keys.dart` (key constants + resolver switch)
+
+## Post-work rule
+11. After completing any code changes, run `flutter analyze` and fix all reported errors and suggestions before finishing
