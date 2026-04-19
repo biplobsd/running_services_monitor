@@ -7,7 +7,7 @@ import 'package:running_services_monitor/core/extensions.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 import '../common/status_badge.dart';
 
-import 'package:running_services_monitor/l10n/app_localizations.dart';
+import 'package:running_services_monitor/l10n/gen/app_localizations.dart';
 
 String getProcessStateDescription(String state, AppLocalizations loc) {
   final lower = state.toLowerCase();
