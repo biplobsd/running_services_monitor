@@ -5,7 +5,6 @@ import 'package:running_services_monitor/bloc/useful_commands_bloc/useful_comman
 import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
-import 'package:running_services_monitor/screens/widgets/command_log/command_log_placeholder_info.dart';
 
 class CommandLogAddCommandForm extends StatelessWidget {
   final TextEditingController titleController;
@@ -77,8 +76,6 @@ class CommandLogAddCommandForm extends StatelessWidget {
               hintText: context.loc.commandHintExample,
             ),
           ),
-          SizedBox(height: 12),
-          const CommandLogPlaceholderInfo(),
           SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
