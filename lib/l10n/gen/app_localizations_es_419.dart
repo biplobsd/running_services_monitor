@@ -1038,7 +1038,7 @@ class AppLocalizationsEs419 extends AppLocalizations {
 
   @override
   String get placeholdersNoAutoFill =>
-      'Placeholders won't be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
+      'Placeholders won\'t be auto-filled here. Enter values manually in the command (e.g., %p = package name, %pid = process id).';
 
   @override
   String get placeholderPackageName => 'Package name (e.g., com.example.app)';
