@@ -51,13 +51,13 @@ class CommandLogBloc extends Bloc<CommandLogEvent, CommandLogState> {
   Future<void> _onExecuteCommand(_ExecuteCommand event, Emitter<CommandLogState> emit) async {
     emit(_Loading(value: state.value));
     try {
-      await _shizukuService.executeCommandStream(event.command).drain<void>();
-      final entries = _commandLogService.getEntries();
-      final latestEntryId = entries.isNotEmpty ? entries.first.id : null;
-      emit(_Success(value: entries, selectedEntryId: latestEntryId));
-    } catch (e) {
-      emit(_Error(value: state.value, message: e.toString()));
+      await _shizukuService.executeCommand(event.command);
+    } catch (_) {
+      // Command failed or errored — entry already logged by executeCommand with isSuccess: false
     }
+    final entries = _commandLogService.getEntries();
+    final latestEntryId = entries.isNotEmpty ? entries.first.id : null;
+    emit(_Success(value: entries, selectedEntryId: latestEntryId));
   }
 
   void _onSelectEntry(_SelectEntry event, Emitter<CommandLogState> emit) {
