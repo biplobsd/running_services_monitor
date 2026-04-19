@@ -30,7 +30,7 @@ With a clean and intuitive interface, you can easily view system and user apps, 
 - **Root & Shizuku Integration**: First checks for root permission, then falls back to Shizuku for advanced system interactions (where supported).
 - **Material Design 3**: A modern and beautiful UI that adapts to your device's theme.
 - **Dark/Light Mode**: Toggle between dark and light themes for comfortable viewing.
-- **Localization**: Support for English, Bangla, Chinese and other languages.
+- **Localization**: Support for English, Arabic, Bangla, German, Spanish, French (Canada), Hindi, Hungarian, Indonesian, Italian, Japanese, Portuguese, Russian, Thai, Turkish, Vietnamese, Chinese, and more.
 
 ## 📱 Screenshots
 
@@ -113,8 +113,8 @@ cd running_services_monitor
 flutter pub get
 
 # Generate code (Freezed models and localization)
-dart run build_runner build --delete-conflicting-outputs
 flutter gen-l10n
+dart run build_runner build --delete-conflicting-outputs
 
 # Run on connected device
 flutter run
@@ -138,7 +138,7 @@ Use the following prompt with an AI agent to automate the entire process:
 ```
 Add <language> localization to this project:
 1. Create app_<localeName>.arb in lib/l10n/ by translating all values from lib/l10n/app_en.arb. Keep the keys unchanged.
-2. Add the new locale to AppConstants.supportedLanguages in lib/core/constants.dart
+2. Add the new locale to AppConstants.languages in lib/core/constants.dart
 3. Add the locale to android/app/src/main/res/xml/locales_config.xml
 4. Run "flutter gen-l10n" and "dart run build_runner build --delete-conflicting-outputs" commands
 5. how to create a PR for this change
@@ -157,7 +157,7 @@ After completion, verify all translations are correct.
 3. Add the new language to `lib/core/constants.dart`:
 
    ```dart
-   static const List<Lang> supportedLangs = [
+   static const List<Lang> languages = [
      Lang(Locale('en'), 'English'),
      Lang(Locale('bn'), 'বাংলা'),
      Lang(Locale('zh'), '简体中文'),
@@ -165,9 +165,10 @@ After completion, verify all translations are correct.
    ];
    ```
 
-4. Run the following command in the project root:
+4. Run the following commands in the project root:
    ```bash
    flutter gen-l10n
+   dart run build_runner build --delete-conflicting-outputs
    ```
 
 #### Android Part
