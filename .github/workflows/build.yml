@@ -28,6 +28,7 @@ jobs:
           cache: gradle
 
       - name: 🛠️ Setup Flutter
+        id: flutter-action
         uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -36,6 +37,10 @@ jobs:
 
       - name: 📦 Install dependencies
         run: flutter pub get
+
+      - name: 🔨 Remove build id
+        shell: bash
+        run: sed -i -e 's/-Wl,/-Wl,--build-id=none,/' ${{ steps.flutter-action.outputs.pub-cache-path }}/hosted/*/jni-*/src/CMakeLists.txt
 
       - name: 🧠 Generate code
         run: |
