@@ -9,7 +9,9 @@ import 'bouncing_stars.dart';
 import 'tip_slide_card.dart';
 
 class SupportSlider extends StatefulWidget {
-  const SupportSlider({super.key});
+  final bool launchConfettiOnSlideChange;
+
+  const SupportSlider({super.key, this.launchConfettiOnSlideChange = true});
 
   @override
   State<SupportSlider> createState() => _SupportSliderState();
@@ -78,6 +80,8 @@ class _SupportSliderState extends State<SupportSlider> {
   void _onPageChanged(int index) {
     if (currentPage == index) return;
     setState(() => currentPage = index);
+
+    if (!widget.launchConfettiOnSlideChange) return;
 
     final isFirstVisit = !_visitedPages.contains(index);
     if (isFirstVisit) {

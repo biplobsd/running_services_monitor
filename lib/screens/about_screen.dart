@@ -130,7 +130,7 @@ class AboutScreen extends StatelessWidget {
                     ],
                   ),
                   AppStyles.spacingH16,
-                  const SupportSlider(),
+                  const SupportSlider(launchConfettiOnSlideChange: false),
                   SizedBox(height: 5),
                   Center(
                     child: Text(
