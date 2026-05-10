@@ -65,12 +65,19 @@ jobs:
           echo "storeFile=${{ github.workspace }}/keystore.jks" >> android/key.properties
         shell: bash
 
-      - name: 🏗️ Build APK
-        run: flutter build apk --release --target-platform android-arm64 --obfuscate --split-debug-info=build/app/outputs/symbols
+      - name: 🏗️ Build APKs (arm64 + armeabi-v7a)
+        run: flutter build apk --release --target-platform android-arm,android-arm64 --split-per-abi --obfuscate --split-debug-info=build/app/outputs/symbols
 
-      - name: 📤 Upload APK Artifact
+      - name: 📤 Upload arm64 APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-arm64-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          retention-days: 7
+
+      - name: 📤 Upload armeabi-v7a APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-armeabi-v7a-release
+          path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
           retention-days: 7
