@@ -30,6 +30,7 @@ class UsefulCommandsCommandTile extends StatelessWidget {
         '%pids': appProcessInfo.allPids.join(','),
         '%ram': appProcessInfo.totalRamInKb.formatRam(),
         '%ramKb': appProcessInfo.totalRamInKb.toStringAsFixed(0),
+        '%ramkb': appProcessInfo.totalRamInKb.toStringAsFixed(0),
         '%state': appProcessInfo.processState ?? '',
         '%cached': appProcessInfo.cachedMemoryKb.toStringAsFixed(0),
         '%svcCount': appProcessInfo.services.length.toString(),
