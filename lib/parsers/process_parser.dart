@@ -140,8 +140,8 @@ class ProcessParser {
     final processName = match.group(2) ?? '';
     final colonIdx = processName.indexOf(':');
     final packageName = colonIdx == -1 ? processName : processName.substring(0, colonIdx);
-    final pid = int.tryParse(match.group(1) ?? '') ?? 0;
-    if (packageName.isEmpty || pid <= 0) return null;
+    final pid = int.tryParse(match.group(1) ?? '');
+    if (packageName.isEmpty || pid == null || pid <= 0) return null;
 
     final prefix = line.substring(0, match.start);
     final headerMatch = RegExp(r'#\s*\d+:\s*(.*)$').firstMatch(prefix);

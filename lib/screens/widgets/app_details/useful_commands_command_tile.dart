@@ -38,8 +38,8 @@ class UsefulCommandsCommandTile extends StatelessWidget {
     };
 
     var result = command;
-    final sortedKeys = replacements.keys.toList()..sort((a, b) => b.length.compareTo(a.length));
-    for (final key in sortedKeys) {
+    final replacementKeysByLengthDesc = replacements.keys.toList()..sort((a, b) => b.length.compareTo(a.length));
+    for (final key in replacementKeysByLengthDesc) {
       result = result.replaceAll(key, replacements[key]!);
     }
     return result;
