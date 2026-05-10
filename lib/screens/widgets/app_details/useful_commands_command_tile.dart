@@ -22,17 +22,25 @@ class UsefulCommandsCommandTile extends StatelessWidget {
   });
 
   String _replaceplaceholders(String command) {
-    String result = command.replaceAll('%p', packageName);
-    if (appInfo != null) {
-      result = result
-          .replaceAll('%pid', appInfo!.pids.isNotEmpty ? appInfo!.pids.first.toString() : '')
-          .replaceAll('%pids', appInfo!.pids.join(','))
-          .replaceAll('%ram', appInfo!.totalRamInKb.formatRam())
-          .replaceAll('%ramKb', appInfo!.totalRamInKb.toStringAsFixed(0))
-          .replaceAll('%state', appInfo!.processState ?? '')
-          .replaceAll('%cached', appInfo!.cachedMemoryKb.toStringAsFixed(0))
-          .replaceAll('%svcCount', appInfo!.services.length.toString())
-          .replaceAll('%procCount', appInfo!.processCount.toString());
+    final appProcessInfo = appInfo;
+    final replacements = {
+      '%p': packageName,
+      if (appProcessInfo != null) ...{
+        '%pid': appProcessInfo.pids.isNotEmpty ? appProcessInfo.pids.first.toString() : '',
+        '%pids': appProcessInfo.pids.join(','),
+        '%ram': appProcessInfo.totalRamInKb.formatRam(),
+        '%ramKb': appProcessInfo.totalRamInKb.toStringAsFixed(0),
+        '%state': appProcessInfo.processState ?? '',
+        '%cached': appProcessInfo.cachedMemoryKb.toStringAsFixed(0),
+        '%svcCount': appProcessInfo.services.length.toString(),
+        '%procCount': appProcessInfo.processCount.toString(),
+      },
+    };
+
+    var result = command;
+    final sortedKeys = replacements.keys.toList()..sort((a, b) => b.length.compareTo(a.length));
+    for (final key in sortedKeys) {
+      result = result.replaceAll(key, replacements[key]!);
     }
     return result;
   }
