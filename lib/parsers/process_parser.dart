@@ -81,8 +81,9 @@ Map<String, AppProcessInfo> computeEnrichAppsWithRamInfo(Map<String, dynamic> pa
 
 class ProcessParser {
   static final serviceRecordRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+)');
-  static final _processRecordRegex = RegExp(r'(\d+):([^/]+)/u(\d+)a(\d+)');
-  static final _lruLineRegex = RegExp(r'#\s*\d+:\s*(\S+(?:\s*\+\s*\d+)?)\s+(\S+)\s+\S+\s+(\d+):([^/]+)/u(\d+)a(\d+)');
+  static final _processRecordRegex = RegExp(r'(\d+):([^/\s]+)/([^\s}]+)');
+  static final _lruProcessRegex = RegExp(r'(\d+):([^/\s]+)/([^\s]+)');
+  static final _lruHeaderRegex = RegExp(r'#\s*\d+:\s*(.*)$');
   static final _ramLineRegex = RegExp(r'^\s*([\d,]+)K:\s+(\S+)\s+\(pid\s+(\d+)');
   static final _connectionRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+):@([a-f0-9]+)\s+flags=(0x[a-f0-9]+)');
   static final _pssLineRegex = RegExp(r'^\s*([\d,]+)K:\s+([a-zA-Z0-9._:]+)(?:\s+\(pid\s+(\d+))?', caseSensitive: false);
@@ -93,6 +94,9 @@ class ProcessParser {
   static final _lostRamRegex = RegExp(r'Lost RAM:\s+([\d,]+)K');
   static final _zramRegex = RegExp(r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)');
   static final _tuningRegex = RegExp(r'Tuning:.*oom\s+([\d,]+)K.*restore limit\s+([\d,]+)K');
+  static final _uidUserAppRegex = RegExp(r'^u(\d+)a(\d+)$');
+  static final _uidUserIsolatedRegex = RegExp(r'^u(\d+)i(\d+)$');
+  static final _uidSystemRegex = RegExp(r'^s(\d+)$');
 
   static double calculateTotalRamKb({
     required List<RunningServiceInfo> services,
@@ -134,20 +138,53 @@ class ProcessParser {
 
   static ({String packageName, String state, String adj, int pid, int uid})? parseLruLine(String line) {
     if (!line.trimLeft().startsWith('#')) return null;
-
-    final match = _lruLineRegex.firstMatch(line);
+    final match = _lruProcessRegex.firstMatch(line);
     if (match == null) return null;
 
-    final processName = match.group(4) ?? '';
+    final processName = match.group(2) ?? '';
     final colonIdx = processName.indexOf(':');
+    final packageName = colonIdx == -1 ? processName : processName.substring(0, colonIdx);
+    final pid = int.tryParse(match.group(1) ?? '');
+    if (packageName.isEmpty || pid == null || pid <= 0) return null;
 
-    return (
-      packageName: colonIdx == -1 ? processName : processName.substring(0, colonIdx),
-      state: match.group(1) ?? '',
-      adj: match.group(2) ?? '',
-      pid: int.parse(match.group(3) ?? '0'),
-      uid: (int.parse(match.group(5) ?? '0')) * 100000 + 10000 + (int.parse(match.group(6) ?? '0')),
-    );
+    final prefix = line.substring(0, match.start);
+    final headerMatch = _lruHeaderRegex.firstMatch(prefix);
+    final header = (headerMatch?.group(1) ?? '').trim();
+    final headerTokens = header.split(RegExp(r'\s+')).where((e) => e.isNotEmpty).toList();
+
+    final state = headerTokens.isNotEmpty ? headerTokens.first : '';
+    final adj = headerTokens.length > 1 ? headerTokens[1] : '';
+    final uid = _parseUid(match.group(3));
+
+    return (packageName: packageName, state: state, adj: adj, pid: pid, uid: uid);
+  }
+
+  static int _parseUid(String? uidToken) {
+    if (uidToken == null || uidToken.isEmpty) return 0;
+
+    final fullUid = int.tryParse(uidToken);
+    if (fullUid != null) return fullUid;
+
+    final uA = _uidUserAppRegex.firstMatch(uidToken);
+    if (uA != null) {
+      final user = int.tryParse(uA.group(1) ?? '0') ?? 0;
+      final app = int.tryParse(uA.group(2) ?? '0') ?? 0;
+      return user * 100000 + 10000 + app;
+    }
+
+    final uI = _uidUserIsolatedRegex.firstMatch(uidToken);
+    if (uI != null) {
+      final user = int.tryParse(uI.group(1) ?? '0') ?? 0;
+      final isolated = int.tryParse(uI.group(2) ?? '0') ?? 0;
+      return user * 100000 + isolated;
+    }
+
+    final system = _uidSystemRegex.firstMatch(uidToken);
+    if (system != null) {
+      return int.tryParse(system.group(1) ?? '0') ?? 0;
+    }
+
+    return 0;
   }
 
   static RunningServiceInfo? parseServiceBlock(List<String> lines, StringBuffer rawBuffer) {
@@ -239,7 +276,7 @@ class ProcessParser {
         if (pidMatch != null) {
           pid = int.tryParse(pidMatch.group(1) ?? '');
           appProcessRecord = pidMatch.group(2);
-          uid = (int.tryParse(pidMatch.group(3) ?? '0') ?? 0) * 100000 + 10000 + (int.tryParse(pidMatch.group(4) ?? '0') ?? 0);
+          uid = _parseUid(pidMatch.group(3));
         }
       }
     }

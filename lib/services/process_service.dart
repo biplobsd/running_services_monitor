@@ -63,7 +63,8 @@ class ProcessService {
       for (final entry in groupedApps.entries) {
         final lruInfo = lruProcesses[entry.key];
         if (lruInfo != null) {
-          final app = entry.value.copyWith(processState: lruInfo.state, adjLevel: lruInfo.adj);
+          final mergedPids = <int>{...entry.value.pids, lruInfo.pid};
+          final app = entry.value.copyWith(processState: lruInfo.state, adjLevel: lruInfo.adj, pids: mergedPids.toList());
           groupedApps[entry.key] = app;
           yield app;
         }
@@ -107,6 +108,7 @@ class ProcessService {
         final existingApp = entry.value;
         final meminfoRam = meminfoAppsMap[packageName];
         final processList = meminfoProcesses[packageName] ?? [];
+        final mergedPids = <int>{...existingApp.pids, ...processList.map((p) => p.pid).whereType<int>()};
 
         var updatedApp = existingApp;
 
@@ -120,6 +122,7 @@ class ProcessService {
 
         updatedApp = updatedApp.copyWith(
           services: enrichedServices,
+          pids: mergedPids.toList(),
           totalRamInKb: totalRamKb,
           ramSources: [...updatedApp.ramSources, ...ramSources],
           processes: processList.isNotEmpty ? processList : updatedApp.processes,

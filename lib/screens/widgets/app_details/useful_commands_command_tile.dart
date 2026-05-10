@@ -21,25 +21,33 @@ class UsefulCommandsCommandTile extends StatelessWidget {
     this.appInfo,
   });
 
-  String _replaceplaceholders(String command) {
-    String result = command.replaceAll('%p', packageName);
-    if (appInfo != null) {
-      result = result
-          .replaceAll('%pid', appInfo!.pids.isNotEmpty ? appInfo!.pids.first.toString() : '')
-          .replaceAll('%pids', appInfo!.pids.join(','))
-          .replaceAll('%ram', appInfo!.totalRamInKb.formatRam())
-          .replaceAll('%ramKb', appInfo!.totalRamInKb.toStringAsFixed(0))
-          .replaceAll('%state', appInfo!.processState ?? '')
-          .replaceAll('%cached', appInfo!.cachedMemoryKb.toStringAsFixed(0))
-          .replaceAll('%svcCount', appInfo!.services.length.toString())
-          .replaceAll('%procCount', appInfo!.processCount.toString());
+  String _replacePlaceholders(String command) {
+    final appProcessInfo = appInfo;
+    final replacements = {
+      '%p': packageName,
+      if (appProcessInfo != null) ...{
+        '%pid': appProcessInfo.allPids.isNotEmpty ? appProcessInfo.allPids.first.toString() : '',
+        '%pids': appProcessInfo.allPids.join(','),
+        '%ram': appProcessInfo.totalRamInKb.formatRam(),
+        '%ramKb': appProcessInfo.totalRamInKb.toStringAsFixed(0),
+        '%state': appProcessInfo.processState ?? '',
+        '%cached': appProcessInfo.cachedMemoryKb.toStringAsFixed(0),
+        '%svcCount': appProcessInfo.services.length.toString(),
+        '%procCount': appProcessInfo.processCount.toString(),
+      },
+    };
+
+    var result = command;
+    final replacementKeysByLengthDesc = replacements.keys.toList()..sort((a, b) => b.length.compareTo(a.length));
+    for (final key in replacementKeysByLengthDesc) {
+      result = result.replaceAll(key, replacements[key]!);
     }
     return result;
   }
 
   void _executeCommand(BuildContext context) {
     context.read<UsefulCommandsUiBloc>().add(UsefulCommandsUiEvent.setLoadingCommand(command.id));
-    final actualCommand = _replaceplaceholders(command.command);
+    final actualCommand = _replacePlaceholders(command.command);
     getIt<CommandLogBloc>().add(CommandLogEvent.executeCommand(actualCommand));
   }
 
