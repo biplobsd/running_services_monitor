@@ -21,7 +21,7 @@ class UsefulCommandsCommandTile extends StatelessWidget {
     this.appInfo,
   });
 
-  String _replaceplaceholders(String command) {
+  String _replacePlaceholders(String command) {
     final appProcessInfo = appInfo;
     final replacements = {
       '%p': packageName,
@@ -47,7 +47,7 @@ class UsefulCommandsCommandTile extends StatelessWidget {
 
   void _executeCommand(BuildContext context) {
     context.read<UsefulCommandsUiBloc>().add(UsefulCommandsUiEvent.setLoadingCommand(command.id));
-    final actualCommand = _replaceplaceholders(command.command);
+    final actualCommand = _replacePlaceholders(command.command);
     getIt<CommandLogBloc>().add(CommandLogEvent.executeCommand(actualCommand));
   }
 
