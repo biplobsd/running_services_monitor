@@ -83,6 +83,7 @@ class ProcessParser {
   static final serviceRecordRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+)');
   static final _processRecordRegex = RegExp(r'(\d+):([^/\s]+)/([^\s}]+)');
   static final _lruProcessRegex = RegExp(r'(\d+):([^/\s]+)/([^\s]+)');
+  static final _lruHeaderRegex = RegExp(r'#\s*\d+:\s*(.*)$');
   static final _ramLineRegex = RegExp(r'^\s*([\d,]+)K:\s+(\S+)\s+\(pid\s+(\d+)');
   static final _connectionRegex = RegExp(r'([a-zA-Z0-9._]+)/\.?([A-Za-z0-9.$]+):@([a-f0-9]+)\s+flags=(0x[a-f0-9]+)');
   static final _pssLineRegex = RegExp(r'^\s*([\d,]+)K:\s+([a-zA-Z0-9._:]+)(?:\s+\(pid\s+(\d+))?', caseSensitive: false);
@@ -93,6 +94,9 @@ class ProcessParser {
   static final _lostRamRegex = RegExp(r'Lost RAM:\s+([\d,]+)K');
   static final _zramRegex = RegExp(r'ZRAM:\s+([\d,]+)K\s+physical\s+used\s+for\s+([\d,]+)K\s+in\s+swap\s*\(\s*([\d,]+)K\s+total\s+swap\)');
   static final _tuningRegex = RegExp(r'Tuning:.*oom\s+([\d,]+)K.*restore limit\s+([\d,]+)K');
+  static final _uidUserAppRegex = RegExp(r'^u(\d+)a(\d+)$');
+  static final _uidUserIsolatedRegex = RegExp(r'^u(\d+)i(\d+)$');
+  static final _uidSystemRegex = RegExp(r'^s(\d+)$');
 
   static double calculateTotalRamKb({
     required List<RunningServiceInfo> services,
@@ -144,7 +148,7 @@ class ProcessParser {
     if (packageName.isEmpty || pid == null || pid <= 0) return null;
 
     final prefix = line.substring(0, match.start);
-    final headerMatch = RegExp(r'#\s*\d+:\s*(.*)$').firstMatch(prefix);
+    final headerMatch = _lruHeaderRegex.firstMatch(prefix);
     final header = (headerMatch?.group(1) ?? '').trim();
     final headerTokens = header.split(RegExp(r'\s+')).where((e) => e.isNotEmpty).toList();
 
@@ -161,21 +165,21 @@ class ProcessParser {
     final fullUid = int.tryParse(uidToken);
     if (fullUid != null) return fullUid;
 
-    final uA = RegExp(r'^u(\d+)a(\d+)$').firstMatch(uidToken);
+    final uA = _uidUserAppRegex.firstMatch(uidToken);
     if (uA != null) {
       final user = int.tryParse(uA.group(1) ?? '0') ?? 0;
       final app = int.tryParse(uA.group(2) ?? '0') ?? 0;
       return user * 100000 + 10000 + app;
     }
 
-    final uI = RegExp(r'^u(\d+)i(\d+)$').firstMatch(uidToken);
+    final uI = _uidUserIsolatedRegex.firstMatch(uidToken);
     if (uI != null) {
       final user = int.tryParse(uI.group(1) ?? '0') ?? 0;
       final isolated = int.tryParse(uI.group(2) ?? '0') ?? 0;
       return user * 100000 + isolated;
     }
 
-    final system = RegExp(r'^s(\d+)$').firstMatch(uidToken);
+    final system = _uidSystemRegex.firstMatch(uidToken);
     if (system != null) {
       return int.tryParse(system.group(1) ?? '0') ?? 0;
     }
