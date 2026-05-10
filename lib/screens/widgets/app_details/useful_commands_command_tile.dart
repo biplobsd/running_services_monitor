@@ -26,8 +26,8 @@ class UsefulCommandsCommandTile extends StatelessWidget {
     final replacements = {
       '%p': packageName,
       if (appProcessInfo != null) ...{
-        '%pid': appProcessInfo.pids.isNotEmpty ? appProcessInfo.pids.first.toString() : '',
-        '%pids': appProcessInfo.pids.join(','),
+        '%pid': appProcessInfo.allPids.isNotEmpty ? appProcessInfo.allPids.first.toString() : '',
+        '%pids': appProcessInfo.allPids.join(','),
         '%ram': appProcessInfo.totalRamInKb.formatRam(),
         '%ramKb': appProcessInfo.totalRamInKb.toStringAsFixed(0),
         '%state': appProcessInfo.processState ?? '',
