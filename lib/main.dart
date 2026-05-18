@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,6 +19,14 @@ import 'core/routing/app_router.dart';
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+      ),
+    );
     HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: HydratedStorageDirectory((await getApplicationDocumentsDirectory()).path),
     );
@@ -78,40 +88,49 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           bloc: getIt<LanguageBloc>(),
           selector: (state) => state.locale,
           builder: (context, locale) {
-            return MaterialApp.router(
-              routerConfig: router,
-              onGenerateTitle: (context) => context.loc.appTitle,
-              localeResolutionCallback: (locale, supportedLocales) {
-                for (final supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale?.languageCode) {
-                    return supportedLocale;
-                  }
-                }
-                return const Locale('en');
+            return DynamicColorBuilder(
+              builder: (lightDynamic, darkDynamic) {
+                final lightColorScheme =
+                    lightDynamic ?? ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light);
+                final darkColorScheme =
+                    darkDynamic ?? ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark);
+
+                return MaterialApp.router(
+                  routerConfig: router,
+                  onGenerateTitle: (context) => context.loc.appTitle,
+                  localeResolutionCallback: (locale, supportedLocales) {
+                    for (final supportedLocale in supportedLocales) {
+                      if (supportedLocale.languageCode == locale?.languageCode) {
+                        return supportedLocale;
+                      }
+                    }
+                    return const Locale('en');
+                  },
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  locale: locale,
+                  debugShowCheckedModeBanner: false,
+                  scrollBehavior: const MaterialScrollBehavior().copyWith(
+                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                  ),
+                  theme: ThemeData(
+                    colorScheme: lightColorScheme,
+                    useMaterial3: true,
+                    appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
+                  ),
+                  darkTheme: ThemeData(
+                    colorScheme: darkColorScheme,
+                    useMaterial3: true,
+                    appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
+                  ),
+                  themeMode: themeMode,
+                );
               },
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: AppLocalizations.supportedLocales,
-              locale: locale,
-              debugShowCheckedModeBanner: false,
-              scrollBehavior: const MaterialScrollBehavior().copyWith(
-                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-              ),
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.light),
-                useMaterial3: true,
-                appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-              ),
-              darkTheme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
-                useMaterial3: true,
-                appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
-              ),
-              themeMode: themeMode,
             );
           },
         );
