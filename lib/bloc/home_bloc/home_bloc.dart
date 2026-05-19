@@ -22,6 +22,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   final ShizukuService _shizukuService;
   final ProcessService _processService;
   Timer? _autoUpdateTimer;
+  String? _confettiLastShownDate;
 
   HomeBloc(this._shizukuService, this._processService) : super(const HomeState.initial(HomeStateModel())) {
     on<_InitializeShizuku>(_onInitializeShizuku);
@@ -48,6 +49,20 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     return super.close();
   }
 
+
+  bool _isConfettiCooldownActive() {
+    final lastShownDate = _confettiLastShownDate;
+    if (lastShownDate == null || lastShownDate.isEmpty) return false;
+
+    final lastDate = DateTime.tryParse(lastShownDate);
+    if (lastDate == null) return false;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final shownDay = DateTime(lastDate.year, lastDate.month, lastDate.day);
+    return today.difference(shownDay).inDays < 5;
+  }
+
   Future<void> _onInitializeShizuku(_InitializeShizuku event, Emitter<HomeState> emit) async {
     final isAlreadyReady = state.value.shizukuReady;
 
@@ -71,7 +86,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
       final isRunning = await _shizukuService.isShizukuRunning();
       if (!isRunning) {
-        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.shizukuNotRunning));
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: _isConfettiCooldownActive()), L10nKeys.shizukuNotRunning));
         return;
       }
 
@@ -79,14 +94,14 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       if (!hasPermission) {
         final granted = await _shizukuService.requestPermission();
         if (!granted) {
-          emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.permissionDeniedShizuku));
+          emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: _isConfettiCooldownActive()), L10nKeys.permissionDeniedShizuku));
           return;
         }
       }
 
       final initialized = await _shizukuService.initialize();
       if (!initialized) {
-        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.failedToInitialize));
+        emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: _isConfettiCooldownActive()), L10nKeys.failedToInitialize));
         return;
       }
 
@@ -95,7 +110,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
       add(HomeEvent.loadData(silent: event.silent, notify: event.notify));
     } catch (e, s) {
       logError(e, s);
-      emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: false), L10nKeys.errorInitializingShizuku));
+      emit(HomeState.failure(state.value.copyWith(shizukuReady: false, confettiShown: _isConfettiCooldownActive()), L10nKeys.errorInitializingShizuku));
     }
   }
 
@@ -318,6 +333,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onMarkConfettiShown(_MarkConfettiShown event, Emitter<HomeState> emit) async {
+    _confettiLastShownDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     emit(HomeState.success(state.value.copyWith(confettiShown: true)));
   }
 
@@ -337,7 +353,8 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
   HomeState? fromJson(Map<String, dynamic> json) {
     try {
       final model = HomeStateModel.fromJson(json);
-      return HomeState.success(model);
+      _confettiLastShownDate = json['confettiLastShownDate'] as String?;
+      return HomeState.success(model.copyWith(confettiShown: _isConfettiCooldownActive()));
     } catch (e, s) {
       logError(e, s);
       return null;
@@ -346,6 +363,10 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
   @override
   Map<String, dynamic>? toJson(HomeState state) {
-    return state.value.toJson();
+    final json = state.value.toJson();
+    if (_confettiLastShownDate != null && _confettiLastShownDate!.isNotEmpty) {
+      json['confettiLastShownDate'] = _confettiLastShownDate;
+    }
+    return json;
   }
 }

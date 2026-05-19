@@ -50,7 +50,7 @@ class _LinearProgressState extends State<LinearProgress> with SingleTickerProvid
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final active = widget.activeColor ?? colorScheme.primary;
-    final track = widget.trackColor ?? colorScheme.surfaceContainerHighest;
+    final track = widget.trackColor ?? colorScheme.outlineVariant.withValues(alpha: Theme.of(context).brightness == Brightness.light ? 0.55 : 0.4);
 
     const trackHeight = 8.0;
     const waveAmplitude = 3.0;
