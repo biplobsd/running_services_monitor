@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'progress_theme_colors.dart';
 
 class LinearProgress extends StatefulWidget {
   final double? value;
@@ -50,7 +51,7 @@ class _LinearProgressState extends State<LinearProgress> with SingleTickerProvid
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final active = widget.activeColor ?? colorScheme.primary;
-    final track = widget.trackColor ?? colorScheme.outlineVariant.withValues(alpha: Theme.of(context).brightness == Brightness.light ? 0.55 : 0.4);
+    final track = widget.trackColor ?? defaultProgressTrackColor(context);
 
     const trackHeight = 8.0;
     const waveAmplitude = 3.0;
