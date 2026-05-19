@@ -36,6 +36,12 @@ void main() async {
   } catch (_) {}
 }
 
+
+const _kLightOutlineVariantAlpha = 0.24;
+const _kLightSurfaceContainerHighestAlpha = 0.12;
+const _kDarkOutlineVariantAlpha = 0.30;
+const _kDarkSurfaceContainerHighestAlpha = 0.20;
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -95,6 +101,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                 final darkColorScheme =
                     darkDynamic ?? ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark);
 
+                final adjustedLightColorScheme = lightColorScheme.copyWith(
+                  outlineVariant: Color.alphaBlend(lightColorScheme.onSurface.withValues(alpha: _kLightOutlineVariantAlpha), lightColorScheme.surface),
+                  surfaceContainerHighest: Color.alphaBlend(
+                    lightColorScheme.onSurface.withValues(alpha: _kLightSurfaceContainerHighestAlpha),
+                    lightColorScheme.surface,
+                  ),
+                );
+                final adjustedDarkColorScheme = darkColorScheme.copyWith(
+                  outlineVariant: Color.alphaBlend(darkColorScheme.onSurface.withValues(alpha: _kDarkOutlineVariantAlpha), darkColorScheme.surface),
+                  surfaceContainerHighest: Color.alphaBlend(darkColorScheme.onSurface.withValues(alpha: _kDarkSurfaceContainerHighestAlpha), darkColorScheme.surface),
+                );
+
                 return MaterialApp.router(
                   routerConfig: router,
                   onGenerateTitle: (context) => context.loc.appTitle,
@@ -119,12 +137,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   ),
                   theme: ThemeData(
-                    colorScheme: lightColorScheme,
+                    colorScheme: adjustedLightColorScheme,
                     useMaterial3: true,
                     appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
                   ),
                   darkTheme: ThemeData(
-                    colorScheme: darkColorScheme,
+                    colorScheme: adjustedDarkColorScheme,
                     useMaterial3: true,
                     appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
                   ),

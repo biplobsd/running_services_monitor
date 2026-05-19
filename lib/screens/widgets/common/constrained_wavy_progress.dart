@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'progress_theme_colors.dart';
 
 class ConstrainedWavyProgress extends StatefulWidget {
   final double value;
@@ -57,7 +56,7 @@ class _ConstrainedWavyProgressState extends State<ConstrainedWavyProgress> with 
     final colorScheme = Theme.of(context).colorScheme;
 
     final active = widget.activeColor ?? colorScheme.primary;
-    final track = widget.trackColor ?? defaultProgressTrackColor(context);
+    final track = widget.trackColor ?? colorScheme.surfaceContainerHighest;
 
     const trackHeight = 8.0;
     const waveAmplitude = 3.0;
