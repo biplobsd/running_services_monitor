@@ -35,6 +35,7 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
     on<_RemoveService>(_onRemoveService);
     on<_RemoveByPid>(_onRemoveByPid);
     on<_SetProcessFilter>(_onSetProcessFilter);
+    on<_SetSelectedUserFilter>(_onSetSelectedUserFilter);
     on<_ToggleSortOrder>(_onToggleSortOrder);
     on<_UpdateRamInfo>(_onUpdateRamInfo);
     on<_ToggleShowCoreApps>(_onToggleShowCoreApps);
@@ -306,6 +307,10 @@ class HomeBloc extends HydratedBloc<HomeEvent, HomeState> {
 
   Future<void> _onSetProcessFilter(_SetProcessFilter event, Emitter<HomeState> emit) async {
     emit(HomeState.success(state.value.copyWith(selectedProcessFilter: event.filter)));
+  }
+
+  Future<void> _onSetSelectedUserFilter(_SetSelectedUserFilter event, Emitter<HomeState> emit) async {
+    emit(HomeState.success(state.value.copyWith(selectedUserFilter: event.userFilter)));
   }
 
   Future<void> _onToggleSortOrder(_ToggleSortOrder event, Emitter<HomeState> emit) async {

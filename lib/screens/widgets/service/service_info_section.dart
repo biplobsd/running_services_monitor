@@ -25,6 +25,7 @@ class ServiceInfoSection extends StatelessWidget {
           DetailTile(icon: Icons.memory_rounded, label: context.loc.process, value: service.processName),
           if (service.pid != null) DetailTile(icon: Icons.tag_rounded, label: context.loc.pid, value: service.pid.toString()),
           if (service.uid != null) DetailTile(icon: Icons.person_rounded, label: context.loc.uid, value: service.uid.toString()),
+          DetailTile(icon: Icons.account_circle_rounded, label: context.loc.user, value: service.user),
           if (service.recentCallingUid != null)
             DetailTile(icon: Icons.call_made_rounded, label: context.loc.recentCallingUid, value: service.recentCallingUid.toString()),
           if (service.ramInKb != null)

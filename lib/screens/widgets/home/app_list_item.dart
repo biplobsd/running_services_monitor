@@ -32,21 +32,33 @@ class AppListItem extends StatelessWidget {
         child: AppIcon(appInfo: appInfo, size: 40),
       ),
       title: AppNameText(packageName: appInfo.packageName, maxLines: 1, overflow: TextOverflow.ellipsis, style: AppStyles.titleStyle),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(subtitleText, style: Theme.of(context).textTheme.bodySmall),
-          AppStyles.spacingH4,
-          Wrap(
-            spacing: 4,
-            runSpacing: 2,
+      subtitle: Builder(
+        builder: (context) {
+          final users = <String>{};
+          if (appInfo.user != null && appInfo.user!.isNotEmpty) {
+            users.add(appInfo.user!);
+          }
+          for (final service in appInfo.services) {
+            users.add(service.user);
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (appInfo.isActive) StatusBadge(label: loc.active, color: Colors.green),
-              if (appInfo.isCached) StatusBadge(label: loc.cached, color: Colors.grey),
-              if (appInfo.hasServices) StatusBadge(label: loc.services, color: Colors.blue),
+              Text(subtitleText, style: Theme.of(context).textTheme.bodySmall),
+              AppStyles.spacingH4,
+              Wrap(
+                spacing: 4,
+                runSpacing: 2,
+                children: [
+                  if (appInfo.isActive) StatusBadge(label: loc.active, color: Colors.green),
+                  if (appInfo.isCached) StatusBadge(label: loc.cached, color: Colors.grey),
+                  if (appInfo.hasServices) StatusBadge(label: loc.services, color: Colors.blue),
+                  for (final user in users) StatusBadge(label: '${loc.user} $user', color: Colors.indigo),
+                ],
+              ),
             ],
-          ),
-        ],
+          );
+        },
       ),
       trailing: BlocSelector<HomeBloc, HomeState, bool>(
         bloc: getIt<HomeBloc>(),

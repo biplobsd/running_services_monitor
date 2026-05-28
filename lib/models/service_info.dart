@@ -55,6 +55,7 @@ abstract class AppProcessInfo with _$AppProcessInfo {
     @Default(0) double cachedMemoryKb,
     @Default([]) List<ProcessEntry> processes,
     @Default(false) bool isCoreApp,
+    String? user,
   }) = _AppProcessInfo;
 
   factory AppProcessInfo.fromJson(Map<String, dynamic> json) => _$AppProcessInfoFromJson(json);

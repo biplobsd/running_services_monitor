@@ -98,6 +98,22 @@ class StateBadges extends StatelessWidget {
                 fontSize: 12,
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               ),
+            for (final user in (() {
+              final users = <String>{};
+              if (appInfo.user != null && appInfo.user!.isNotEmpty) {
+                users.add(appInfo.user!);
+              }
+              for (final service in appInfo.services) {
+                users.add(service.user);
+              }
+              return users;
+            })())
+              StatusBadge(
+                label: '${loc.user} $user',
+                color: Colors.indigo,
+                fontSize: 12,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              ),
             if (appInfo.processState != null)
               StatusBadge(
                 label: appInfo.processState!,
