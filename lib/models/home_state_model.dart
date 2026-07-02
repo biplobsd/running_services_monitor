@@ -21,6 +21,7 @@ abstract class HomeStateModel with _$HomeStateModel {
     @JsonKey(includeFromJson: false, includeToJson: false) @Default(false) bool isSearching,
     @JsonKey(includeFromJson: false, includeToJson: false) @Default('') String searchQuery,
     @JsonKey(includeFromJson: false, includeToJson: false) @Default(ProcessStateFilter.all) ProcessStateFilter selectedProcessFilter,
+    @JsonKey(includeFromJson: false, includeToJson: false) String? selectedUserFilter,
     @JsonKey(includeFromJson: false, includeToJson: false) @Default(false) bool sortAscending,
     @Default(false) bool showCoreApps,
     @Default(false) bool confettiShown,

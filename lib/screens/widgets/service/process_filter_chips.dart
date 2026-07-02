@@ -14,49 +14,85 @@ class ProcessFilterChips extends StatelessWidget {
 
   const ProcessFilterChips({super.key, required this.selectedFilter, required this.apps, required this.sortAscending});
 
+  List<String> _getUsers(List<AppProcessInfo> apps) {
+    final users = <String>{};
+    for (final app in apps) {
+      if (app.user != null && app.user!.isNotEmpty) {
+        users.add(app.user!);
+      }
+      for (final service in app.services) {
+        users.add(service.user);
+      }
+    }
+    final sorted = users.toList();
+    sorted.sort((a, b) => (int.tryParse(a) ?? 0).compareTo(int.tryParse(b) ?? 0));
+    return sorted;
+  }
+
   @override
   Widget build(BuildContext context) {
     final activeCount = apps.where((a) => a.isActive).length;
     final cachedCount = apps.where((a) => a.isCached).length;
     final servicesCount = apps.where((a) => a.hasServices).length;
+    final users = _getUsers(apps);
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Row(
-        children: [
-          FilterChipWidget(
-            label: context.loc.all,
-            isSelected: selectedFilter == ProcessStateFilter.all,
-            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.all)),
-            sortAscending: selectedFilter == ProcessStateFilter.all ? sortAscending : null,
+    return BlocSelector<HomeBloc, HomeState, String?>(
+      selector: (state) => state.value.selectedUserFilter,
+      builder: (context, selectedUserFilter) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            children: [
+              FilterChipWidget(
+                label: context.loc.all,
+                isSelected: selectedFilter == ProcessStateFilter.all && selectedUserFilter == null,
+                onSelected: () {
+                  context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.all));
+                  context.read<HomeBloc>().add(const HomeEvent.setSelectedUserFilter(null));
+                },
+                sortAscending: selectedFilter == ProcessStateFilter.all && selectedUserFilter == null ? sortAscending : null,
+              ),
+              AppStyles.spacing8,
+              FilterChipWidget(
+                label: '${context.loc.active} ($activeCount)',
+                isSelected: selectedFilter == ProcessStateFilter.active,
+                onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.active)),
+                color: Colors.green,
+                sortAscending: selectedFilter == ProcessStateFilter.active ? sortAscending : null,
+              ),
+              AppStyles.spacing8,
+              FilterChipWidget(
+                label: '${context.loc.services} ($servicesCount)',
+                isSelected: selectedFilter == ProcessStateFilter.withServices,
+                onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
+                color: Colors.blue,
+                sortAscending: selectedFilter == ProcessStateFilter.withServices ? sortAscending : null,
+              ),
+              AppStyles.spacing8,
+              FilterChipWidget(
+                label: '${context.loc.cached} ($cachedCount)',
+                isSelected: selectedFilter == ProcessStateFilter.cached,
+                onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.cached)),
+                color: Colors.grey,
+                sortAscending: selectedFilter == ProcessStateFilter.cached ? sortAscending : null,
+              ),
+              for (final user in users) ...[
+                AppStyles.spacing8,
+                FilterChipWidget(
+                  label: 'u$user (${apps.where((a) => a.user == user || a.services.any((s) => s.user == user)).length})',
+                  isSelected: selectedUserFilter == user,
+                  onSelected: () {
+                    final newFilter = selectedUserFilter == user ? null : user;
+                    context.read<HomeBloc>().add(HomeEvent.setSelectedUserFilter(newFilter));
+                  },
+                  color: Colors.indigo,
+                ),
+              ],
+            ],
           ),
-          AppStyles.spacing8,
-          FilterChipWidget(
-            label: '${context.loc.active} ($activeCount)',
-            isSelected: selectedFilter == ProcessStateFilter.active,
-            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.active)),
-            color: Colors.green,
-            sortAscending: selectedFilter == ProcessStateFilter.active ? sortAscending : null,
-          ),
-          AppStyles.spacing8,
-          FilterChipWidget(
-            label: '${context.loc.services} ($servicesCount)',
-            isSelected: selectedFilter == ProcessStateFilter.withServices,
-            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.withServices)),
-            color: Colors.blue,
-            sortAscending: selectedFilter == ProcessStateFilter.withServices ? sortAscending : null,
-          ),
-          AppStyles.spacing8,
-          FilterChipWidget(
-            label: '${context.loc.cached} ($cachedCount)',
-            isSelected: selectedFilter == ProcessStateFilter.cached,
-            onSelected: () => context.read<HomeBloc>().add(const HomeEvent.setProcessFilter(ProcessStateFilter.cached)),
-            color: Colors.grey,
-            sortAscending: selectedFilter == ProcessStateFilter.cached ? sortAscending : null,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

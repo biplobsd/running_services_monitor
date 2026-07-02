@@ -12,6 +12,7 @@ class HomeEvent with _$HomeEvent {
   const factory HomeEvent.removeService({required String packageName, required String serviceName}) = _RemoveService;
   const factory HomeEvent.removeByPid({required String packageName, required int pid}) = _RemoveByPid;
   const factory HomeEvent.setProcessFilter(ProcessStateFilter filter) = _SetProcessFilter;
+  const factory HomeEvent.setSelectedUserFilter(String? userFilter) = _SetSelectedUserFilter;
   const factory HomeEvent.toggleSortOrder() = _ToggleSortOrder;
   const factory HomeEvent.updateRamInfo(List<AppProcessInfo> apps, Future<SystemRamInfo?> systemRamInfoFuture, bool notify) =
       _UpdateRamInfo;

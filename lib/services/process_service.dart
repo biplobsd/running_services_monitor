@@ -64,7 +64,12 @@ class ProcessService {
         final lruInfo = lruProcesses[entry.key];
         if (lruInfo != null) {
           final mergedPids = <int>{...entry.value.pids, lruInfo.pid};
-          final app = entry.value.copyWith(processState: lruInfo.state, adjLevel: lruInfo.adj, pids: mergedPids.toList());
+          final app = entry.value.copyWith(
+            processState: lruInfo.state,
+            adjLevel: lruInfo.adj,
+            pids: mergedPids.toList(),
+            user: entry.value.user ?? lruInfo.user,
+          );
           groupedApps[entry.key] = app;
           yield app;
         }
@@ -212,7 +217,7 @@ class ProcessService {
     return app;
   }
 
-  Future<Map<String, ({String state, String adj, int pid, int uid})>> fetchLruProcesses() async {
+  Future<Map<String, ({String state, String adj, int pid, int uid, String user})>> fetchLruProcesses() async {
     final result = await shizukuService.executeCommand(AppConstants.cmdDumpsysActivityLru);
     if (result == null || result.isEmpty) return const {};
 

@@ -54,6 +54,12 @@ class ServiceProcessSection extends StatelessWidget {
                 if (service.uid != null)
                   ProcessInfoChip(label: context.loc.uid, value: service.uid.toString(), icon: Icons.person_rounded, color: colorScheme.secondary),
                 ProcessInfoChip(
+                  label: context.loc.user,
+                  value: service.user,
+                  icon: Icons.account_circle_rounded,
+                  color: Colors.indigo,
+                ),
+                ProcessInfoChip(
                   label: context.loc.type,
                   value: service.isSystemApp ? context.loc.systemApp : context.loc.userApp,
                   icon: Icons.category_rounded,

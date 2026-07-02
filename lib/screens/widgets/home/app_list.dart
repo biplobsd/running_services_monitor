@@ -48,7 +48,11 @@ class _AppListState extends State<AppList> with AutomaticKeepAliveClientMixin {
         builder: (context, cachedApps) {
           return BlocSelector<HomeBloc, HomeState, List<AppProcessInfo>>(
             selector: (state) {
-              final filteredApps = widget.apps.where((app) => state.value.selectedProcessFilter.matches(app)).toList();
+              var filteredApps = widget.apps.where((app) => state.value.selectedProcessFilter.matches(app)).toList();
+              final userFilter = state.value.selectedUserFilter;
+              if (userFilter != null && userFilter.isNotEmpty) {
+                filteredApps = filteredApps.where((app) => app.user == userFilter || app.services.any((s) => s.user == userFilter)).toList();
+              }
               return Helper.sortApps(filteredApps, state.value.sortAscending);
             },
             builder: (context, filteredApps) {

@@ -13,7 +13,7 @@ SystemRamInfo computeParseSystemRamInfo(String meminfoOutput) {
   return ProcessParser.parseSystemRamInfo(meminfoOutput);
 }
 
-Map<String, ({String state, String adj, int pid, int uid})> computeParseLruProcesses(String lruOutput) {
+Map<String, ({String state, String adj, int pid, int uid, String user})> computeParseLruProcesses(String lruOutput) {
   return ProcessParser.parseLruProcesses(lruOutput);
 }
 
@@ -136,7 +136,7 @@ class ProcessParser {
     return double.tryParse(value.replaceAll(',', '')) ?? 0.0;
   }
 
-  static ({String packageName, String state, String adj, int pid, int uid})? parseLruLine(String line) {
+  static ({String packageName, String state, String adj, int pid, int uid, String user})? parseLruLine(String line) {
     if (!line.trimLeft().startsWith('#')) return null;
     final match = _lruProcessRegex.firstMatch(line);
     if (match == null) return null;
@@ -156,7 +156,13 @@ class ProcessParser {
     final adj = headerTokens.length > 1 ? headerTokens[1] : '';
     final uid = _parseUid(match.group(3));
 
-    return (packageName: packageName, state: state, adj: adj, pid: pid, uid: uid);
+    final rawUserToken = match.group(3);
+    final userMatch = rawUserToken != null ? RegExp(r'^u(\d+)').firstMatch(rawUserToken) : null;
+    final parsedUser = userMatch?.group(1);
+    final derivedUser = uid > 0 ? (uid ~/ 100000).toString() : null;
+    final user = parsedUser ?? derivedUser ?? '0';
+
+    return (packageName: packageName, state: state, adj: adj, pid: pid, uid: uid, user: user);
   }
 
   static int _parseUid(String? uidToken) {
@@ -206,6 +212,7 @@ class ProcessParser {
     String? appProcessRecord;
     List<ConnectionRecord>? connections;
     bool hasBound = false;
+    String? parsedUser;
 
     for (var i = 0; i < lines.length; i++) {
       final line = lines[i];
@@ -237,6 +244,8 @@ class ProcessParser {
         }
         if (trimmed.startsWith('* ServiceRecord{')) {
           serviceName = serviceRecordRegex.firstMatch(trimmed)?.group(2);
+          final userMatch = RegExp(r'ServiceRecord\{[0-9a-fA-F]+\s+u(\d+)').firstMatch(trimmed);
+          parsedUser = userMatch?.group(1);
           continue;
         }
         if (trimmed.startsWith('* IntentBindRecord{')) {
@@ -288,8 +297,11 @@ class ProcessParser {
       rawBuffer.write('\n');
     }
 
+    final derivedUser = uid != null ? (uid ~/ 100000).toString() : null;
+    final user = parsedUser ?? derivedUser ?? '0';
+
     return RunningServiceInfo(
-      user: '0',
+      user: user,
       pid: pid,
       processName: processName ?? packageName,
       serviceName: serviceName,
@@ -428,7 +440,7 @@ class ProcessParser {
 
   static AppProcessInfo createLruAppInfo({
     required String packageName,
-    required ({String state, String adj, int pid, int uid}) lruInfo,
+    required ({String state, String adj, int pid, int uid, String user}) lruInfo,
     required Map<int, double> pidRamMap,
     required Map<String, double> processNameRamMap,
   }) {
@@ -452,6 +464,7 @@ class ProcessParser {
       adjLevel: lruInfo.adj,
       hasServices: false,
       ramSources: ramSource != null ? [ramSource] : const [],
+      user: lruInfo.user,
     );
   }
 
@@ -464,6 +477,7 @@ class ProcessParser {
     final enrichedServices = enrichServicesWithRam(services, pidRamMap);
     final pids = services.map((s) => s.pid).whereType<int>().toSet();
     final isSystemApp = services.isNotEmpty && services.first.isSystemApp;
+    final user = services.isNotEmpty ? services.first.user : null;
 
     final totalRamKb = calculateTotalRamKb(services: enrichedServices, packageName: packageName, pidRamMap: pidRamMap, processNameRamMap: processNameRamMap);
 
@@ -489,13 +503,14 @@ class ProcessParser {
       pids: pids.toList(),
       totalRamInKb: totalRamKb,
       ramSources: ramSources,
+      user: user,
     );
   }
 
-  static Map<String, ({String state, String adj, int pid, int uid})> parseLruProcesses(String result) {
+  static Map<String, ({String state, String adj, int pid, int uid, String user})> parseLruProcesses(String result) {
     if (result.isEmpty) return const {};
 
-    final processes = <String, ({String state, String adj, int pid, int uid})>{};
+    final processes = <String, ({String state, String adj, int pid, int uid, String user})>{};
     var start = 0;
 
     while (start < result.length) {
@@ -504,7 +519,7 @@ class ProcessParser {
 
       final parsed = parseLruLine(result.substring(start, end));
       if (parsed != null) {
-        processes[parsed.packageName] = (state: parsed.state, adj: parsed.adj, pid: parsed.pid, uid: parsed.uid);
+        processes[parsed.packageName] = (state: parsed.state, adj: parsed.adj, pid: parsed.pid, uid: parsed.uid, user: parsed.user);
       }
       start = end + 1;
     }

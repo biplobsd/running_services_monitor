@@ -95,6 +95,7 @@ _AppProcessInfo _$AppProcessInfoFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       isCoreApp: json['isCoreApp'] as bool? ?? false,
+      user: json['user'] as String?,
     );
 
 Map<String, dynamic> _$AppProcessInfoToJson(_AppProcessInfo instance) =>
@@ -112,6 +113,7 @@ Map<String, dynamic> _$AppProcessInfoToJson(_AppProcessInfo instance) =>
       'cachedMemoryKb': instance.cachedMemoryKb,
       'processes': instance.processes,
       'isCoreApp': instance.isCoreApp,
+      'user': instance.user,
     };
 
 _RamSourceInfo _$RamSourceInfoFromJson(Map<String, dynamic> json) =>
