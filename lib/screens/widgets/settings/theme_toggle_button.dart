@@ -7,25 +7,19 @@ import 'package:running_services_monitor/core/theme/theme_bloc.dart';
 class ThemeToggleButton extends StatelessWidget {
   const ThemeToggleButton({super.key});
 
-  AppThemeMode getNextThemeMode(AppThemeMode themeMode, Brightness brightness) {
+  AppThemeMode getNextThemeMode(AppThemeMode themeMode) {
     switch (themeMode) {
-      case AppThemeMode.light:
-        return brightness == Brightness.light
-            ? AppThemeMode.dark
-            : AppThemeMode.system;
-      case AppThemeMode.dark:
-        return brightness == Brightness.light
-            ? AppThemeMode.system
-            : AppThemeMode.light;
       case AppThemeMode.system:
-        return brightness == Brightness.light
-            ? AppThemeMode.light
-            : AppThemeMode.dark;
+        return AppThemeMode.light;
+      case AppThemeMode.light:
+        return AppThemeMode.dark;
+      case AppThemeMode.dark:
+        return AppThemeMode.system;
     }
   }
 
-  void onPressed(AppThemeMode themeMode, Brightness brightness) {
-    final newThemeMode = getNextThemeMode(themeMode, brightness);
+  void onPressed(AppThemeMode themeMode) {
+    final newThemeMode = getNextThemeMode(themeMode);
     getIt<ThemeBloc>().add(ThemeEvent.setTheme(mode: newThemeMode));
   }
 
@@ -35,7 +29,6 @@ class ThemeToggleButton extends StatelessWidget {
       bloc: getIt<ThemeBloc>(),
       selector: (state) => state,
       builder: (context, themeMode) {
-        final brightness = MediaQuery.platformBrightnessOf(context);
         final icon = switch (themeMode) {
           AppThemeMode.light => const Icon(Icons.light_mode),
           AppThemeMode.dark => const Icon(Icons.dark_mode),
@@ -43,7 +36,7 @@ class ThemeToggleButton extends StatelessWidget {
         };
         return IconButton(
           icon: icon,
-          onPressed: () => onPressed(themeMode, brightness),
+          onPressed: () => onPressed(themeMode),
           tooltip: context.loc.toggleTheme,
         );
       },

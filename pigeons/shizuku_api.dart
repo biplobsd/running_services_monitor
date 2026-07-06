@@ -59,6 +59,8 @@ abstract class ShizukuHostApi {
   AppInfoData? getAppInfo(String packageName, String? mode);
 
   String getAppVersion();
+
+  void applyThemeMode(int mode);
 }
 
 @EventChannelApi()
