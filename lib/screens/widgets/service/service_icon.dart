@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
+import 'package:running_services_monitor/core/utils/app_icon_cache.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 
 import 'default_service_icon.dart';
@@ -32,7 +33,13 @@ class ServiceIcon extends StatelessWidget {
           );
         }
 
-        return DefaultServiceIcon(service: service, size: size);
+        return Image.file(
+          AppIconCache.getIconFile(service.packageName),
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => DefaultServiceIcon(service: service, size: size),
+        );
       },
     );
   }

@@ -15,10 +15,12 @@ import 'core/extensions.dart';
 import 'core/theme/theme_bloc.dart';
 import 'bloc/language_bloc/language_bloc.dart';
 import 'core/routing/app_router.dart';
+import 'core/utils/app_icon_cache.dart';
 
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    await AppIconCache.initialize();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
