@@ -284,7 +284,7 @@ as Map<String, CachedAppInfo>,
 /// @nodoc
 mixin _$CachedAppInfo {
 
- String get appName;@Uint8ListConverter() Uint8List? get icon; bool get isSystemApp;
+ String get appName;@JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter() Uint8List? get icon; bool get isSystemApp;
 /// Create a copy of CachedAppInfo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -317,7 +317,7 @@ abstract mixin class $CachedAppInfoCopyWith<$Res>  {
   factory $CachedAppInfoCopyWith(CachedAppInfo value, $Res Function(CachedAppInfo) _then) = _$CachedAppInfoCopyWithImpl;
 @useResult
 $Res call({
- String appName,@Uint8ListConverter() Uint8List? icon, bool isSystemApp
+ String appName,@JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter() Uint8List? icon, bool isSystemApp
 });
 
 
@@ -424,7 +424,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appName, @Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String appName, @JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CachedAppInfo() when $default != null:
 return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
@@ -445,7 +445,7 @@ return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appName, @Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String appName, @JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)  $default,) {final _that = this;
 switch (_that) {
 case _CachedAppInfo():
 return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
@@ -465,7 +465,7 @@ return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appName, @Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String appName, @JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter()  Uint8List? icon,  bool isSystemApp)?  $default,) {final _that = this;
 switch (_that) {
 case _CachedAppInfo() when $default != null:
 return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
@@ -480,11 +480,11 @@ return $default(_that.appName,_that.icon,_that.isSystemApp);case _:
 @JsonSerializable()
 
 class _CachedAppInfo implements CachedAppInfo {
-  const _CachedAppInfo({required this.appName, @Uint8ListConverter() this.icon, this.isSystemApp = false});
+  const _CachedAppInfo({required this.appName, @JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter() this.icon, this.isSystemApp = false});
   factory _CachedAppInfo.fromJson(Map<String, dynamic> json) => _$CachedAppInfoFromJson(json);
 
 @override final  String appName;
-@override@Uint8ListConverter() final  Uint8List? icon;
+@override@JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter() final  Uint8List? icon;
 @override@JsonKey() final  bool isSystemApp;
 
 /// Create a copy of CachedAppInfo
@@ -520,7 +520,7 @@ abstract mixin class _$CachedAppInfoCopyWith<$Res> implements $CachedAppInfoCopy
   factory _$CachedAppInfoCopyWith(_CachedAppInfo value, $Res Function(_CachedAppInfo) _then) = __$CachedAppInfoCopyWithImpl;
 @override @useResult
 $Res call({
- String appName,@Uint8ListConverter() Uint8List? icon, bool isSystemApp
+ String appName,@JsonKey(includeFromJson: false, includeToJson: false)@Uint8ListConverter() Uint8List? icon, bool isSystemApp
 });
 
 

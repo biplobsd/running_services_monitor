@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_services_monitor/bloc/app_info_bloc/app_info_bloc.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
+import 'package:running_services_monitor/core/utils/app_icon_cache.dart';
 import 'package:running_services_monitor/models/service_info.dart';
 
 class AppIcon extends StatelessWidget {
@@ -26,7 +27,13 @@ class AppIcon extends StatelessWidget {
             return Image.memory(icon, width: size, height: size, gaplessPlayback: true);
           }
 
-          return Icon(Icons.android, size: size);
+          return Image.file(
+            AppIconCache.getIconFile(appInfo.packageName),
+            width: size,
+            height: size,
+            gaplessPlayback: true,
+            errorBuilder: (context, error, stackTrace) => Icon(Icons.android, size: size),
+          );
         },
       ),
     );

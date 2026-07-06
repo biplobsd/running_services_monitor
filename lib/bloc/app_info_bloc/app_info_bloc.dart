@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:running_services_monitor/core/utils/app_icon_cache.dart';
 import 'package:running_services_monitor/core/utils/log_helper.dart';
 import 'package:running_services_monitor/l10n/gen/l10n_keys.dart';
 import 'package:running_services_monitor/models/app_info_state_model.dart';
@@ -32,7 +33,11 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
       final Map<String, CachedAppInfo> newCachedApps = {};
       for (final entry in cachedAppsMap.entries) {
-        newCachedApps[entry.key] = CachedAppInfo(appName: entry.value.appName, icon: entry.value.icon, isSystemApp: entry.value.isSystemApp);
+        final iconBytes = entry.value.icon;
+        if (iconBytes != null && iconBytes.isNotEmpty) {
+          AppIconCache.saveIcon(entry.key, iconBytes);
+        }
+        newCachedApps[entry.key] = CachedAppInfo(appName: entry.value.appName, icon: iconBytes, isSystemApp: entry.value.isSystemApp);
       }
 
       emit(AppInfoState.success(state.value.copyWith(cachedApps: newCachedApps)));
@@ -47,8 +52,12 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
       final appInfo = await _appInfoService.getAppInfo(event.packageName, mode: event.mode);
       if (appInfo == null) return;
 
+      final iconBytes = appInfo.icon;
+      if (iconBytes != null && iconBytes.isNotEmpty) {
+        AppIconCache.saveIcon(event.packageName, iconBytes);
+      }
       final updatedCachedApps = Map<String, CachedAppInfo>.from(state.value.cachedApps);
-      updatedCachedApps[event.packageName] = CachedAppInfo(appName: appInfo.appName, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
+      updatedCachedApps[event.packageName] = CachedAppInfo(appName: appInfo.appName, icon: iconBytes, isSystemApp: appInfo.isSystemApp);
 
       emit(AppInfoState.success(state.value.copyWith(cachedApps: updatedCachedApps)));
     } catch (e, s) {
@@ -68,7 +77,11 @@ class AppInfoBloc extends HydratedBloc<AppInfoEvent, AppInfoState> {
 
         final appInfo = cachedAppsMap[packageName];
         if (appInfo != null) {
-          updatedCachedApps[packageName] = CachedAppInfo(appName: appInfo.appName, icon: appInfo.icon, isSystemApp: appInfo.isSystemApp);
+          final iconBytes = appInfo.icon;
+          if (iconBytes != null && iconBytes.isNotEmpty) {
+            AppIconCache.saveIcon(packageName, iconBytes);
+          }
+          updatedCachedApps[packageName] = CachedAppInfo(appName: appInfo.appName, icon: iconBytes, isSystemApp: appInfo.isSystemApp);
         }
       }
 
