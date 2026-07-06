@@ -1,1 +1,164 @@
-[]
+[
+  {
+    "version": "v1.0.26+25",
+    "title": "v1.0.26+25",
+    "body": "## What's Changed\r\n* Reduce About screen confetti noise while preserving popup behavior @talha5758 #27\r\n* Fix useful-command placeholder expansion and add armeabi-v7a GitHub Actions subbuild @demzl #26\r\n* Adopt device dynamic Material color schemes and enable edge-to-edge system UI @Brocman #29\r\n* Feature request show the serviceapp running by which user android may have multi users @nodejsg #31\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.25+24...v1.0.26+25",
+    "date": "2026-07-02T08:11:22Z"
+  },
+  {
+    "version": "v1.0.25+24",
+    "title": "v1.0.25+24",
+    "body": "## What's Changed\r\n* fix: disable Dart JNI build ID for F-Droid reproducible builds by @Copilot in #21 #22\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.24+23...v1.0.25+24",
+    "date": "2026-04-20T19:30:35Z"
+  },
+  {
+    "version": "v1.0.24+23",
+    "title": "v1.0.24+23",
+    "body": "## What's Changed\r\n* Add Spanish locale support across Flutter & Android by @Copilot in #17\r\n* Add 10 locales: id, ar, de, de_AT, tr, vi, th, hu, fr_CA, es_419 by @Copilot in #18\r\n* Expand rules.md by @Copilot in #19\r\n* Add in-output search & auto-scroll by @Copilot in #20\r\n* Pkgs updated\r\n* Fallback user service to .newProcess Shizuku\r\n* Slider & confetti support\r\n\r\nFull Changelog: https://github.com/biplobsd/running_services_monitor/compare/v1.0.23+22...v1.0.24+23",
+    "date": "2026-04-19T16:53:07Z"
+  },
+  {
+    "version": "v1.0.23+22",
+    "title": "v1.0.23+22",
+    "body": "## What's Changed\r\n* Updated packages and removed unused packages\r\n* Added Hindi and Portuguese languages\r\n* Updated Flutter version 3.41.2\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.22+21...v1.0.23+22",
+    "date": "2026-02-22T10:43:20Z"
+  },
+  {
+    "version": "v1.0.22+21",
+    "title": "v1.0.22+21",
+    "body": "## What's Changed\r\n* Increased dumpsys timeout limit to 120s\r\n* Added support for Russian and Japanese languages\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.21+20...v1.0.22+21",
+    "date": "2026-02-10T07:18:56Z"
+  },
+  {
+    "version": "v1.0.21+20",
+    "title": "v1.0.21+20",
+    "body": "## What's Changed\r\n* fix local fallback to en\r\n* update Flutter version & pks\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.20+19...v1.0.21+20",
+    "date": "2026-01-29T20:04:01Z"
+  },
+  {
+    "version": "v1.0.20+19",
+    "title": "v1.0.20+19",
+    "body": "## What's Changed\r\n- Removed --obfuscate from the release build for the FOSS release.\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.19+18...v1.0.20+19",
+    "date": "2026-01-10T20:24:31Z"
+  },
+  {
+    "version": "v1.0.19+18",
+    "title": "v1.0.19+18",
+    "body": "## What's Changed\r\n* Getting packages info without packageManager api\r\n* fixs, clean homescreen ui, language, system running service move about option\r\n* feat: support follow system theme in theme toggle by @FriesI23 in https://github.com/biplobsd/running_services_monitor/pull/12\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.18+17...v1.0.19+18",
+    "date": "2026-01-10T13:38:25Z"
+  },
+  {
+    "version": "v1.0.18+17",
+    "title": "v1.0.18+17",
+    "body": "## What's Changed\r\n- Fix search count tab and filter\r\n- Fix useful commands run\r\n- Added more charts & update dependencies\r\n- Used old ProGuard rules for #11 fix\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.17+16...v1.0.18+17",
+    "date": "2026-01-02T21:48:00Z"
+  },
+  {
+    "version": "v1.0.17+16",
+    "title": "v1.0.17+16",
+    "body": "## What's Changed\r\n- Update mirror from v1.0.16+15\r\n- Automatic refresh intervals\r\n- Show core apps\r\n- Compare meminfo\r\n- Stats and command plays\r\n- Optimization and bug fixes\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.16+15...v1.0.17+16",
+    "date": "2025-12-23T11:45:27Z"
+  },
+  {
+    "version": "v1.0.16+15",
+    "title": "v1.0.16+15",
+    "body": "## What's Changed\r\n- Automatic refresh intervals\r\n- Show core apps\r\n- Compare meminfo\r\n- Stats and command plays\r\n- Optimization and bug fixes\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.15+14...v1.0.16+15",
+    "date": "2025-12-23T11:30:52Z"
+  },
+  {
+    "version": "v1.0.15+14",
+    "title": "v1.0.15+14",
+    "body": "## What's Changed\r\n- Updated Shizuku API to v13.1.5, now using UserService\r\n- Added Working Mode and Command Logs screens\r\n- Added Device Memory Details\r\n- UI refined, optimized, updated dep. packages\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.14+13...v1.0.15+14",
+    "date": "2025-12-19T08:00:29Z"
+  },
+  {
+    "version": "v1.0.14+13",
+    "title": "v1.0.14+13",
+    "body": "## What's Changed\r\n* Material 3 expressive: refresh indicator, progress bar, and circular loading\r\n* Auto-refresh when the app resumes\r\n* Process status badge in app details\r\n* Code optimizations\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.13+12...v1.0.14+13",
+    "date": "2025-12-13T22:25:35Z"
+  },
+  {
+    "version": "v1.0.13+12",
+    "title": "v1.0.13+12",
+    "body": "## What's Changed\r\n- Added missing localizations texts\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.12+11...v1.0.13+12",
+    "date": "2025-12-11T21:53:05Z"
+  },
+  {
+    "version": "v1.0.12+11",
+    "title": "v1.0.12+11",
+    "body": "## What's Changed\r\n* Add Chinese translation by @FriesI23 in https://github.com/biplobsd/running_services_monitor/pull/5\r\n* Add Andoird app language support by @FriesI23 in https://github.com/biplobsd/running_services_monitor/pull/6\r\n*  Contributor list about screen\r\n\r\n## New Contributors\r\n* @FriesI23 made their first contribution in https://github.com/biplobsd/running_services_monitor/pull/5\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.11+10...v1.0.12+11",
+    "date": "2025-12-11T17:48:11Z"
+  },
+  {
+    "version": "v1.0.11+10",
+    "title": "v1.0.11+10",
+    "body": "## What's Changed\r\n\r\n* **docs:** Added F-Droid download option, improved documentation for root and Shizuku integration, and updated build instructions.\r\n* Optimized app size, updated packages, and applied fixes.\r\n* Fixed user and system app detection.\r\n* Added local caching for AppInfo to improve experience.\r\n\r\n**Full Changelog**: [https://github.com/biplobsd/running_services_monitor/compare/v1.0.10+9...v1.0.11+10](https://github.com/biplobsd/running_services_monitor/compare/v1.0.10+9...v1.0.11+10)",
+    "date": "2025-12-10T17:18:22Z"
+  },
+  {
+    "version": "v1.0.10+9",
+    "title": "v1.0.10+9",
+    "body": "## What's Changed\r\n\r\n- Removed the internet permission\r\n- Optimized some code\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.9+8...v1.0.10+9",
+    "date": "2025-12-09T06:22:21Z"
+  },
+  {
+    "version": "v1.0.9+8",
+    "title": "v1.0.9+8",
+    "body": "## What's Changed\r\n\r\n- Fixed RAM info\r\n- Fixed theme toggle\r\n- Updated Floating Action Button auto-size behavior\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.8+7...v1.0.9+8",
+    "date": "2025-12-07T10:56:38Z"
+  },
+  {
+    "version": "v1.0.8+7",
+    "title": "v1.0.8+7",
+    "body": "## What's Changed\r\n* feat: Add adaptive launcher icons monochrome by @biplobsd in https://github.com/biplobsd/running_services_monitor/pull/3 issues: #2 by @NielSync\r\n* Added initial root permission check\r\n* Added badges, status, and faster scan load\r\n* Added connection record\r\n* Overall fixes and UI improvements\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.7+6...v1.0.8+7",
+    "date": "2025-12-06T19:08:48Z"
+  },
+  {
+    "version": "v1.0.7+6",
+    "title": "v1.0.7+6",
+    "body": "## What\u2019s Changed\r\n- Added IzzyOnDroid badge in readme.md\r\n- Update Flutter version in pubspec.yaml\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.6+5...v1.0.7+6",
+    "date": "2025-12-03T20:24:13Z"
+  },
+  {
+    "version": "v1.0.6+5",
+    "title": "v1.0.6+5",
+    "body": "## What\u2019s Changed\r\n- Reduced build release sizes\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.5+4...v1.0.6+5",
+    "date": "2025-12-03T07:36:12Z"
+  },
+  {
+    "version": "v1.0.5+4",
+    "title": "v1.0.5+4",
+    "body": "\r\n## What\u2019s Changed\r\n\r\n\u2022 Removed Google's dependency metadata blob for enhanced privacy\r\n\u2022 Added per-ABI builds to significantly reduce APK size\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.4+3...v1.0.5+4",
+    "date": "2025-12-02T22:11:39Z"
+  },
+  {
+    "version": "v1.0.4+3",
+    "title": "v1.0.4+3",
+    "body": "**What\u2019s New in v1.0.4+3**\r\n\r\n* Updated **app branding** and improved the **splash screen**.\r\n* Implemented the full **Shizuku permission request flow** with refined UI.\r\n* Improved overall **responsive layout** across the app.\r\n* Added a new button to quickly open the system **Running Services** settings.\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.3+2...v1.0.4+3",
+    "date": "2025-11-30T16:13:25Z"
+  },
+  {
+    "version": "v1.0.3+2",
+    "title": "v1.0.3+2",
+    "body": "**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.2+1...v1.0.3+2\n\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.2+1...v1.0.3+2",
+    "date": "2025-11-24T18:37:45Z"
+  },
+  {
+    "version": "v1.0.2+1",
+    "title": "Release v1.0.2+1",
+    "body": "**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.1+1...v1.0.2+1",
+    "date": "2025-11-23T18:36:00Z"
+  },
+  {
+    "version": "v1.0.1+1",
+    "title": "Release v1.0.1+1",
+    "body": "**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.0+1...v1.0.1+1",
+    "date": "2025-11-22T23:18:08Z"
+  },
+  {
+    "version": "v1.0.0+1",
+    "title": "Release v1.0.0+1",
+    "body": "## What's Changed\r\n* Bloc by @biplobsd in https://github.com/biplobsd/running_services_monitor/pull/1\r\n\r\n## New Contributors\r\n* @biplobsd made their first contribution in https://github.com/biplobsd/running_services_monitor/pull/1",
+    "date": "2025-11-22T20:41:24Z"
+  }
+]
