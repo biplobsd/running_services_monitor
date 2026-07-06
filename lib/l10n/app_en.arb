@@ -152,6 +152,8 @@
   "followSystem": "System",
   "contributors": "Contributors",
   "contributionsCount": "{count} contributions",
+  "changelog": "Changes Log",
+  "noChangelog": "No changes log found",
   "checkingPermissions": "Checking permissions...",
   "shizukuNotRunning": "Shizuku is not running. Please start Shizuku app.",
   "permissionDeniedShizuku": "Permission denied. Please grant Shizuku permission.",

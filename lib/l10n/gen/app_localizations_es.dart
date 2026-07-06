@@ -403,6 +403,12 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => 'Comprobando permisos...';
 
   @override
@@ -1490,6 +1496,12 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
   String contributionsCount(Object count) {
     return '$count contribuciones';
   }
+
+  @override
+  String get changelog => 'Registro de cambios';
+
+  @override
+  String get noChangelog => 'No se encontró el registro de cambios';
 
   @override
   String get checkingPermissions => 'Verificando permisos...';

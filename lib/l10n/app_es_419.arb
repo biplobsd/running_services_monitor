@@ -151,6 +151,8 @@
   "info": "Info",
   "followSystem": "Sistema",
   "contributors": "Colaboradores",
+  "changelog": "Registro de cambios",
+  "noChangelog": "No se encontró el registro de cambios",
   "contributionsCount": "{count} contribuciones",
   "checkingPermissions": "Verificando permisos...",
   "shizukuNotRunning": "Shizuku no está en ejecución. Por favor inicia la app Shizuku.",

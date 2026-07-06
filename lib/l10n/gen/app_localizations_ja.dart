@@ -390,6 +390,12 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => '権限を確認中...';
 
   @override

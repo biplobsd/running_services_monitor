@@ -827,6 +827,18 @@ abstract class AppLocalizations {
   /// **'{count} contributions'**
   String contributionsCount(Object count);
 
+  /// No description provided for @changelog.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes Log'**
+  String get changelog;
+
+  /// No description provided for @noChangelog.
+  ///
+  /// In en, this message translates to:
+  /// **'No changes log found'**
+  String get noChangelog;
+
   /// No description provided for @checkingPermissions.
   ///
   /// In en, this message translates to:

@@ -151,6 +151,8 @@
   "info": "Info",
   "followSystem": "System",
   "contributors": "Mitwirkende",
+  "changelog": "Änderungsprotokoll",
+  "noChangelog": "Kein Änderungsprotokoll gefunden",
   "contributionsCount": "{count} Beiträge",
   "@contributionsCount": {
     "placeholders": {

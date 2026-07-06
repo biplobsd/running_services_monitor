@@ -403,6 +403,12 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => 'Verificando permissões...';
 
   @override

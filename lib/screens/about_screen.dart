@@ -5,10 +5,12 @@ import 'package:running_services_monitor/core/app_styles.dart';
 import 'package:running_services_monitor/core/constants.dart';
 import 'package:running_services_monitor/core/dependency_injection/dependency_injection.dart';
 import 'package:running_services_monitor/core/extensions.dart';
+import 'package:running_services_monitor/models/changelog_info.dart';
 import 'package:running_services_monitor/models/contributor_info.dart';
 import 'package:running_services_monitor/utils/url_launcher_helper.dart';
 import 'widgets/about/about_info_tile.dart';
 import 'widgets/about/about_header.dart';
+import 'widgets/about/changelog_list_tile.dart';
 import 'widgets/about/contributor_list_tile.dart';
 import 'widgets/support/support_slider.dart';
 
@@ -131,7 +133,61 @@ class AboutScreen extends StatelessWidget {
                   ),
                   AppStyles.spacingH16,
                   const SupportSlider(launchConfettiOnSlideChange: false),
-                  SizedBox(height: 5),
+                  AppStyles.spacingH24,
+                  BlocSelector<AboutBloc, AboutState, List<ChangelogInfo>>(
+                    selector: (state) => state.changelogs,
+                    builder: (context, changelogs) {
+                      if (changelogs.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Text(
+                                context.loc.changelog,
+                                style: AppStyles.titleStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              AppStyles.spacing8,
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '${changelogs.length}',
+                                  style: AppStyles.captionStyle.copyWith(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimaryContainer,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          AppStyles.spacingH8,
+                          ...changelogs.map(
+                            (changelog) =>
+                                ChangelogListTile(changelog: changelog),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 5),
                   Center(
                     child: Text(
                       context.loc.madeInBangladesh,

@@ -32,6 +32,7 @@ abstract class L10nKeys {
   static const cachedPss = 'cachedPss';
   static const cancel = 'cancel';
   static const capabilities = 'capabilities';
+  static const changelog = 'changelog';
   static const checkingPermissions = 'checkingPermissions';
   static const clearLogs = 'clearLogs';
   static const clearLogsConfirm = 'clearLogsConfirm';
@@ -104,6 +105,7 @@ abstract class L10nKeys {
   static const nextMatch = 'nextMatch';
   static const no = 'no';
   static const noAppsFound = 'noAppsFound';
+  static const noChangelog = 'noChangelog';
   static const noCommandLogs = 'noCommandLogs';
   static const noMatches = 'noMatches';
   static const noMatchingApps = 'noMatchingApps';
@@ -352,6 +354,7 @@ extension L10nResolver on AppLocalizations {
       'cachedPss' => cachedPss,
       'cancel' => cancel,
       'capabilities' => capabilities,
+      'changelog' => changelog,
       'checkingPermissions' => checkingPermissions,
       'clearLogs' => clearLogs,
       'clearLogsConfirm' => clearLogsConfirm,
@@ -424,6 +427,7 @@ extension L10nResolver on AppLocalizations {
       'nextMatch' => nextMatch,
       'no' => no,
       'noAppsFound' => noAppsFound,
+      'noChangelog' => noChangelog,
       'noCommandLogs' => noCommandLogs,
       'noMatches' => noMatches,
       'noMatchingApps' => noMatchingApps,

@@ -206,7 +206,7 @@ String toString() {
 /// @nodoc
 mixin _$AboutState {
 
- bool get isLoading; String get version; List<ContributorInfo> get contributors;
+ bool get isLoading; String get version; List<ContributorInfo> get contributors; List<ChangelogInfo> get changelogs;
 /// Create a copy of AboutState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -217,16 +217,16 @@ $AboutStateCopyWith<AboutState> get copyWith => _$AboutStateCopyWithImpl<AboutSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.contributors, contributors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.contributors, contributors)&&const DeepCollectionEquality().equals(other.changelogs, changelogs));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,version,const DeepCollectionEquality().hash(contributors));
+int get hashCode => Object.hash(runtimeType,isLoading,version,const DeepCollectionEquality().hash(contributors),const DeepCollectionEquality().hash(changelogs));
 
 @override
 String toString() {
-  return 'AboutState(isLoading: $isLoading, version: $version, contributors: $contributors)';
+  return 'AboutState(isLoading: $isLoading, version: $version, contributors: $contributors, changelogs: $changelogs)';
 }
 
 
@@ -237,7 +237,7 @@ abstract mixin class $AboutStateCopyWith<$Res>  {
   factory $AboutStateCopyWith(AboutState value, $Res Function(AboutState) _then) = _$AboutStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, String version, List<ContributorInfo> contributors
+ bool isLoading, String version, List<ContributorInfo> contributors, List<ChangelogInfo> changelogs
 });
 
 
@@ -254,12 +254,13 @@ class _$AboutStateCopyWithImpl<$Res>
 
 /// Create a copy of AboutState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? version = null,Object? contributors = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? version = null,Object? contributors = null,Object? changelogs = null,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String,contributors: null == contributors ? _self.contributors : contributors // ignore: cast_nullable_to_non_nullable
-as List<ContributorInfo>,
+as List<ContributorInfo>,changelogs: null == changelogs ? _self.changelogs : changelogs // ignore: cast_nullable_to_non_nullable
+as List<ChangelogInfo>,
   ));
 }
 
@@ -344,10 +345,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String version,  List<ContributorInfo> contributors)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String version,  List<ContributorInfo> contributors,  List<ChangelogInfo> changelogs)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AboutState() when $default != null:
-return $default(_that.isLoading,_that.version,_that.contributors);case _:
+return $default(_that.isLoading,_that.version,_that.contributors,_that.changelogs);case _:
   return orElse();
 
 }
@@ -365,10 +366,10 @@ return $default(_that.isLoading,_that.version,_that.contributors);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String version,  List<ContributorInfo> contributors)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String version,  List<ContributorInfo> contributors,  List<ChangelogInfo> changelogs)  $default,) {final _that = this;
 switch (_that) {
 case _AboutState():
-return $default(_that.isLoading,_that.version,_that.contributors);case _:
+return $default(_that.isLoading,_that.version,_that.contributors,_that.changelogs);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -385,10 +386,10 @@ return $default(_that.isLoading,_that.version,_that.contributors);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String version,  List<ContributorInfo> contributors)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String version,  List<ContributorInfo> contributors,  List<ChangelogInfo> changelogs)?  $default,) {final _that = this;
 switch (_that) {
 case _AboutState() when $default != null:
-return $default(_that.isLoading,_that.version,_that.contributors);case _:
+return $default(_that.isLoading,_that.version,_that.contributors,_that.changelogs);case _:
   return null;
 
 }
@@ -400,7 +401,7 @@ return $default(_that.isLoading,_that.version,_that.contributors);case _:
 
 
 class _AboutState implements AboutState {
-  const _AboutState({required this.isLoading, required this.version, required final  List<ContributorInfo> contributors}): _contributors = contributors;
+  const _AboutState({required this.isLoading, required this.version, required final  List<ContributorInfo> contributors, required final  List<ChangelogInfo> changelogs}): _contributors = contributors,_changelogs = changelogs;
   
 
 @override final  bool isLoading;
@@ -410,6 +411,13 @@ class _AboutState implements AboutState {
   if (_contributors is EqualUnmodifiableListView) return _contributors;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_contributors);
+}
+
+ final  List<ChangelogInfo> _changelogs;
+@override List<ChangelogInfo> get changelogs {
+  if (_changelogs is EqualUnmodifiableListView) return _changelogs;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_changelogs);
 }
 
 
@@ -423,16 +431,16 @@ _$AboutStateCopyWith<_AboutState> get copyWith => __$AboutStateCopyWithImpl<_Abo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AboutState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._contributors, _contributors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AboutState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._contributors, _contributors)&&const DeepCollectionEquality().equals(other._changelogs, _changelogs));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,version,const DeepCollectionEquality().hash(_contributors));
+int get hashCode => Object.hash(runtimeType,isLoading,version,const DeepCollectionEquality().hash(_contributors),const DeepCollectionEquality().hash(_changelogs));
 
 @override
 String toString() {
-  return 'AboutState(isLoading: $isLoading, version: $version, contributors: $contributors)';
+  return 'AboutState(isLoading: $isLoading, version: $version, contributors: $contributors, changelogs: $changelogs)';
 }
 
 
@@ -443,7 +451,7 @@ abstract mixin class _$AboutStateCopyWith<$Res> implements $AboutStateCopyWith<$
   factory _$AboutStateCopyWith(_AboutState value, $Res Function(_AboutState) _then) = __$AboutStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, String version, List<ContributorInfo> contributors
+ bool isLoading, String version, List<ContributorInfo> contributors, List<ChangelogInfo> changelogs
 });
 
 
@@ -460,12 +468,13 @@ class __$AboutStateCopyWithImpl<$Res>
 
 /// Create a copy of AboutState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? version = null,Object? contributors = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? version = null,Object? contributors = null,Object? changelogs = null,}) {
   return _then(_AboutState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String,contributors: null == contributors ? _self._contributors : contributors // ignore: cast_nullable_to_non_nullable
-as List<ContributorInfo>,
+as List<ContributorInfo>,changelogs: null == changelogs ? _self._changelogs : changelogs // ignore: cast_nullable_to_non_nullable
+as List<ChangelogInfo>,
   ));
 }
 

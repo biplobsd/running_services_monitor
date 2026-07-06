@@ -24,6 +24,7 @@ import '../../bloc/stop_service_bloc/stop_service_bloc.dart' as _i256;
 import '../../bloc/useful_commands_bloc/useful_commands_bloc.dart' as _i756;
 import '../../bloc/working_mode_bloc/working_mode_bloc.dart' as _i552;
 import '../../services/app_info_service.dart' as _i825;
+import '../../services/changelog_service.dart' as _i963;
 import '../../services/command_log_service.dart' as _i404;
 import '../../services/contributors_service.dart' as _i773;
 import '../../services/process_service.dart' as _i622;
@@ -49,6 +50,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i118.ThemeBloc>(() => _i118.ThemeBloc());
     gh.lazySingleton<_i825.AppInfoService>(() => _i825.AppInfoService());
+    gh.lazySingleton<_i963.ChangelogService>(() => _i963.ChangelogService());
     gh.lazySingleton<_i404.CommandLogService>(
       () => _i404.CommandLogService(),
       dispose: (i) => i.dispose(),
@@ -65,6 +67,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i660.ShizukuHostApi>(),
       ),
     );
+    gh.lazySingleton<_i204.AboutBloc>(
+      () => _i204.AboutBloc(
+        gh<_i773.ContributorsService>(),
+        gh<_i842.ShizukuService>(),
+        gh<_i963.ChangelogService>(),
+      ),
+    );
     gh.lazySingleton<_i622.ProcessService>(
       () => _i622.ProcessService(gh<_i842.ShizukuService>()),
     );
@@ -77,12 +86,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i725.CommandLogBloc>(
       () => _i725.CommandLogBloc(
         gh<_i404.CommandLogService>(),
-        gh<_i842.ShizukuService>(),
-      ),
-    );
-    gh.lazySingleton<_i204.AboutBloc>(
-      () => _i204.AboutBloc(
-        gh<_i773.ContributorsService>(),
         gh<_i842.ShizukuService>(),
       ),
     );

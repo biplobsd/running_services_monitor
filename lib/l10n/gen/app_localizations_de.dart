@@ -404,6 +404,12 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => 'Berechtigungen werden überprüft...';
 
   @override
@@ -1485,6 +1491,12 @@ class AppLocalizationsDeAt extends AppLocalizationsDe {
   String contributionsCount(Object count) {
     return '$count Beiträge';
   }
+
+  @override
+  String get changelog => 'Änderungsprotokoll';
+
+  @override
+  String get noChangelog => 'Kein Änderungsprotokoll gefunden';
 
   @override
   String get checkingPermissions => 'Berechtigungen werden überprüft...';

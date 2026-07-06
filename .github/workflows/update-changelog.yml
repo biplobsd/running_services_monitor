@@ -1,0 +1,84 @@
+name: Update Changelog
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  release:
+    types: [published, edited, deleted]
+  workflow_dispatch:
+
+jobs:
+  update-changelog:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'release' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch Releases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/releases?per_page=100 > releases_raw.json
+
+      - name: Process Releases
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+
+          changelog_file = 'assets/changelog.json'
+          
+          if not os.path.exists('releases_raw.json'):
+              exit(1)
+
+          with open('releases_raw.json', 'r') as f:
+              try:
+                  releases_data = json.load(f)
+              except Exception:
+                  releases_data = []
+
+          if not isinstance(releases_data, list):
+              releases_data = [releases_data]
+
+          processed = []
+          for release in releases_data:
+              if not isinstance(release, dict):
+                  continue
+              if release.get('draft') or release.get('prerelease'):
+                  continue
+              
+              processed.append({
+                  'version': release.get('tag_name', ''),
+                  'title': release.get('name', '') or release.get('tag_name', ''),
+                  'body': release.get('body', ''),
+                  'date': release.get('published_at', '')
+              })
+
+          with open(changelog_file, 'w') as f:
+              json.dump(processed, f, indent=2)
+          EOF
+
+      - name: Cleanup
+        run: |
+          rm -f releases_raw.json
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add assets/changelog.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: update changelog data"
+            git push
+          fi

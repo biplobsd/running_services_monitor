@@ -151,6 +151,8 @@
   "info": "Info",
   "followSystem": "Système",
   "contributors": "Contributeurs",
+  "changelog": "Journal des modifications",
+  "noChangelog": "Aucun journal des modifications trouvé",
   "contributionsCount": "{count} contributions",
   "@contributionsCount": {
     "placeholders": {

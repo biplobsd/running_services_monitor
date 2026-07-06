@@ -394,6 +394,12 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => 'Vérification des permissions...';
 
   @override
@@ -1476,6 +1482,12 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
   String contributionsCount(Object count) {
     return '$count contributions';
   }
+
+  @override
+  String get changelog => 'Journal des modifications';
+
+  @override
+  String get noChangelog => 'Aucun journal des modifications trouvé';
 
   @override
   String get checkingPermissions => 'Vérification des permissions...';

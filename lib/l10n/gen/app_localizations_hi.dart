@@ -403,6 +403,12 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get changelog => 'Changes Log';
+
+  @override
+  String get noChangelog => 'No changes log found';
+
+  @override
   String get checkingPermissions => 'अनुमतियां जांच रहे हैं...';
 
   @override
