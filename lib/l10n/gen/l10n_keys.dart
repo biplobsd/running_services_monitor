@@ -321,6 +321,12 @@ abstract class L10nKeys {
   static const zramSection = 'zramSection';
   static const zramSwapUsed = 'zramSwapUsed';
   static const zramTotalSwap = 'zramTotalSwap';
+  static const rootRequiredMessage = 'rootRequiredMessage';
+  static const rootSetupSteps = 'rootSetupSteps';
+  static const rootStep1 = 'rootStep1';
+  static const rootStep2 = 'rootStep2';
+  static const rootStep3 = 'rootStep3';
+  static const rootStep4 = 'rootStep4';
 }
 
 extension L10nResolver on AppLocalizations {
@@ -643,6 +649,12 @@ extension L10nResolver on AppLocalizations {
       'zramSection' => zramSection,
       'zramSwapUsed' => zramSwapUsed,
       'zramTotalSwap' => zramTotalSwap,
+      'rootRequiredMessage' => rootRequiredMessage,
+      'rootSetupSteps' => rootSetupSteps,
+      'rootStep1' => rootStep1,
+      'rootStep2' => rootStep2,
+      'rootStep3' => rootStep3,
+      'rootStep4' => rootStep4,
       _ => key,
     };
   }

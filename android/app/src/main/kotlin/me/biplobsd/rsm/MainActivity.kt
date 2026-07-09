@@ -441,8 +441,8 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
     }
 
     fun checkRootAvailable(): Boolean {
-        if (isRootAvailable != null) return isRootAvailable!!
-        isRootAvailable =
+        if (isRootAvailable == true) return true
+        val available =
                 try {
                     val result = ShellExecutor.executeRootCommand("id")
                     result.output.contains("uid=0")
@@ -450,7 +450,10 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                     e.printStackTrace()
                     false
                 }
-        return isRootAvailable!!
+        if (available) {
+            isRootAvailable = true
+        }
+        return available
     }
 
     fun executeRootCommand(command: String): ShellResult {
