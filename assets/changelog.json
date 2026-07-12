@@ -1,5 +1,11 @@
 [
   {
+    "version": "v1.0.27+26",
+    "title": "v1.0.27+26",
+    "body": "## What's Changed\r\n* Fix Bright splash screen in dark environment @dav23r @manualtrial0011 #36\r\n* Changelog about screen, app permission root tab instructions, optimized caching app icons\r\n\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.26+25...v1.0.27+26",
+    "date": "2026-07-12T12:15:51Z"
+  },
+  {
     "version": "v1.0.26+25",
     "title": "v1.0.26+25",
     "body": "## What's Changed\r\n* Reduce About screen confetti noise while preserving popup behavior @talha5758 #27\r\n* Fix useful-command placeholder expansion and add armeabi-v7a GitHub Actions subbuild @demzl #26\r\n* Adopt device dynamic Material color schemes and enable edge-to-edge system UI @Brocman #29\r\n* Feature request show the serviceapp running by which user android may have multi users @nodejsg #31\r\n\r\n**Full Changelog**: https://github.com/biplobsd/running_services_monitor/compare/v1.0.25+24...v1.0.26+25",
