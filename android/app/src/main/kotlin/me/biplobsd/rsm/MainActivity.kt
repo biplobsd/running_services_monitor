@@ -1,8 +1,10 @@
 package me.biplobsd.rsm
 
+import android.app.UiModeManager
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -120,6 +122,22 @@ class MainActivity : FlutterActivity(), Shizuku.OnRequestPermissionResultListene
                 flutterEngine.dartExecutor.binaryMessenger,
                 appInfoStreamHandler
         )
+    }
+
+    override fun applyThemeMode(mode: Long) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
+        val uiModeManager = getSystemService(UiModeManager::class.java) ?: return
+        val nightMode =
+                when (mode.toInt()) {
+                    1 -> UiModeManager.MODE_NIGHT_NO
+                    2 -> UiModeManager.MODE_NIGHT_YES
+                    else -> UiModeManager.MODE_NIGHT_AUTO
+                }
+        try {
+            uiModeManager.setApplicationNightMode(nightMode)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onDestroy() {

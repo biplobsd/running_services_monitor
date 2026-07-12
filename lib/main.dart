@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'core/dependency_injection/dependency_injection.dart';
 import 'core/extensions.dart';
 import 'core/theme/theme_bloc.dart';
+import 'core/theme/native_theme_sync.dart';
 import 'bloc/language_bloc/language_bloc.dart';
 import 'core/routing/app_router.dart';
 import 'core/utils/app_icon_cache.dart';
@@ -63,6 +64,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     getIt<WorkingModeBloc>().add(const WorkingModeEvent.detectModes());
 
+    NativeThemeSync.apply(getIt<ThemeBloc>().state);
+
     final homeBloc = getIt<HomeBloc>();
     final hasData = homeBloc.state.value.allApps.isNotEmpty;
     homeBloc.add(HomeEvent.initializeShizuku(silent: hasData, notify: hasData));
@@ -84,14 +87,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ThemeBloc, AppThemeMode, ThemeMode>(
+    return BlocListener<ThemeBloc, AppThemeMode>(
       bloc: getIt<ThemeBloc>(),
-      selector: (state) => switch (state) {
-        AppThemeMode.system => ThemeMode.system,
-        AppThemeMode.light => ThemeMode.light,
-        AppThemeMode.dark => ThemeMode.dark,
-      },
-      builder: (context, themeMode) {
+      listener: (context, mode) => NativeThemeSync.apply(mode),
+      child: BlocSelector<ThemeBloc, AppThemeMode, ThemeMode>(
+        bloc: getIt<ThemeBloc>(),
+        selector: (state) => switch (state) {
+          AppThemeMode.system => ThemeMode.system,
+          AppThemeMode.light => ThemeMode.light,
+          AppThemeMode.dark => ThemeMode.dark,
+        },
+        builder: (context, themeMode) {
         return BlocSelector<LanguageBloc, LanguageState, Locale?>(
           bloc: getIt<LanguageBloc>(),
           selector: (state) => state.locale,
@@ -154,7 +160,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             );
           },
         );
-      },
+        },
+      ),
     );
   }
 }
