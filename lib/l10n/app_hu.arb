@@ -418,5 +418,13 @@
   "matchCount": "{total} / {current}",
   "noMatches": "Nincs találat",
   "nextMatch": "Következő találat",
-  "previousMatch": "Előző találat"
+  "previousMatch": "Előző találat",
+  "changelog": "Változásnapló",
+  "noChangelog": "Nem található változásnapló",
+  "rootRequiredMessage": "Ez az alkalmazás Root hozzáféréssel is működhet. Kérjük, adjon root engedélyt a root kezelőjében.",
+  "rootSetupSteps": "A Root engedély megadásának lépései:",
+  "rootStep1": "Nyissa meg a Root kezelő alkalmazást (Magisk, KernelSU, APatch stb.)",
+  "rootStep2": "Menjen a Superuser fülre/részre",
+  "rootStep3": "Keresse meg a 'Running Services Monitor' elemet a listában",
+  "rootStep4": "Kapcsolja be a kapcsolót a root engedély megadásához, majd indítsa újra az alkalmazást"
 }

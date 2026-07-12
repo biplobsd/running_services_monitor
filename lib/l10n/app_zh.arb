@@ -334,5 +334,13 @@
   "matchCount": "第 {current} 个，共 {total} 个",
   "noMatches": "无匹配项",
   "nextMatch": "下一个匹配项",
-  "previousMatch": "上一个匹配项"
-}
+  "previousMatch": "上一个匹配项",
+  "changelog": "更新日志",
+  "noChangelog": "未找到更新日志",
+  "rootRequiredMessage": "此应用也支持 Root 权限运行。请在您的 Root 管理器中授予 Root 权限。",
+  "rootSetupSteps": "如何授予 Root 权限：",
+  "rootStep1": "打开您的 Root管理器应用（Magisk、KernelSU、APatch 等）",
+  "rootStep2": "进入超级用户（Superuser）选项卡/区域",
+  "rootStep3": "在列表中找到 'Running Services Monitor'",
+  "rootStep4": "打开开关授予 Root 权限，然后重新启动应用"
+}

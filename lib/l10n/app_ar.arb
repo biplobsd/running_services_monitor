@@ -406,5 +406,13 @@
   "matchCount": "{current} من {total}",
   "noMatches": "لا توجد تطابقات",
   "nextMatch": "التطابق التالي",
-  "previousMatch": "التطابق السابق"
+  "previousMatch": "التطابق السابق",
+  "changelog": "سجل التغييرات",
+  "noChangelog": "لم يتم العثور على سجل التغييرات",
+  "rootRequiredMessage": "يمكن لهذا التطبيق أيضًا العمل بصلاحيات الروت. يرجى منح إذن الروت في مدير الروت الخاص بك.",
+  "rootSetupSteps": "كيفية منح إذن الروت:",
+  "rootStep1": "افتح تطبيق مدير الروت (Magisk أو KernelSU أو APatch إلخ.)",
+  "rootStep2": "انتقل إلى علامة تبويب/قسم Superuser",
+  "rootStep3": "ابحث عن 'Running Services Monitor' في القائمة",
+  "rootStep4": "قم بتبديل المفتاح لمنح إذن الروت، ثم أعد تشغيل التطبيق"
 }

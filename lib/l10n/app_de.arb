@@ -411,5 +411,13 @@
   "matchCount": "{current} von {total}",
   "noMatches": "Keine Treffer",
   "nextMatch": "Nächster Treffer",
-  "previousMatch": "Vorheriger Treffer"
+  "previousMatch": "Vorheriger Treffer",
+  "changelog": "Änderungsprotokoll",
+  "noChangelog": "Kein Änderungsprotokoll gefunden",
+  "rootRequiredMessage": "Diese App kann auch mit Root-Zugriff ausgeführt werden. Bitte erteilen Sie die Root-Berechtigung in Ihrem Root-Manager.",
+  "rootSetupSteps": "So erteilen Sie die Root-Berechtigung:",
+  "rootStep1": "Öffnen Sie Ihre Root-Manager-App (Magisk, KernelSU, APatch usw.)",
+  "rootStep2": "Gehen Sie zum Bereich 'Superuser'",
+  "rootStep3": "Suchen Sie 'Running Services Monitor' in der Liste",
+  "rootStep4": "Aktivieren Sie den Schalter, um die Root-Berechtigung zu erteilen, und starten Sie die App neu"
 }

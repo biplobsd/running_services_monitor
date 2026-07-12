@@ -334,5 +334,13 @@
   "matchCount": "{total} এর মধ্যে {current}",
   "noMatches": "কোনো মিল পাওয়া যায়নি",
   "nextMatch": "পরবর্তী মিল",
-  "previousMatch": "পূর্ববর্তী মিল"
-}
+  "previousMatch": "পূর্ববর্তী মিল",
+  "changelog": "পরিবর্তন লগ",
+  "noChangelog": "কোন পরিবর্তন লগ পাওয়া যায়নি",
+  "rootRequiredMessage": "এই অ্যাপটি রুট অ্যাক্সেসের সাথেও কাজ করতে পারে। অনুগ্রহ করে আপনার রুট ম্যানেজারে রুট অনুমতি প্রদান করুন।",
+  "rootSetupSteps": "কীভাবে রুট অনুমতি প্রদান করবেন:",
+  "rootStep1": "আপনার রুট ম্যানেজার অ্যাপটি খুলুন (Magisk, KernelSU, APatch ইত্যাদি)",
+  "rootStep2": "Superuser ট্যাব বা বিভাগে যান",
+  "rootStep3": "তালিকায় 'Running Services Monitor' খুঁজুন",
+  "rootStep4": "রুট অনুমতি দেওয়ার জন্য সুইচটি টগল করুন, তারপর অ্যাপটি পুনরায় চালু করুন"
+}

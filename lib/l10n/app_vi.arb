@@ -411,5 +411,13 @@
   "matchCount": "{current} trên {total}",
   "noMatches": "Không có kết quả",
   "nextMatch": "Kết quả tiếp theo",
-  "previousMatch": "Kết quả trước đó"
+  "previousMatch": "Kết quả trước đó",
+  "changelog": "Nhật ký thay đổi",
+  "noChangelog": "Không tìm thấy nhật ký thay đổi",
+  "rootRequiredMessage": "Ứng dụng này cũng có thể hoạt động với quyền truy cập Root. Vui lòng cấp quyền root trong trình quản lý root của bạn.",
+  "rootSetupSteps": "Cách cấp quyền Root:",
+  "rootStep1": "Mở ứng dụng Quản lý Root (Magisk, KernelSU, APatch, v.v.)",
+  "rootStep2": "Đi tới phần/tab Superuser",
+  "rootStep3": "Tìm 'Running Services Monitor' trong danh sách",
+  "rootStep4": "Bật công tắc để cấp quyền root, sau đó khởi động lại ứng dụng"
 }

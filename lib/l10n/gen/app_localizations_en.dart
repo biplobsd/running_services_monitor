@@ -1083,13 +1083,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editCommand => 'Edit Command';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'This app can also work with Root access. Please grant root permission in your root manager.';
 
   @override
   String get rootSetupSteps => 'How to Grant Root Permission:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
 
   @override
   String get rootStep2 => 'Go to the Superuser tab/section';
@@ -1098,6 +1100,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Toggle the switch to grant root permission, then restart the app';
 }

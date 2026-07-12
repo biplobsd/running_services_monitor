@@ -411,5 +411,13 @@
   "matchCount": "{current} de {total}",
   "noMatches": "Sin coincidencias",
   "nextMatch": "Siguiente coincidencia",
-  "previousMatch": "Coincidencia anterior"
+  "previousMatch": "Coincidencia anterior",
+  "changelog": "Registro de cambios",
+  "noChangelog": "No se encontró ningún registro de cambios",
+  "rootRequiredMessage": "Esta aplicación también puede funcionar con acceso Root. Por favor, concede el permiso de root en tu administrador de root.",
+  "rootSetupSteps": "Cómo conceder el permiso de Root:",
+  "rootStep1": "Abre tu aplicación de administración de Root (Magisk, KernelSU, APatch, etc.)",
+  "rootStep2": "Ve a la sección o pestaña de Superusuario",
+  "rootStep3": "Busca 'Running Services Monitor' en la lista",
+  "rootStep4": "Activa el interruptor para conceder el permiso de root, luego reinicia la aplicación"
 }

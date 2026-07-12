@@ -406,5 +406,13 @@
   "matchCount": "कुल {total} में से {current}",
   "noMatches": "कोई परिणाम नहीं मिला",
   "nextMatch": "अगला परिणाम",
-  "previousMatch": "पिछला परिणाम"
+  "previousMatch": "पिछला परिणाम",
+  "changelog": "बदलावों का लॉग",
+  "noChangelog": "कोई बदलाव लॉग नहीं मिला",
+  "rootRequiredMessage": "यह ऐप रूट एक्सेस के साथ भी काम कर सकता है। कृपया अपने रूट मैनेजर में रूट अनुमति दें।",
+  "rootSetupSteps": "रूट अनुमति कैसे दें:",
+  "rootStep1": "अपना रूट मैनेजर ऐप खोलें (Magisk, KernelSU, APatch आदि)",
+  "rootStep2": "सुपरयुज़र (Superuser) टैब या सेक्शन पर जाएं",
+  "rootStep3": "सूची में 'Running Services Monitor' खोजें",
+  "rootStep4": "रूट अनुमति देने के लिए स्विच को ऑन करें, फिर ऐप को पुनरारंभ (restart) करें"
 }

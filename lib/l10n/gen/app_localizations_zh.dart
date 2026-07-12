@@ -370,10 +370,10 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => '更新日志';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => '未找到更新日志';
 
   @override
   String get checkingPermissions => '正在检查权限...';
@@ -1026,21 +1026,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get editCommand => '编辑命令';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      '此应用也支持 Root 权限运行。请在您的 Root 管理器中授予 Root 权限。';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => '如何授予 Root 权限：';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 => '打开您的 Root管理器应用（Magisk、KernelSU、APatch 等）';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => '进入超级用户（Superuser）选项卡/区域';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => '在列表中找到 \'Running Services Monitor\'';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 => '打开开关授予 Root 权限，然后重新启动应用';
 }

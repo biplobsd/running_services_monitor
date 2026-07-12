@@ -403,10 +403,10 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Nhật ký thay đổi';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Không tìm thấy nhật ký thay đổi';
 
   @override
   String get checkingPermissions => 'Đang kiểm tra quyền...';
@@ -1088,21 +1088,23 @@ class AppLocalizationsVi extends AppLocalizations {
   String get editCommand => 'Chỉnh sửa lệnh';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Ứng dụng này cũng có thể hoạt động với quyền truy cập Root. Vui lòng cấp quyền root trong trình quản lý root của bạn.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Cách cấp quyền Root:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Mở ứng dụng Quản lý Root (Magisk, KernelSU, APatch, v.v.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Đi tới phần/tab Superuser';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'Tìm \'Running Services Monitor\' trong danh sách';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Bật công tắc để cấp quyền root, sau đó khởi động lại ứng dụng';
 }

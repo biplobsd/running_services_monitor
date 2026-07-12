@@ -404,10 +404,10 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'পরিবর্তন লগ';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'কোন পরিবর্তন লগ পাওয়া যায়নি';
 
   @override
   String get checkingPermissions => 'অনুমতি যাচাই করা হচ্ছে...';
@@ -1091,21 +1091,23 @@ class AppLocalizationsBn extends AppLocalizations {
   String get editCommand => 'কমান্ড এডিট করুন';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'এই অ্যাপটি রুট অ্যাক্সেসের সাথেও কাজ করতে পারে। অনুগ্রহ করে আপনার রুট ম্যানেজারে রুট অনুমতি প্রদান করুন।';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'কীভাবে রুট অনুমতি প্রদান করবেন:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'আপনার রুট ম্যানেজার অ্যাপটি খুলুন (Magisk, KernelSU, APatch ইত্যাদি)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Superuser ট্যাব বা বিভাগে যান';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'তালিকায় \'Running Services Monitor\' খুঁজুন';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'রুট অনুমতি দেওয়ার জন্য সুইচটি টগল করুন, তারপর অ্যাপটি পুনরায় চালু করুন';
 }

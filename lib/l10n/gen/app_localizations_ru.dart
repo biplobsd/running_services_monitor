@@ -408,10 +408,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Список изменений';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Список изменений не найден';
 
   @override
   String get checkingPermissions => 'Проверка разрешений...';
@@ -1102,21 +1102,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get editCommand => 'Редактировать команду';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Это приложение также может работать с Root-доступом. Пожалуйста, предоставьте Root-права в вашем Root-менеджере.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Как предоставить Root-права:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Откройте ваше приложение для управления Root-доступом (Magisk, KernelSU, APatch и т. д.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 =>
+      'Перейдите в раздел/вкладку Суперпользователь (Superuser)';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'Найдите \'Running Services Monitor\' в списке';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Включите переключатель для предоставления Root-прав, затем перезапустите приложение';
 }

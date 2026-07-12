@@ -411,5 +411,13 @@
   "matchCount": "{current} / {total}",
   "noMatches": "Eşleşme yok",
   "nextMatch": "Sonraki eşleşme",
-  "previousMatch": "Önceki eşleşme"
+  "previousMatch": "Önceki eşleşme",
+  "changelog": "Değişiklik Günlüğü",
+  "noChangelog": "Değişiklik günlüğü bulunamadı",
+  "rootRequiredMessage": "Bu uygulama Root erişimi ile de çalışabilir. Lütfen root yöneticinizden root izni verin.",
+  "rootSetupSteps": "Root İzni Nasıl Verilir:",
+  "rootStep1": "Root yöneticisi uygulamanızı açın (Magisk, KernelSU, APatch vb.)",
+  "rootStep2": "Süper kullanıcı (Superuser) sekmesine/bölümüne gidin",
+  "rootStep3": "Listede 'Running Services Monitor' uygulamasını bulun",
+  "rootStep4": "Root izni vermek için anahtarı açın, ardından uygulamayı yeniden başlatın"
 }

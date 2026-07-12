@@ -420,5 +420,11 @@
   "matchCount": "{current} sur {total}",
   "noMatches": "Aucune correspondance",
   "nextMatch": "Correspondance suivante",
-  "previousMatch": "Correspondance précédente"
+  "previousMatch": "Correspondance précédente",
+  "rootRequiredMessage": "Cette application peut également fonctionner avec un accès Root. Veuillez accorder l'autorisation root dans votre gestionnaire root.",
+  "rootSetupSteps": "Comment accorder l'autorisation Root :",
+  "rootStep1": "Ouvrez votre application de gestion Root (Magisk, KernelSU, APatch, etc.)",
+  "rootStep2": "Allez dans la section ou l'onglet Superutilisateur",
+  "rootStep3": "Recherchez 'Running Services Monitor' dans la liste",
+  "rootStep4": "Basculez le commutateur pour accorder l'autorisation root, puis redémarrez l'application"
 }

@@ -51,14 +51,14 @@ jobs:
           for release in releases_data:
               if not isinstance(release, dict):
                   continue
-              if release.get('draft') or release.get('prerelease'):
+              if release.get('prerelease'):
                   continue
               
               processed.append({
                   'version': release.get('tag_name', ''),
                   'title': release.get('name', '') or release.get('tag_name', ''),
                   'body': release.get('body', ''),
-                  'date': release.get('published_at', '')
+                  'date': release.get('published_at') or release.get('created_at') or ''
               })
 
           with open(changelog_file, 'w') as f:

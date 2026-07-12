@@ -394,10 +394,10 @@ class AppLocalizationsHu extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Változásnapló';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Nem található változásnapló';
 
   @override
   String get checkingPermissions => 'Engedélyek ellenőrzése...';
@@ -1086,21 +1086,24 @@ class AppLocalizationsHu extends AppLocalizations {
   String get editCommand => 'Parancs szerkesztése';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Ez az alkalmazás Root hozzáféréssel is működhet. Kérjük, adjon root engedélyt a root kezelőjében.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'A Root engedély megadásának lépései:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Nyissa meg a Root kezelő alkalmazást (Magisk, KernelSU, APatch stb.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Menjen a Superuser fülre/részre';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 =>
+      'Keresse meg a \'Running Services Monitor\' elemet a listában';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Kapcsolja be a kapcsolót a root engedély megadásához, majd indítsa újra az alkalmazást';
 }

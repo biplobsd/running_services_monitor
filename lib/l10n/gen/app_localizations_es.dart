@@ -403,10 +403,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Registro de cambios';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'No se encontró ningún registro de cambios';
 
   @override
   String get checkingPermissions => 'Comprobando permisos...';
@@ -1098,23 +1098,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get editCommand => 'Editar comando';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Esta aplicación también puede funcionar con acceso Root. Por favor, concede el permiso de root en tu administrador de root.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Cómo conceder el permiso de Root:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Abre tu aplicación de administración de Root (Magisk, KernelSU, APatch, etc.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Ve a la sección o pestaña de Superusuario';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'Busca \'Running Services Monitor\' en la lista';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Activa el interruptor para conceder el permiso de root, luego reinicia la aplicación';
 }
 
 /// The translations for Spanish Castilian, as used in Latin America and the Caribbean (`es_419`).
@@ -2210,4 +2212,25 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
 
   @override
   String get editCommand => 'Editar comando';
+
+  @override
+  String get rootRequiredMessage =>
+      'Esta aplicación también puede funcionar con acceso Root. Por favor, concede el permiso de root en tu administrador de root.';
+
+  @override
+  String get rootSetupSteps => 'Cómo conceder el permiso de Root:';
+
+  @override
+  String get rootStep1 =>
+      'Abre tu aplicación de administración de Root (Magisk, KernelSU, APatch, etc.)';
+
+  @override
+  String get rootStep2 => 'Ve a la sección o pestaña de Superusuario';
+
+  @override
+  String get rootStep3 => 'Busca \'Running Services Monitor\' en la lista';
+
+  @override
+  String get rootStep4 =>
+      'Activa el interruptor para conceder el permiso de root, luego reinicia la aplicación';
 }

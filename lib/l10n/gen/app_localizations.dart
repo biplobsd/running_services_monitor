@@ -2105,42 +2105,41 @@ abstract class AppLocalizations {
   /// **'Edit Command'**
   String get editCommand;
 
-  /// No description provided for @rootRequiredMessage.
+  /// Message shown when root permission is required
   ///
   /// In en, this message translates to:
   /// **'This app can also work with Root access. Please grant root permission in your root manager.'**
   String get rootRequiredMessage;
 
-  /// No description provided for @rootSetupSteps.
+  /// Title for root setup steps
   ///
   /// In en, this message translates to:
   /// **'How to Grant Root Permission:'**
   String get rootSetupSteps;
 
-  /// No description provided for @rootStep1.
+  /// Step 1 for root permission setup
   ///
   /// In en, this message translates to:
   /// **'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)'**
   String get rootStep1;
 
-  /// No description provided for @rootStep2.
+  /// Step 2 for root permission setup
   ///
   /// In en, this message translates to:
   /// **'Go to the Superuser tab/section'**
   String get rootStep2;
 
-  /// No description provided for @rootStep3.
+  /// Step 3 for root permission setup
   ///
   /// In en, this message translates to:
   /// **'Find \'Running Services Monitor\' in the list'**
   String get rootStep3;
 
-  /// No description provided for @rootStep4.
+  /// Step 4 for root permission setup
   ///
   /// In en, this message translates to:
   /// **'Toggle the switch to grant root permission, then restart the app'**
   String get rootStep4;
-
 }
 
 class _AppLocalizationsDelegate

@@ -407,10 +407,10 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Değişiklik Günlüğü';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Değişiklik günlüğü bulunamadı';
 
   @override
   String get checkingPermissions => 'İzinler kontrol ediliyor...';
@@ -1092,21 +1092,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get editCommand => 'Komutu Düzenle';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Bu uygulama Root erişimi ile de çalışabilir. Lütfen root yöneticinizden root izni verin.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Root İzni Nasıl Verilir:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Root yöneticisi uygulamanızı açın (Magisk, KernelSU, APatch vb.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 =>
+      'Süper kullanıcı (Superuser) sekmesine/bölümüne gidin';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 =>
+      'Listede \'Running Services Monitor\' uygulamasını bulun';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Root izni vermek için anahtarı açın, ardından uygulamayı yeniden başlatın';
 }

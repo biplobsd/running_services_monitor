@@ -404,10 +404,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Änderungsprotokoll';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Kein Änderungsprotokoll gefunden';
 
   @override
   String get checkingPermissions => 'Berechtigungen werden überprüft...';
@@ -1094,23 +1094,26 @@ class AppLocalizationsDe extends AppLocalizations {
   String get editCommand => 'Befehl bearbeiten';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Diese App kann auch mit Root-Zugriff ausgeführt werden. Bitte erteilen Sie die Root-Berechtigung in Ihrem Root-Manager.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'So erteilen Sie die Root-Berechtigung:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Öffnen Sie Ihre Root-Manager-App (Magisk, KernelSU, APatch usw.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Gehen Sie zum Bereich \'Superuser\'';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 =>
+      'Suchen Sie \'Running Services Monitor\' in der Liste';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Aktivieren Sie den Schalter, um die Root-Berechtigung zu erteilen, und starten Sie die App neu';
 }
 
 /// The translations for German, as used in Austria (`de_AT`).
@@ -2200,4 +2203,26 @@ class AppLocalizationsDeAt extends AppLocalizationsDe {
 
   @override
   String get editCommand => 'Befehl bearbeiten';
+
+  @override
+  String get rootRequiredMessage =>
+      'Diese App kann auch mit Root-Zugriff ausgeführt werden. Bitte erteilen Sie die Root-Berechtigung in Ihrem Root-Manager.';
+
+  @override
+  String get rootSetupSteps => 'So erteilen Sie die Root-Berechtigung:';
+
+  @override
+  String get rootStep1 =>
+      'Öffnen Sie Ihre Root-Manager-App (Magisk, KernelSU, APatch usw.)';
+
+  @override
+  String get rootStep2 => 'Gehen Sie zum Bereich \'Superuser\'';
+
+  @override
+  String get rootStep3 =>
+      'Suchen Sie \'Running Services Monitor\' in der Liste';
+
+  @override
+  String get rootStep4 =>
+      'Aktivieren Sie den Schalter, um die Root-Berechtigung zu erteilen, und starten Sie die App neu';
 }

@@ -406,5 +406,13 @@
   "matchCount": "{current} dari {total}",
   "noMatches": "Tidak ada kecocokan",
   "nextMatch": "Kecocokan berikutnya",
-  "previousMatch": "Kecocokan sebelumnya"
+  "previousMatch": "Kecocokan sebelumnya",
+  "changelog": "Log Perubahan",
+  "noChangelog": "Log perubahan tidak ditemukan",
+  "rootRequiredMessage": "Aplikasi ini juga dapat bekerja dengan akses Root. Silakan berikan izin root di manajer root Anda.",
+  "rootSetupSteps": "Cara Memberikan Izin Root:",
+  "rootStep1": "Buka aplikasi Manajer Root Anda (Magisk, KernelSU, APatch, dll.)",
+  "rootStep2": "Buka tab/bagian Superuser",
+  "rootStep3": "Temukan 'Running Services Monitor' dalam daftar",
+  "rootStep4": "Aktifkan sakelar untuk memberikan izin root, lalu mulai ulang aplikasi"
 }

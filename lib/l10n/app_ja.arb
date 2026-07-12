@@ -408,5 +408,13 @@
   "matchCount": "{total} 件中 {current} 件目",
   "noMatches": "一致なし",
   "nextMatch": "次へ",
-  "previousMatch": "前へ"
+  "previousMatch": "前へ",
+  "changelog": "変更履歴",
+  "noChangelog": "変更履歴が見つかりません",
+  "rootRequiredMessage": "このアプリはRoot権限でも動作します。Root管理アプリでRoot権限を許可してください。",
+  "rootSetupSteps": "Root権限の許可方法:",
+  "rootStep1": "Root管理アプリ（Magisk、KernelSU、APatchなど）を開きます",
+  "rootStep2": "スーパーユーザー（Superuser）タブまたはセクションに移動します",
+  "rootStep3": "リストから「Running Services Monitor」を見つけます",
+  "rootStep4": "スイッチをオンにしてRoot権限を許可し、アプリを再起動します"
 }

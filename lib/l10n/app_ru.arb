@@ -408,5 +408,13 @@
   "matchCount": "{current} из {total}",
   "noMatches": "Нет совпадений",
   "nextMatch": "Следующее совпадение",
-  "previousMatch": "Предыдущее совпадение"
+  "previousMatch": "Предыдущее совпадение",
+  "changelog": "Список изменений",
+  "noChangelog": "Список изменений не найден",
+  "rootRequiredMessage": "Это приложение также может работать с Root-доступом. Пожалуйста, предоставьте Root-права в вашем Root-менеджере.",
+  "rootSetupSteps": "Как предоставить Root-права:",
+  "rootStep1": "Откройте ваше приложение для управления Root-доступом (Magisk, KernelSU, APatch и т. д.)",
+  "rootStep2": "Перейдите в раздел/вкладку Суперпользователь (Superuser)",
+  "rootStep3": "Найдите 'Running Services Monitor' в списке",
+  "rootStep4": "Включите переключатель для предоставления Root-прав, затем перезапустите приложение"
 }

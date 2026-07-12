@@ -403,10 +403,10 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'Registro de alterações';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'Nenhum registro de alterações encontrado';
 
   @override
   String get checkingPermissions => 'Verificando permissões...';
@@ -1093,21 +1093,23 @@ class AppLocalizationsPt extends AppLocalizations {
   String get editCommand => 'Editar Comando';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'Este aplicativo também pode funcionar com acesso Root. Por favor, conceda a permissão de root no seu gerenciador de root.';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Como conceder permissão de Root:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'Abra o seu aplicativo gerenciador de Root (Magisk, KernelSU, APatch, etc.)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'Vá para a seção/guia Superusuário';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'Encontre \'Running Services Monitor\' na lista';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 =>
+      'Ative a chave para conceder a permissão de root e reinicie o aplicativo';
 }

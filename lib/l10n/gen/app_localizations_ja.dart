@@ -390,10 +390,10 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => '変更履歴';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => '変更履歴が見つかりません';
 
   @override
   String get checkingPermissions => '権限を確認中...';
@@ -1047,21 +1047,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get editCommand => 'コマンドを編集';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'このアプリはRoot権限でも動作します。Root管理アプリでRoot権限を許可してください。';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'Root権限の許可方法:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 => 'Root管理アプリ（Magisk、KernelSU、APatchなど）を開きます';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'スーパーユーザー（Superuser）タブまたはセクションに移動します';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'リストから「Running Services Monitor」を見つけます';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 => 'スイッチをオンにしてRoot権限を許可し、アプリを再起動します';
 }

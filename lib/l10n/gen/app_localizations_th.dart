@@ -402,10 +402,10 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get changelog => 'Changes Log';
+  String get changelog => 'บันทึกการเปลี่ยนแปลง';
 
   @override
-  String get noChangelog => 'No changes log found';
+  String get noChangelog => 'ไม่พบบันทึกการเปลี่ยนแปลง';
 
   @override
   String get checkingPermissions => 'กำลังตรวจสอบสิทธิ์...';
@@ -1072,21 +1072,22 @@ class AppLocalizationsTh extends AppLocalizations {
   String get editCommand => 'แก้ไขคำสั่ง';
 
   @override
-  String get rootRequiredMessage => 'This app can also work with Root access. Please grant root permission in your root manager.';
+  String get rootRequiredMessage =>
+      'แอปนี้สามารถทำงานร่วมกับสิทธิ์ Root ได้เช่นกัน โปรดอนุญาตสิทธิ์ Root ในตัวจัดการ Root ของคุณ';
 
   @override
-  String get rootSetupSteps => 'How to Grant Root Permission:';
+  String get rootSetupSteps => 'วิธีการอนุญาตสิทธิ์ Root:';
 
   @override
-  String get rootStep1 => 'Open your Root Manager app (Magisk, KernelSU, APatch, etc.)';
+  String get rootStep1 =>
+      'เปิดแอปตัวจัดการ Root ของคุณ (Magisk, KernelSU, APatch ฯลฯ)';
 
   @override
-  String get rootStep2 => 'Go to the Superuser tab/section';
+  String get rootStep2 => 'ไปที่ส่วนหรือแท็บ Superuser';
 
   @override
-  String get rootStep3 => 'Find \'Running Services Monitor\' in the list';
+  String get rootStep3 => 'ค้นหา \'Running Services Monitor\' ในรายการ';
 
   @override
-  String get rootStep4 => 'Toggle the switch to grant root permission, then restart the app';
-
+  String get rootStep4 => 'เปิดสวิตช์เพื่ออนุญาตสิทธิ์ Root จากนั้นรีสตาร์ทแอป';
 }

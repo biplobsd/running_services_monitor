@@ -411,5 +411,13 @@
   "matchCount": "{current} จาก {total}",
   "noMatches": "ไม่มีรายการที่ตรงกัน",
   "nextMatch": "ถัดไป",
-  "previousMatch": "ก่อนหน้า"
+  "previousMatch": "ก่อนหน้า",
+  "changelog": "บันทึกการเปลี่ยนแปลง",
+  "noChangelog": "ไม่พบบันทึกการเปลี่ยนแปลง",
+  "rootRequiredMessage": "แอปนี้สามารถทำงานร่วมกับสิทธิ์ Root ได้เช่นกัน โปรดอนุญาตสิทธิ์ Root ในตัวจัดการ Root ของคุณ",
+  "rootSetupSteps": "วิธีการอนุญาตสิทธิ์ Root:",
+  "rootStep1": "เปิดแอปตัวจัดการ Root ของคุณ (Magisk, KernelSU, APatch ฯลฯ)",
+  "rootStep2": "ไปที่ส่วนหรือแท็บ Superuser",
+  "rootStep3": "ค้นหา 'Running Services Monitor' ในรายการ",
+  "rootStep4": "เปิดสวิตช์เพื่ออนุญาตสิทธิ์ Root จากนั้นรีสตาร์ทแอป"
 }
